@@ -1,0 +1,286 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		D7BB0D7D13BB9A0C0062C2A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */; };
+		D7BB0D7F13BB9A0C0062C2A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */; };
+		D7BB0D8113BB9A0C0062C2A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D8013BB9A0C0062C2A9 /* CoreGraphics.framework */; };
+		D7BB0D8313BB9A0C0062C2A9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D8213BB9A0C0062C2A9 /* CoreData.framework */; };
+		D7BB0D8913BB9A0C0062C2A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */; };
+		D7BB0D8C13BB9A0C0062C2A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D8B13BB9A0C0062C2A9 /* main.m */; };
+		D7BB0D8F13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */; };
+		D7BB0D9213BB9A0C0062C2A9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */; };
+		D7BB0D9513BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		D7BB0D7813BB9A0B0062C2A9 /* NativeEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D7BB0D8013BB9A0C0062C2A9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D7BB0D8213BB9A0C0062C2A9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		D7BB0D8613BB9A0C0062C2A9 /* NativeEarth-Info.plist */ = {isa = PBXFileReference; path = "NativeEarth-Info.plist"; sourceTree = "<group>"; };
+		D7BB0D8813BB9A0C0062C2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D7BB0D8A13BB9A0C0062C2A9 /* NativeEarth-Prefix.pch */ = {isa = PBXFileReference; path = "NativeEarth-Prefix.pch"; sourceTree = "<group>"; };
+		D7BB0D8B13BB9A0C0062C2A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		D7BB0D8D13BB9A0C0062C2A9 /* NativeEarthAppDelegate.h */ = {isa = PBXFileReference; path = NativeEarthAppDelegate.h; sourceTree = "<group>"; };
+		D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeEarthAppDelegate.m; sourceTree = "<group>"; };
+		D7BB0D9113BB9A0C0062C2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
+		D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NativeEarth.xcdatamodel; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D7BB0D7513BB9A0B0062C2A9 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7BB0D7D13BB9A0C0062C2A9 /* UIKit.framework in Frameworks */,
+				D7BB0D7F13BB9A0C0062C2A9 /* Foundation.framework in Frameworks */,
+				D7BB0D8113BB9A0C0062C2A9 /* CoreGraphics.framework in Frameworks */,
+				D7BB0D8313BB9A0C0062C2A9 /* CoreData.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		D7BB0D6D13BB9A0B0062C2A9 = {
+			isa = PBXGroup;
+			children = (
+				D7BB0D8413BB9A0C0062C2A9 /* NativeEarth */,
+				D7BB0D7B13BB9A0C0062C2A9 /* Frameworks */,
+				D7BB0D7913BB9A0B0062C2A9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D7BB0D7913BB9A0B0062C2A9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D7BB0D7813BB9A0B0062C2A9 /* NativeEarth.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D7BB0D7B13BB9A0C0062C2A9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */,
+				D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */,
+				D7BB0D8013BB9A0C0062C2A9 /* CoreGraphics.framework */,
+				D7BB0D8213BB9A0C0062C2A9 /* CoreData.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D7BB0D8413BB9A0C0062C2A9 /* NativeEarth */ = {
+			isa = PBXGroup;
+			children = (
+				D7BB0D8D13BB9A0C0062C2A9 /* NativeEarthAppDelegate.h */,
+				D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */,
+				D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */,
+				D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */,
+				D7BB0D8513BB9A0C0062C2A9 /* Supporting Files */,
+			);
+			path = NativeEarth;
+			sourceTree = "<group>";
+		};
+		D7BB0D8513BB9A0C0062C2A9 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				D7BB0D8613BB9A0C0062C2A9 /* NativeEarth-Info.plist */,
+				D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */,
+				D7BB0D8A13BB9A0C0062C2A9 /* NativeEarth-Prefix.pch */,
+				D7BB0D8B13BB9A0C0062C2A9 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		D7BB0D7713BB9A0B0062C2A9 /* NativeEarth */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D7BB0D9813BB9A0C0062C2A9 /* Build configuration list for PBXNativeTarget "NativeEarth" */;
+			buildPhases = (
+				D7BB0D7413BB9A0B0062C2A9 /* Sources */,
+				D7BB0D7513BB9A0B0062C2A9 /* Frameworks */,
+				D7BB0D7613BB9A0B0062C2A9 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NativeEarth;
+			productName = NativeEarth;
+			productReference = D7BB0D7813BB9A0B0062C2A9 /* NativeEarth.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		D7BB0D6F13BB9A0B0062C2A9 /* Project object */ = {
+			isa = PBXProject;
+			buildConfigurationList = D7BB0D7213BB9A0B0062C2A9 /* Build configuration list for PBXProject "NativeEarth" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = D7BB0D6D13BB9A0B0062C2A9;
+			productRefGroup = D7BB0D7913BB9A0B0062C2A9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D7BB0D7713BB9A0B0062C2A9 /* NativeEarth */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		D7BB0D7613BB9A0B0062C2A9 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7BB0D8913BB9A0C0062C2A9 /* InfoPlist.strings in Resources */,
+				D7BB0D9213BB9A0C0062C2A9 /* MainWindow.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D7BB0D7413BB9A0B0062C2A9 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D7BB0D8C13BB9A0C0062C2A9 /* main.m in Sources */,
+				D7BB0D8F13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m in Sources */,
+				D7BB0D9513BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D7BB0D8813BB9A0C0062C2A9 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D7BB0D9113BB9A0C0062C2A9 /* en */,
+			);
+			name = MainWindow.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		D7BB0D9613BB9A0C0062C2A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = DEBUG;
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		D7BB0D9713BB9A0C0062C2A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+		D7BB0D9913BB9A0C0062C2A9 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NativeEarth/NativeEarth-Prefix.pch";
+				INFOPLIST_FILE = "NativeEarth/NativeEarth-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		D7BB0D9A13BB9A0C0062C2A9 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				COPY_PHASE_STRIP = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "NativeEarth/NativeEarth-Prefix.pch";
+				INFOPLIST_FILE = "NativeEarth/NativeEarth-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		D7BB0D7213BB9A0B0062C2A9 /* Build configuration list for PBXProject "NativeEarth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7BB0D9613BB9A0C0062C2A9 /* Debug */,
+				D7BB0D9713BB9A0C0062C2A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D7BB0D9813BB9A0C0062C2A9 /* Build configuration list for PBXNativeTarget "NativeEarth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D7BB0D9913BB9A0C0062C2A9 /* Debug */,
+				D7BB0D9A13BB9A0C0062C2A9 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */,
+			);
+			currentVersion = D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */;
+			path = NativeEarth.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = D7BB0D6F13BB9A0B0062C2A9 /* Project object */;
+}
