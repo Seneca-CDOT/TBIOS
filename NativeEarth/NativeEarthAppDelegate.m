@@ -12,17 +12,39 @@
 
 
 @synthesize window=_window;
-
 @synthesize managedObjectContext=__managedObjectContext;
-
 @synthesize managedObjectModel=__managedObjectModel;
-
 @synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
+
+
+@synthesize internetConnectionStatus;
+@synthesize wifiConnectionStatus;
+@synthesize remoteHostStatus;
+
+
+#define kHostName @"www.apple.com"
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.
-    [self.window makeKeyAndVisible];
+    // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
+    // method "reachabilityChanged" will be called. 
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
+    
+    
+    hostReach = [[Reachability reachabilityWithHostName: kHostName] retain];
+    [hostReach startNotifier];
+	
+    internetReach = [[Reachability reachabilityForInternetConnection] retain];
+	[internetReach startNotifier];
+    
+    wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+	[wifiReach startNotifier];
+    
+    self.remoteHostStatus = [hostReach currentReachabilityStatus] ;
+    self.internetConnectionStatus= [internetReach currentReachabilityStatus];
+    self.wifiConnectionStatus =[wifiReach currentReachabilityStatus];
+
     return YES;
 }
 
@@ -148,9 +170,17 @@
     
     NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"NativeEarth.sqlite"];
     
+    
+    
+    //Light Weight migration support code:
+    NSDictionary *options = [NSDictionary dictionaryWithObjectsAndKeys:
+                             [NSNumber numberWithBool:YES],NSMigratePersistentStoresAutomaticallyOption,
+                             [NSNumber numberWithBool:YES],NSInferMappingModelAutomaticallyOption, nil];
+    
+    // pass the option to the init method:
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error])
+    if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error])
     {
         /*
          Replace this implementation with code to handle the error appropriately.
