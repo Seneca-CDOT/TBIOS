@@ -7,8 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "Reachability.h"
 @interface NativeEarthAppDelegate : NSObject <UIApplicationDelegate> {
+    Reachability* hostReach;
+    Reachability* internetReach;
+    Reachability* wifiReach;
+    NetworkStatus internetConnectionStatus;
+    NetworkStatus wifiConnectionStatus;
+    NetworkStatus remoteHostStatus;
 
 }
 
@@ -17,6 +23,11 @@
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
+
+//Network Conectivity
+@property NetworkStatus internetConnectionStatus;
+@property NetworkStatus wifiConnectionStatus;
+@property NetworkStatus remoteHostStatus;
 
 - (void)saveContext;
 - (NSURL *)applicationDocumentsDirectory;
