@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D7592E8713BBB2F700F1D28C /* LauncherViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7592E8513BBB2F700F1D28C /* LauncherViewController_iPhone.xib */; };
+		D77FB60C13BBA8170088DA60 /* LauncherViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77FB60A13BBA8170088DA60 /* LauncherViewController_iPhone.m */; };
+		D77FB61013BBA8660088DA60 /* LauncherViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FB60E13BBA8660088DA60 /* LauncherViewController_iPhone.xib */; };
 		D7BB0D7D13BB9A0C0062C2A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */; };
 		D7BB0D7F13BB9A0C0062C2A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */; };
 		D7BB0D8113BB9A0C0062C2A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D8013BB9A0C0062C2A9 /* CoreGraphics.framework */; };
@@ -44,6 +47,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D7592E8613BBB2F700F1D28C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LauncherViewController_iPhone.xib; sourceTree = "<group>"; };
+		D7592E8813BBB31000F1D28C /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LauncherViewController_iPhone.xib; sourceTree = "<group>"; };
+		D77FB60913BBA8170088DA60 /* LauncherViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController_iPhone.h; sourceTree = "<group>"; };
+		D77FB60A13BBA8170088DA60 /* LauncherViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController_iPhone.m; sourceTree = "<group>"; };
 		D7BB0D7813BB9A0B0062C2A9 /* NativeEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -249,7 +256,6 @@
 				D7BB0DF613BBA22A0062C2A9 /* MainWindow_iPhone.xib */,
 				D7BB0DF313BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m */,
 				D7BB0DF413BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.h */,
-				D7BB0DF213BBA0BF0062C2A9 /* BaseViewController */,
 				D7BB0DEF13BBA0440062C2A9 /* Launcher */,
 				D7BB0DEE13BBA0440062C2A9 /* Locator */,
 				D7BB0DEC13BBA0290062C2A9 /* TripPlanner */,
@@ -286,6 +292,9 @@
 		D7BB0DEF13BBA0440062C2A9 /* Launcher */ = {
 			isa = PBXGroup;
 			children = (
+				D7592E8513BBB2F700F1D28C /* LauncherViewController_iPhone.xib */,
+				D77FB60913BBA8170088DA60 /* LauncherViewController_iPhone.h */,
+				D77FB60A13BBA8170088DA60 /* LauncherViewController_iPhone.m */,
 			);
 			name = Launcher;
 			path = iphone/Launcher;
@@ -297,14 +306,6 @@
 			);
 			name = About;
 			path = iphone/About;
-			sourceTree = "<group>";
-		};
-		D7BB0DF213BBA0BF0062C2A9 /* BaseViewController */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = BaseViewController;
-			path = iphone/BaseViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -361,6 +362,8 @@
 				D7BB0DEB13BB9FA30062C2A9 /* MainWindow.xib in Resources */,
 				D7BB0DF813BBA22A0062C2A9 /* MainWindow_iPhone.xib in Resources */,
 				D7BB0DFA13BBA23E0062C2A9 /* MainWindow_iPhone.xib in Resources */,
+				D77FB61013BBA8660088DA60 /* LauncherViewController_iPhone.xib in Resources */,
+				D7592E8713BBB2F700F1D28C /* LauncherViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -391,12 +394,30 @@
 				D7BB0DE613BB9DEA0062C2A9 /* SBJsonWriter.m in Sources */,
 				D7BB0DF513BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m in Sources */,
 				D7BB0DFD13BBA3E40062C2A9 /* BaseViewController.m in Sources */,
+				D77FB60C13BBA8170088DA60 /* LauncherViewController_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		D7592E8513BBB2F700F1D28C /* LauncherViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D7592E8613BBB2F700F1D28C /* en */,
+				D7592E8813BBB31000F1D28C /* fr */,
+			);
+			name = LauncherViewController_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		D77FB60E13BBA8660088DA60 /* LauncherViewController_iPhone.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+			);
+			name = LauncherViewController_iPhone.xib;
+			path = /Users/ladan/Desktop/NativeEarth/NativeEarth/iphone/Launcher;
+			sourceTree = "<absolute>";
+		};
 		D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
