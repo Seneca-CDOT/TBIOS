@@ -16,7 +16,8 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [super application: application didFinishLaunchingWithOptions:launchOptions];
-    
+    // Status bar
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
  
     self.viewController.internetConnectionStatus = self.internetConnectionStatus;
     self.viewController.wifiConnectionStatus = self.wifiConnectionStatus;
