@@ -15,20 +15,28 @@
     UIButton  *  PlanAVisitBtn;
     UIButton  *  SettingsBtn;
     UIButton  *  infoBtn;
+    UIButton  *  okButton;
+    
+    UIView *launcherView;
+    UIView *infoView;
+    UIView *blackView;
 }
 
 @property (nonatomic,retain)    IBOutlet UIButton    *  FirstNationLocatorBtn;
 @property (nonatomic,retain)    IBOutlet UIButton    *  PlanAVisitBtn;
 @property (nonatomic,retain)    IBOutlet UIButton    *  SettingsBtn;
 @property (nonatomic,retain)    IBOutlet UIButton    *  infoBtn;
+@property (nonatomic,retain)    IBOutlet UIButton    *  okBtn;
 
-
+@property (nonatomic, retain) IBOutlet UIView *launcherView;
+@property (nonatomic, retain) IBOutlet UIView *infoView;
+@property (nonatomic, retain) IBOutlet UIView *blackView;
 
 -(IBAction) FirstNationLocatorBtnAction:(id) sender;
 -(IBAction) planAVisitBtnAction:(id) sender;
 
 -(IBAction) goToSettings:(id) sender;
--(IBAction) infoBtnAction:(id) sender;
+-(IBAction) flipAction:(id) sender;
 
 
 
