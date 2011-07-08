@@ -20,6 +20,8 @@
     UIView *launcherView;
     UIView *infoView;
     UIView *blackView;
+    
+    UIView *containerView;
 }
 
 @property (nonatomic,retain)    IBOutlet UIButton    *  FirstNationLocatorBtn;
@@ -31,6 +33,7 @@
 @property (nonatomic, retain) IBOutlet UIView *launcherView;
 @property (nonatomic, retain) IBOutlet UIView *infoView;
 @property (nonatomic, retain) IBOutlet UIView *blackView;
+@property (nonatomic, retain) UIView *containerView;
 
 -(IBAction) FirstNationLocatorBtnAction:(id) sender;
 -(IBAction) planAVisitBtnAction:(id) sender;

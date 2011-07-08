@@ -46,19 +46,19 @@
     if(curReach == hostReach)
 	{
         self.remoteHostStatus = [curReach currentReachabilityStatus];
-       // self.viewController.remoteHostStatus =self.remoteHostStatus;
+        self.viewController.remoteHostStatus =self.remoteHostStatus;
     }
     
 	if(curReach == internetReach)
 	{	
 		
         self.internetConnectionStatus= [curReach currentReachabilityStatus];
-     //   self.viewController.internetConnectionStatus =self.internetConnectionStatus;
+        self.viewController.internetConnectionStatus =self.internetConnectionStatus;
 	}
 	if(curReach == wifiReach)
 	{
         self.wifiConnectionStatus =[curReach currentReachabilityStatus];
-      //  self.viewController.wifiConnectionStatus=self.wifiConnectionStatus;
+        self.viewController.wifiConnectionStatus=self.wifiConnectionStatus;
 	}
 	
 }
