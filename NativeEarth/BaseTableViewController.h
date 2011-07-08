@@ -1,8 +1,8 @@
 //
-//  RootViewController.h
+//  BaseTableViewController.h
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-05-30.
+//  Created by Ladan Zahir on 11-06-30.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -10,13 +10,16 @@
 #import <CoreLocation/CoreLocation.h>
 //#import "LocationDetector.h"
 #import "Reachability.h"
-@interface BaseViewController : UIViewController {
+#define kTableViewSectionHeaderHeight 30
+@interface BaseTableViewController : UITableViewController {
+    
 }
-// coredata 
-    @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+
+//coredata 
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+//Network
 @property NetworkStatus internetConnectionStatus;
 @property NetworkStatus wifiConnectionStatus;
 @property NetworkStatus remoteHostStatus;
-
 
 @end
