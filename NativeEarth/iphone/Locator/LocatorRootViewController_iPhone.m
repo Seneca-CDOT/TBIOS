@@ -11,7 +11,7 @@
 #import "LocationInfoViewController_iPhone.h"
 #import "BrowseViewController_iPhone.h"
 #import "MapBrowserViewController_iPhone.h"
-
+#import "GeoPoliticalLookupViewController_iPhone.h"
 @implementation LocatorRootViewController_iPhone
 
 
@@ -184,7 +184,7 @@
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.managedObjectContext = self.managedObjectContext;
     nextVC.title= NSLocalizedString(@"Names", @"Names");
-    nextVC.browseType = ByName;
+    nextVC.browseType = ForLocator;
     
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
@@ -192,14 +192,14 @@
     
 }
 -(void)BrowseByGeopoliticalName{
-    BrowseViewController_iPhone * nextVC = [[BrowseViewController_iPhone alloc]initWithNibName:@"BrowseViewController_iPhone" bundle:nil];
+   GeoPoliticalLookupViewController_iPhone * nextVC = [[GeoPoliticalLookupViewController_iPhone alloc]initWithNibName:@"GeoPoliticalLookupViewController_iPhone" bundle:nil];
     
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.managedObjectContext = self.managedObjectContext;
-    nextVC.title= NSLocalizedString(@"Geopolitical Names", @"Geopolitical Names");
-    nextVC.browseType = ByGeopoliticalName;
+    nextVC.title= NSLocalizedString(@"Geopolitical Name", @"Geopolitical Name");
+    nextVC.geoLookupType = ForLocator;
     
     [self.navigationController pushViewController:nextVC animated:YES];
 
