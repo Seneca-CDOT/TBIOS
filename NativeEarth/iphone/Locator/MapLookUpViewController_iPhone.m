@@ -11,10 +11,6 @@
 
 
 
-@interface MapLookUpViewController_iPhone () 
-- (void)coordinateChanged_:(NSNotification *)notification;
-@end
-
 @implementation MapLookUpViewController_iPhone
 @synthesize mapView;
 @synthesize redoButton;
@@ -73,15 +69,6 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark -
-#pragma mark DDAnnotationCoordinateDidChangeNotification
-
-
-- (void)coordinateChanged_:(NSNotification *)notification {
-	
-	DDAnnotation *annotation = notification.object;
-	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
-}
 
 #pragma mark -
 #pragma mark MKMapViewDelegate
@@ -124,9 +111,7 @@
        draggablePinView.rightCalloutAccessoryView = rightButton;
         
 	}		
-	
-    
-    
+
     
 	return draggablePinView;
 }
@@ -159,5 +144,9 @@
     [self.mapView removeAnnotations:mapView.annotations];
     pinIsDropped= NO;
     [self.mapView reloadInputViews];
+}
+
+-(void)showDetails: (id) sender{
+    
 }
 @end
