@@ -14,6 +14,7 @@ NSString* kCellTextView_ID = @"CellTextView_ID";
 @implementation TextViewCell
 @synthesize textView;
 @synthesize  delegate;
+
 //Helper method to create the workout cell from a nib file...
 + (TextViewCell*) createNewTextCellFromNib { 
 	NSArray* nibContents = [[NSBundle mainBundle] 
@@ -38,7 +39,7 @@ NSString* kCellTextView_ID = @"CellTextView_ID";
 
 - (void)dealloc
 {
-    [self.delegate release];
+    
     [self.textView release];
     [super dealloc];
 }
@@ -47,9 +48,13 @@ NSString* kCellTextView_ID = @"CellTextView_ID";
 
 - (void)textViewDidBeginEditing:(UITextView *)tv
 {
+
 	  [[self delegate] editStarted:tv];
 }
 -(void) textViewDidEndEditing:(UITextView *)textView{
     
+    [[self delegate] editDidFinish:nil];
 }
+
+
 @end

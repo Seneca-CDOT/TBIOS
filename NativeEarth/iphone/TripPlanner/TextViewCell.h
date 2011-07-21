@@ -18,7 +18,7 @@
 
 @optional  
 // and the other one is optional (this function has not been used in this tutorial)  
-- (void)editStarted:(UITextView *)field;  
+- (void)editStarted:(UITextView *)tv;  
 
 @end  
 // cell identifier for this custom cell
@@ -26,10 +26,12 @@ extern NSString *kCellTextView_ID;
 
 @interface TextViewCell : UITableViewCell<UITextViewDelegate> {
 	IBOutlet UITextView *textView;
+
      id <TextViewCellDelegate> delegate;  
 }
 + (TextViewCell*) createNewTextCellFromNib;
 
 @property (nonatomic, retain) UITextView *textView;
+
 @property (nonatomic, assign) id <TextViewCellDelegate> delegate;  
 @end

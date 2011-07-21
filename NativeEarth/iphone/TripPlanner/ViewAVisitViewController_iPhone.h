@@ -9,20 +9,43 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "TextViewCell.h"
-@interface ViewAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate> {
+#import "BrowseViewController_iPhone.h"
+@interface ViewAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate, UIActionSheetDelegate, BrowseViewController_iPhoneDelegate> {
     
-   NSDateFormatter *dateFormatter; 
+    NSDateFormatter *dateFormatter; 
     UIDatePicker *pickerView;
     UITableView *infoTableView;
- UIBarButtonItem *doneButton;
+    UIBarButtonItem *doneButton;
+    UIBarButtonItem *cancelButton;
+    UIButton *changeButton;
+    UIBarButtonItem *trashButton;
 }
-@property (nonatomic, retain) NSDateFormatter *dateFormatter; 
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
+@property (nonatomic, retain) NSDateFormatter *dateFormatter; 
+// Number of pixels to shift the view up or down
+@property CGFloat shiftForKeyboard;
 @property (nonatomic,retain) IBOutlet UIToolbar * toolBar;
 @property (nonatomic,retain) IBOutlet UITableView * infoTableView;
 @property (nonatomic, retain) IBOutlet UIDatePicker *pickerView; 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
-- (IBAction)dateAction:(id)sender;	// when the user has changed the date picke values (m/d/y)
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *cancelButton;
+@property (nonatomic, retain) IBOutlet UIBarButtonItem *trashButton;
+@property (nonatomic, retain) UIButton *changeButton;
 
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+
+-(void)SetBackControls;
+- (IBAction)dateAction:(id)sender;	// when the user has changed the date picke values (m/d/y)
+- (IBAction)doneAction:(id)sender;
+- (void)changeButtonTapped:(id)sender;
+
+- (UIButton *)newButtonWithTitle:(NSString *)title
+                          target:(id)target
+                        selector:(SEL)selector
+                           frame:(CGRect)frame
+                           image:(UIImage *)image
+                    imagePressed:(UIImage *)imagePressed
+                   darkTextColor:(BOOL)darkTextColor;
+-(IBAction)Cancel:(id)sender;
 @end

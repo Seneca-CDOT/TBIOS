@@ -7,24 +7,48 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseTableViewController.h"
+#import "BaseViewController.h"
+#import "NetworkDataGetter.h"
 typedef enum {
-	ByName = 0,
-    ByGeopoliticalName
+	ForLocator= 0,
+    ForVisitPlanner
 } BrowseType;
-@interface BrowseViewController_iPhone : BaseTableViewController<UISearchDisplayDelegate, UISearchBarDelegate> {
+@class FirstNation;// has to be defined later.
+
+@protocol BrowseViewController_iPhoneDelegate;
+
+@interface BrowseViewController_iPhone : BaseViewController<UISearchDisplayDelegate, UISearchBarDelegate,NetworkDataGetterDelegate> {
     BrowseType browseType;
-    NSMutableArray * completeList;
+    NSArray * completeList;
     NSMutableArray * filteredList;
+    id<BrowseViewController_iPhoneDelegate> delegate;
+    UITableView * resultsTableView;
+    UIToolbar * toolbar;
+    UISearchBar *searchBar;
 }
 @property (nonatomic) BrowseType browseType;
 
-@property (nonatomic, retain ) NSMutableArray * completeList;
+@property (nonatomic, assign) id<BrowseViewController_iPhoneDelegate> delegate;
+
+@property (nonatomic, retain ) NSArray * completeList;
 
 @property (nonatomic, retain) NSMutableArray * filteredList;
 
 @property (nonatomic, retain) NSMutableData *dataStream;
 
+@property(nonatomic,retain) IBOutlet UITableView * resultsTableView;
+
+@property(nonatomic,retain) IBOutlet UIToolbar* toolbar;
+@property(nonatomic,retain) IBOutlet UISearchBar *searchBar;
+
+-(IBAction) CancelButtonAction:(id) sender;
+
 -(void) GetFirstNationListFromWebService;
+
+@end
+
+@protocol BrowseViewController_iPhoneDelegate
+
+-(void) BrowseViewControllerDidSelectFirstNation:(FirstNation *) nation;
 
 @end

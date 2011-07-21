@@ -10,7 +10,7 @@
 #import "Reachability.h"
 #import "LocationInfoViewController_iPhone.h"
 #import "BrowseViewController_iPhone.h"
-#import "MapBrowserViewController_iPhone.h"
+#import "MapLookUpViewController_iPhone.h"
 #import "GeoPoliticalLookupViewController_iPhone.h"
 @implementation LocatorRootViewController_iPhone
 
@@ -106,7 +106,11 @@
 		return 1;
 }
 
-
+-(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if(section==0)
+        return NSLocalizedString(@"Select a method of browsing:", @"Select a method of browsing:");
+    else return  nil;
+}
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -150,12 +154,7 @@
             break;
     }
 }
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	
-    //NSString * title = [[NSString alloc]init];
-	//title= @"title";
-	return nil;
-}
+
 
 
 #pragma mark -
@@ -206,11 +205,11 @@
     [nextVC release];
 }
 -(void)BrowseMap{
-    MapBrowserViewController_iPhone * nextVC = [[MapBrowserViewController_iPhone alloc] initWithNibName:@"MapBrowserViewController_iPhone" bundle:nil];
-    nextVC.remoteHostStatus = self.remoteHostStatus;
-    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-    nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.managedObjectContext = self.managedObjectContext;
+    MapLookUpViewController_iPhone * nextVC = [[MapLookUpViewController_iPhone alloc] initWithNibName:@"MapLookUpViewController_iPhone" bundle:nil];
+    //nextVC.remoteHostStatus = self.remoteHostStatus;
+    //nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+    //nextVC.internetConnectionStatus = self.internetConnectionStatus;
+    //nextVC.managedObjectContext = self.managedObjectContext;
     nextVC.title= NSLocalizedString(@"The First Nation", @"The First Nation");
     
     [self.navigationController pushViewController:nextVC animated:YES];

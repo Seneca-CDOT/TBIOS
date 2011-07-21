@@ -7,6 +7,7 @@
 //
 
 #import "BrowseViewController_iPhone.h"
+#import "LocationInfoViewController_iPhone.h"
 #import "JSON.h"
 
 @implementation BrowseViewController_iPhone
@@ -14,18 +15,16 @@
 @synthesize completeList;
 @synthesize filteredList;
 @synthesize  dataStream;
-
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
+@synthesize delegate;
+@synthesize resultsTableView;
+@synthesize toolbar;
+@synthesize searchBar;
 
 - (void)dealloc
 {
+    [searchBar release];
+    [resultsTableView release];
+    [toolbar release];
     [dataStream release];
     [completeList release];
     //[filteredList release];
@@ -45,14 +44,18 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    
+    if (browseType== ForLocator) {
+        [self.toolbar setHidden:YES];
+        [self.resultsTableView removeFromSuperview];
+        self.view = self.resultsTableView;
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     // Do any additional setup after loading the view from its nib.
+    
+    
     [self GetFirstNationListFromWebService];
 }
 
@@ -61,27 +64,12 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.resultsTableView = nil;
+    self.toolbar = nil;
+    searchBar = nil;
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-}
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-}
-
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -92,75 +80,15 @@
 
 
 #pragma mark - Network operations
+
 -(void) GetFirstNationListFromWebService{
-    // Prepare the NSMutableData receiver
-    dataStream = [[NSMutableData alloc] init];
-	
-	// Create a URL // we should be able to pass language and locationManager.coordinate latitude and longitude here:
-    NSURL *url;
+ NSString *url = @"http://localhost/~ladan/FirstNationList";
+    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
+    dataGetter.delegate = self;
     
-	if (browseType == ByName) {
-        // use by name WS
-         url = [NSURL URLWithString:@"http://localhost/~ladan/FirstNationList"];// fake webservice 
-    }else if(browseType == ByGeopoliticalName)
-    {
-    // use by Geopolitical Name WS
-     url = [NSURL URLWithString:@"http://localhost/~ladan/FirstNationList"];// fake webservice 
-    }
-    else{
-    // and other criteria?
-    }
-      // Create a request
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-	
-	// Create a connection
-	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-	
-    
-	// Reference the app's network activity indicator in the status bar
+    // Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-	
-	// Release the objects
-    [request release];
-	[connection release];
-    
-}
-- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	// Implement this if you want
-}
-
-- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	// Append the incoming data to the data stream object
-	[dataStream appendData:data]; 
-}
-
-- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
-	
-	// Convert the data stream object to a string
-	NSString *response = [[NSString alloc] initWithData:dataStream encoding:NSUTF8StringEncoding];
-	
-	
-	// Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
-	// Load the response data string into the districts array
-	
-	self.completeList = [response JSONValue];
-    self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
-    
-	
-	[self.tableView reloadData];
-	self.tableView.scrollEnabled = YES;
-    
-}
-
-
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	
-	// Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
-	NSLog(@"%@", [error description]);
+    [dataGetter GetResultsFromUrl:url];
 }
 
 #pragma mark - TableView datasource and delegate
@@ -187,7 +115,11 @@
     if (cell == nil)
     {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:kPlacesCellIdentifier] autorelease];
-        cell.accessoryType = UITableViewCellAccessoryDetailDisclosureButton;
+        if (browseType==ForLocator) {
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }else {
+                cell.accessoryType = UITableViewCellAccessoryNone; 
+        }
     }
     
     /*
@@ -224,12 +156,32 @@
         dict = [self.completeList objectAtIndex:indexPath.row];
     }
     
-    //    FirstNation * nation = [[FirstNation alloc]init];
-    //    nation.name = [dict valueForKey:@"Name"];
-    //    nation.latitude = [dict valueForKey:@"CenterLatitude"];
-    //    nation.longitude = [dict valueForKey:@"CenterLongitude"];
     
-    // [self.navigationController popViewControllerAnimated:YES];
+   // FirstNation * nation = [[FirstNation alloc]init];
+   // nation.name = [dict valueForKey:@"Name"];
+   // nation.latitude = [dict valueForKey:@"CenterLatitude"];
+   // nation.longitude = [dict valueForKey:@"CenterLongitude"];
+    
+    
+  if (browseType == ForLocator)  {
+        LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
+        
+        nextVC.remoteHostStatus = self.remoteHostStatus;
+        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+        nextVC.internetConnectionStatus = self.internetConnectionStatus;
+        nextVC.managedObjectContext = self.managedObjectContext;
+        
+        //nextVC.title= nation.name;
+        
+        [self.navigationController pushViewController:nextVC animated:YES];
+        [nextVC release];
+
+    }else {
+        [self.delegate BrowseViewControllerDidSelectFirstNation:nil];
+        [self.navigationController popViewControllerAnimated:YES];
+        
+    }
+    
 }
 
 #pragma mark -
@@ -279,6 +231,21 @@
     return YES;
 }
 
+-(IBAction) CancelButtonAction:(id) sender{
+    [self dismissModalViewControllerAnimated:YES];
+}
+#pragma  mark - NetworkDataGetter Delegate
 
-
+-(void)DataUpdate:(NSArray *)objectArray{
+    self.completeList = objectArray;
+    self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
+    [self.resultsTableView reloadData];
+	self.resultsTableView.scrollEnabled = YES;
+}
+-(void)DataError:(NSError *)error{
+    // Reference the app's network activity indicator in the status bar
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	
+	NSLog(@"%@", [error description]);
+}
 @end

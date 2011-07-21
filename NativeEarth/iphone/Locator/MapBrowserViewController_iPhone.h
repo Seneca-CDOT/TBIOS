@@ -12,14 +12,13 @@
 #import "LocationDetector.h"
 #import "Reachability.h"
 #import <AVFoundation/AVFoundation.h>
-//#import "SearchListController.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "DistrictCenterAnnotation.h"
 
-@interface MapBrowserViewController_iPhone:BaseViewController <LocationDetectorDelegate, MKMapViewDelegate, AVAudioPlayerDelegate> {//SearchListControllerDelegate,
+@interface MapBrowserViewController_iPhone:BaseViewController <LocationDetectorDelegate, MKMapViewDelegate, AVAudioPlayerDelegate> 
+{
     MKMapView                   *mapView;
     NSArray                     * viewDistricts;
-  //  SearchListController        *searchList;
     UINavigationController      *searchListNavigationController;
     
     DistrictCenterAnnotation    * _calloutAnnotation;
@@ -34,8 +33,6 @@
 
 @property (nonatomic,retain)            LocationDetector          *locationDetector;
 @property (nonatomic,retain)            IBOutlet   MKMapView      *mapView;
-//@property (nonatomic,retain,readonly)   SearchListController      *searchList; 
-//@property (nonatomic,retain,readonly)   UINavigationController    *searchListNavigationController;
 
 @property (nonatomic, retain)           MKAnnotationView          *selectedAnnotationView;
 @property (nonatomic, retain)           DistrictCenterAnnotation  *calloutAnnotation;
