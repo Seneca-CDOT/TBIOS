@@ -35,3 +35,4 @@ extern NSString *kCellTextView_ID;
 
 @property (nonatomic, assign) id <TextViewCellDelegate> delegate;  
 @end
+///////
