@@ -8,7 +8,7 @@
 
 #import "MapLookUpViewController_iPhone.h"
 #import "DDAnnotation.h"
-#import "DDAnnotationView.h"
+
 
 
 @interface MapLookUpViewController_iPhone () 
@@ -76,7 +76,7 @@
 #pragma mark -
 #pragma mark DDAnnotationCoordinateDidChangeNotification
 
-// NOTE: DDAnnotationCoordinateDidChangeNotification won't fire in iOS 4, use -mapView:annotationView:didChangeDragState:fromOldState: instead.
+
 - (void)coordinateChanged_:(NSNotification *)notification {
 	
 	DDAnnotation *annotation = notification.object;
@@ -116,18 +116,13 @@
         draggablePinView.rightCalloutAccessoryView = rightButton;
 	} else {
 
-		//draggablePinView = [DDAnnotationView annotationViewWithAnnotation:annotation reuseIdentifier:kPinAnnotationIdentifier mapView:self.mapView];
-        draggablePinView = [[MKPinAnnotationView alloc]initWithAnnotation:annotation reuseIdentifier:kPinAnnotationIdentifier];
+
+        draggablePinView = [[MKPinAnnotationView alloc]initWithAnnotation: annotation reuseIdentifier:kPinAnnotationIdentifier];
        // draggablePinView.annotation = annotation;
         draggablePinView.draggable = YES;
         draggablePinView.canShowCallout = YES;
        draggablePinView.rightCalloutAccessoryView = rightButton;
         
-		if ([draggablePinView isKindOfClass:[DDAnnotationView class]]) {
-           
-		} else {
-
-		}
 	}		
 	
     
