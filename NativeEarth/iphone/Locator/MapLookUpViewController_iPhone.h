@@ -9,19 +9,25 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "BaseViewController.h"
-
+typedef enum {
+	Satellite,
+    Hybrid
+} MapTypes;
 @interface MapLookUpViewController_iPhone : BaseViewController {
     MKMapView *mapView;
    BOOL pinIsDropped;
     UIBarButtonItem * redoButton;
     UIToolbar *toolbar;
+    UISegmentedControl *mapTypeControl;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *redoButton;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
+@property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeControl;
 -(IBAction)dropPin:(id) sender;
 -(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate;
+-(void)flyToNorthAmerica;
 -(IBAction)reloadMap;
 
 @end

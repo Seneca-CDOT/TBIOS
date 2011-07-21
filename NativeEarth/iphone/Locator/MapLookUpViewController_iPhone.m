@@ -15,6 +15,7 @@
 @synthesize mapView;
 @synthesize redoButton;
 @synthesize toolbar;
+@synthesize mapTypeControl;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -32,14 +33,17 @@
     // Do any additional setup after loading the view from its nib.
     [self.mapView removeAnnotations:mapView.annotations];
     pinIsDropped= NO;
+    [self flyToNorthAmerica];
+
 }
 
 - (void)dealloc
 {
-    mapView.delegate = nil;
-	[mapView release];
-    [toolbar release];
-    [redoButton release];
+    self.mapView.delegate = nil;
+	[self.mapView release];
+    [self.toolbar release];
+    [self.redoButton release];
+    [self.mapTypeControl release];
     [super dealloc];
 }
 
@@ -61,6 +65,7 @@
     self.mapView = nil;
     self.toolbar= nil;
     self.redoButton = nil;
+    self.mapTypeControl = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -93,26 +98,17 @@
                     action:@selector(showDetails:)
           forControlEvents:UIControlEventTouchUpInside];
     
-
 	static NSString * const kPinAnnotationIdentifier = @"PinIdentifier";
     
 	MKAnnotationView *draggablePinView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:kPinAnnotationIdentifier];
-	
-	if (draggablePinView) {
-		draggablePinView.annotation = annotation;
-        draggablePinView.rightCalloutAccessoryView = rightButton;
-	} else {
-
-
+		
+    if(!draggablePinView){
         draggablePinView = [[MKPinAnnotationView alloc]initWithAnnotation: annotation reuseIdentifier:kPinAnnotationIdentifier];
-       // draggablePinView.annotation = annotation;
-        draggablePinView.draggable = YES;
-        draggablePinView.canShowCallout = YES;
-       draggablePinView.rightCalloutAccessoryView = rightButton;
-        
-	}		
-
-    
+    }
+    draggablePinView.annotation = annotation;
+    draggablePinView.draggable = YES;
+    draggablePinView.canShowCallout = YES;
+    draggablePinView.rightCalloutAccessoryView = rightButton;
 	return draggablePinView;
 }
 
@@ -127,7 +123,6 @@
 	[self.mapView addAnnotation:annotation];
         
     pinIsDropped = YES;
-
         
     }else{
         CLLocationCoordinate2D theCoordinate = [(DDAnnotation*)[self.mapView.annotations objectAtIndex:0] coordinate];
@@ -140,13 +135,28 @@
 
 }   
 
+-(void)flyToNorthAmerica{
+    // canada: 58.263287,-104.765625
+    
+    MKCoordinateRegion region;
+    region.center.latitude = 58.263287;
+    region.center.longitude = -104.765625;
+    region.span.latitudeDelta = 50;
+    region.span.longitudeDelta = 50;
+    
+    MKCoordinateRegion savedRegion = [mapView regionThatFits:region];
+    [self.mapView setRegion:savedRegion animated:YES];
+}
+
 -(IBAction)reloadMap{
     [self.mapView removeAnnotations:mapView.annotations];
     pinIsDropped= NO;
-    [self.mapView reloadInputViews];
+    [self flyToNorthAmerica];
+    
 }
 
 -(void)showDetails: (id) sender{
-    
+   
+
 }
 @end
