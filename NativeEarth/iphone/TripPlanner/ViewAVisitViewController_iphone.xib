@@ -48,7 +48,7 @@
 					<object class="IBUITableView" id="873029372">
 						<reference key="NSNextResponder" ref="32282362"/>
 						<int key="NSvFlags">274</int>
-						<string key="NSFrame">{{0, 43}, {320, 437}}</string>
+						<string key="NSFrame">{{0, 42}, {320, 438}}</string>
 						<reference key="NSSuperview" ref="32282362"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="635192792"/>
@@ -103,6 +103,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<string key="NSFrame">{{0, 436}, {320, 44}}</string>
 						<reference key="NSSuperview" ref="32282362"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -146,6 +147,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<string key="NSFrameSize">{320, 216}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
+				<reference key="NSNextKeyView"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>

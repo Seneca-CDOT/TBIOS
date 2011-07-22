@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "TextViewCell.h"
+#import "TextFieldCell_iPhone.h"
 #import "BrowseViewController_iPhone.h"
-@interface ViewAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate, UIActionSheetDelegate, BrowseViewController_iPhoneDelegate> {
+@interface ViewAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate, UIActionSheetDelegate, BrowseViewController_iPhoneDelegate,TextFieldCellDelegate> {
     
     NSDateFormatter *dateFormatter; 
     UIDatePicker *pickerView;
@@ -48,4 +49,7 @@
                     imagePressed:(UIImage *)imagePressed
                    darkTextColor:(BOOL)darkTextColor;
 -(IBAction)Cancel:(id)sender;
+-(void) shiftDownDatePicker;
+-(void) setEnabledDateCells:(BOOL) enabled;
+-(void) setEnabledTitleCell:(BOOL) enabled;
 @end

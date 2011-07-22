@@ -14,9 +14,9 @@
 #define kStdButtonWidth		60.0
 #define kStdButtonHeight	20.0
 #define kRegularCellRowHeight  34.0
-
+#define kTextFieldRowHeight  37.0
 #define kButtonTag			1		// for tagging our embedded controls for removal at cell recycle time
-typedef enum {SectionFirstNationName, SectionDate, SectionNotes} SectionType;
+typedef enum {SectionFirstNationName, SectionDate, SectionTitle, SectionNotes} SectionType;
 
 typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 
@@ -58,6 +58,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [infoTableView setScrollEnabled:YES];
     infoTableView.delegate = self;
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -95,7 +96,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
-    return 3;
+    return 4;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -114,17 +115,20 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     static NSString *HeaderCellIdentifier = @"HeaderCell";
     static NSString *DateCellIdentifier=@"DateCell";
     static NSString *FirstNationCellIdentifier=@"FirstNationCell";
+    static NSString *TitleCellIdentifier=@"TitleCell";
     
     
     UITableViewCell *cell ;
     TextViewCell *noteCell;
+    TextFieldCell_iPhone *titleCell;
     BOOL cellIsEditable = NO;
     if (indexPath.row == HeaderRow) {
         cell =  [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
     }else{
-        if (indexPath.section==SectionFirstNationName) {
+      if (indexPath.section==SectionFirstNationName) {
             cell =  [tableView dequeueReusableCellWithIdentifier:FirstNationCellIdentifier];
-            
+        } else  if(indexPath.section == SectionTitle){
+                cell = [tableView dequeueReusableCellWithIdentifier:TitleCellIdentifier];
         }else if(indexPath.section== SectionDate){
             cell =  [tableView dequeueReusableCellWithIdentifier:DateCellIdentifier];
         }else if (indexPath.section== SectionNotes){
@@ -145,7 +149,11 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:FirstNationCellIdentifier] autorelease];
                    [self configureCell:cell atIndexPath:indexPath];
                
-            }
+            } else if (indexPath.section == SectionTitle) {
+                 titleCell = [TextFieldCell_iPhone createNewTextFieldCellFromNib];
+                 [self configureCell:titleCell atIndexPath:indexPath];
+                 cell = titleCell;
+             } 
             else if (indexPath.section == SectionDate ) {
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DateCellIdentifier] autorelease];
                    [self configureCell:cell atIndexPath:indexPath];
@@ -196,6 +204,18 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
             
            cell.accessoryView = self.changeButton;
         }
+    }else if(indexPath.section == SectionTitle){
+        if (indexPath.row == HeaderRow) {
+            cell.textLabel.text = NSLocalizedString(@"Title:", @"Title:") ;
+            cell.userInteractionEnabled = NO;
+        }else if (indexPath.row == DetailRow1){
+            cell.userInteractionEnabled = YES;
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            ((TextFieldCell_iPhone *)cell).textField.delegate =(TextFieldCell_iPhone*)cell; 
+              ((TextFieldCell_iPhone *)cell).textField.placeholder = NSLocalizedString( @"Enter a title for your visit",  @"Enter a title for your visit"); 
+           ((TextFieldCell_iPhone *)cell).delegate = self;
+        }
+
     }else if(indexPath.section == SectionDate){
         if(indexPath.row == HeaderRow){
             cell.textLabel.text = NSLocalizedString(@"Date:", @"Date:");
@@ -242,7 +262,13 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
             // Regular
             return kRegularCellRowHeight;
  
-        } else if(indexPath.section == SectionNotes){
+        } 
+        
+        else if (indexPath.section == SectionTitle){
+            CGFloat result;
+            result = kTextFieldRowHeight;	
+            return result; 
+        }else if(indexPath.section == SectionNotes){
 		
             CGFloat result;
             result = kUITextViewCellRowHeight;	
@@ -290,7 +316,6 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
                                           screenRect.origin.y + screenRect.size.height,
                                           pickerSize.width, pickerSize.height);
             self.pickerView.frame = startRect;
-            
             // compute the end frame
             CGRect pickerRect = CGRectMake(0.0,
                                            screenRect.origin.y + screenRect.size.height - pickerSize.height,
@@ -310,13 +335,12 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 			newFrame.size.height -= self.pickerView.frame.size.height;
 			tableView.frame = newFrame;
             [UIView commitAnimations];
-            
-            
             self.navigationItem.rightBarButtonItem = self.doneButton;
-          
             //[self.navigationItem setHidesBackButton:YES animated:YES];
             self.navigationItem.leftBarButtonItem = self.cancelButton;
-             }
+        }
+    }else{
+            [self shiftDownDatePicker];
     }
     
 }
@@ -353,58 +377,89 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 }
 
 -(void)SetBackControls{
-
-    NSIndexPath *noteCellIndexPath = [NSIndexPath  indexPathForRow:1 inSection:2];
     NSIndexPath *dateCell1IndexPath= [NSIndexPath indexPathForRow:1 inSection:1];
     NSIndexPath *dateCell2IndexPath= [NSIndexPath indexPathForRow:2 inSection:1];
+    NSIndexPath *titleCellIndexPath= [NSIndexPath indexPathForRow:1 inSection:2];
+    NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:3];
     
+    	// deselect the current table row
+ 
+    [self.infoTableView deselectRowAtIndexPath:dateCell1IndexPath animated:NO];
+    [self.infoTableView deselectRowAtIndexPath:dateCell2IndexPath animated:NO];
+    [self.infoTableView deselectRowAtIndexPath:titleCellIndexPath animated:NO];
+    [self.infoTableView deselectRowAtIndexPath:noteCellIndexPath animated:NO];
     
     UITableViewCell *noteCell = [self.infoTableView cellForRowAtIndexPath:noteCellIndexPath];
+    
+        
+    UITableViewCell *titleCell =[self.infoTableView cellForRowAtIndexPath:titleCellIndexPath];
+    
+    if ([titleCell isKindOfClass:[TextFieldCell_iPhone class]]) {
+        [((TextFieldCell_iPhone * )[self.infoTableView cellForRowAtIndexPath:titleCellIndexPath]).textField resignFirstResponder];
+    }
     
     if ([noteCell isKindOfClass:[TextViewCell class]]) {
         [((TextViewCell * )[self.infoTableView cellForRowAtIndexPath:noteCellIndexPath]).textView resignFirstResponder];
     }
     
-	CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-	CGRect endFrame = self.pickerView.frame;
-	endFrame.origin.y = screenRect.origin.y + screenRect.size.height;
+    [self shiftDownDatePicker];
 	
-	// start the slide down animation
-	[UIView beginAnimations:nil context:NULL];
-    [UIView setAnimationDuration:0.3];
-	
-    // we need to perform some post operations after the animation is complete
-    [UIView setAnimationDelegate:self];
-    [UIView setAnimationDidStopSelector:@selector(slideDownDidStop)];
-	
-    self.pickerView.frame = endFrame;
-	[UIView commitAnimations];
-	
-	// grow the table back again in vertical size to make room for the date picker
-	CGRect newFrame = self.infoTableView.frame;
-	newFrame.size.height += self.pickerView.frame.size.height;
-	self.infoTableView.frame = newFrame;
-	
-	// deselect the current table row
+}
+-(void) setEnabledDateCells:(BOOL) enabled{
+    NSIndexPath *dateCell1IndexPath= [NSIndexPath indexPathForRow:1 inSection:1];
+    NSIndexPath *dateCell2IndexPath= [NSIndexPath indexPathForRow:2 inSection:1];
+    UITableViewCell * dateCell1= [self.infoTableView cellForRowAtIndexPath:dateCell1IndexPath]; 
+    UITableViewCell *dateCell2=[self.infoTableView cellForRowAtIndexPath:dateCell2IndexPath];
+    dateCell1.userInteractionEnabled =enabled;
+    dateCell2.userInteractionEnabled =enabled;
     
-	[self.infoTableView deselectRowAtIndexPath:noteCellIndexPath animated:NO];
-    [self.infoTableView deselectRowAtIndexPath:dateCell1IndexPath animated:NO];
-    [self.infoTableView deselectRowAtIndexPath:dateCell2IndexPath animated:NO];
+    if (!enabled) {
+
+    }
 }
 
+-(void) setEnabledTitleCell:(BOOL) enabled{
+     NSIndexPath * titleCellIndexPath= [NSIndexPath indexPathForRow:1 inSection:2];
+     UITableViewCell * titleCell= [self.infoTableView cellForRowAtIndexPath:titleCellIndexPath]; 
+     titleCell.userInteractionEnabled =enabled;
+    
+}
+-(void) shiftDownDatePicker{
+    if (self.pickerView.superview != nil) {  
+        
+        CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+        CGRect endFrame = self.pickerView.frame;
+        endFrame.origin.y = screenRect.origin.y + screenRect.size.height;
+        
+        // start the slide down animation
+        [UIView beginAnimations:nil context:NULL];
+        [UIView setAnimationDuration:0.3];
+        
+        // we need to perform some post operations after the animation is complete
+        [UIView setAnimationDelegate:self];
+        [UIView setAnimationDidStopSelector:@selector(slideDownDidStop)];
+        
+        self.pickerView.frame = endFrame;
+        [UIView commitAnimations];
+        
+        // grow the table back again in vertical size to make room for the date picker
+        CGRect newFrame = self.infoTableView.frame;
+        newFrame.size.height += self.pickerView.frame.size.height;
+        self.infoTableView.frame = newFrame;
+        
+    }
 
+}
 #pragma  mark - EditFieldCellDelegate Methods
- 
--(void)editStarted:(UITextView *)tv{
+
+-(void)TextFieldCellEditStarted:(TextFieldCell_iPhone *)tfc{
+     [self shiftDownDatePicker];
+    [self setEnabledDateCells:NO];
     self.navigationItem.rightBarButtonItem = self.doneButton;
     self.navigationItem.leftBarButtonItem = self.cancelButton;
- 
-    // Make a CGRect so we can get the textField dimensions and position
-	// The following statement gets the rectangle
-	CGRect tvRect = [self.view.window convertRect:tv.bounds fromView:tv];
-	// Find out what the bottom edge value is
-	CGFloat bottomEdge = tvRect.origin.y + tvRect.size.height;
-	
+    
+    
+	CGFloat bottomEdge =tfc.frame.origin.y+tfc.frame.size.height; 	
 	// If the bottom edge is 250 or more, we want to shift the view up
 	// We chose 250 here instead of 264, so that we would have some visual buffer space
 	if (bottomEdge >= 250) {
@@ -412,9 +467,9 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 		// Make a CGRect for the view (which should be positioned at 0,0 and be 320px wide and 480px tall)
 		//CGRect viewFrame = self.view.frame;
 		CGRect viewFrame = self.infoTableView.frame;
-
+        
 		// Determine the amount of the shift
-		self.shiftForKeyboard = bottomEdge - 250.0f +30.0;
+		self.shiftForKeyboard = bottomEdge - 250.0f;
         
 		// Adjust the origin for the viewFrame CGRect
 		viewFrame.origin.y -= self.shiftForKeyboard;
@@ -430,20 +485,101 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 		[self.infoTableView setFrame:viewFrame];
 		// More animation code
 		[UIView commitAnimations];
+        NSIndexPath *titleCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:2];
+        
+        [self.infoTableView scrollToRowAtIndexPath:titleCellIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+		[self.infoTableView setScrollEnabled:NO];
+	} else {
+		// No view shifting required; set the value accordingly
+		self.shiftForKeyboard = 0.0f;
+	}
+    
+    
+}
+- (void)TextFieldCellEditDidFinish:(TextFieldCell_iPhone *)tfc{
+    // NSString *key = [result objectForKey:@"key"];  
+    // NSString *value = [result objectForKey:@"text"];  
+    
+    [self.infoTableView setScrollEnabled:YES];
+        [self setEnabledDateCells:YES];
+    /// Shift view:
+    // Make a CGRect for the view (which should be positioned at 0,0 and be 320px wide and 480px tall)
+	CGRect viewFrame = self.infoTableView.frame;
+    
+	// Adjust the origin back for the viewFrame CGRect
+	viewFrame.origin.y += self.shiftForKeyboard;
+    
+	// Set the shift value back to zero
+	self.shiftForKeyboard = 0.0f;
+	
+	// As above, the following animation setup just makes it look nice when shifting
+	// Again, we don't really need the animation code, but we'll leave it in here
+	[UIView beginAnimations:nil context:NULL];
+	[UIView setAnimationBeginsFromCurrentState:YES];
+	[UIView setAnimationDuration:0.3];
+	
+	// Apply the new shifted vewFrame to the view
+	[self.infoTableView setFrame:viewFrame];
+    
+	// More animation code
+	[UIView commitAnimations];
+    NSIndexPath *firstNationCellIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [self.infoTableView scrollToRowAtIndexPath:firstNationCellIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
+-(void)TextViewCellEditStarted:(TextViewCell *)tvc{
+     [self shiftDownDatePicker];
+    [self setEnabledTitleCell:NO];
+    self.navigationItem.rightBarButtonItem = self.doneButton;
+    self.navigationItem.leftBarButtonItem = self.cancelButton;
+
+ 
+	// Find out what the bottom edge value is
+	CGFloat bottomEdge = [tvc frame].origin.y+ tvc.frame.size.height+5.0f;
+	
+	// If the bottom edge is 250 or more, we want to shift the view up
+	// We chose 250 here instead of 264, so that we would have some visual buffer space
+	if (bottomEdge >= 250) {
 		
+		// Make a CGRect for the view (which should be positioned at 0,0 and be 320px wide and 480px tall)
+		//CGRect viewFrame = self.view.frame;
+		CGRect viewFrame = self.infoTableView.frame;
+
+		// Determine the amount of the shift
+		self.shiftForKeyboard = bottomEdge - 250.0f;
+        
+		// Adjust the origin for the viewFrame CGRect
+		viewFrame.origin.y -= self.shiftForKeyboard;
+		
+		// The following animation setup just makes it look nice when shifting
+		// We don't really need the animation code, but we'll leave it in here
+		[UIView beginAnimations:nil context:NULL];
+		[UIView setAnimationBeginsFromCurrentState:YES];
+		[UIView setAnimationDuration:0.3];
+        
+		// Apply the new shifted vewFrame to the view
+		//[self.view setFrame:viewFrame];
+		[self.infoTableView setFrame:viewFrame];
+		// More animation code
+		[UIView commitAnimations];
+       NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:3];
+
+   [self.infoTableView scrollToRowAtIndexPath:noteCellIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        [self.infoTableView setScrollEnabled:NO];
+
 	} else {
 		// No view shifting required; set the value accordingly
 		self.shiftForKeyboard = 0.0f;
 	}
 
-
 }
 
-- (void)editDidFinish:(NSMutableDictionary *)result {  
+- (void)TextViewCellEditDidFinish: (TextViewCell *)tvc {  
    // NSString *key = [result objectForKey:@"key"];  
    // NSString *value = [result objectForKey:@"text"];  
-    
-    
+    [self.infoTableView setScrollEnabled:YES];
+     [self setEnabledTitleCell:YES];
     
     /// Shift view:
     // Make a CGRect for the view (which should be positioned at 0,0 and be 320px wide and 480px tall)
@@ -466,6 +602,10 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     
 	// More animation code
 	[UIView commitAnimations];
+    NSIndexPath *firstNationCellIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    
+    [self.infoTableView scrollToRowAtIndexPath:firstNationCellIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+   
 } 
 
 #pragma mark - Button configuration
@@ -479,8 +619,6 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
                    darkTextColor:(BOOL)darkTextColor
 {	
 	UIButton *button = [[UIButton alloc] initWithFrame:frame];
-	// or you can do this:
-	//		UIButton *button = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
 	
 	button.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
 	button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
