@@ -298,14 +298,13 @@ typedef enum {CountryRow, RegionRow, LocalityRow,ButtonRow} RowType ;
 
 #pragma mark - TextFieldCellDelegate Methods
 
-- (void)editDidFinish:(NSMutableDictionary *)result{
+-(void)TextFieldCellEditDidFinish:(NSMutableDictionary *)result{
     
 }
 
-- (void)editStarted:(UITextField *)tv{
+- (void)TextFieldCellEditStarted:(UITextField*)textField{
     
 }
-
 
 #pragma  mark - searchButton
 
