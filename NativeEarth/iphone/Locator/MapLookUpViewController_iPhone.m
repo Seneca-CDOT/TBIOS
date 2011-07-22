@@ -148,13 +148,20 @@
     [self.mapView setRegion:savedRegion animated:YES];
 }
 
--(IBAction)reloadMap{
+-(IBAction)reloadMap:(id)sender{
     [self.mapView removeAnnotations:mapView.annotations];
     pinIsDropped= NO;
     [self flyToNorthAmerica];
     
 }
-
+-(IBAction)setMapType:(id)sender{
+    UISegmentedControl * mapTypeControl = (UISegmentedControl*)sender;
+    if (mapTypeControl.selectedSegmentIndex == Standard) {
+        [self.mapView setMapType:MKMapTypeStandard];
+    }else{
+         [self.mapView setMapType:MKMapTypeHybrid];
+    }
+}
 -(void)showDetails: (id) sender{
    
 

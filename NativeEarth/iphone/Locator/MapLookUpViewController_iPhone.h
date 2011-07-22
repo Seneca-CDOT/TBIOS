@@ -10,7 +10,7 @@
 #import <MapKit/MapKit.h>
 #import "BaseViewController.h"
 typedef enum {
-	Satellite,
+	Standard,
     Hybrid
 } MapTypes;
 @interface MapLookUpViewController_iPhone : BaseViewController {
@@ -28,6 +28,6 @@ typedef enum {
 -(IBAction)dropPin:(id) sender;
 -(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate;
 -(void)flyToNorthAmerica;
--(IBAction)reloadMap;
-
+-(IBAction)reloadMap:(id)sender;
+-(IBAction)setMapType:(id)sender;
 @end

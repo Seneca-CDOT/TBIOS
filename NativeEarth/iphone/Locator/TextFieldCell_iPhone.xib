@@ -53,7 +53,6 @@
 								<string key="NSFrame">{{20, 6}, {280, 31}}</string>
 								<reference key="NSSuperview" ref="366732184"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -79,7 +78,7 @@
 									<int key="IBUIReturnKeyType">9</int>
 									<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								</object>
-								<int key="IBUIClearButtonMode">3</int>
+								<int key="IBUIClearButtonMode">1</int>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 44}</string>
