@@ -48,13 +48,15 @@ NSString* kCellTextView_ID = @"CellTextView_ID";
 
 - (void)textViewDidBeginEditing:(UITextView *)tv
 {
-
-	  [[self delegate] editStarted:tv];
+	  [[self delegate] TextViewCellEditStarted:self];
 }
--(void) textViewDidEndEditing:(UITextView *)textView{
+-(void) textViewDidEndEditing:(UITextView *)tv
+{
     
-    [[self delegate] editDidFinish:nil];
+    [[self delegate] TextViewCellEditDidFinish:self];
 }
-
+-(void) textViewDidChange:(UITextView *)textView{
+    self.selected = NO;
+}
 
 @end

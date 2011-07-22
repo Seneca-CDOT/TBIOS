@@ -29,7 +29,6 @@ extern NSString *kCellTextField_ID;
 @end
 
 @protocol TextFieldCellDelegate <NSObject>  
-- (void)editDidFinish:(NSMutableDictionary *)result;  
-@optional  
-- (void)editStarted:(UITextField*)textField;  
+- (void)TextFieldCellEditDidFinish:(TextFieldCell_iPhone *)tf;   
+- (void)TextFieldCellEditStarted:(TextFieldCell_iPhone *)tf;  
 @end  

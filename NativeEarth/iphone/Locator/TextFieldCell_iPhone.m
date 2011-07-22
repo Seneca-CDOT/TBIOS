@@ -48,11 +48,11 @@ NSString* kCellTextField_ID = @"CellTextField_ID";
 -(void)textFieldDidBeginEditing:(UITextField *)tf
 {
     
-    [[self delegate] editStarted:tf];
+    [[self delegate] TextFieldCellEditStarted:self];
 }
 -(void) textFieldDidEndEditing:(UITextField *)tf{
     
-    [[self delegate] editDidFinish:nil];
+    [[self delegate] TextFieldCellEditDidFinish:self];
 }
 -(BOOL) textFieldShouldReturn:(UITextField *)tf{
     [tf resignFirstResponder];

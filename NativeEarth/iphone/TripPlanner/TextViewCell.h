@@ -13,12 +13,8 @@
 
 @protocol TextViewCellDelegate <NSObject>  
 
-// we will make one function mandatory to include  
-- (void)editDidFinish:(NSMutableDictionary *)result;  
-
-@optional  
-// and the other one is optional (this function has not been used in this tutorial)  
-- (void)editStarted:(UITextView *)tv;  
+- (void)TextViewCellEditDidFinish:(TextViewCell *)tvc;   
+- (void)TextViewCellEditStarted:(TextViewCell *)tvc;  
 
 @end  
 // cell identifier for this custom cell
@@ -35,4 +31,4 @@ extern NSString *kCellTextView_ID;
 
 @property (nonatomic, assign) id <TextViewCellDelegate> delegate;  
 @end
-///////
+
