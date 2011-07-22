@@ -298,11 +298,11 @@ typedef enum {CountryRow, RegionRow, LocalityRow,ButtonRow} RowType ;
 
 #pragma mark - TextFieldCellDelegate Methods
 
--(void)TextFieldCellEditDidFinish:(NSMutableDictionary *)result{
+-(void)TextFieldCellEditDidFinish:(TextFieldCell_iPhone *)tfc{
     
 }
 
-- (void)TextFieldCellEditStarted:(UITextField*)textField{
+- (void)TextFieldCellEditStarted:(TextFieldCell_iPhone*)tfc{
     
 }
 
