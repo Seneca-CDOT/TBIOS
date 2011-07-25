@@ -21,7 +21,7 @@ typedef enum{
     
 } sectionHeaderTitle;
 @implementation LocationInfoViewController_iPhone
-
+@synthesize landArray;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -33,6 +33,7 @@ typedef enum{
 
 - (void)dealloc
 {
+    [landArray release];
     [super dealloc];
 }
 
