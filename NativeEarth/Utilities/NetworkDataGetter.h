@@ -14,10 +14,10 @@
 
 @interface NetworkDataGetter : NSObject {
     NSMutableData *dataStream;
-    NSMutableArray *dataArray;
+    id dataArray;
     id<NetworkDataGetterDelegate> delegate;
 }
-@property (nonatomic, retain)  NSMutableArray *dataArray;
+@property (nonatomic, retain)  id  dataArray;
 @property (nonatomic, retain)  NSMutableData *dataStream;
 @property (nonatomic, assign) id<NetworkDataGetterDelegate> delegate;
 -(void) GetResultsFromUrl:(NSString*) serviceURL ;
@@ -27,6 +27,6 @@
 
 @protocol NetworkDataGetterDelegate <NSObject>
 @required
--(void)DataUpdate:(NSArray*) objectArray;
+-(void)DataUpdate:(id) object;
 -(void)DataError:(NSError*) error;
 @end
