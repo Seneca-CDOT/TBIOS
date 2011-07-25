@@ -1,4 +1,4 @@
-//
+ //
 //  LocationDetector.m
 //  NativeEarth
 //
@@ -14,7 +14,7 @@
 
 @implementation LocationDetector
 @synthesize locationManager;
-@synthesize dataStream;
+//@synthesize dataStream;
 @synthesize  lands;
 @synthesize delegate;
 
@@ -35,7 +35,7 @@
 }
 
 -(void) dealloc{
-    [dataStream release];
+ //   [dataStream release];
     [lands release];
     [locationManager release];
     [super dealloc];
@@ -50,7 +50,7 @@
  
     if (abs([newLocation.timestamp timeIntervalSinceDate: [NSDate date]]) < 120){
         
-        [self.delegate locationUpdate:newLocation];
+        //[self.delegate locationUpdate:newLocation];
            // Turn off updating
         [self.locationManager stopUpdatingLocation];
         if (retriveFlag == Network) {
@@ -80,72 +80,19 @@
 
 #pragma mark - Network Operations
 -(void) getLandsFromWebServiceForLocation:(CLLocation *)location{
-	
-	// Prepare the NSMutableData receiver
-    dataStream = [[NSMutableData alloc] init];
-	
-	// Create a URL // we should be able to pass language and locationManager.coordinate latitude and longitude here:
-	NSURL *url = [NSURL URLWithString:@"http://localhost/~ladan/Algonquin.txt"];// fake webservice URL
-	//NSURL *url = [NSURL URLWithString:@"http://localhost/~ladan/SampleJSON.txt"];// fake webservice URL
-	// Create a request
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-	
-	// Create a connection
-	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
-	
+	//Here: we have to pass the location to the webservice:
     
-	// Reference the app's network activity indicator in the status bar
+    NSString *url = @"http://localhost/~ladan/Algonquin.txt";
+    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
+    dataGetter.delegate = self;
+    
+    // Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-	
-	// Release the objects
-    [request release];
-	[connection release];
+    [dataGetter GetResultsFromUrl:url];
     
 }
 
 
-- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
-	// Implement this if you want
-}
-
-- (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
-	// Append the incoming data to the data stream object
-	[dataStream appendData:data]; 
-}
-
-- (void) connectionDidFinishLoading:(NSURLConnection *)connection {
-	
-	// Convert the data stream object to a string
-	NSString *response = [[NSString alloc] initWithData:dataStream encoding:NSUTF8StringEncoding];
-	
-	
-	// Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
-	// Load the response data string into the lands array
-	
-	self.lands = [response JSONValue];
-//    for (NSDictionary*  lnd in lands) {
-//        NSDictionary* greetings =[ dist valueForKey:@"Greetings"];
-//        
-//        [self GetFileWithID:[greetings valueForKey:@"HelloAudioID"] AndFormat:@"Wav" FromData:[greetings valueForKey:@"HelloAudioData"]];
-//        [self GetFileWithID:[greetings valueForKey:@"WelcomeAudioID"] AndFormat:@"Wav" FromData:[greetings valueForKey:@"WelcomeAudioData"]];
-//        [self GetFileWithID:[greetings valueForKey:@"GoodbyeAudioID"] AndFormat:@"Wav" FromData:[greetings valueForKey:@"GoodbyeAudioData"]];
-//    }
-//
-    
-      [self.delegate LandUpdate:self.lands];
-    
-}
-
-
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	
-	// Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
-	NSLog(@"%@", [error description]);
-}
 
 -(BOOL) GetFileWithID:(NSString*)fileID AndFormat:(NSString *)format FromData:(NSData*) data
 {
@@ -165,5 +112,12 @@
 
     }
 
-
+#pragma mark - NetworkDataGetterDelegate
+-(void)DataUpdate:(id) object{
+   self.lands = (NSArray*) object;
+    [self.delegate LandUpdate:self.lands];
+}
+-(void)DataError:(NSError*) error{
+    //[self.delegate LocationError:error];
+}
 @end
