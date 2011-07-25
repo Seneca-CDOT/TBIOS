@@ -236,8 +236,8 @@
 }
 #pragma  mark - NetworkDataGetter Delegate
 
--(void)DataUpdate:(NSArray *)objectArray{
-    self.completeList = objectArray;
+-(void)DataUpdate:(id)object{
+    self.completeList = (NSArray*)object;
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
     [self.resultsTableView reloadData];
 	self.resultsTableView.scrollEnabled = YES;
