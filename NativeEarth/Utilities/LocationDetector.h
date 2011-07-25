@@ -20,7 +20,7 @@ typedef enum {
 
 -(void)locationUpdate:(CLLocation *)location;
 -(void)LocationError:(NSError *)error;
--(void)DistrictUpdate:(NSArray *)districts;
+-(void)LandUpdate:(NSArray *)lands;
 
 @end
 
@@ -35,16 +35,16 @@ typedef enum {
 
 // The network response data stream
 @property (nonatomic, retain) NSMutableData *dataStream;
-//Array of district Results
-@property (nonatomic, retain) NSArray *districts;
+//Array of land Results
+@property (nonatomic, retain) NSArray *lands;
 // retrives data from webservice
 
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, assign) id delegate;
 
--(void) getDistrictsFromWebServiceForLocation:(CLLocation *)location;
--(void)getDistrictsLocallyForLocation:(CLLocation *)location;
+-(void) getLandsFromWebServiceForLocation:(CLLocation *)location;
+-(void)getLandsLocallyForLocation:(CLLocation *)location;
 -(id) initWithRetrieveOption:(RetrieveOption) option WithManagedObjectContext:(NSManagedObjectContext *) context ;
 //saves Audio files from web service responce data
 -(BOOL) GetFileWithID:(NSString*)fileID AndFormat:(NSString *)format FromData:(NSData*) data;

@@ -14,7 +14,8 @@
 
 @implementation LocationDetector
 @synthesize locationManager;
-@synthesize dataStream,districts;
+@synthesize dataStream;
+@synthesize  lands;
 @synthesize delegate;
 
 -(id) init{
@@ -35,7 +36,7 @@
 
 -(void) dealloc{
     [dataStream release];
-    [districts release];
+    [lands release];
     [locationManager release];
     [super dealloc];
 }
@@ -53,9 +54,9 @@
            // Turn off updating
         [self.locationManager stopUpdatingLocation];
         if (retriveFlag == Network) {
-            [self getDistrictsFromWebServiceForLocation:newLocation];
+            [self getLandsFromWebServiceForLocation:newLocation];
         }else 
-            [self getDistrictsLocallyForLocation:newLocation];
+            [self getLandsLocallyForLocation:newLocation];
         
     }  
 }
@@ -66,19 +67,19 @@
 
 #pragma mark - CoreData
 
--(void)getDistrictsLocallyForLocation:(CLLocation *)location{
+-(void)getLandsLocallyForLocation:(CLLocation *)location{
     //must include language
     ReverseGeocoder * rgc = [[ReverseGeocoder alloc] init];
      rgc.managedObjectContext = managedObjectContext;
-      self.districts= [rgc findDistrictForCoordinateWithLat:location.coordinate.latitude AndLng:location.coordinate.longitude];
+      self.lands= [rgc findLandForCoordinateWithLat:location.coordinate.latitude AndLng:location.coordinate.longitude];
 
-    [self.delegate DistrictUpdate:self.districts];
+    [self.delegate LandUpdate:self.lands];
 
 
 }
 
 #pragma mark - Network Operations
--(void) getDistrictsFromWebServiceForLocation:(CLLocation *)location{
+-(void) getLandsFromWebServiceForLocation:(CLLocation *)location{
 	
 	// Prepare the NSMutableData receiver
     dataStream = [[NSMutableData alloc] init];
@@ -121,10 +122,10 @@
 	// Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 	
-	// Load the response data string into the districts array
+	// Load the response data string into the lands array
 	
-	self.districts = [response JSONValue];
-//    for (NSDictionary*  dist in districts) {
+	self.lands = [response JSONValue];
+//    for (NSDictionary*  lnd in lands) {
 //        NSDictionary* greetings =[ dist valueForKey:@"Greetings"];
 //        
 //        [self GetFileWithID:[greetings valueForKey:@"HelloAudioID"] AndFormat:@"Wav" FromData:[greetings valueForKey:@"HelloAudioData"]];
@@ -133,7 +134,7 @@
 //    }
 //
     
-      [self.delegate DistrictUpdate:self.districts];
+      [self.delegate LandUpdate:self.lands];
     
 }
 

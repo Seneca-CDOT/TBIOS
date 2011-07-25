@@ -18,7 +18,7 @@
 #pragma Mark -
 #pragma Mark Reverce Geocoder Public Methds
 
-- (NSArray *) findNearByDistrictsForPointWithLat:(double)lat AndLng: (double) lng{
+- (NSArray *) findNearByLandsForPointWithLat:(double)lat AndLng: (double) lng{
     
     curLatitude =round(lat*100000)/100000;
     curLongitude =round(lng*100000)/100000;
@@ -27,26 +27,26 @@
     //handle Error
     }
     
-    NSArray * fetchedNearByDistricts = [self.fetchedResultsController fetchedObjects];
-    return fetchedNearByDistricts;
+    NSArray * fetchedNearByLands = [self.fetchedResultsController fetchedObjects];
+    return fetchedNearByLands;
 }
 
-- (NSArray *) findDistrictForCoordinateWithLat:(double)lat AndLng:(double) lng{
+- (NSArray *) findLandForCoordinateWithLat:(double)lat AndLng:(double) lng{
     
-    NSArray *nearByDistricts =[self findNearByDistrictsForPointWithLat:lat AndLng:lng];
-    if ([nearByDistricts count]>0) {
+    NSArray *nearByLands =[self findNearByLandsForPointWithLat:lat AndLng:lng];
+    if ([nearByLands count]>0) {
     
     
     }
-    NSMutableArray* districts= [[NSMutableArray alloc] init];
+    NSMutableArray* lands= [[NSMutableArray alloc] init];
     
-    for (NSManagedObject * district in nearByDistricts) {
-         NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:[[district valueForKey:@"Coordinates"]description]];
+    for (NSManagedObject * land in nearByLands) {
+         NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:[[land valueForKey:@"Coordinates"]description]];
         if([self PointWithLatitute: lat AndLongitute: lng BelongsToPolygonWithCoordinates:coordinates]){
-            [districts addObject:district];   
+            [lands addObject:land];   
         }
     }// end of for loop
-    return districts;
+    return lands;
 }
 
 #pragma Mark -
@@ -262,12 +262,12 @@
     }
     
     NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
-    NSEntityDescription *entity =[NSEntityDescription entityForName:@"District" inManagedObjectContext:self.managedObjectContext];
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Land" inManagedObjectContext:self.managedObjectContext];
     
     [fetchedRequest setEntity:entity];
     
     // set sort key 
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"DistrictName" ascending:YES];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"LandName" ascending:YES];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
     
     [fetchedRequest setSortDescriptors:sortDescriptors];
@@ -277,8 +277,8 @@
     [fetchedRequest setPredicate:predicate];
     
     //create fetchedResultsController
-    [NSFetchedResultsController deleteCacheWithName:@"District"];
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"District"];
+    [NSFetchedResultsController deleteCacheWithName:@"Land"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Land"];
     aFetchedResultsController.delegate = self;
     self.fetchedResultsController = aFetchedResultsController;
     

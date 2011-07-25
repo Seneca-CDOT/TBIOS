@@ -21,8 +21,8 @@
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
 
 
-- (NSArray *) findNearByDistrictsForPointWithLat:(double)lat AndLng: (double) lng;
-- (NSArray *) findDistrictForCoordinateWithLat:(double)lat AndLng:(double) lng; 
+- (NSArray *) findNearByLandsForPointWithLat:(double)lat AndLng: (double) lng;
+- (NSArray *) findLandForCoordinateWithLat:(double)lat AndLng:(double) lng; 
 //helper methods
 - (BOOL)PointWithLatitute: (double) lat AndLongitute:(double)lng BelongsToPolygonWithCoordinates:(NSArray*) coordinates;
 - (BOOL)PointWithLatitute:(double)lat AndLongitute:(double)lng IsAVerticeOfPolygonWithCoordinates:(NSArray *)coordinates;
