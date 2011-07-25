@@ -155,8 +155,8 @@
     
 }
 -(IBAction)setMapType:(id)sender{
-    UISegmentedControl * mapTypeControl = (UISegmentedControl*)sender;
-    if (mapTypeControl.selectedSegmentIndex == Standard) {
+    UISegmentedControl * mapTypes = (UISegmentedControl*)sender;
+    if (mapTypes.selectedSegmentIndex == Standard) {
         [self.mapView setMapType:MKMapTypeStandard];
     }else{
          [self.mapView setMapType:MKMapTypeHybrid];
