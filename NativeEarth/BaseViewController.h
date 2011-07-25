@@ -13,7 +13,7 @@
 @interface BaseViewController : UIViewController {
 }
 // coredata 
-    @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property NetworkStatus internetConnectionStatus;
 @property NetworkStatus wifiConnectionStatus;
 @property NetworkStatus remoteHostStatus;

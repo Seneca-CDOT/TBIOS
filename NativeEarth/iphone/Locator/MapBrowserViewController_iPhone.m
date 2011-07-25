@@ -110,12 +110,12 @@
   //  lable.text = [error description];
 }
 
--(void)DistrictUpdate:(NSArray *)districts{
-    if ([districts count]>0) {
+-(void)LandUpdate:(NSArray *)lands{
+    if ([lands count]>0) {
        //lable.text = [[districts objectAtIndex:0]valueForKey:@"DistrictName"];
     
  
-        [self drawOverlaysOfArray:districts];
+        [self drawOverlaysOfArray:lands];
 
     } 
 }

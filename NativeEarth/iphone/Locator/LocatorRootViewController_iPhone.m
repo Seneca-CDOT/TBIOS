@@ -1,4 +1,4 @@
-//
+ //
 //  LocatorRootViewController.m
 //  NativeEarth
 //
@@ -12,8 +12,9 @@
 #import "BrowseViewController_iPhone.h"
 #import "MapLookUpViewController_iPhone.h"
 #import "GeoPoliticalLookupViewController_iPhone.h"
-@implementation LocatorRootViewController_iPhone
 
+@implementation LocatorRootViewController_iPhone
+@synthesize locationDetector;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,6 +27,7 @@
 
 - (void)dealloc
 {
+    [locationDetector release];
     [super dealloc];
 }
 
@@ -52,7 +54,9 @@
     self.tableView.delegate = self;
     
     self.view = self.tableView;
-   
+    
+
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -164,16 +168,15 @@
 }
 
 -(void)GoToCurrentLocation{
-    LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc]init];
-  
-    nextVC.remoteHostStatus = self.remoteHostStatus;
-    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-    nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.managedObjectContext = self.managedObjectContext;
-    nextVC.title= NSLocalizedString(@"Current Location", @"Current Location");
-  
-    [self.navigationController pushViewController:nextVC animated:YES];
-    [nextVC release];
+    if (self.remoteHostStatus == NotReachable ) 
+        self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally WithManagedObjectContext: self.managedObjectContext];
+    else self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Network WithManagedObjectContext:self.managedObjectContext];
+    
+    self.locationDetector.delegate = self;
+ 
+    
+   [self.locationDetector.locationManager startUpdatingLocation];
+    
 }
 -(void)BrowseByName;{
     BrowseViewController_iPhone * nextVC = [[BrowseViewController_iPhone alloc]initWithNibName:@"BrowseViewController_iPhone" bundle:nil];
@@ -206,14 +209,36 @@
 }
 -(void)BrowseMap{
     MapLookUpViewController_iPhone * nextVC = [[MapLookUpViewController_iPhone alloc] initWithNibName:@"MapLookUpViewController_iPhone" bundle:nil];
-    //nextVC.remoteHostStatus = self.remoteHostStatus;
-    //nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-    //nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    //nextVC.managedObjectContext = self.managedObjectContext;
+    nextVC.remoteHostStatus = self.remoteHostStatus;
+    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+    nextVC.internetConnectionStatus = self.internetConnectionStatus;
+    nextVC.managedObjectContext = self.managedObjectContext;
     nextVC.title= NSLocalizedString(@"The First Nation", @"The First Nation");
     
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 
 }
+#pragma  mark - LocationDetectorDelegate
+-(void) LandUpdate:(NSArray *)lands{
+    
+    LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc]init];
+    
+    nextVC.remoteHostStatus = self.remoteHostStatus;
+    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+    nextVC.internetConnectionStatus = self.internetConnectionStatus;
+    nextVC.managedObjectContext = self.managedObjectContext;
+    nextVC.landArray=lands;
+    nextVC.title= NSLocalizedString(@"Current Location", @"Current Location");
+    
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
+}
+-(void) LocationError:(NSError *)error{
+    NSLog(@"%@",[error description]);
+}
+-(void) locationUpdate:(CLLocation *)location{
+     
+}
+  
 @end
