@@ -93,7 +93,9 @@
 
 -(IBAction) FirstNationLocatorBtnAction:(id) sender{
     LocatorRootViewController_iPhone * locatorRootVC = [[LocatorRootViewController_iPhone alloc]init];
-    
+    locatorRootVC.remoteHostStatus = self.remoteHostStatus;
+    locatorRootVC.wifiConnectionStatus = self. wifiConnectionStatus;
+    locatorRootVC.internetConnectionStatus = self.internetConnectionStatus;
     locatorRootVC.title = NSLocalizedString(@"Locator",@"Locator");
     
     UIBarButtonItem *homeBtn = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:locatorRootVC action:@selector(goHome)];
