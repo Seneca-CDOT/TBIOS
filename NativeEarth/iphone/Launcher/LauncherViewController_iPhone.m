@@ -124,7 +124,7 @@
     visitPlannerRootVC.internetConnectionStatus = self.internetConnectionStatus;
     visitPlannerRootVC.wifiConnectionStatus = self.wifiConnectionStatus;
     visitPlannerRootVC.remoteHostStatus= self.remoteHostStatus;
-    
+    visitPlannerRootVC.managedObjectContext = self.managedObjectContext;
      UINavigationController *VisitPlannerNavigationController = [[UINavigationController alloc] initWithRootViewController:visitPlannerRootVC];
     
     VisitPlannerNavigationController.navigationBar.tintColor=[UIColor blackColor];
