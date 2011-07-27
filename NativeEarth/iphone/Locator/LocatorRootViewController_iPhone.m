@@ -8,7 +8,7 @@
 
 #import "LocatorRootViewController_iPhone.h"
 #import "Reachability.h"
-#import "LocationInfoViewController_iPhone.h"
+#import "LandSelectViewController_iPhone.h"
 #import "BrowseViewController_iPhone.h"
 #import "MapLookUpViewController_iPhone.h"
 #import "GeoPoliticalLookupViewController_iPhone.h"
@@ -222,7 +222,7 @@
 #pragma  mark - LocationDetectorDelegate
 -(void) LandUpdate:(NSArray *)lands{
     
-    LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc]init];
+    LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;

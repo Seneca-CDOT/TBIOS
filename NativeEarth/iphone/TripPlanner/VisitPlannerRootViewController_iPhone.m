@@ -9,9 +9,9 @@
 #import "VisitPlannerRootViewController_iPhone.h"
 #import "Reachability.h"
 #import "ViewAVisitViewController_iPhone.h"
-#import "LocationInfoViewController_iPhone.h"
+#import "LandSelectViewController_iPhone.h"
 @implementation VisitPlannerRootViewController_iPhone
-
+@synthesize fetchedResultsController;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -23,6 +23,7 @@
 
 - (void)dealloc
 {
+    [fetchedResultsController_ release];
     [super dealloc];
 }
 
@@ -114,6 +115,10 @@
     return cell;
 }
 
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
+}
+
 /*
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -139,26 +144,21 @@
 
 
 
-
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
-    LocationInfoViewController_iPhone * nextVC = [[LocationInfoViewController_iPhone alloc] init];
-    nextVC.managedObjectContext = self.managedObjectContext;
+    if ([[self.fetchedResultsController fetchedObjects] count]>0) {
+        
+   
+    LandSelectViewController_iPhone * nextVC = [[LandSelectViewController_iPhone alloc] init];
+   // nextVC.managedObjectContext = self.managedObjectContext;
     // add reffering object too.
-    
+        nextVC.landArray = (NSArray*)[[fetchedResultsController objectAtIndexPath:indexPath] valueForKey:@"Lands"];
    nextVC.title = @"Title";
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
+    }
 }
 
 
@@ -178,6 +178,72 @@
 }
 
 -(void)AddNewVisit{
-    
+    ViewAVisitViewController_iPhone * nextVC = [[ViewAVisitViewController_iPhone alloc] initWithNibName:@"ViewAVisitViewController_iPhone" bundle:nil];
+    nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
+    nextVC.managedObjectContext = self.managedObjectContext;
+    // will add visit object too.
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
 }
+
+
+#pragma mark -
+#pragma mark Fetched results controller
+
+- (NSFetchedResultsController *)fetchedResultsController {
+    
+    if (fetchedResultsController_ != nil) {
+        return fetchedResultsController_;
+    }
+    
+    /*
+     Set up the fetched results controller.
+	 */
+    // Create the fetch request for the entity.
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    // Edit the entity name as appropriate.
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Set the batch size to a suitable number.
+    [fetchRequest setFetchBatchSize:20];
+    
+    // Edit the sort key as appropriate.
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"DateFrom" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+	// Clear the cache
+	[NSFetchedResultsController deleteCacheWithName:@"PlannedVisit"];
+	
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"PlannedVisit"];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsController = aFetchedResultsController;
+    
+    [aFetchedResultsController release];
+    [fetchRequest release];
+    [sortDescriptor release];
+    [sortDescriptors release];
+    
+    NSError *error = nil;
+    if (![fetchedResultsController_ performFetch:&error]) {
+        /*
+         Replace this implementation with code to handle the error appropriately.
+         
+         abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
+         */
+        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        abort();
+    }
+    
+    return fetchedResultsController_;
+}   
+
+
+
 @end
+
+

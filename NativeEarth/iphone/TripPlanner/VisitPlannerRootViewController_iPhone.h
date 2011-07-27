@@ -9,8 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
 
-@interface VisitPlannerRootViewController_iPhone : BaseTableViewController {
-    
+@interface VisitPlannerRootViewController_iPhone : BaseTableViewController<NSFetchedResultsControllerDelegate> {
+    NSFetchedResultsController * fetchedResultsController_;
 }
+@property (nonatomic,retain) NSFetchedResultsController * fetchedResultsController;
 
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
