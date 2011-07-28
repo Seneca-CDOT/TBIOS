@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
-
+#import "Greetings.h"
 @class Greetings, Land;
 
 @interface Content : NSManagedObject {
@@ -23,5 +23,7 @@
 @property (nonatomic, retain) Greetings * ThankYouContentOfGreeting;
 @property (nonatomic, retain) Greetings * LandContentOfGreeting;
 @property (nonatomic, retain) Land * MapContentOf;
+
+//-(id) initWithDictionary:(NSDictionary *) contentDict AsMapOfLand:(Land *)land orHelloContentOfGreeting:(Greetings *) helloContentOf orThankYouContentOfGreeting:(Greetings*) thankYouContentOf orLandContentOfGreeting:(Greetings *) landContentOf;
 
 @end

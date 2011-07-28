@@ -1,18 +1,17 @@
 //
-//  Land.h
+//  WSLand.h
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-07-27.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Ladan Zahir on 11-07-28.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
 
-@class Content, Greetings, PlannedVisit;
+@class WSContent, WSGreetings;
 
-@interface Land : NSManagedObject {
-@private
+@interface WSLand : NSObject {
+    
 }
 @property (nonatomic, retain) NSNumber * BoundryW;
 @property (nonatomic, retain) NSString * Description;
@@ -27,10 +26,8 @@
 @property (nonatomic, retain) NSNumber * BoundryE;
 @property (nonatomic, retain) NSNumber * LandID;
 @property (nonatomic, retain) NSNumber * VersionIdentifier;
-@property (nonatomic, retain) NSSet* PlannedVisits;
-@property (nonatomic, retain) Greetings * Greetings;
-@property (nonatomic, retain) Content * Map;
+@property (nonatomic, retain) WSGreetings * Greetings;
+@property (nonatomic, retain) NSMutableArray * Images;
 
-
-//-(id) initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context WithDictionary:(NSDictionary *) landDict;
+-(id)initWithDictionary:(NSDictionary *)landDict;
 @end

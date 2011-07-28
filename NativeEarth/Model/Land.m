@@ -1,4 +1,4 @@
-//
+ //
 //  Land.m
 //  NativeEarth
 //
@@ -29,6 +29,35 @@
 @dynamic PlannedVisits;
 @dynamic Greetings;
 @dynamic Map;
+
+
+//-(id) initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context WithDictionary:(NSDictionary *) landDict{
+//
+//    self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
+//    if (self) {
+//        
+//    [self setName:[landDict valueForKey:@"LandName"]];
+//
+//    self.Description = [landDict valueForKey:@"LandDescription"];
+//    self.LandID = [landDict valueForKey:@"LandID"];
+//    self.VersionIdentifier = [landDict valueForKey:@"VersionIdentifier"];
+//    self.Shape = [landDict valueForKey:@"Shape"];
+//    self.CenterPoint = [landDict valueForKey:@"CenterPoint"];
+//    self.Coordinates = [landDict valueForKey:@"Coordinates"];
+//    self.DateFrom = [landDict valueForKey:@"DateFrom"];
+//    self.DateTo = [landDict valueForKey:@"DateTo"];
+//    self.BoundryE= [landDict valueForKey:@"BoundryE"];
+//    self.BoundryN=[landDict valueForKey:@"BoundryN"];
+//    self.BoundryS = [landDict valueForKey:@"BoundryS"];
+//    self.BoundryW =[landDict valueForKey:@"BoundryW"];
+//    
+//    NSDictionary * greetings = [landDict valueForKey:@"Greetings"];
+//    self.Greetings =[[Greetings alloc] initWithDictionary:greetings ForLand:self];
+//        
+//    self.Map = nil;
+//    }
+//    return self;
+//}
 
 - (void)addPlannedVisitsObject:(PlannedVisit *)value {    
     NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];

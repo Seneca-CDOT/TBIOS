@@ -1,18 +1,16 @@
 //
-//  Greetings.h
+//  WSGreetings.h
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-07-27.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Ladan Zahir on 11-07-28.
+//  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
-#import <CoreData/CoreData.h>
+@class WSContent;
 
-@class Content, Land;
-
-@interface Greetings : NSManagedObject {
-@private
+@interface WSGreetings : NSObject {
+    
 }
 @property (nonatomic, retain) NSString * LandPhrase;
 @property (nonatomic, retain) NSString * HelloPronounciationFrench;
@@ -24,11 +22,10 @@
 @property (nonatomic, retain) NSString * HelloPronounciationEnglish;
 @property (nonatomic, retain) NSString * ThankYouPronounciationEnglish;
 @property (nonatomic, retain) NSString * ThankYouPronounciationFrench;
-@property (nonatomic, retain) Content * HelloContent;
-@property (nonatomic, retain) Content * LandContent;
-@property (nonatomic, retain) Content * ThankYouContent;
-@property (nonatomic, retain) Land * Land;
+@property (nonatomic, retain) WSContent * HelloContent;
+@property (nonatomic, retain) WSContent * LandContent;
+@property (nonatomic, retain) WSContent * ThankYouContent;
 
-//-(id) initWithDictionary:(NSDictionary *) GreetingsDict ForLand:(Land *) land;
+-(id) initWithDictionary:(NSDictionary *) greetingsDict;
 
 @end
