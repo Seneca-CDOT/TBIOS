@@ -13,7 +13,8 @@
 @interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
     
 }
-@property (nonatomic, retain) id land;
+@property (nonatomic, retain) id selectedLand;
+@property (nonatomic, retain) NSArray * allLands;
 //NavigationMethods
 -(void) NavigateToGreetings;
 -(void) NavigateToImageGallery;

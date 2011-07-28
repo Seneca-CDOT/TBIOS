@@ -10,6 +10,7 @@
 #import <QuartzCore/QuartzCore.h>
 
 @implementation ImageBrowser_iPhone
+@synthesize wSImages;
 @synthesize  imageArray;
 @synthesize containerView;
 @synthesize imageView;
@@ -27,6 +28,7 @@
 
 - (void)dealloc
 {
+    [self.wSImages release];
     [self.imageView release];
     [self.imageArray release];
     [self.view1 release];

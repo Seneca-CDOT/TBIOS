@@ -8,7 +8,7 @@
 
 #import "LandSelectViewController_iPhone.h"
 #import "LocationInfoViewController_iPhone.h"
-
+#import "WSLand.h"
 @implementation LandSelectViewController_iPhone
 
 @synthesize landArray;
@@ -109,8 +109,8 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	if ([self.landArray count]>0) {
         
-        cell.textLabel.text =@"land name";
-        cell.detailTextLabel.text= @"description";
+        cell.textLabel.text =((WSLand *)[landArray objectAtIndex:indexPath.section]).Name;
+        cell.detailTextLabel.text=((WSLand *)[landArray objectAtIndex:indexPath.section]).Description;
         cell.userInteractionEnabled= YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.alpha=1.0;
@@ -134,7 +134,8 @@
      LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
      // ...
      // Pass the selected object to the new view controller.
-    nextVC.land = [landArray objectAtIndex:indexPath.section];
+    nextVC.selectedLand = [landArray objectAtIndex:indexPath.section];
+        nextVC.allLands = landArray;
      [self.navigationController pushViewController:nextVC animated:YES];
      [nextVC release];
     }

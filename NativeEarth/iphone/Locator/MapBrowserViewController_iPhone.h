@@ -11,34 +11,31 @@
 #import <MapKit/MapKit.h>
 #import "LocationDetector.h"
 #import "Reachability.h"
-#import <AVFoundation/AVFoundation.h>
-#import <AudioToolbox/AudioToolbox.h>
-#import "DistrictCenterAnnotation.h"
 
-@interface MapBrowserViewController_iPhone:BaseViewController <LocationDetectorDelegate, MKMapViewDelegate, AVAudioPlayerDelegate> 
+#import "DistrictCenterAnnotation.h"
+#import "Land.h"
+
+@interface MapBrowserViewController_iPhone:BaseViewController <LocationDetectorDelegate, MKMapViewDelegate> 
 {
     MKMapView                   *mapView;
-    NSArray                     * viewDistricts;
+    NSArray                     *lands;
     UINavigationController      *searchListNavigationController;
     
     DistrictCenterAnnotation    * _calloutAnnotation;
 	MKAnnotationView            *_selectedAnnotationView;
-    
-    
-    NSURL						*soundFileURL;
-    AVAudioPlayer				*appSoundPlayer;
+
  
 }
 
 
-@property (nonatomic,retain)            LocationDetector          *locationDetector;
+//@property (nonatomic,retain)            LocationDetector          *locationDetector;
 @property (nonatomic,retain)            IBOutlet   MKMapView      *mapView;
-
+@property (nonatomic, retain)           NSArray                   *lands;
 @property (nonatomic, retain)           MKAnnotationView          *selectedAnnotationView;
 @property (nonatomic, retain)           DistrictCenterAnnotation  *calloutAnnotation;
 
 
--(void)         drawOverlaysOfArray: (NSArray*)districtsArray;
+-(void)  drawOverlaysOfArray: (NSArray*)landsArray;
 
 @end
 

@@ -8,8 +8,10 @@
 
 #import "VisitPlannerRootViewController_iPhone.h"
 #import "Reachability.h"
-#import "ViewAVisitViewController_iPhone.h"
+#import "AddAVisitViewController_iPhone.h"
 #import "LandSelectViewController_iPhone.h"
+#import "PlannedVisit.h"
+#import "Land.h"
 @implementation VisitPlannerRootViewController_iPhone
 @synthesize fetchedResultsController;
 - (id)initWithStyle:(UITableViewStyle)style
@@ -154,6 +156,7 @@
     LandSelectViewController_iPhone * nextVC = [[LandSelectViewController_iPhone alloc] init];
    // nextVC.managedObjectContext = self.managedObjectContext;
     // add reffering object too.
+        
         nextVC.landArray = (NSArray*)[[fetchedResultsController objectAtIndexPath:indexPath] valueForKey:@"Lands"];
    nextVC.title = @"Title";
     [self.navigationController pushViewController:nextVC animated:YES];
@@ -178,11 +181,15 @@
 }
 
 -(void)AddNewVisit{
-    ViewAVisitViewController_iPhone * nextVC = [[ViewAVisitViewController_iPhone alloc] initWithNibName:@"ViewAVisitViewController_iPhone" bundle:nil];
+    AddAVisitViewController_iPhone * nextVC = [[AddAVisitViewController_iPhone alloc] initWithNibName:@"ViewAVisitViewController_iPhone" bundle:nil];
+ 
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     nextVC.managedObjectContext = self.managedObjectContext;
     // will add visit object too.
-    [self.navigationController pushViewController:nextVC animated:YES];
+    NSEntityDescription *entity= [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:self.managedObjectContext];
+    nextVC.visit = [[PlannedVisit alloc]initWithEntity:entity insertIntoManagedObjectContext:nextVC.managedObjectContext];
+    
+    [self.navigationController presentModalViewController:nextVC animated:YES];
     [nextVC release];
 }
 
@@ -209,7 +216,7 @@
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"DateFrom" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"FromDate" ascending:NO];
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
     
     [fetchRequest setSortDescriptors:sortDescriptors];

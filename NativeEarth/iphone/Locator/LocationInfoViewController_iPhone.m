@@ -11,6 +11,8 @@
 #import "GazetterViewController_iPhone.h"
 #import "ImageBrowser_iPhone.h"
 #import "MapBrowserViewController_iPhone.h"
+#import "WSLand.h"
+#import "Constants.h"
 typedef enum{
     sectionHeaderTitleName,
     sectionHeaderTitleDescription,
@@ -21,7 +23,8 @@ typedef enum{
     
 } sectionHeaderTitle;
 @implementation LocationInfoViewController_iPhone
-@synthesize land;
+@synthesize selectedLand;
+@synthesize allLands;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -33,7 +36,8 @@ typedef enum{
 
 - (void)dealloc
 {
-    [self.land release];
+    [self.selectedLand release];
+    [self.allLands release];
     [super dealloc];
 }
 
@@ -103,12 +107,16 @@ typedef enum{
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	switch (indexPath.row) {
         case sectionHeaderTitleName:
-            cell.textLabel.text=NSLocalizedString(@"Name", @"Name");
-             cell.userInteractionEnabled = NO;
+            cell.textLabel.text=((WSLand *)selectedLand).Name;
+            //cell.detailTextLabel.text = 
+            cell.userInteractionEnabled = NO;
             break;
         case sectionHeaderTitleDescription:
-            cell.textLabel.text=NSLocalizedString(@"Description",@"Description");
-             cell.userInteractionEnabled = NO;
+          //  cell.textLabel.text=NSLocalizedString(@"Description",@"Description");
+            cell.detailTextLabel.numberOfLines=0;
+            cell.detailTextLabel.text = ((WSLand *)selectedLand).Description;
+             cell.userInteractionEnabled =NO;
+            
             
             break;
         case sectionHeaderTitleGreetings:
@@ -155,7 +163,7 @@ typedef enum{
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
     // Configure the cell...
@@ -167,7 +175,7 @@ typedef enum{
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	
     NSString * title = [[NSString alloc]init];
-	title = @"title";
+	title = NSLocalizedString(@"The First Nation:",@"The First Nation:" );//((WSLand *)selectedLand).Name;
 	return title;
 }
 
@@ -207,11 +215,26 @@ typedef enum{
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 1) {
+        NSString *description = @"[No Description]";
+        if (((WSLand *)selectedLand).Description != nil) description = ((WSLand *)selectedLand).Description;
+        CGSize s = [description sizeWithFont:[UIFont systemFontOfSize:15] 
+                     constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
+                         lineBreakMode:UILineBreakModeWordWrap];
+        return s.height + 16; // Add padding
+
+    }
+       
+    return kRegularCellRowHeight;
+}
+
 
 
 -(void) NavigateToGreetings{
     GreetingsViewController_iPhone * nextVC = [[GreetingsViewController_iPhone alloc]init];
-    nextVC.title=@"Title";
+    nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
+    nextVC.greetings = ((WSLand *)selectedLand).Greetings;
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
@@ -227,8 +250,8 @@ typedef enum{
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
     nextVC.managedObjectContext= self.managedObjectContext;
-     nextVC.title=@"Title";
-      [self.navigationController pushViewController:nextVC animated:YES];
+    nextVC.lands = self.allLands;
+    [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
 }
 -(void) NavigateToImageGallery{
@@ -237,8 +260,10 @@ typedef enum{
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
     nextVC.managedObjectContext= self.managedObjectContext;
-    nextVC.imageArray = [self loadImages];
-     nextVC.title=@"Title";
+   // nextVC.imageArray = [self loadImages];
+    nextVC.wSImages =((WSLand *)selectedLand).Images;
+    nextVC.title= ((WSLand *)selectedLand).Name;
+    
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
 

@@ -20,7 +20,10 @@ typedef enum{ Next, Previous} TransitionDirection;
     NSArray * imageArray;
      NSInteger currentImageIndex;
      NSInteger nextImageIndex;
+    
+    NSArray * wSImages;
 }
+@property(nonatomic, retain) NSArray * wSImages;
 @property(nonatomic,retain) NSArray * imageArray;
 @property(nonatomic,retain) IBOutlet UIView *containerView;
 @property(nonatomic,retain) IBOutlet UIImageView *imageView;

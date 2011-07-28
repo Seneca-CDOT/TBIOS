@@ -13,6 +13,7 @@
 #import "MapLookUpViewController_iPhone.h"
 #import "GeoPoliticalLookupViewController_iPhone.h"
 
+
 @implementation LocatorRootViewController_iPhone
 @synthesize locationDetector;
 
@@ -228,7 +229,7 @@
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.managedObjectContext = self.managedObjectContext;
-    nextVC.landArray=lands;
+    nextVC.landArray=[self GetWSLandsFromDictArray:lands];//lands;
     nextVC.title= NSLocalizedString(@"Current Location", @"Current Location");
     
     [self.navigationController pushViewController:nextVC animated:YES];
@@ -240,5 +241,18 @@
 -(void) locationUpdate:(CLLocation *)location{
      
 }
+
+#pragma  mark - converter
+-(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray{
   
+    NSMutableArray * wSLands = [[NSMutableArray alloc]init];
+    for (NSDictionary* dict in dictArray) {
+        [wSLands addObject:[self GetWSLandForDict:dict]];
+    }
+    return wSLands;
+}
+
+-(WSLand *)GetWSLandForDict:(NSDictionary *)dict{
+    return  [[WSLand alloc] initWithDictionary:dict];
+}
 @end

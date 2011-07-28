@@ -8,20 +8,13 @@
 //
 
 #import "ViewAVisitViewController_iPhone.h"
+#import "Constants.h"
 
-//contstants
-#define kUITextViewCellRowHeight 110.0
-#define kStdButtonWidth		60.0
-#define kStdButtonHeight	20.0
-#define kRegularCellRowHeight  34.0
-#define kTextFieldRowHeight  37.0
-#define kButtonTag			1		// for tagging our embedded controls for removal at cell recycle time
 typedef enum {SectionFirstNationName, SectionDate, SectionTitle, SectionNotes} SectionType;
 
 typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 
 @implementation ViewAVisitViewController_iPhone
-
 @synthesize dateFormatter;
 @synthesize toolBar;
 @synthesize infoTableView;
@@ -31,9 +24,10 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 @synthesize changeButton;
 @synthesize shiftForKeyboard;
 @synthesize trashButton;
-
+@synthesize visit;
 - (void)dealloc
 {
+    [self.visit release];
     [self.trashButton release];
     [self.changeButton release];
     [self.doneButton release];
@@ -69,6 +63,9 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    
+
+   
 }
 
 - (void)viewDidUnload

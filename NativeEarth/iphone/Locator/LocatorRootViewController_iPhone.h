@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
 #import "LocationDetector.h"
-
+#import "WSLand.h"
 @interface LocatorRootViewController_iPhone : BaseTableViewController <UITableViewDataSource, UITableViewDelegate,LocationDetectorDelegate>{
     
 }
@@ -18,6 +18,9 @@
 -(void)BrowseByName;
 -(void)BrowseByGeopoliticalName;
 -(void)BrowseMap;
+
+-(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray;
+-(WSLand *)GetWSLandForDict:(NSDictionary *)dict;
 @end
 
 /*if([self conformsToProtocol:@protocol(CLLocationManagerDelegate)]) {  // Check if the class assigning 

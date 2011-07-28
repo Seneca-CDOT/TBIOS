@@ -13,13 +13,13 @@
 #import "DistrictCenterAnnotation.h"
 #import "DistrictCenterAnnotationView.h"
 #import "CalloutMapAnnotationView.h"
-
+#import "WSLand.h"
 
 @implementation MapBrowserViewController_iPhone
 
 @synthesize     mapView;
-@synthesize     locationDetector;
-//@synthesize     searchList;
+@synthesize lands;
+//@synthesize     locationDetector;
 @synthesize     selectedAnnotationView = _selectedAnnotationView;
 @synthesize     calloutAnnotation = _calloutAnnotation;
 
@@ -36,11 +36,10 @@
 
 - (void)dealloc
 {
-   
+    [self .lands release];
     [self.calloutAnnotation release];
     [self.selectedAnnotationView release];
-    [self.locationDetector release];
-    //[self.searchList release];
+   // [self.locationDetector release];
     [self.mapView release];
     [super dealloc];
 }
@@ -61,24 +60,15 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    // GPS point
-//    ReverseGeocoder * rgc = [[ReverseGeocoder alloc] init];
-//    rgc.managedObjectContext = self.managedObjectContext;
-//    
-//    
-//    NSArray * districts= [rgc findDistrictForCoordinateWithLat:currentLatitude AndLng:currentLongitude];
-//    
-//    NSString * result1= [[[districts objectAtIndex:0] valueForKey:@"DistrictName"] description];
-//     
  
-    if (self.remoteHostStatus == NotReachable ) 
-        self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally WithManagedObjectContext: self.managedObjectContext];
-   else self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Network WithManagedObjectContext:self.managedObjectContext];
-    
-    self.locationDetector.delegate = self;
-    
-  [self.locationDetector.locationManager startUpdatingLocation];
-    
+//    if (self.remoteHostStatus == NotReachable ) 
+//        self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally WithManagedObjectContext: self.managedObjectContext];
+//   else self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Network WithManagedObjectContext:self.managedObjectContext];
+//    
+//    self.locationDetector.delegate = self;
+//    
+//  [self.locationDetector.locationManager startUpdatingLocation];
+    [self drawOverlaysOfArray:lands];
 }
 
 
@@ -115,7 +105,7 @@
        //lable.text = [[districts objectAtIndex:0]valueForKey:@"DistrictName"];
     
  
-        [self drawOverlaysOfArray:lands];
+      //  [self drawOverlaysOfArray:lands];
 
     } 
 }
@@ -124,18 +114,18 @@
 #pragma mark - Drawing
 
 
--(void)drawOverlaysOfArray:(NSArray*)districtsArray{
+-(void)drawOverlaysOfArray:(NSArray*)landsArray{
     //clear the map first
     [mapView removeOverlays:mapView.overlays];
     [mapView removeAnnotations:mapView.annotations];
     
-    if(districtsArray !=nil ){
+    if(landsArray !=nil ){
     NSMutableArray * polygons = [[NSMutableArray alloc]init];
     NSMutableArray *annotations =[[NSMutableArray alloc]init];
         
-   for (NSDictionary* district in districtsArray) {
+   for (WSLand * land in landsArray) {
 
-      NSString * coordinateString = [district valueForKey:@"Coordinates"];
+      NSString * coordinateString = land.Coordinates;
      
        NSUInteger length=0;
        CLLocationCoordinate2D * CoordinateArray = parseCoordinatesStringAsCLLocationCoordinate2D(coordinateString, &length);
@@ -145,13 +135,13 @@
        
        
        //annotation:
-       NSString *centerCoordinatesString =[(NSDictionary*)[district valueForKey:@"FirstNation"]valueForKey:@"CentreCoordinates" ];
+       NSString *centerCoordinatesString = land.CenterPoint; 
        NSUInteger len=0;
        CLLocationCoordinate2D * centreCoordinates =parseCoordinatesStringAsCLLocationCoordinate2D(centerCoordinatesString, &len);
        if (len>0) {
            DistrictCenterAnnotation * annotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:centreCoordinates[0].latitude andLongitude:centreCoordinates[0].longitude]autorelease];
-           annotation.title = [[district valueForKey:@"Name"] description];
-           annotation.subTitle= [[district valueForKey:@"Description"] description];
+           annotation.title = land.Name;
+           annotation.subTitle= [land.DateFrom description];
            [annotations addObject:annotation];
        }
        

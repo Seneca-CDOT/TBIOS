@@ -11,6 +11,8 @@
 #import "TextViewCell.h"
 #import "TextFieldCell_iPhone.h"
 #import "BrowseViewController_iPhone.h"
+#import "PlannedVisit.h"
+
 @interface ViewAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate, UIActionSheetDelegate, BrowseViewController_iPhoneDelegate,TextFieldCellDelegate> {
     
     NSDateFormatter *dateFormatter; 
@@ -20,7 +22,11 @@
     UIBarButtonItem *cancelButton;
     UIButton *changeButton;
     UIBarButtonItem *trashButton;
+    
+    PlannedVisit * visit;
+
 }
+@property (nonatomic, retain) PlannedVisit * visit;
 
 
 @property (nonatomic, retain) NSDateFormatter *dateFormatter; 
