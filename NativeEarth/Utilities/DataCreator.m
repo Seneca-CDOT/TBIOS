@@ -7,74 +7,88 @@
 //
 
 #import "DataCreator.h"
-
-
+#import "Land.h"
+#import "WSLand.h"
 @implementation DataCreator
 
+-(id) initWithContext:(NSManagedObjectContext*) context{
+    [super init];
+    managedObjectContext = context;
+    return self;
+}
 
--(void) createData:(NSManagedObjectContext *)context{
+-(void) createDataFromKML{
     NSString *kmlPath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"kml"];
     kml = [[KMLParser parseKMLAtPath:kmlPath] retain];
    
     NSArray* coordsArray = [kml OuterCoordsStringArray];
     NSArray *overlays = [kml overlays];
     
-    NSEntityDescription *entity= [NSEntityDescription entityForName:@"District" inManagedObjectContext:context];
+    NSEntityDescription *entity= [NSEntityDescription entityForName:@"Land" inManagedObjectContext:managedObjectContext];
     
           int i=0;   
     for (MKPolygon* polygon in overlays) {
         
         
-        NSString * districtName = polygon.title;
-        NSString * districtDescription = polygon.subtitle;
-        NSString * districtCoordinates =  [[coordsArray objectAtIndex:i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        NSString * landName = polygon.title;
+        NSString * landDescription = polygon.subtitle;
+        NSString * landCoordinates =  [[coordsArray objectAtIndex:i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-     //   double northLat = [Utility findNorthLatitudeForPoygonCoordinatesString:districtCoordinates]; 
-     //   double southLat=[Utility findSouthLatitudeForPoygonCoordinatesString:districtCoordinates];
-     //   double westLng=[Utility findWestLongitudeForPoygonCoordinatesString:districtCoordinates];
-     //   double eastLng =[Utility findEastLongitudeForPoygonCoordinatesString:districtCoordinates];
        
-        NSDictionary * rectInfo = [Utility findOuterRectInfoForPolygonWithCoordinatesString:districtCoordinates];
+        NSDictionary * rectInfo = [Utility findOuterRectInfoForPolygonWithCoordinatesString:landCoordinates];
 		NSNumber* north = [rectInfo objectForKey:@"NORTH"];
         NSNumber* south =[rectInfo objectForKey:@"SOUTH"];
         NSNumber* east = [rectInfo objectForKey:@"EAST"];
         NSNumber* west =[rectInfo objectForKey:@"WEST"];
         
-        NSManagedObject * district= [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+        Land * land= [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:managedObjectContext];
 		
         // Configure it
-		
-        [district  setValue:districtName forKey:@"DistrictName"];
-        [district  setValue:districtDescription forKey:@"Description"];
-		
-        [district  setValue:districtCoordinates forKey:@"Coordinates"];
-		
         
-        [district  setValue:north forKey:@"North"];
-        [district  setValue:south forKey:@"South"];
-        [district  setValue:west forKey:@"West"];
-        [district  setValue:east forKey:@"East"];
-
+        land.LandName = landName;
+        land.LandDescriptionEnglish = landDescription;
+        land.Coordinates = landCoordinates;
+        land.BoundaryN = north;
+        land.BoundaryS = south;
+        land.BoundaryE = east;
+        land.BoundaryW = west;
+        land.Shape = @"Polygon";
+        land.VersionIdentifier=[NSNumber numberWithInt: 1];
         
 	    NSError *error;
 		// Save it
-		if (![context save:&error]) {
+		if (![managedObjectContext save:&error]) {
 			NSLog(@"Context save error %@, %@", error, [error userInfo]);
 			abort();
 		}
-
-        
        
         i++;
     }// end of for
     
-   
-
-   
-//  NSString* filePath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"csv"];
-// NSString* fileContents = [NSString stringWithContentsOfFile:filePath];
  
 }
 
+-(void) createDataFromWebServive{
+   NSString * urlString = @"http://localhost/~ladan/AlgonquinOverLap";
+    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc] init];
+    dataGetter.delegate = self;
+    [dataGetter GetResultsFromUrl:urlString];
+}
 
+-(void)DataUpdate:(id)object{
+    NSError *error;
+    NSArray * landArray = (NSArray*)object;
+    for (NSDictionary * landDict  in landArray) {
+        WSLand *wsland = [[WSLand alloc] initWithDictionary:landDict];
+        [wsland ToManagedLand:managedObjectContext];
+        if(! [managedObjectContext save:&error]){
+            NSLog(@"Context save error %@, %@", error, [error userInfo]);
+			abort();
+        }
+         
+    }
+}
+-(void)DataError:(NSError *)error{
+    
+}
 @end

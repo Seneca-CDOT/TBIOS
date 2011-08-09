@@ -10,11 +10,13 @@
 #import <MapKit/MapKit.h>
 #import "Utility.h"
 #import "KMLParser.h"
+#import "NetworkDataGetter.h"
 
-@interface DataCreator : NSObject {
+@interface DataCreator : NSObject <NetworkDataGetterDelegate>{
     KMLParser *kml;
+    NSManagedObjectContext * managedObjectContext;
 }
-
--(void) createData:(NSManagedObjectContext *)context;
-
+-(id) initWithContext:(NSManagedObjectContext*) context;
+-(void) createDataFromKML;
+-(void) createDataFromWebServive;
 @end
