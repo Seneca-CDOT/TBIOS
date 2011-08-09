@@ -12,13 +12,14 @@
 
 @interface ReverseGeocoder : NSObject<NSFetchedResultsControllerDelegate> {
     @private
-    NSFetchedResultsController * fetchedResultsController_;
+    NSFetchedResultsController * fetchedResultsControllerLands_;
     NSManagedObjectContext * managedObjectContext_;
     double curLatitude;
     double curLongitude;
 }
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsController;
+@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLands;
+
 
 
 - (NSArray *) findNearByLandsForPointWithLat:(double)lat AndLng: (double) lng;

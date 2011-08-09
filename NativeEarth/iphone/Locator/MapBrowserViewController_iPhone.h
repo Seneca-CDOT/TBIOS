@@ -15,7 +15,7 @@
 #import "DistrictCenterAnnotation.h"
 #import "Land.h"
 
-@interface MapBrowserViewController_iPhone:BaseViewController <LocationDetectorDelegate, MKMapViewDelegate> 
+@interface MapBrowserViewController_iPhone:BaseViewController <MKMapViewDelegate> 
 {
     MKMapView                   *mapView;
     NSArray                     *lands;
@@ -24,7 +24,7 @@
     DistrictCenterAnnotation    * _calloutAnnotation;
 	MKAnnotationView            *_selectedAnnotationView;
 
- 
+    NSString * language;
 }
 
 
@@ -34,6 +34,7 @@
 @property (nonatomic, retain)           MKAnnotationView          *selectedAnnotationView;
 @property (nonatomic, retain)           DistrictCenterAnnotation  *calloutAnnotation;
 
+-(IBAction)flyToPin:(id) sender;
 
 -(void)  drawOverlaysOfArray: (NSArray*)landsArray;
 

@@ -38,7 +38,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 }
 
 - (void)viewDidUnload
@@ -109,8 +109,8 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	if ([self.landArray count]>0) {
         
-        cell.textLabel.text =((WSLand *)[landArray objectAtIndex:indexPath.section]).Name;
-        cell.detailTextLabel.text=((WSLand *)[landArray objectAtIndex:indexPath.section]).Description;
+        cell.textLabel.text =((WSLand *)[landArray objectAtIndex:indexPath.section]).LandName;
+      //  cell.detailTextLabel.text=((WSLand *)[landArray objectAtIndex:indexPath.section]).LandDescription;
         cell.userInteractionEnabled= YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.alpha=1.0;

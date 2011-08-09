@@ -22,7 +22,3 @@
 -(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray;
 -(WSLand *)GetWSLandForDict:(NSDictionary *)dict;
 @end
-
-/*if([self conformsToProtocol:@protocol(CLLocationManagerDelegate)]) {  // Check if the class assigning 
- [self locationError:error];
- }*/

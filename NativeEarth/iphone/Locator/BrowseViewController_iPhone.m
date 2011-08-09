@@ -9,7 +9,7 @@
 #import "BrowseViewController_iPhone.h"
 #import "LocationInfoViewController_iPhone.h"
 #import "JSON.h"
-
+#import "LandShort.h"
 @implementation BrowseViewController_iPhone
 @synthesize browseType;
 @synthesize completeList;
@@ -44,7 +44,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+    landIsSelected = NO;
     if (browseType== ForLocator) {
         [self.toolbar setHidden:YES];
         [self.resultsTableView removeFromSuperview];
@@ -69,7 +69,10 @@
     searchBar = nil;
 }
 
-
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    landIsSelected = NO;
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -91,6 +94,18 @@
     [dataGetter GetResultsFromUrl:url];
 }
 
+-(void) GetFirstNationLandFromWebServiceWithLandID:(NSNumber *)landID{
+    //pass landID and language here:
+    
+    NSString *url = @"http://localhost/~ladan/Algonquin ";
+    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
+    dataGetter.delegate = self;
+    
+    // Reference the app's network activity indicator in the status bar
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [dataGetter GetResultsFromUrl:url];
+
+}
 #pragma mark - TableView datasource and delegate
 
 // Customize the number of rows in the table view.
@@ -143,6 +158,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    landIsSelected = YES;
     /*
 	 If the requesting table view is the search display controller's table view, configure the next view controller using the filtered content, otherwise use the main list.
 	 */
@@ -156,28 +172,13 @@
         dict = [self.completeList objectAtIndex:indexPath.row];
     }
     
-    
-   // FirstNation * nation = [[FirstNation alloc]init];
-   // nation.name = [dict valueForKey:@"Name"];
-   // nation.latitude = [dict valueForKey:@"CenterLatitude"];
-   // nation.longitude = [dict valueForKey:@"CenterLongitude"];
-    
+    LandShort * fn = [[LandShort alloc] initWithDictionary:dict];
     
   if (browseType == ForLocator)  {
-        LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
-        
-        nextVC.remoteHostStatus = self.remoteHostStatus;
-        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-        nextVC.internetConnectionStatus = self.internetConnectionStatus;
-        nextVC.managedObjectContext = self.managedObjectContext;
-        
-        //nextVC.title= nation.name;
-        
-        [self.navigationController pushViewController:nextVC animated:YES];
-        [nextVC release];
+      [self GetFirstNationLandFromWebServiceWithLandID:fn.landId];
 
     }else {
-        [self.delegate BrowseViewControllerDidSelectFirstNation:nil];
+        [self.delegate BrowseViewControllerDidSelectFirstNation:fn];
         [self.navigationController popViewControllerAnimated:YES];
         
     }
@@ -237,10 +238,33 @@
 #pragma  mark - NetworkDataGetter Delegate
 
 -(void)DataUpdate:(id)object{
+    if (!landIsSelected) {
     self.completeList = (NSArray*)object;
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
     [self.resultsTableView reloadData];
 	self.resultsTableView.scrollEnabled = YES;
+    }
+    else{
+        WSLand * selectedLand = [[WSLand alloc] initWithDictionary:(NSDictionary*)object];
+        
+        LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
+        
+        nextVC.remoteHostStatus = self.remoteHostStatus;
+        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+        nextVC.internetConnectionStatus = self.internetConnectionStatus;
+        nextVC.managedObjectContext = self.managedObjectContext;
+        nextVC.selectedLand = selectedLand;
+        
+        NSArray * lands = [NSArray arrayWithObject:selectedLand];
+        nextVC.allLands = lands;
+        
+        
+        nextVC.title= selectedLand.LandName;
+        
+        [self.navigationController pushViewController:nextVC animated:YES];
+        [nextVC release];
+    }
+        
 }
 -(void)DataError:(NSError *)error{
     // Reference the app's network activity indicator in the status bar

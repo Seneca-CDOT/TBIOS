@@ -7,7 +7,7 @@
 //
 
 #import "NativeEarthAppDelegate_iPhone.h"
-
+#import "DataCreator.h"
 @implementation NativeEarthAppDelegate_iPhone
 
 @synthesize viewController;
@@ -24,6 +24,11 @@
     self.viewController.remoteHostStatus = self.wifiConnectionStatus;
     self.viewController.managedObjectContext = self.managedObjectContext;
    
+    
+   DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
+ [dataCreator createDataFromWebServive];
+    
+    
   
     [self.window addSubview:self.viewController.view];
     [self.window makeKeyAndVisible];

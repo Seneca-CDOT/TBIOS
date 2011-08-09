@@ -96,6 +96,7 @@
     locatorRootVC.remoteHostStatus = self.remoteHostStatus;
     locatorRootVC.wifiConnectionStatus = self. wifiConnectionStatus;
     locatorRootVC.internetConnectionStatus = self.internetConnectionStatus;
+    locatorRootVC.managedObjectContext= self.managedObjectContext;
     locatorRootVC.title = NSLocalizedString(@"Locator",@"Locator");
     
     UIBarButtonItem *homeBtn = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:locatorRootVC action:@selector(goHome)];

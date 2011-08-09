@@ -9,16 +9,21 @@
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
 #import "BaseViewController.h"
+#import "NetworkDataGetter.h"
+#import "WSLand.h"
+#import "LandSelectViewController_iPhone.h"
 typedef enum {
 	Standard,
     Hybrid
 } MapTypes;
-@interface MapLookUpViewController_iPhone : BaseViewController {
+@interface MapLookUpViewController_iPhone : BaseViewController <NetworkDataGetterDelegate>{
     MKMapView *mapView;
    BOOL pinIsDropped;
     UIBarButtonItem * redoButton;
     UIToolbar *toolbar;
     UISegmentedControl *mapTypeControl;
+    CLLocationDegrees pinLatitude;
+    CLLocationDegrees pinLongitude;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
@@ -30,4 +35,9 @@ typedef enum {
 -(void)flyToNorthAmerica;
 -(IBAction)reloadMap:(id)sender;
 -(IBAction)setMapType:(id)sender;
+
+-(void) GetFirstNationLandFromWebServiceWithLatitude:(CLLocationDegrees)latitude andLongitude:(CLLocationDegrees) longitude;
+//convertors
+-(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray;
+-(WSLand *)GetWSLandForDict:(NSDictionary *)dict;
 @end

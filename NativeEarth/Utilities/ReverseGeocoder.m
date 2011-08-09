@@ -1,4 +1,4 @@
-//
+ //
 //  ReverseGeocoder.m
 //  NativeEarth
 //
@@ -7,13 +7,14 @@
 //
 
 #import "ReverseGeocoder.h"
-
+#import "Land.h"
 
 @implementation ReverseGeocoder
 
+
 #pragma Mark -
 #pragma Mark Properties 
-@synthesize fetchedResultsController=fetchedResultsController_, managedObjectContext=managedObjectContext_;
+@synthesize fetchedResultsControllerLands=fetchedResultsControllerLands_, managedObjectContext=managedObjectContext_;
 
 #pragma Mark -
 #pragma Mark Reverce Geocoder Public Methds
@@ -23,11 +24,11 @@
     curLatitude =round(lat*100000)/100000;
     curLongitude =round(lng*100000)/100000;
     NSError *error;
-    if(![[self fetchedResultsController]performFetch:&error]){
+    if(![[self fetchedResultsControllerLands]performFetch:&error]){
     //handle Error
     }
     
-    NSArray * fetchedNearByLands = [self.fetchedResultsController fetchedObjects];
+    NSArray * fetchedNearByLands = [self.fetchedResultsControllerLands fetchedObjects];
     return fetchedNearByLands;
 }
 
@@ -40,9 +41,10 @@
     }
     NSMutableArray* lands= [[NSMutableArray alloc] init];
     
-    for (NSManagedObject * land in nearByLands) {
+    for (Land  * land in nearByLands) {
          NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:[[land valueForKey:@"Coordinates"]description]];
         if([self PointWithLatitute: lat AndLongitute: lng BelongsToPolygonWithCoordinates:coordinates]){
+           // NSLog(@"%@",[(land.Greetings) description]);
             [lands addObject:land];   
         }
     }// end of for loop
@@ -110,9 +112,6 @@
     
     return  rv;
 }
-
-
-
 
 
 - (BOOL)PointWithLatitute:(double)lat AndLongitute:(double)lng IsAVerticeOfPolygonWithCoordinates:(NSArray *)coordinates
@@ -256,9 +255,9 @@
 
 #pragma Mark -
 #pragma Mark fetchedResultsController delegate method
--(NSFetchedResultsController *) fetchedResultsController {
-    if(fetchedResultsController_ !=nil){
-        return  fetchedResultsController_;
+-(NSFetchedResultsController *) fetchedResultsControllerLands {
+    if(fetchedResultsControllerLands_ !=nil){
+        return  fetchedResultsControllerLands_;
     }
     
     NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
@@ -273,20 +272,21 @@
     [fetchedRequest setSortDescriptors:sortDescriptors];
     
     // set predicate
-    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"(North>= %lf) AND (South <= %lf) AND (East >= %lf) AND (West <= %lf)",curLatitude,curLatitude,curLongitude,curLongitude];
+    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"(BoundaryN>= %lf) AND (BoundaryS<= %lf) AND (BoundaryE >= %lf) AND (BoundaryW<= %lf)",curLatitude,curLatitude,curLongitude,curLongitude];
     [fetchedRequest setPredicate:predicate];
     
     //create fetchedResultsController
     [NSFetchedResultsController deleteCacheWithName:@"Land"];
+    
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Land"];
     aFetchedResultsController.delegate = self;
-    self.fetchedResultsController = aFetchedResultsController;
+    self.fetchedResultsControllerLands = aFetchedResultsController;
     
     [aFetchedResultsController release];
     [fetchedRequest release];
     
     
-    return fetchedResultsController_;
+    return fetchedResultsControllerLands_;
 }
 
 

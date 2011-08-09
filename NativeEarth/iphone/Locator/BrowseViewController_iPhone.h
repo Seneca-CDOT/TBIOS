@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "NetworkDataGetter.h"
+#import "WSLand.h"
 typedef enum {
 	ForLocator= 0,
     ForVisitPlanner
@@ -25,6 +26,7 @@ typedef enum {
     UITableView * resultsTableView;
     UIToolbar * toolbar;
     UISearchBar *searchBar;
+    BOOL landIsSelected;
 }
 @property (nonatomic) BrowseType browseType;
 

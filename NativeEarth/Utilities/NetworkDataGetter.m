@@ -43,6 +43,9 @@
 }
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
 	// Implement this if you want
+    
+    
+    //deal with 404 here
 }
 
 - (void) connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
@@ -62,7 +65,10 @@
 	// Load the response data string into the districts array
 	
 	 self.dataArray = [response JSONValue];
-    [self.delegate DataUpdate:self.dataArray];
+    if([self.delegate conformsToProtocol:@protocol(NetworkDataGetterDelegate)]) {  // Check if the class assigning 
+       [self.delegate DataUpdate:self.dataArray];
+     }
+  
 }
 
 
@@ -70,8 +76,9 @@
 	
 	// Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
+	  if([self.delegate conformsToProtocol:@protocol(NetworkDataGetterDelegate)]) {  // Check if the class assigning 
 	[self.delegate DataError:error];
+      }
 }
 
 -(void)dealloc{

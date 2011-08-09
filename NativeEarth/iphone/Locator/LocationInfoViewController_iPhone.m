@@ -54,7 +54,7 @@ typedef enum{
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
 
@@ -77,6 +77,7 @@ typedef enum{
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 	[self.tableView reloadData];
 }
 
@@ -107,14 +108,18 @@ typedef enum{
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	switch (indexPath.row) {
         case sectionHeaderTitleName:
-            cell.textLabel.text=((WSLand *)selectedLand).Name;
+            cell.textLabel.text=((Land *)selectedLand).LandName;
             //cell.detailTextLabel.text = 
             cell.userInteractionEnabled = NO;
             break;
         case sectionHeaderTitleDescription:
           //  cell.textLabel.text=NSLocalizedString(@"Description",@"Description");
             cell.detailTextLabel.numberOfLines=0;
-            cell.detailTextLabel.text = ((WSLand *)selectedLand).Description;
+            if ([language compare:@"fr"]==0) {
+                cell.detailTextLabel.text = ((Land *)selectedLand).LandDescriptionFrench;
+            }else{
+                cell.detailTextLabel.text = ((Land *)selectedLand).LandDescriptionEnglish;  
+            }
              cell.userInteractionEnabled =NO;
             
             
@@ -218,7 +223,12 @@ typedef enum{
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 1) {
         NSString *description = @"[No Description]";
-        if (((WSLand *)selectedLand).Description != nil) description = ((WSLand *)selectedLand).Description;
+        if ([language compare:@"fr"]==0) {
+                  if (((Land *)selectedLand).LandDescriptionFrench != nil) description = ((Land *)selectedLand).LandDescriptionFrench;  
+        }else{
+            if (((Land *)selectedLand).LandDescriptionEnglish != nil) description = ((Land *)selectedLand).LandDescriptionEnglish;  
+        }
+
         CGSize s = [description sizeWithFont:[UIFont systemFontOfSize:15] 
                      constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
                          lineBreakMode:UILineBreakModeWordWrap];
@@ -234,7 +244,7 @@ typedef enum{
 -(void) NavigateToGreetings{
     GreetingsViewController_iPhone * nextVC = [[GreetingsViewController_iPhone alloc]init];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
-    nextVC.greetings = ((WSLand *)selectedLand).Greetings;
+    nextVC.greetings = (Greetings *)((Land *)selectedLand).Greetings;
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
@@ -251,6 +261,7 @@ typedef enum{
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
     nextVC.managedObjectContext= self.managedObjectContext;
     nextVC.lands = self.allLands;
+    nextVC.title=NSLocalizedString(@"Map",@"Map");
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
 }
@@ -260,9 +271,8 @@ typedef enum{
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
     nextVC.managedObjectContext= self.managedObjectContext;
-   // nextVC.imageArray = [self loadImages];
-    nextVC.wSImages =((WSLand *)selectedLand).Images;
-    nextVC.title= ((WSLand *)selectedLand).Name;
+    nextVC.managedImages = [((Land *)selectedLand).Images allObjects];
+    nextVC.title= ((Land *)selectedLand).LandName;
     
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
@@ -274,25 +284,12 @@ typedef enum{
      nextVC.internetConnectionStatus = self.internetConnectionStatus;
      nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
      nextVC.managedObjectContext= self.managedObjectContext;
+    nextVC.title=NSLocalizedString(@"Gazetter",@"Gazetter");
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
 
 }
 
 
-- (UIImage *)imageAtIndex:(int)index {
-    // use "imageWithContentsOfFile:" instead of "imageNamed:" here to avoid caching our images
-    NSString *imageName = [NSString stringWithFormat:@"%d", index];
-    NSString *path = [[NSBundle mainBundle] pathForResource:imageName ofType:@"png"];
-    return [UIImage imageWithContentsOfFile:path];    
-}
--(NSArray *) loadImages{
-    int count = 6;
-    NSMutableArray * ImagesArray = [[NSMutableArray alloc] init];
-    for(int i=0; i<count ; i++){
-        [ImagesArray addObject:[self imageAtIndex:i+1]];
-    }
-    return  ImagesArray;
-}
 
 @end

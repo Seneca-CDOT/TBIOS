@@ -80,10 +80,7 @@
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
 	
-	if (oldState == MKAnnotationViewDragStateDragging) {
-		DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
-		annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];		
-	}
+// get the land names here and add it to anotation
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
@@ -117,8 +114,12 @@
     if (!pinIsDropped) {
     CLLocationCoordinate2D theCoordinate =self.mapView.centerCoordinate;
 	DDAnnotation *annotation = [[[DDAnnotation alloc] initWithCoordinate:theCoordinate addressDictionary:nil] autorelease];
+        pinLatitude= annotation.coordinate.latitude;
+        pinLongitude= annotation.coordinate.longitude;
+        
+        
 	annotation.title = @"Drag to Move Pin";
-	annotation.subtitle = [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
+        //annotation.subtitle = ;// [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
 	
 	[self.mapView addAnnotation:annotation];
         
@@ -163,7 +164,60 @@
     }
 }
 -(void)showDetails: (id) sender{
-   
+    
+    [self GetFirstNationLandFromWebServiceWithLatitude:0 andLongitude: 0 ];
 
+}
+
+#pragma  mark - NetworkDataGetter Delegate
+
+-(void)DataUpdate:(id)object{
+
+    LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
+    
+    nextVC.remoteHostStatus = self.remoteHostStatus;
+    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+    nextVC.internetConnectionStatus = self.internetConnectionStatus;
+    nextVC.managedObjectContext = self.managedObjectContext;
+    nextVC.landArray=[self GetWSLandsFromDictArray:(NSArray *)object];//lands;
+    nextVC.title= NSLocalizedString(@"Current Location", @"Current Location");
+    
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
+
+
+}
+-(void)DataError:(NSError *)error{
+    // Reference the app's network activity indicator in the status bar
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+	
+	NSLog(@"%@", [error description]);
+}
+
+-(void) GetFirstNationLandFromWebServiceWithLatitude:(CLLocationDegrees)latitude andLongitude:(CLLocationDegrees) longitude {
+//get Land By latitude and longitude an language from web service
+    
+    NSString *url = @"http://localhost/~ladan/AlgonquinOverLap";
+    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
+    dataGetter.delegate = self;
+    
+    // Reference the app's network activity indicator in the status bar
+	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
+    [dataGetter GetResultsFromUrl:url];
+    
+}
+
+#pragma  mark - converter
+-(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray{
+    
+    NSMutableArray * wSLands = [[NSMutableArray alloc]init];
+    for (NSDictionary* dict in dictArray) {
+        [wSLands addObject:[self GetWSLandForDict:dict]];
+    }
+    return wSLands;
+}
+
+-(WSLand *)GetWSLandForDict:(NSDictionary *)dict{
+    return  [[WSLand alloc] initWithDictionary:dict];
 }
 @end

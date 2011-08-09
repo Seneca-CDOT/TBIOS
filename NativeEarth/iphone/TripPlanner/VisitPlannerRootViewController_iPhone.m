@@ -221,7 +221,7 @@
     
     [fetchRequest setSortDescriptors:sortDescriptors];
     
-	// Clear the cache
+	// Clear the cache 
 	[NSFetchedResultsController deleteCacheWithName:@"PlannedVisit"];
 	
     // Edit the section name key path and cache name if appropriate.

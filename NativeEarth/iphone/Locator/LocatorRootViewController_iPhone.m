@@ -169,12 +169,11 @@
 }
 
 -(void)GoToCurrentLocation{
-    if (self.remoteHostStatus == NotReachable ) 
+   
         self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally WithManagedObjectContext: self.managedObjectContext];
-    else self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Network WithManagedObjectContext:self.managedObjectContext];
-    
+
     self.locationDetector.delegate = self;
- 
+ [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
    [self.locationDetector.locationManager startUpdatingLocation];
     
@@ -229,7 +228,8 @@
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.managedObjectContext = self.managedObjectContext;
-    nextVC.landArray=[self GetWSLandsFromDictArray:lands];//lands;
+    nextVC.landArray=lands;//[self GetWSLandsFromDictArray:lands];//lands;
+    
     nextVC.title= NSLocalizedString(@"Current Location", @"Current Location");
     
     [self.navigationController pushViewController:nextVC animated:YES];

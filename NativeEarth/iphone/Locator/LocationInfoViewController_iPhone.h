@@ -11,7 +11,7 @@
 
 
 @interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
-    
+    NSString *language;
 }
 @property (nonatomic, retain) id selectedLand;
 @property (nonatomic, retain) NSArray * allLands;
@@ -21,7 +21,4 @@
 -(void) NavigateToGazetter;
 -(void) NavigateToMap;
 
-// Image Retrival (for testing without webservice data)
--(UIImage *)imageAtIndex:(int)index ;
--(NSArray *) loadImages;
 @end

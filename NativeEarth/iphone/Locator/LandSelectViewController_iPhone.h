@@ -10,7 +10,7 @@
 #import "BaseTableViewController.h"
 
 @interface LandSelectViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
-    
+    NSString * language;
 }
 @property (nonatomic, retain) NSArray* landArray;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;

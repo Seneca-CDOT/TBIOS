@@ -58,19 +58,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    // Do any additional setup after loading the view from its nib.
     
- 
-//    if (self.remoteHostStatus == NotReachable ) 
-//        self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally WithManagedObjectContext: self.managedObjectContext];
-//   else self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Network WithManagedObjectContext:self.managedObjectContext];
-//    
-//    self.locationDetector.delegate = self;
-//    
-//  [self.locationDetector.locationManager startUpdatingLocation];
+    language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
+    
     [self drawOverlaysOfArray:lands];
 }
-
 
 
 - (void)viewDidUnload
@@ -89,36 +81,11 @@
 }
 
 
-#pragma mark- LocationDetectorDelegate
--(void)locationUpdate:(CLLocation *)location{
-    
-   
- 
-}
-
--(void)LocationError:(NSError *)error{
-  //  lable.text = [error description];
-}
-
--(void)LandUpdate:(NSArray *)lands{
-    if ([lands count]>0) {
-       //lable.text = [[districts objectAtIndex:0]valueForKey:@"DistrictName"];
-    
- 
-      //  [self drawOverlaysOfArray:lands];
-
-    } 
-}
-
-
 #pragma mark - Drawing
-
-
 -(void)drawOverlaysOfArray:(NSArray*)landsArray{
     //clear the map first
     [mapView removeOverlays:mapView.overlays];
     [mapView removeAnnotations:mapView.annotations];
-    
     if(landsArray !=nil ){
     NSMutableArray * polygons = [[NSMutableArray alloc]init];
     NSMutableArray *annotations =[[NSMutableArray alloc]init];
@@ -132,44 +99,45 @@
  
         MKPolygon *poly = [MKPolygon polygonWithCoordinates:CoordinateArray count:length interiorPolygons:nil];
        [polygons addObject:poly];
-       
-       
        //annotation:
        NSString *centerCoordinatesString = land.CenterPoint; 
        NSUInteger len=0;
        CLLocationCoordinate2D * centreCoordinates =parseCoordinatesStringAsCLLocationCoordinate2D(centerCoordinatesString, &len);
        if (len>0) {
            DistrictCenterAnnotation * annotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:centreCoordinates[0].latitude andLongitude:centreCoordinates[0].longitude]autorelease];
-           annotation.title = land.Name;
+           
+           annotation.title = land.LandName;
            annotation.subTitle= [land.DateFrom description];
            [annotations addObject:annotation];
-       }
-       
-       
+       } 
     }
 	[mapView addOverlays:(NSArray*)polygons];   
     [mapView addAnnotations:annotations];
-       
+    
+    [self flyToPin:nil];
+
+    }
+
+}
+-(IBAction)flyToPin:(id) sender{
+    
     // Walk the list of overlays and annotations and create a MKMapRect that
     // bounds all of them and store it into flyTo.
     MKMapRect flyTo = MKMapRectNull;
-    for (id <MKOverlay> overlay in polygons) {
+    for (id <MKOverlay> overlay in mapView.overlays) {
         if (MKMapRectIsNull(flyTo)) {
             flyTo = [overlay boundingMapRect];
         } else {
             flyTo = MKMapRectUnion(flyTo, [overlay boundingMapRect]);
-            
         }
     }
- 
-    // Position the map so that all overlays are visible on screen.
-    mapView.visibleMapRect = flyTo;
+        MKCoordinateRegion region = MKCoordinateRegionForMapRect(flyTo);
+        
+        MKCoordinateRegion savedRegion = [mapView regionThatFits:region];
+        [self.mapView setRegion:savedRegion animated:YES];
 
-    }
+    
 }
-
-
-
 
 #pragma  mark - Map View Delegate
 - (void)mapView:(MKMapView *)mapView didAddOverlayViews:(NSArray *)overlayViews
@@ -203,73 +171,15 @@
       return nil;
     }
       
-    
-    if (annotation == self.calloutAnnotation) {
-		CalloutMapAnnotationView *calloutMapAnnotationView = (CalloutMapAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:@"CalloutAnnotation"];
-        
-		if (!calloutMapAnnotationView) {
-			calloutMapAnnotationView = [[[CalloutMapAnnotationView alloc] initWithAnnotation:annotation 
-																			 reuseIdentifier:@"CalloutAnnotation"] autorelease];
-			calloutMapAnnotationView.contentHeight = 78.0f;
-            
-            
-			UIImage *asynchronyLogo = [UIImage imageNamed:@"asynchrony-logo-small.png"];
-			UIImageView *asynchronyLogoView = [[[UIImageView alloc] initWithImage:asynchronyLogo] autorelease];
-            
-                UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
-                   [rightButton addTarget:self
-                                action:@selector(showDetails:)
-                        forControlEvents:UIControlEventTouchUpInside];
-            [ calloutMapAnnotationView.contentView addSubview: rightButton];
-                 
-            
-			asynchronyLogoView.frame = CGRectMake(5, 2, asynchronyLogoView.frame.size.width, asynchronyLogoView.frame.size.height);
-			[calloutMapAnnotationView.contentView addSubview:asynchronyLogoView];
-		}
-		calloutMapAnnotationView.parentAnnotationView = self.selectedAnnotationView;
-		calloutMapAnnotationView.mapView = self.mapView;
-		return calloutMapAnnotationView;
-	} else {
-		MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 
-																			   reuseIdentifier:@"Annotation"] autorelease];
-		annotationView.canShowCallout = NO;
+		MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 	reuseIdentifier:@"Annotation"] autorelease];
+		annotationView.canShowCallout = YES;
 		annotationView.pinColor = MKPinAnnotationColorGreen;
 		return annotationView;
-	}	
 	
 	return nil;
 
 }
 
-- (void)showDetails:(id)sender
-{
-    // the detail view does not want a toolbar so hide it
- //   [self.navigationController setToolbarHidden:YES animated:NO];
-    
-   // [self.navigationController pushViewController:self.detailViewController animated:YES];
-}
-
-
-
-- (void)mapView:(MKMapView *)mapView didSelectAnnotationView:(MKAnnotationView *)view { 
-           if (self.calloutAnnotation == nil) {
-            self.calloutAnnotation= [[DistrictCenterAnnotation alloc]
-                                      initWithLatitude:view.annotation.coordinate.latitude
-                                      andLongitude:view.annotation.coordinate.longitude];
-        } else {
-            self.calloutAnnotation.latitude= view.annotation.coordinate.latitude;
-            self.calloutAnnotation.longitude = view.annotation.coordinate.longitude;
-        }
-        [self.mapView addAnnotation:self.calloutAnnotation];
-        self.selectedAnnotationView = view;
-    
-}
-
-- (void)mapView:(MKMapView *)mapView didDeselectAnnotationView:(MKAnnotationView *)view {
-    if (self.calloutAnnotation) {
-        [self.mapView removeAnnotation: self.calloutAnnotation];
-    }
-}
 
 
 @end

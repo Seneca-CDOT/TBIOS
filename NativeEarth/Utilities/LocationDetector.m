@@ -48,21 +48,23 @@
 // DELEGATE METHOD - handle a location update
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
  
-    if (abs([newLocation.timestamp timeIntervalSinceDate: [NSDate date]]) < 120){
+   // if (abs([newLocation.timestamp timeIntervalSinceDate: [NSDate date]]) < 120){
         
-        //[self.delegate locationUpdate:newLocation];
            // Turn off updating
         [self.locationManager stopUpdatingLocation];
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if (retriveFlag == Network) {
             [self getLandsFromWebServiceForLocation:newLocation];
         }else 
             [self getLandsLocallyForLocation:newLocation];
         
-    }  
+   // }  
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+      if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
     [self.delegate LocationError:error];
+      }
 }
 
 #pragma mark - CoreData
@@ -72,8 +74,9 @@
     ReverseGeocoder * rgc = [[ReverseGeocoder alloc] init];
      rgc.managedObjectContext = managedObjectContext;
       self.lands= [rgc findLandForCoordinateWithLat:location.coordinate.latitude AndLng:location.coordinate.longitude];
-
+  if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
     [self.delegate LandUpdate:self.lands];
+  }
 
 
 }
@@ -82,7 +85,7 @@
 -(void) getLandsFromWebServiceForLocation:(CLLocation *)location{
 	//Here: we have to pass the location to the webservice:
     
-    NSString *url = @"http://localhost/~ladan/Algonquin.txt";
+    NSString *url = @"http://localhost/~ladan/AlgonquinOverLap";
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
     dataGetter.delegate = self;
     
@@ -115,9 +118,13 @@
 #pragma mark - NetworkDataGetterDelegate
 -(void)DataUpdate:(id) object{
    self.lands = (NSArray*) object;
+      if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
     [self.delegate LandUpdate:self.lands];
+      }
 }
 -(void)DataError:(NSError*) error{
-    //[self.delegate LocationError:error];
+      if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
+    [self.delegate LocationError:error];
+      }
 }
 @end
