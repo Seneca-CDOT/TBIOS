@@ -11,33 +11,52 @@
 
 @implementation WSContent
 
-@synthesize  Synopsis;
+@synthesize SynopsisEnglish,SynopsisFrench;
 @synthesize License;
-@synthesize Data;
+@synthesize DataLocation;
 @synthesize MIMEType;
-@synthesize Title;
+@synthesize TitleEnglish,TitleFrench;
+
 
 
 -(void)dealloc{
     
-    [self.Synopsis release];
+    [self.SynopsisEnglish release];
+    [self.SynopsisFrench release];
     [self.License release];
-    [self.Data release];
+    [self.DataLocation release];
     [self.MIMEType release];
-    [self.Title release];
-    
+    [self.TitleEnglish release];
+    [self.TitleFrench release];
     [super dealloc];
 }
 
 -(id) initWithDictionary:(NSDictionary *) contentDict{
     self=[super init];
     if (self) {
-        self.Synopsis = [contentDict valueForKey:@"Synopsis"];
-        self.License = [contentDict valueForKey:@"License"];
-        self.Data= [contentDict valueForKey:@"Data"];
-        self.MIMEType = [contentDict valueForKey:@"MIMEType"];
-        self.Title = [contentDict valueForKey:@"Title"];
+        self.SynopsisEnglish = [[contentDict valueForKey:@"SynopsisEnglish"] description];
+        self.SynopsisFrench = [[contentDict valueForKey:@"SynopsisFrench"] description];
+        self.License = [[contentDict valueForKey:@"License"] description];
+        self.DataLocation= [[contentDict valueForKey:@"DataLocation"] description];
+        self.MIMEType = [[contentDict valueForKey:@"MIMEType"] description];
+        self.TitleEnglish = [[contentDict valueForKey:@"TitleEnglish"] description];
+        self.TitleFrench = [[contentDict valueForKey:@"TitleFrench"] description];
     }
     return self;
+}
+-(Content *) ToManagedContent:(NSManagedObjectContext*) context{
+    NSEntityDescription *entity= [NSEntityDescription entityForName:@"Content" inManagedObjectContext:context];
+    Content * managedContent = [[Content alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+    
+
+    managedContent.TitleEnglish=self.TitleEnglish;
+    managedContent.TitleFrench=self.TitleFrench;
+    managedContent.SynopsisEnglish=self.SynopsisEnglish;
+    managedContent.SynopsisFrench=self.SynopsisFrench;
+    managedContent.License=self.License;
+    managedContent.MIMEType=self.MIMEType;
+    managedContent.DataLocation=self.DataLocation;
+   
+    return managedContent;
 }
 @end
