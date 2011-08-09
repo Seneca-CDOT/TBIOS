@@ -2,7 +2,7 @@
 //  PlannedVisit.m
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-07-27.
+//  Created by Ladan Zahir on 11-08-05.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -11,10 +11,10 @@
 
 
 @implementation PlannedVisit
-@dynamic FromDate;
-@dynamic ToDate;
 @dynamic Title;
+@dynamic FromDate;
 @dynamic Notes;
+@dynamic ToDate;
 @dynamic Lands;
 
 - (void)addLandsObject:(Land *)value {    

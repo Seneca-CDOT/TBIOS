@@ -1,8 +1,8 @@
- //
+//
 //  Land.m
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-07-27.
+//  Created by Ladan Zahir on 11-08-05.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -13,51 +13,54 @@
 
 
 @implementation Land
-@dynamic BoundryW;
-@dynamic Description;
-@dynamic Name;
-@dynamic BoundryS;
+@dynamic BoundaryW;
+@dynamic LandDescriptionEnglish;
+@dynamic LandName;
+@dynamic BoundaryS;
 @dynamic Shape;
-@dynamic BoundryN;
+@dynamic BoundaryN;
 @dynamic Coordinates;
 @dynamic CenterPoint;
 @dynamic DateFrom;
-@dynamic DateTo;
-@dynamic BoundryE;
-@dynamic LandID;
+@dynamic LandDescriptionFrench;
 @dynamic VersionIdentifier;
-@dynamic PlannedVisits;
+@dynamic DateTo;
+@dynamic BoundaryE;
+@dynamic LandID;
+@dynamic Maps;
 @dynamic Greetings;
-@dynamic Map;
+@dynamic PlannedVisits;
+@dynamic Images;
+
+- (void)addMapsObject:(Content *)value {    
+    NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+    [self willChangeValueForKey:@"Maps" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+    [[self primitiveValueForKey:@"Maps"] addObject:value];
+    [self didChangeValueForKey:@"Maps" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+    [changedObjects release];
+}
+
+- (void)removeMapsObject:(Content *)value {
+    NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+    [self willChangeValueForKey:@"Maps" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+    [[self primitiveValueForKey:@"Maps"] removeObject:value];
+    [self didChangeValueForKey:@"Maps" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+    [changedObjects release];
+}
+
+- (void)addMaps:(NSSet *)value {    
+    [self willChangeValueForKey:@"Maps" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+    [[self primitiveValueForKey:@"Maps"] unionSet:value];
+    [self didChangeValueForKey:@"Maps" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+- (void)removeMaps:(NSSet *)value {
+    [self willChangeValueForKey:@"Maps" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+    [[self primitiveValueForKey:@"Maps"] minusSet:value];
+    [self didChangeValueForKey:@"Maps" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
 
 
-//-(id) initWithEntity:(NSEntityDescription *)entity insertIntoManagedObjectContext:(NSManagedObjectContext *)context WithDictionary:(NSDictionary *) landDict{
-//
-//    self=[super initWithEntity:entity insertIntoManagedObjectContext:context];
-//    if (self) {
-//        
-//    [self setName:[landDict valueForKey:@"LandName"]];
-//
-//    self.Description = [landDict valueForKey:@"LandDescription"];
-//    self.LandID = [landDict valueForKey:@"LandID"];
-//    self.VersionIdentifier = [landDict valueForKey:@"VersionIdentifier"];
-//    self.Shape = [landDict valueForKey:@"Shape"];
-//    self.CenterPoint = [landDict valueForKey:@"CenterPoint"];
-//    self.Coordinates = [landDict valueForKey:@"Coordinates"];
-//    self.DateFrom = [landDict valueForKey:@"DateFrom"];
-//    self.DateTo = [landDict valueForKey:@"DateTo"];
-//    self.BoundryE= [landDict valueForKey:@"BoundryE"];
-//    self.BoundryN=[landDict valueForKey:@"BoundryN"];
-//    self.BoundryS = [landDict valueForKey:@"BoundryS"];
-//    self.BoundryW =[landDict valueForKey:@"BoundryW"];
-//    
-//    NSDictionary * greetings = [landDict valueForKey:@"Greetings"];
-//    self.Greetings =[[Greetings alloc] initWithDictionary:greetings ForLand:self];
-//        
-//    self.Map = nil;
-//    }
-//    return self;
-//}
 
 - (void)addPlannedVisitsObject:(PlannedVisit *)value {    
     NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
@@ -88,6 +91,33 @@
 }
 
 
+- (void)addImagesObject:(Content *)value {    
+    NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+    [self willChangeValueForKey:@"Images" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+    [[self primitiveValueForKey:@"Images"] addObject:value];
+    [self didChangeValueForKey:@"Images" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
+    [changedObjects release];
+}
+
+- (void)removeImagesObject:(Content *)value {
+    NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
+    [self willChangeValueForKey:@"Images" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+    [[self primitiveValueForKey:@"Images"] removeObject:value];
+    [self didChangeValueForKey:@"Images" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
+    [changedObjects release];
+}
+
+- (void)addImages:(NSSet *)value {    
+    [self willChangeValueForKey:@"Images" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+    [[self primitiveValueForKey:@"Images"] unionSet:value];
+    [self didChangeValueForKey:@"Images" withSetMutation:NSKeyValueUnionSetMutation usingObjects:value];
+}
+
+- (void)removeImages:(NSSet *)value {
+    [self willChangeValueForKey:@"Images" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+    [[self primitiveValueForKey:@"Images"] minusSet:value];
+    [self didChangeValueForKey:@"Images" withSetMutation:NSKeyValueMinusSetMutation usingObjects:value];
+}
 
 
 @end
