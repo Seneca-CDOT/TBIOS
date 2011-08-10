@@ -11,12 +11,12 @@
 
 @interface LocalLandGetter : NSObject <NSFetchedResultsControllerDelegate>{
 
-    NSFetchedResultsController * fetchedResultsControllerLands_;
+    NSFetchedResultsController * fetchedResultsControllerLand_;
     NSManagedObjectContext * managedObjectContext_;
     int landID;
 }
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
-@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLands;
+@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;
 
 -(Land *)GetLandWithLandID:(int)landId;
 

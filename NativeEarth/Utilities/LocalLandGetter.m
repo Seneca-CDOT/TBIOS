@@ -10,17 +10,22 @@
 
 
 @implementation LocalLandGetter
-@synthesize fetchedResultsControllerLands=fetchedResultsControllerLands_, managedObjectContext=managedObjectContext_;
+@synthesize fetchedResultsControllerLand=fetchedResultsControllerLand_, managedObjectContext=managedObjectContext_;
 
-
+-(void) dealloc{
+    [self.fetchedResultsControllerLand release];
+    [self.managedObjectContext release];
+    [super dealloc];
+}
+  
 -(Land *)GetLandWithLandID:(int)landId{
     landID = landId;
     NSError *error;
-    if(![[self fetchedResultsControllerLands]performFetch:&error]){
+    if(![[self fetchedResultsControllerLand]performFetch:&error]){
         //handle Error
     }
     
-    NSArray * results = [self.fetchedResultsControllerLands fetchedObjects];
+    NSArray * results = [self.fetchedResultsControllerLand fetchedObjects];
     if([results count]>0)
         return [results objectAtIndex:0];
     else
@@ -29,8 +34,8 @@
 #pragma Mark -
 #pragma Mark fetchedResultsController delegate method
 -(NSFetchedResultsController *) fetchedResultsControllerLands {
-    if(fetchedResultsControllerLands_ !=nil){
-        return  fetchedResultsControllerLands_;
+    if(fetchedResultsControllerLand_ !=nil){
+        return  fetchedResultsControllerLand_;
     }
     
     NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
@@ -53,13 +58,13 @@
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Land"];
     aFetchedResultsController.delegate = self;
-    self.fetchedResultsControllerLands = aFetchedResultsController;
+    self.fetchedResultsControllerLand = aFetchedResultsController;
     
     [aFetchedResultsController release];
     [fetchedRequest release];
     
     
-    return fetchedResultsControllerLands_;
+    return fetchedResultsControllerLand_;
 }
 
 
