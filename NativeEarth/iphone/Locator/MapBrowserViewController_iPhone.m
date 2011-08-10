@@ -8,7 +8,7 @@
 
 #import "MapBrowserViewController_iPhone.h"
 #import "ReverseGeocoder.h"
-#import "FirstNation.h"
+#import "LandShort.h"
 //#import "SearchListController.h"
 #import "DistrictCenterAnnotation.h"
 #import "DistrictCenterAnnotationView.h"

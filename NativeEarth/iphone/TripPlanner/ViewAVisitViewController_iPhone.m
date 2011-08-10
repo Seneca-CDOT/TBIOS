@@ -724,7 +724,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 }
 
 #pragma  mark - BrowseViewController_iPhoneDelegate methods
--(void) BrowseViewControllerDidSelectFirstNation:(FirstNation *)nation{
+-(void) BrowseViewControllerDidSelectFirstNation:(LandShort *)nation{
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
