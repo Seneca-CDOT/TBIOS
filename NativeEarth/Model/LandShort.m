@@ -11,16 +11,16 @@
 
 @implementation LandShort
 
-@synthesize name, landId, versionIdentifier;
+@synthesize landName, landId, versionIdentifier;
 -(id) initWithDictionary:(NSDictionary *) dict{
     [super init];
-    self.name = [dict valueForKey:@"Name"];
     self.landId = [NSNumber numberWithInt:[[dict valueForKey:@"LandID"]intValue] ];
+    self.landName = [dict valueForKey:@"LandName"];
     self.versionIdentifier =[NSNumber numberWithInt:[[dict valueForKey:@"VersionIdentifier"]intValue] ];
     return self;
     }
 -(void)dealloc {
-    [self.name release];
+    [self.landName release];
     [self.landId release];
     [self.versionIdentifier release];
     [super dealloc];

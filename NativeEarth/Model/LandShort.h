@@ -11,11 +11,11 @@
 
 @interface LandShort : NSObject {
     NSNumber * landId;
-    NSString *name;
+    NSString *landName;
     NSNumber *versionIdentifier;
 }
 
-@property (nonatomic, retain) NSString *name;
+@property (nonatomic, retain) NSString *landName;
 @property (nonatomic,retain) NSNumber * landId;
 @property (nonatomic,retain) NSNumber * versionIdentifier;
 -(id) initWithDictionary:(NSDictionary *) dict;
