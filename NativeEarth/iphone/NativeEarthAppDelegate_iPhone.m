@@ -25,8 +25,8 @@
     self.viewController.managedObjectContext = self.managedObjectContext;
    
     
-   DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
- [dataCreator createDataFromWebServive];
+ //  DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
+ //  [dataCreator createDataFromWebServive];
     
     
   
