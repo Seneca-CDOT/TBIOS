@@ -10,6 +10,9 @@
 #import "LocationInfoViewController_iPhone.h"
 #import "JSON.h"
 #import "LandShort.h"
+#import "LandShortArray.h"
+#import "LocalLandGetter.h"
+
 @implementation BrowseViewController_iPhone
 @synthesize browseType;
 @synthesize completeList;
@@ -54,9 +57,9 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Do any additional setup after loading the view from its nib.
+    [self GetFirstNationListLocally];
     
-    
-    [self GetFirstNationListFromWebService];
+   // [self GetFirstNationListFromWebService];
 }
 
 - (void)viewDidUnload
@@ -81,9 +84,21 @@
 }
 
 
+#pragma mark - local data retrival opertion
+-(void) GetFirstNationListLocally{
+    LandShortArray * landShortArray = [[LandShortArray alloc] initWithManagedObjectContext:self.managedObjectContext];
+    self.completeList = (NSArray*)landShortArray;
+    self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
+    [self.resultsTableView reloadData];
+	self.resultsTableView.scrollEnabled = YES;
+}
+
+
+-(Land *)GetLandLocallyByLandID:(int) landID{
+  
+}
 
 #pragma mark - Network operations
-
 -(void) GetFirstNationListFromWebService{
  NSString *url = @"http://localhost/~ladan/FirstNationList";
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
@@ -140,18 +155,18 @@
     /*
 	 If the requesting table view is the search display controller's table view, configure the cell using the filtered content, otherwise use the main list.
 	 */
-    NSDictionary *nation = nil;
+   LandShort * nation ;
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        nation = [self.filteredList objectAtIndex:indexPath.row];
+        nation = (LandShort*)[self.filteredList objectAtIndex:indexPath.row];
     }
 	else
 	{
-        nation = [self.completeList objectAtIndex:indexPath.row];
+        nation = (LandShort*)[self.completeList objectAtIndex:indexPath.row];
     }
     
     
-    cell.textLabel.text = [[nation valueForKey:@"Name"] description];
+    cell.textLabel.text = nation.landName;
 	
     return cell;
 }
@@ -162,23 +177,23 @@
     /*
 	 If the requesting table view is the search display controller's table view, configure the next view controller using the filtered content, otherwise use the main list.
 	 */
-	NSDictionary *dict = nil;
+	LandShort *landShort = nil;
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        dict = [self.filteredList objectAtIndex:indexPath.row];
+        landShort = [self.filteredList objectAtIndex:indexPath.row];
     }
 	else
 	{
-        dict = [self.completeList objectAtIndex:indexPath.row];
+        landShort = [self.completeList objectAtIndex:indexPath.row];
     }
     
-    LandShort * fn = [[LandShort alloc] initWithDictionary:dict];
-    
+       
   if (browseType == ForLocator)  {
-      [self GetFirstNationLandFromWebServiceWithLandID:fn.landId];
+      //[self GetFirstNationLandFromWebServiceWithLandID:landShort.landId];
+      [self GetLandLocallyByLandID:[landShort.landId  intValue]];
 
     }else {
-        [self.delegate BrowseViewControllerDidSelectFirstNation:fn];
+        [self.delegate BrowseViewControllerDidSelectFirstNation:landShort];
         [self.navigationController popViewControllerAnimated:YES];
         
     }
@@ -222,7 +237,6 @@
     return YES;
 }
 
-
 - (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
 {
     [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
@@ -239,10 +253,10 @@
 
 -(void)DataUpdate:(id)object{
     if (!landIsSelected) {
-    self.completeList = (NSArray*)object;
-    self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
-    [self.resultsTableView reloadData];
-	self.resultsTableView.scrollEnabled = YES;
+    //self.completeList = (NSArray*)object;
+    //self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
+    //[self.resultsTableView reloadData];
+	// self.resultsTableView.scrollEnabled = YES;
     }
     else{
         WSLand * selectedLand = [[WSLand alloc] initWithDictionary:(NSDictionary*)object];
@@ -272,4 +286,5 @@
 	
 	NSLog(@"%@", [error description]);
 }
+
 @end

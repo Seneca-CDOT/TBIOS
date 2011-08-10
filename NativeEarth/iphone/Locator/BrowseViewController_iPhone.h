@@ -10,11 +10,12 @@
 #import "BaseViewController.h"
 #import "NetworkDataGetter.h"
 #import "WSLand.h"
+
 typedef enum {
 	ForLocator= 0,
     ForVisitPlanner
 } BrowseType;
-@class FirstNation;// has to be defined later.
+@class LandShort;// has to be defined later.
 
 @protocol BrowseViewController_iPhoneDelegate;
 
@@ -27,7 +28,7 @@ typedef enum {
     UIToolbar * toolbar;
     UISearchBar *searchBar;
     BOOL landIsSelected;
-}
+    }
 @property (nonatomic) BrowseType browseType;
 
 @property (nonatomic, assign) id<BrowseViewController_iPhoneDelegate> delegate;
@@ -46,11 +47,12 @@ typedef enum {
 -(IBAction) CancelButtonAction:(id) sender;
 
 -(void) GetFirstNationListFromWebService;
-
+-(void) GetFirstNationListLocally;
+-(Land *)GetLandLocallyByLandID:(int) landID;
 @end
 
 @protocol BrowseViewController_iPhoneDelegate
 
--(void) BrowseViewControllerDidSelectFirstNation:(FirstNation *) nation;
+-(void) BrowseViewControllerDidSelectFirstNation:(LandShort *) nation;
 
 @end

@@ -15,7 +15,7 @@ typedef enum {
 	LookupForLocator= 0,
     LookUpForVisitPlanner
 } GeoLookupType;
-@class FirstNation;// has to be defined later.
+@class LandShort;// has to be defined later.
 @protocol GeoPoliticalLookupViewController_iPhoneDelegate;
 
 @interface GeoPoliticalLookupViewController_iPhone : BaseViewController<UITableViewDataSource,UITableViewDelegate ,TextFieldCellDelegate,NetworkDataGetterDelegate> {
@@ -60,6 +60,6 @@ typedef enum {
 
 @protocol GeoPoliticalLookupViewController_iPhoneDelegate
 
--(void) GeoPoliticalLookupViewControllerDidSelectFirstNation:(FirstNation *) nation;
+-(void) GeoPoliticalLookupViewControllerDidSelectFirstNation:(LandShort *) nation;
 
 @end

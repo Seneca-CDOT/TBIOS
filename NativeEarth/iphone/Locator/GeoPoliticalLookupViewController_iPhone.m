@@ -264,10 +264,10 @@ typedef enum {CountryRow, RegionRow, LocalityRow,ButtonRow} RowType ;
 	
         dict = [self.resultList objectAtIndex:indexPath.row];
     
+
     
-    
-    // FirstNation * nation = [[FirstNation alloc]init];
-    // nation.name = [dict valueForKey:@"Name"];
+    // LandShort * nation = [[LandShort alloc]init];
+    // nation.landName = [dict valueForKey:@"Name"];
     // nation.latitude = [dict valueForKey:@"CenterLatitude"];
     // nation.longitude = [dict valueForKey:@"CenterLongitude"];
     
