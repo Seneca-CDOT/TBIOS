@@ -9,7 +9,8 @@
 /* Begin PBXBuildFile section */
 		D7003C1613CDEEF000587CD0 /* TextFieldCell_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */; };
 		D7003C1913CDEF1800587CD0 /* TextFieldCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */; };
-		D71CA1C413F2CF550016C3CB /* LandShortList.m in Sources */ = {isa = PBXBuildFile; fileRef = D71CA1C313F2CF530016C3CB /* LandShortList.m */; };
+		D71CA1C413F2CF550016C3CB /* LandShortArray.m in Sources */ = {isa = PBXBuildFile; fileRef = D71CA1C313F2CF530016C3CB /* LandShortArray.m */; };
+		D71CA1C813F2F12C0016C3CB /* LocalLandGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D71CA1C713F2F12B0016C3CB /* LocalLandGetter.m */; };
 		D71F404F13EC4CB800DA0BB6 /* PlannedVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D71F404E13EC4CB800DA0BB6 /* PlannedVisit.m */; };
 		D71F405213EC4CB800DA0BB6 /* Content.m in Sources */ = {isa = PBXBuildFile; fileRef = D71F405113EC4CB800DA0BB6 /* Content.m */; };
 		D71F405513EC4CB900DA0BB6 /* Land.m in Sources */ = {isa = PBXBuildFile; fileRef = D71F405413EC4CB900DA0BB6 /* Land.m */; };
@@ -121,8 +122,10 @@
 		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCell_iPhone.h; sourceTree = "<group>"; };
 		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell_iPhone.m; sourceTree = "<group>"; };
 		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
-		D71CA1C213F2CF530016C3CB /* LandShortList.h */ = {isa = PBXFileReference; fileEncoding = 4; path = LandShortList.h; sourceTree = "<group>"; };
-		D71CA1C313F2CF530016C3CB /* LandShortList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandShortList.m; sourceTree = "<group>"; };
+		D71CA1C213F2CF530016C3CB /* LandShortArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandShortArray.h; sourceTree = "<group>"; };
+		D71CA1C313F2CF530016C3CB /* LandShortArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandShortArray.m; sourceTree = "<group>"; };
+		D71CA1C613F2F12A0016C3CB /* LocalLandGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalLandGetter.h; sourceTree = "<group>"; };
+		D71CA1C713F2F12B0016C3CB /* LocalLandGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalLandGetter.m; sourceTree = "<group>"; };
 		D71F404D13EC4CB800DA0BB6 /* PlannedVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlannedVisit.h; sourceTree = "<group>"; };
 		D71F404E13EC4CB800DA0BB6 /* PlannedVisit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlannedVisit.m; sourceTree = "<group>"; };
 		D71F405013EC4CB800DA0BB6 /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content.h; sourceTree = "<group>"; };
@@ -415,8 +418,8 @@
 			children = (
 				D7BB0DC113BB9CEA0062C2A9 /* LandShort.h */,
 				D7BB0DC213BB9CEA0062C2A9 /* LandShort.m */,
-				D71CA1C213F2CF530016C3CB /* LandShortList.h */,
-				D71CA1C313F2CF530016C3CB /* LandShortList.m */,
+				D71CA1C213F2CF530016C3CB /* LandShortArray.h */,
+				D71CA1C313F2CF530016C3CB /* LandShortArray.m */,
 				D78D04AE13E1D72200C04A5E /* WSLand.h */,
 				D78D04AF13E1D72200C04A5E /* WSLand.m */,
 				D78D04B113E1D92000C04A5E /* WSGreetings.h */,
@@ -526,6 +529,8 @@
 				D7BB0DB913BB9CC30062C2A9 /* Utility.m */,
 				D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */,
 				D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */,
+				D71CA1C613F2F12A0016C3CB /* LocalLandGetter.h */,
+				D71CA1C713F2F12B0016C3CB /* LocalLandGetter.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -800,7 +805,8 @@
 				D71F405213EC4CB800DA0BB6 /* Content.m in Sources */,
 				D71F405513EC4CB900DA0BB6 /* Land.m in Sources */,
 				D71F405813EC4CB900DA0BB6 /* Greetings.m in Sources */,
-				D71CA1C413F2CF550016C3CB /* LandShortList.m in Sources */,
+				D71CA1C413F2CF550016C3CB /* LandShortArray.m in Sources */,
+				D71CA1C813F2F12C0016C3CB /* LocalLandGetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
