@@ -18,6 +18,7 @@
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;
 
+-(id) initWithManagedObjectContext:(NSManagedObjectContext* ) context;
 -(Land *)GetLandWithLandID:(int)landId;
 
 @end

@@ -12,6 +12,11 @@
 @implementation LocalLandGetter
 @synthesize fetchedResultsControllerLand=fetchedResultsControllerLand_, managedObjectContext=managedObjectContext_;
 
+-(id) initWithManagedObjectContext:(NSManagedObjectContext* ) context{
+    [super init];
+    self.managedObjectContext = context;
+    return self;
+}
 -(void) dealloc{
     [self.fetchedResultsControllerLand release];
     [self.managedObjectContext release];
@@ -33,7 +38,7 @@
 }
 #pragma Mark -
 #pragma Mark fetchedResultsController delegate method
--(NSFetchedResultsController *) fetchedResultsControllerLands {
+-(NSFetchedResultsController *) fetchedResultsControllerLand {
     if(fetchedResultsControllerLand_ !=nil){
         return  fetchedResultsControllerLand_;
     }

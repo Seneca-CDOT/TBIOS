@@ -79,7 +79,34 @@
 #pragma mark MKMapViewDelegate
 
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
-	
+    
+    if (oldState == MKAnnotationViewDragStateDragging) {
+        DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
+     ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
+    rgeocoder.managedObjectContext= self.managedObjectContext;
+    landArray= [rgeocoder findLandForCoordinateWithLat:annotation.coordinate.latitude AndLng:annotation.coordinate.longitude];
+        
+        
+        if ([landArray count]>0) {
+            annotation.title = NSLocalizedString(@"Select",@"Select");
+            annotation.subtitle = nil;
+            UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+            [rightButton addTarget:self
+                            action:@selector(showDetails:)
+                  forControlEvents:UIControlEventTouchUpInside];
+        
+            annotationView.rightCalloutAccessoryView = rightButton;
+
+        }else{
+            annotation.title = @"Drag to Move Pin";
+            annotation.subtitle = NSLocalizedString(@"No First Nation Found", @"No First Nation Found");
+            annotationView.rightCalloutAccessoryView=nil;
+        }
+    }
+    
+    
+    
+    
 // get the land names here and add it to anotation
 }
 
@@ -89,7 +116,7 @@
     if ([annotation isKindOfClass:[MKUserLocation class]]) {
         return nil;		
 	}
-    
+  
   UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
     [rightButton addTarget:self
                     action:@selector(showDetails:)
@@ -105,7 +132,16 @@
     draggablePinView.annotation = annotation;
     draggablePinView.draggable = YES;
     draggablePinView.canShowCallout = YES;
-    draggablePinView.rightCalloutAccessoryView = rightButton;
+    if ([landArray count]>0) {
+        ((DDAnnotation*) annotation).title = NSLocalizedString(@"Select",@"Select");
+        ((DDAnnotation*) annotation).subtitle = nil;
+            draggablePinView.rightCalloutAccessoryView = rightButton;
+    }else{
+        ((DDAnnotation*) annotation).title = @"Drag to Move Pin";
+        ((DDAnnotation*) annotation).subtitle = NSLocalizedString(@"No First Nation Found", @"No First Nation Found");
+    }
+
+
 	return draggablePinView;
 }
 
@@ -113,13 +149,14 @@
 -(IBAction)dropPin:(id) sender{
     if (!pinIsDropped) {
     CLLocationCoordinate2D theCoordinate =self.mapView.centerCoordinate;
+        
 	DDAnnotation *annotation = [[[DDAnnotation alloc] initWithCoordinate:theCoordinate addressDictionary:nil] autorelease];
         pinLatitude= annotation.coordinate.latitude;
         pinLongitude= annotation.coordinate.longitude;
         
-        
-	annotation.title = @"Drag to Move Pin";
-        //annotation.subtitle = ;// [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
+         
+	//annotation.title = @"Drag to Move Pin";
+    //annotation.subtitle = NSLocalizedString(@"No First Nation Found", @"No First Nation Found");// [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
 	
 	[self.mapView addAnnotation:annotation];
         
@@ -164,9 +201,19 @@
     }
 }
 -(void)showDetails: (id) sender{
+    LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     
-    [self GetFirstNationLandFromWebServiceWithLatitude:0 andLongitude: 0 ];
-
+    nextVC.remoteHostStatus = self.remoteHostStatus;
+    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+    nextVC.internetConnectionStatus = self.internetConnectionStatus;
+    nextVC.managedObjectContext = self.managedObjectContext;
+    
+    nextVC.landArray=landArray;//lands;
+    nextVC.title= NSLocalizedString(@"Select", @"Select");
+    
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
+    
 }
 
 #pragma  mark - NetworkDataGetter Delegate
@@ -179,8 +226,9 @@
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.managedObjectContext = self.managedObjectContext;
+    
     nextVC.landArray=[self GetWSLandsFromDictArray:(NSArray *)object];//lands;
-    nextVC.title= NSLocalizedString(@"Current Location", @"Current Location");
+    nextVC.title= NSLocalizedString(@"Select", @"Select");
     
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];

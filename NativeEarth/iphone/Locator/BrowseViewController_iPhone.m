@@ -94,8 +94,26 @@
 }
 
 
--(Land *)GetLandLocallyByLandID:(int) landID{
-  
+-(void )GetLandLocallyByLandID:(int) landID{
+    LocalLandGetter * landGetter = [[LocalLandGetter alloc] initWithManagedObjectContext:self.managedObjectContext];
+   Land * selectedLand = [landGetter GetLandWithLandID:landID];
+    
+    LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
+    
+    nextVC.remoteHostStatus = self.remoteHostStatus;
+    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+    nextVC.internetConnectionStatus = self.internetConnectionStatus;
+    nextVC.managedObjectContext = self.managedObjectContext;
+    nextVC.selectedLand = selectedLand;
+    
+    NSArray * lands = [NSArray arrayWithObject:selectedLand];
+    nextVC.allLands = lands;
+    
+    
+    nextVC.title= selectedLand.LandName;
+    
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
 }
 
 #pragma mark - Network operations

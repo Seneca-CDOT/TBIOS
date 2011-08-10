@@ -11,6 +11,7 @@
 #import "NetworkDataGetter.h"
 #import "WSLand.h"
 
+
 typedef enum {
 	ForLocator= 0,
     ForVisitPlanner
@@ -28,6 +29,7 @@ typedef enum {
     UIToolbar * toolbar;
     UISearchBar *searchBar;
     BOOL landIsSelected;
+    
     }
 @property (nonatomic) BrowseType browseType;
 
@@ -48,7 +50,7 @@ typedef enum {
 
 -(void) GetFirstNationListFromWebService;
 -(void) GetFirstNationListLocally;
--(Land *)GetLandLocallyByLandID:(int) landID;
+-(void) GetLandLocallyByLandID:(int) landID;
 @end
 
 @protocol BrowseViewController_iPhoneDelegate

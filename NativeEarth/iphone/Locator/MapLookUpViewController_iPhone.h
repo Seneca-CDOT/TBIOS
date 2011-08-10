@@ -12,11 +12,13 @@
 #import "NetworkDataGetter.h"
 #import "WSLand.h"
 #import "LandSelectViewController_iPhone.h"
+#import "ReverseGeocoder.h"
+
 typedef enum {
 	Standard,
     Hybrid
 } MapTypes;
-@interface MapLookUpViewController_iPhone : BaseViewController <NetworkDataGetterDelegate>{
+@interface MapLookUpViewController_iPhone : BaseViewController <NetworkDataGetterDelegate >{
     MKMapView *mapView;
    BOOL pinIsDropped;
     UIBarButtonItem * redoButton;
@@ -24,6 +26,7 @@ typedef enum {
     UISegmentedControl *mapTypeControl;
     CLLocationDegrees pinLatitude;
     CLLocationDegrees pinLongitude;
+    NSArray * landArray;
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
