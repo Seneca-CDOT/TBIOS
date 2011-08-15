@@ -9,7 +9,7 @@
 #import "LandShortArray.h"
 #import "LandShort.h"
 
-@implementation LandShortArray
+@implementation LandShortDictionary
 #pragma Mark -
 #pragma Mark Properties 
 @synthesize fetchedResultsControllerShortLands=fetchedResultsControllerShortLands_, managedObjectContext=managedObjectContext_;
@@ -23,12 +23,13 @@
     }
     NSArray * results =[self.fetchedResultsControllerShortLands fetchedObjects];
     int count = [results count];
-    self = [[NSMutableArray alloc] initWithCapacity:count];
+    self = [[NSMutableDictionary alloc] initWithCapacity:count];
     if (self) {
     
     for (NSDictionary * land  in results) {
         LandShort * landShort = [[LandShort alloc] initWithDictionary:land];        
-        [self addObject:landShort];
+        [self setObject:landShort forKey:[NSString stringWithFormat:@"%d",[ landShort.landId intValue]]];
+        NSLog(@"%@,%@,%d",landShort.landId,landShort.landName,[landShort.versionIdentifier intValue]);
     }
     }
     [results release];
