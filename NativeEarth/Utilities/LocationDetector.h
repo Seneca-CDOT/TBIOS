@@ -13,7 +13,7 @@
 
 typedef enum {
 	Locally,
-	Network,
+	Network
 } RetrieveOption;
 
 @protocol LocationDetectorDelegate <NSObject>
