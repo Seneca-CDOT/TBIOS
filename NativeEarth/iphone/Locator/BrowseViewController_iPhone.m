@@ -86,8 +86,8 @@
 
 #pragma mark - local data retrival opertion
 -(void) GetFirstNationListLocally{
-    LandShortArray * landShortArray = [[LandShortArray alloc] initWithManagedObjectContext:self.managedObjectContext];
-    self.completeList = (NSArray*)landShortArray;
+    LandShortDictionary * landShortDict = [[LandShortDictionary alloc] initWithManagedObjectContext:self.managedObjectContext];
+    self.completeList = [landShortDict allValues];
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
     [self.resultsTableView reloadData];
 	self.resultsTableView.scrollEnabled = YES;
