@@ -82,6 +82,8 @@
     return self;
    
 }
+
+//it converts itself to a managed land inserted to the context and returns it.
 -(Land*)ToManagedLand:(NSManagedObjectContext *)context{
      NSEntityDescription *entity= [NSEntityDescription entityForName:@"Land" inManagedObjectContext:context];
     Land * managedLand = [[Land alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
