@@ -7,7 +7,7 @@
 //
 
 #import "NativeEarthAppDelegate.h"
-
+#import "DataCreator.h"
 @implementation NativeEarthAppDelegate
 
 
@@ -42,6 +42,23 @@
     self.remoteHostStatus = [hostReach currentReachabilityStatus] ;
     self.internetConnectionStatus= [internetReach currentReachabilityStatus];
     self.wifiConnectionStatus =[wifiReach currentReachabilityStatus];
+    
+    isFirstLaunch=NO;
+    
+    NSString *storeFileName= [[[self applicationDocumentsDirectory] relativePath] stringByAppendingPathComponent:@"NativeEarth.sqlite"] ;
+	// Get a reference to the file manager
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	
+	// Check whether the file exists
+	isFirstLaunch = ![fileManager fileExistsAtPath:storeFileName];
+	
+    
+	if (isFirstLaunch) {
+        DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
+        [dataCreator createDataFromWebServive];
+        
+	}
+
 
     return YES;
 }
@@ -179,7 +196,7 @@
     NSError *error = nil;
     __persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![__persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&error])
-    {
+    { 
         /*
          Replace this implementation with code to handle the error appropriately.
          

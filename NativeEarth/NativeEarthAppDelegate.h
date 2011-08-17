@@ -15,6 +15,8 @@
     NetworkStatus internetConnectionStatus;
     NetworkStatus wifiConnectionStatus;
     NetworkStatus remoteHostStatus;
+    //first launch
+	BOOL isFirstLaunch;
 
 }
 
