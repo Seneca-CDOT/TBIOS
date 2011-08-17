@@ -15,7 +15,7 @@
 
 @implementation NativeEarthAppDelegate_iPhone
 
-@synthesize viewController;
+@synthesize viewController,updateArray;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -88,7 +88,7 @@
     
     addArray  =[[NSMutableArray alloc] init];
     deleteArray  =[[NSMutableArray alloc] init];
-    updateArray  =[[NSMutableArray alloc] init];
+    self.updateArray  =[[NSMutableArray alloc] init];
     if (remoteHostStatus!=NotReachable) {
             [self GetLandShortsFromWebService];
         }
@@ -149,7 +149,7 @@
                 NSNumber  * localVersion=l.versionIdentifier;
                 NSNumber * remotVersion=[[networkDict valueForKey:[NSString stringWithFormat:@"%d",i]] valueForKey:@"VersionIdentifier"];
                 if ([remotVersion intValue]!=[localVersion intValue]) {
-                    [updateArray addObject:[NSNumber numberWithInt:i]];
+                    [self.updateArray addObject:[NSNumber numberWithInt:i]];
                 }
             }else if(landExistLocally){ // it should be deleted
                 [deleteArray addObject:[NSNumber numberWithInt:i]];
