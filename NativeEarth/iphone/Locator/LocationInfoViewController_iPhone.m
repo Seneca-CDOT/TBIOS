@@ -72,7 +72,7 @@ typedef enum{
     if ([appDelegate.updateArray containsObject:((Land*)self.selectedLand).LandID]) {
       //   update object
     }
- 
+
 }
 
 - (void)viewDidUnload
