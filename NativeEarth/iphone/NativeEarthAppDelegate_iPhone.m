@@ -13,6 +13,18 @@
 #import "LocalLandGetter.h"
 #import "WSLand.h"
 
+NSInteger firstNumSort(id str1, id str2, void *context) {
+    int num1 = [str1 integerValue];
+    int num2 = [str2 integerValue];
+    
+    if (num1 < num2)
+        return NSOrderedAscending;
+    else if (num1 > num2)
+        return NSOrderedDescending;
+    
+    return NSOrderedSame;
+}
+
 @implementation NativeEarthAppDelegate_iPhone
 
 @synthesize viewController,updateArray;
@@ -204,3 +216,4 @@
 
 
 @end
+

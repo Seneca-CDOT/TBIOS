@@ -31,14 +31,3 @@
 -(void) GetFirstNationLandFromWebServiceWithLandID:(NSNumber *)landID;
 @end
 
-NSInteger firstNumSort(id str1, id str2, void *context) {
-    int num1 = [str1 integerValue];
-    int num2 = [str2 integerValue];
-    
-    if (num1 < num2)
-        return NSOrderedAscending;
-    else if (num1 > num2)
-        return NSOrderedDescending;
-    
-    return NSOrderedSame;
-}
