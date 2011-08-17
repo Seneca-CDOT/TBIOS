@@ -7,6 +7,7 @@
 //
 
 #import "LocationInfoViewController_iPhone.h"
+
 #import "GreetingsViewController_iPhone.h"
 #import "GazetterViewController_iPhone.h"
 #import "ImageBrowser_iPhone.h"
@@ -58,11 +59,7 @@ typedef enum{
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
     
-   //add observer for updateArray notification
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(receiveUpdateArrayNotification:) 
-                                                 name:@"UpdateArrayNotification"
-                                               object:nil];
+   
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
     self.tableView.dataSource = self;
@@ -70,6 +67,11 @@ typedef enum{
     
     self.view = self.tableView;
     
+    
+   // NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+   // if ([appDelegate.updateArray containsObject:((Land*)self.selectedLand).LandID]) {
+        // update object
+    //}
  
 }
 
@@ -319,15 +321,5 @@ typedef enum{
 
 }
 
-#pragma mark - notification observer method
-
-- (void) receiveUpdateArrayNotification:(NSNotification *) notification
-{
-    if ([[notification name] isEqualToString:@"UpdateArrayNotification"]){
-        NSArray * updatesArray = (NSArray*)notification;
-        //set the local veriable;
-    }
-        
-}
 
 @end
