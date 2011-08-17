@@ -7,7 +7,7 @@
 //
 
 #import "LocationInfoViewController_iPhone.h"
-
+#import "NativeEarthAppDelegate_iPhone.h"
 #import "GreetingsViewController_iPhone.h"
 #import "GazetterViewController_iPhone.h"
 #import "ImageBrowser_iPhone.h"
@@ -68,10 +68,10 @@ typedef enum{
     self.view = self.tableView;
     
     
-   // NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-   // if ([appDelegate.updateArray containsObject:((Land*)self.selectedLand).LandID]) {
-        // update object
-    //}
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    if ([appDelegate.updateArray containsObject:((Land*)self.selectedLand).LandID]) {
+      //   update object
+    }
  
 }
 
