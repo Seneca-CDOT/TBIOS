@@ -7,7 +7,7 @@
 //
 
 #import "NativeEarthAppDelegate_iPhone.h"
-#import "DataCreator.h"
+
 #import "LandShortArray.h"
 #import "LandShort.h"
 #import "LocalLandGetter.h"
@@ -41,22 +41,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
     self.viewController.remoteHostStatus = self.wifiConnectionStatus;
     self.viewController.managedObjectContext = self.managedObjectContext;
    
-    isFirstLaunch=NO;
-    
-    NSString *storeFileName= [[[self applicationDocumentsDirectory] relativePath] stringByAppendingPathComponent:@"NativeEarth.sqlite"] ;
-	// Get a reference to the file manager
-	NSFileManager *fileManager = [NSFileManager defaultManager];
-	
-	// Check whether the file exists
-	isFirstLaunch = ![fileManager fileExistsAtPath:storeFileName];
-	
-    
-	if (isFirstLaunch) {
-        DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
-     [dataCreator createDataFromWebServive];
-    		
-	}
-      updateCheckStarted=FALSE;
+         updateCheckStarted=FALSE;
       updateCheckFinished=FALSE;
   
     [self.window addSubview:self.viewController.view];

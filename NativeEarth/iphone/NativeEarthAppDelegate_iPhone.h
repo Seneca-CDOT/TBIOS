@@ -13,8 +13,7 @@
 
 @interface NativeEarthAppDelegate_iPhone :NativeEarthAppDelegate <NetworkDataGetterDelegate>{
  
-    //first launch
-	BOOL isFirstLaunch;
+  
     BOOL updateCheckStarted;
     BOOL updateCheckFinished;
     NSMutableArray *  addArray ;
