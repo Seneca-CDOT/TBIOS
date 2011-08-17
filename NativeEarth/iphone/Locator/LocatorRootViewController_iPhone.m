@@ -12,7 +12,7 @@
 #import "BrowseViewController_iPhone.h"
 #import "MapLookUpViewController_iPhone.h"
 #import "GeoPoliticalLookupViewController_iPhone.h"
-
+#import "LocationInfoViewController_iPhone.h"
 
 @implementation LocatorRootViewController_iPhone
 @synthesize locationDetector;
@@ -48,6 +48,12 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //add observer for updateArray notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveUpdateArrayNotification:) 
+                                                 name:@"UpdateArrayNotification"
+                                               object:nil];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
     //self.myTableView.backgroundColor = [UIColor blackColor];
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
@@ -169,13 +175,18 @@
 }
 
 -(void)GoToCurrentLocation{
-   
+    if (!([internetReach currentReachabilityStatus]==NotReachable && [wifiReach currentReachabilityStatus]== NotReachable )) {
+        
+    
         self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally WithManagedObjectContext: self.managedObjectContext];
 
     self.locationDetector.delegate = self;
  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     
    [self.locationDetector.locationManager startUpdatingLocation];
+    }else{
+        //allert
+    }
     
 }
 -(void)BrowseByName;{
@@ -222,18 +233,32 @@
 #pragma  mark - LocationDetectorDelegate
 -(void) LandUpdate:(NSArray *)lands{
     
+    if ([lands count]==1) { 
+        LocationInfoViewController_iPhone * nextVC = [[LocationInfoViewController_iPhone alloc]init];
+        nextVC.remoteHostStatus = self.remoteHostStatus;
+        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+        nextVC.internetConnectionStatus = self.internetConnectionStatus;
+        nextVC.managedObjectContext = self.managedObjectContext;
+        nextVC.selectedLand = [lands objectAtIndex:0];
+        nextVC.allLands=lands;
+        [self.navigationController pushViewController:nextVC animated:YES];
+        [nextVC release];
+
+    }else{
+    
     LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.managedObjectContext = self.managedObjectContext;
-    nextVC.landArray=lands;//[self GetWSLandsFromDictArray:lands];//lands;
+    nextVC.landArray=lands;
     
-    nextVC.title= NSLocalizedString(@"Current Location", @"Current Location");
+    nextVC.title= NSLocalizedString(@"Overlaping Lands", @"Overlaping Lands");
     
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
+    }
 }
 -(void) LocationError:(NSError *)error{
     NSLog(@"%@",[error description]);
@@ -255,4 +280,16 @@
 -(WSLand *)GetWSLandForDict:(NSDictionary *)dict{
     return  [[WSLand alloc] initWithDictionary:dict];
 }
+
+#pragma mark - notification observer method
+
+- (void) receiveUpdateArrayNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"UpdateArrayNotification"]){
+        NSArray * updatesArray = (NSArray*)notification;
+        //set the local veriable;
+    }
+    
+}
+
 @end

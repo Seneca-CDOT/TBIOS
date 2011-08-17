@@ -44,7 +44,6 @@
     for (Land  * land in nearByLands) {
          NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:[[land valueForKey:@"Coordinates"]description]];
         if([self PointWithLatitute: lat AndLongitute: lng BelongsToPolygonWithCoordinates:coordinates]){
-           // NSLog(@"%@",[(land.Greetings) description]);
             [lands addObject:land];   
         }
     }// end of for loop

@@ -45,6 +45,25 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad]; 
+    
+    // Override point for customization after application launch.
+    // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
+    // method "reachabilityChanged" will be called. 
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
+    
+    
+    hostReach = [[Reachability reachabilityWithHostName: kHostName] retain];
+    [hostReach startNotifier];
+	
+    internetReach = [[Reachability reachabilityForInternetConnection] retain];
+	[internetReach startNotifier];
+    
+    wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+	[wifiReach startNotifier];
+    
+    self.remoteHostStatus = [hostReach currentReachabilityStatus] ;
+    self.internetConnectionStatus= [internetReach currentReachabilityStatus];
+    self.wifiConnectionStatus =[wifiReach currentReachabilityStatus];
    
 }
 
@@ -62,6 +81,7 @@
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
 
 #pragma mark -  Network Reachability
 
@@ -88,6 +108,7 @@
 	}
 	
 }
+
 
 
 

@@ -51,6 +51,26 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    // Override point for customization after application launch.
+    // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
+    // method "reachabilityChanged" will be called. 
+    [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
+    
+    
+    hostReach = [[Reachability reachabilityWithHostName: kHostName] retain];
+    [hostReach startNotifier];
+	
+    internetReach = [[Reachability reachabilityForInternetConnection] retain];
+	[internetReach startNotifier];
+    
+    wifiReach = [[Reachability reachabilityForLocalWiFi] retain];
+	[wifiReach startNotifier];
+    
+    self.remoteHostStatus = [hostReach currentReachabilityStatus] ;
+    self.internetConnectionStatus= [internetReach currentReachabilityStatus];
+    self.wifiConnectionStatus =[wifiReach currentReachabilityStatus];
+
 }
 
 - (void)viewDidUnload

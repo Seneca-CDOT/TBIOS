@@ -57,13 +57,20 @@ typedef enum{
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
-
+    
+   //add observer for updateArray notification
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveUpdateArrayNotification:) 
+                                                 name:@"UpdateArrayNotification"
+                                               object:nil];
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
     self.view = self.tableView;
+    
+ 
 }
 
 - (void)viewDidUnload
@@ -96,7 +103,7 @@ typedef enum{
 {
     [super viewDidDisappear:animated];
 }
-
+ 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -126,23 +133,40 @@ typedef enum{
             break;
         case sectionHeaderTitleGreetings:
             cell.textLabel.text=NSLocalizedString(@"Greetings",@"Greetings");
+            if (((Land *)selectedLand).Greetings != nil) {
             cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.alpha = 1;
+            }else{
+                cell.userInteractionEnabled = NO;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.textLabel.alpha = 0.5;
+            }
             break;
         case sectionHeaderTitleMap:
             cell.textLabel.text=NSLocalizedString(@"Map",@"Map");
              cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.alpha = 1;
+        
             break;
         case sectionHeaderTitleImage:
             cell.textLabel.text=NSLocalizedString(@"IMage Gallery",@"Image Gallery");
+            if (([((Land *)selectedLand).Images count] >0)) {
              cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.alpha = 1;
+            }else{
+                cell.userInteractionEnabled = NO;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.textLabel.alpha = 0.5;
+            }
             break;
         case sectionHeaderTitleGazetter:
             cell.textLabel.text=NSLocalizedString(@"Gazetter",@"Gazetter");
             cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.alpha = 1;
             break;
         default:
             break;
@@ -255,6 +279,8 @@ typedef enum{
 }
 
 -(void) NavigateToMap{
+    if (self.remoteHostStatus != NotReachable) {
+        
     MapBrowserViewController_iPhone * nextVC = [[MapBrowserViewController_iPhone alloc] initWithNibName:@"MapBrowserViewController_iPhone" bundle:nil];
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
@@ -264,6 +290,9 @@ typedef enum{
     nextVC.title=NSLocalizedString(@"Map",@"Map");
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
+    }else{
+        //alert
+    }
 }
 -(void) NavigateToImageGallery{
     ImageBrowser_iPhone * nextVC = [[ImageBrowser_iPhone alloc]initWithNibName:@"ImageBrowser_iPhone" bundle:nil];
@@ -290,6 +319,15 @@ typedef enum{
 
 }
 
+#pragma mark - notification observer method
 
+- (void) receiveUpdateArrayNotification:(NSNotification *) notification
+{
+    if ([[notification name] isEqualToString:@"UpdateArrayNotification"]){
+        NSArray * updatesArray = (NSArray*)notification;
+        //set the local veriable;
+    }
+        
+}
 
 @end

@@ -10,16 +10,20 @@
 #import <CoreLocation/CoreLocation.h>
 //#import "LocationDetector.h"
 #import "Reachability.h"
+
 @interface BaseViewController : UIViewController {
     Reachability* hostReach;
     Reachability* internetReach;
     Reachability* wifiReach;
+    NetworkStatus internetConnectionStatus;
+    NetworkStatus wifiConnectionStatus;
+    NetworkStatus remoteHostStatus;
 }
 // coredata 
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 @property NetworkStatus internetConnectionStatus;
 @property NetworkStatus wifiConnectionStatus;
 @property NetworkStatus remoteHostStatus;
--(void) updateStatusesWithReachability: (Reachability*) curReach;
 
+- (void) updateStatusesWithReachability: (Reachability*) curReach;
 @end

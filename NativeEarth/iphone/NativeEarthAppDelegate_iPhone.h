@@ -15,7 +15,8 @@
  
     //first launch
 	BOOL isFirstLaunch;
-    BOOL updatesChecked;
+    BOOL updateCheckStarted;
+    BOOL updateCheckFinished;
     NSMutableArray *  addArray ;
     NSMutableArray *  deleteArray ;
     NSMutableArray *  updateArray ;

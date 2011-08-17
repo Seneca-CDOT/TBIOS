@@ -11,6 +11,7 @@
 //#import "LocationDetector.h"
 #import "Reachability.h"
 #define kTableViewSectionHeaderHeight 30
+
 @interface BaseTableViewController : UITableViewController {
     Reachability* hostReach;
     Reachability* internetReach;

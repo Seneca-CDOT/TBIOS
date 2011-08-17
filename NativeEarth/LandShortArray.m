@@ -29,7 +29,7 @@
     for (NSDictionary * land  in results) {
         LandShort * landShort = [[LandShort alloc] initWithDictionary:land];        
         [self setObject:landShort forKey:[NSString stringWithFormat:@"%d",[ landShort.landId intValue]]];
-        NSLog(@"%@,%@,%d",landShort.landId,landShort.landName,[landShort.versionIdentifier intValue]);
+       
     }
     }
     [results release];

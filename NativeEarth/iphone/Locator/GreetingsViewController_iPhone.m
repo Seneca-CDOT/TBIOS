@@ -111,7 +111,7 @@
 
 - (void) playContent:(Content *)content {
 	
-    
+    if (self.remoteHostStatus!=NotReachable) {
     NSString * urlString  = [NSString stringWithFormat:@"%@%@%@", content.DataLocation ,@".",content.MIMEType];
 
     NSURL * URL = [NSURL URLWithString:urlString];
@@ -131,6 +131,9 @@
 	//[appSoundPlayer setVolume: 1.0];
 	[appSoundPlayer setDelegate: self];
     [appSoundPlayer play];
+    }else{
+        //allert
+    }
 }
 
 -(IBAction)     playHello:          (id) sender{

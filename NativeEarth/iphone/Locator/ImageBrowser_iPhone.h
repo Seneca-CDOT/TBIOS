@@ -36,4 +36,5 @@ typedef enum{ Next, Previous} TransitionDirection;
 -(void) loadImagesWithDirection: (TransitionDirection) direction;
 
 - (UIImage *)imageAtIndex:(int)index;
+
 @end

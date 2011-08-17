@@ -55,7 +55,7 @@ typedef enum {
 	ReachableViaWWAN
 } NetworkStatus;
 #define kReachabilityChangedNotification @"kNetworkReachabilityChangedNotification"
-
+#define kHostName @"www.apple.com"
 @interface Reachability: NSObject
 {
 	BOOL localWiFiRef;

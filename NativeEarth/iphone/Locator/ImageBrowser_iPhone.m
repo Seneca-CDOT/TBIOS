@@ -176,6 +176,7 @@
 
 -(IBAction)nextTransition:(id)sender
 {
+    if (self.remoteHostStatus != NotReachable) {
     int size = [managedImages count];
 	if(!transitioning)
 	{
@@ -190,11 +191,15 @@
         currentImageIndex=(currentImageIndex+1)%size;  
 
         }
+    }else{
+        //alert
+    }
 }
 
 
 -(IBAction)previousTransition:(id)sender
 {
+    if (self.remoteHostStatus != NotReachable){    
     int size = [managedImages count];
 	if(!transitioning)
 	{
@@ -211,6 +216,9 @@
     if (currentImageIndex < 0) {
         currentImageIndex = size-1;
     }
+    }else{
+        //alert
+    }
 }
 
 
@@ -222,7 +230,6 @@
     NSData *imageData = [NSData dataWithContentsOfURL:url];
     return [UIImage imageWithData:imageData];    
 }
-
 
 
 @end

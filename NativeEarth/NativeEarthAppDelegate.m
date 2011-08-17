@@ -22,8 +22,6 @@
 @synthesize remoteHostStatus;
 
 
-#define kHostName @"www.apple.com"
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     // Override point for customization after application launch.

@@ -44,7 +44,8 @@
      [dataCreator createDataFromWebServive];
     		
 	}
-      updatesChecked=FALSE;
+      updateCheckStarted=FALSE;
+      updateCheckFinished=FALSE;
   
     [self.window addSubview:self.viewController.view];
     [self.window makeKeyAndVisible];
@@ -67,30 +68,31 @@
     if(curReach == hostReach)
 	{
         self.remoteHostStatus = [curReach currentReachabilityStatus];
-        self.viewController.remoteHostStatus =self.remoteHostStatus;
+        //self.viewController.remoteHostStatus =self.remoteHostStatus;
     }
     
 	if(curReach == internetReach)
 	{	
 		
         self.internetConnectionStatus= [curReach currentReachabilityStatus];
-        self.viewController.internetConnectionStatus =self.internetConnectionStatus;
+       // self.viewController.internetConnectionStatus =self.internetConnectionStatus;
 	}
 	if(curReach == wifiReach)
 	{
         self.wifiConnectionStatus =[curReach currentReachabilityStatus];
-        self.viewController.wifiConnectionStatus=self.wifiConnectionStatus;
+       // self.viewController.wifiConnectionStatus=self.wifiConnectionStatus;
 	}
 	
     //check for updates
-
+    if (!updateCheckStarted) {
+    
     addArray  =[[NSMutableArray alloc] init];
     deleteArray  =[[NSMutableArray alloc] init];
     updateArray  =[[NSMutableArray alloc] init];
     if (remoteHostStatus!=NotReachable) {
-        
-        [self GetLandShortsFromWebService];
-        
+            [self GetLandShortsFromWebService];
+        }
+        updateCheckStarted = YES;
     }
     
 }
@@ -120,7 +122,7 @@
 #pragma mark - NetworkDataGetterDelegate Methods
 
 -(void)DataUpdate:(id)object{
-    if(!updatesChecked){// check for updates
+    if(!updateCheckFinished){// check for updates
         //first get the local dictionary 
         LandShortDictionary * localLandShortDict = [[LandShortDictionary alloc] initWithManagedObjectContext:self.managedObjectContext];
 
@@ -168,12 +170,16 @@
             }
         } // end of deletion
         
+        //post update notification (there is listener in location info view)
+        if ([updateArray count]>0) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateArrayNotification" object:updateArray];        
+        }
         //get objects to be addes
 
         for (NSNumber * n in addArray){
             [self GetFirstNationLandFromWebServiceWithLandID:n];
         }
-        updatesChecked=YES;
+        updateCheckFinished=YES;
     
     }else{// apply the additions
   
@@ -183,7 +189,7 @@
 
         NSError * error;
         if(![managedLand.managedObjectContext save:&error]){
-            NSLog([error description]);
+            NSLog(@"%@",[error description]);
         } 
     }
     
