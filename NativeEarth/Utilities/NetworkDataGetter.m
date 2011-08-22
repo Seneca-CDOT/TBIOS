@@ -69,7 +69,7 @@
        [self.delegate DataUpdate:self.dataArray];
      }
   
-}
+} 
 
 
 - (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
