@@ -44,7 +44,9 @@
 - (void) updateStatusesWithReachability: (Reachability*) curReach;
 -(id) initWithManagedObjectContext:(NSManagedObjectContext* ) context;
 -(Land *)GetLandWithLandID:(int)landId;
+-(Land *)GetLandLocallyWithLandID:(int)landId;
 -(void) GetLandShortsFromWebService;
 -(NSDictionary *)GetLandShortsDictionary;
 -(void) GetLandFromWebServiceWithLandID:(NSNumber *)landId;
+-(void)CheckForLandUpdatesByLandID:(NSNumber *)landId;
 @end

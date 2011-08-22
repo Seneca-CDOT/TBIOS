@@ -48,7 +48,7 @@ typedef enum {
 
 -(IBAction) CancelButtonAction:(id) sender;
 
--(void) GetFirstNationList;
+-(void) GetLandShortList;
 -(Land*) GetLandLocallyByLandID:(int) landID;
 @end
 

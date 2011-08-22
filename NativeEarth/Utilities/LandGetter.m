@@ -204,9 +204,15 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 
 #pragma mark - local data reterival
 -(Land *)GetLandWithLandID:(int)landId{
+    Land * land = [self GetLandLocallyWithLandID:landId];
+    //check for updates here
+    //post notif
+    return land;
+}
+-(Land *)GetLandLocallyWithLandID:(int)landId{
+    fetchedResultsControllerLand_=nil;
     landID = landId;
     NSError *error;
-    fetchedResultsControllerLand_=nil;
     if(![[self fetchedResultsControllerLand]performFetch:&error]){
         //handle Error
     }
@@ -264,6 +270,13 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
     
 }
 
+
+-(void)CheckForLandUpdatesByLandID:(NSNumber *)landId{
+    if ([updateArray count]>0 &&[updateArray containsObject:landId]) {
+        
+    }
+}
+
 #pragma mark - NetworkDataGetterDelegate Methods
 
 -(void)DataUpdate:(id)object{
@@ -272,7 +285,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         NSDictionary * localLandShortDict= [self GetLandShortsDictionary];
         
         //get the largest local land id 
-        NSArray * localKeyArray= [localLandShortDict allKeys];
+        NSArray * localKeyArray= [[localLandShortDict allKeys] sortedArrayUsingFunction:firstNumSort context:nil];
         int localLargestID = [[localKeyArray lastObject] intValue];
         
         //second get the network array:
@@ -314,8 +327,13 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
             NSError * error;
             if(![self.managedObjectContext save:&error]){
             }else{
-                fetchedResultsControllerShortLands_ =nil;
-                fetchedResultsControllerLand_ = nil;
+                if  ([deleteArray count]>0) {
+                    [landShortList removeAllObjects];
+                    [landShortList addObjectsFromArray: [[self GetLandShortsDictionary]allValues]];
+                    NSLog(@"%@",[landShortList description]);
+                    // Broadcast a notification
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:landShortList]; 
+                }
             }
         } // end of deletion
          
@@ -326,7 +344,6 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         //get objects to be addes
         if ([addArray count]>0) {
             
-       
             for (NSNumber * n in addArray){
                [self GetLandFromWebServiceWithLandID:n];
             }
@@ -341,22 +358,24 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         
         WSLand * land = [[WSLand alloc] initWithDictionary:(NSDictionary*)object];
          NSLog(@"Adding land %d",[land.LandID intValue]);
-        Land * managedLand = [land ToManagedLand:self.managedObjectContext];
+        Land * managedLand = [land ToManagedLand:self.managedObjectContext]; 
         
         NSError * error;
         if(![managedLand.managedObjectContext save:&error]){
             NSLog(@"%@",[error description]);
         } 
+        
+      
+            [landShortList removeAllObjects];
+            [landShortList addObjectsFromArray: [[self GetLandShortsDictionary]allValues]];
+            NSLog(@"%@",[landShortList description]);
+            // Broadcast a notification
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:landShortList]; 
+
+        
     }
     
-    if ([addArray count]>0 || [deleteArray count]>0) {
-        [landShortList removeAllObjects];
-        fetchedResultsControllerShortLands_=nil;
-        [landShortList addObjectsFromArray: [[self GetLandShortsDictionary]allValues]];
-        NSLog(@"%@",[landShortList description]);
-        // Broadcast a notification
-         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:landShortList]; 
-    }
+    
 
     
 }

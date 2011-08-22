@@ -59,7 +59,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Do any additional setup after loading the view from its nib.
-    [self GetFirstNationList];
+    [self GetLandShortList];
     
 }
 
@@ -86,7 +86,7 @@
 
 
 #pragma mark - local data retrival opertion
--(void) GetFirstNationList{
+-(void) GetLandShortList{
      NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     
     self.completeList = appDelegate.landGetter.landShortList;
