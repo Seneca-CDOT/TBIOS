@@ -53,10 +53,11 @@
 	isFirstLaunch = ![fileManager fileExistsAtPath:storeFileName];
 	
     
-	if (isFirstLaunch) {
+	if (isFirstLaunch) { 
+        NSLog(@"data creation started\n.");
         DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
         [dataCreator createDataFromWebServive];
-        
+       
 	}
 
 
