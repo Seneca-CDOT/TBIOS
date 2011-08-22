@@ -20,9 +20,9 @@ typedef enum {
 
 @protocol BrowseViewController_iPhoneDelegate;
 
-@interface BrowseViewController_iPhone : BaseViewController<UISearchDisplayDelegate, UISearchBarDelegate,NetworkDataGetterDelegate> {
+@interface BrowseViewController_iPhone : BaseViewController<UISearchDisplayDelegate, UISearchBarDelegate> {
     BrowseType browseType;
-    NSArray * completeList;
+    NSMutableArray * completeList;
     NSMutableArray * filteredList;
     id<BrowseViewController_iPhoneDelegate> delegate;
     UITableView * resultsTableView;
@@ -35,7 +35,7 @@ typedef enum {
 
 @property (nonatomic, assign) id<BrowseViewController_iPhoneDelegate> delegate;
 
-@property (nonatomic, retain ) NSArray * completeList;
+@property (nonatomic, retain ) NSMutableArray * completeList;
 
 @property (nonatomic, retain) NSMutableArray * filteredList;
 
@@ -48,9 +48,8 @@ typedef enum {
 
 -(IBAction) CancelButtonAction:(id) sender;
 
--(void) GetFirstNationListFromWebService;
--(void) GetFirstNationListLocally;
--(void) GetLandLocallyByLandID:(int) landID;
+-(void) GetFirstNationList;
+-(Land*) GetLandLocallyByLandID:(int) landID;
 @end
 
 @protocol BrowseViewController_iPhoneDelegate

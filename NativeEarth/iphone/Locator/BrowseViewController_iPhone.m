@@ -11,7 +11,8 @@
 #import "JSON.h"
 #import "LandShort.h"
 #import "LandShortArray.h"
-#import "LocalLandGetter.h"
+#import "LandGetter.h"
+#import "NativeEarthAppDelegate_iPhone.h"
 
 @implementation BrowseViewController_iPhone
 @synthesize browseType;
@@ -30,7 +31,7 @@
     [toolbar release];
     [dataStream release];
     [completeList release];
-    //[filteredList release];
+    
     [super dealloc];
 }
 
@@ -48,6 +49,7 @@
 {
     [super viewDidLoad];
     landIsSelected = NO;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"NewList" object:nil];
     if (browseType== ForLocator) {
         [self.toolbar setHidden:YES];
         [self.resultsTableView removeFromSuperview];
@@ -57,9 +59,8 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Do any additional setup after loading the view from its nib.
-    [self GetFirstNationListLocally];
+    [self GetFirstNationList];
     
-   // [self GetFirstNationListFromWebService];
 }
 
 - (void)viewDidUnload
@@ -85,60 +86,26 @@
 
 
 #pragma mark - local data retrival opertion
--(void) GetFirstNationListLocally{
-    LandShortDictionary * landShortDict = [[LandShortDictionary alloc] initWithManagedObjectContext:self.managedObjectContext];
-    self.completeList = [landShortDict allValues];
+-(void) GetFirstNationList{
+     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    
+    self.completeList = appDelegate.landGetter.landShortList;
+    NSLog(@"initial completelist in browser:");
+    NSLog(@"%@",[self.completeList description]);
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
     [self.resultsTableView reloadData];
 	self.resultsTableView.scrollEnabled = YES;
 }
 
 
--(void )GetLandLocallyByLandID:(int) landID{
-    LocalLandGetter * landGetter = [[LocalLandGetter alloc] initWithManagedObjectContext:self.managedObjectContext];
-   Land * selectedLand = [landGetter GetLandWithLandID:landID];
+-(Land* )GetLandLocallyByLandID:(int) landID{
+   NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+   Land * selectedLand = [appDelegate.landGetter GetLandWithLandID:landID];
     
-    LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
-    
-    nextVC.remoteHostStatus = self.remoteHostStatus;
-    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-    nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.managedObjectContext = self.managedObjectContext;
-    nextVC.selectedLand = selectedLand;
-    
-    NSArray * lands = [NSArray arrayWithObject:selectedLand];
-    nextVC.allLands = lands;
-    
-    
-    nextVC.title= selectedLand.LandName;
-    
-    [self.navigationController pushViewController:nextVC animated:YES];
-    [nextVC release];
-}
+    return selectedLand;
+   }
 
-#pragma mark - Network operations
--(void) GetFirstNationListFromWebService{
- NSString *url = @"http://localhost/~ladan/FirstNationList";
-    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
-    dataGetter.delegate = self;
-    
-    // Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [dataGetter GetResultsFromUrl:url];
-}
 
--(void) GetFirstNationLandFromWebServiceWithLandID:(NSNumber *)landID{
-    //pass landID and language here:
-    
-    NSString *url = @"http://localhost/~ladan/Algonquin ";
-    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
-    dataGetter.delegate = self;
-    
-    // Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [dataGetter GetResultsFromUrl:url];
-
-}
 #pragma mark - TableView datasource and delegate
 
 // Customize the number of rows in the table view.
@@ -207,8 +174,23 @@
     
        
   if (browseType == ForLocator)  {
-      //[self GetFirstNationLandFromWebServiceWithLandID:landShort.landId];
-      [self GetLandLocallyByLandID:[landShort.landId  intValue]];
+      Land* selectedLand= [self GetLandLocallyByLandID:[landShort.landId  intValue]];
+      LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
+      
+      nextVC.remoteHostStatus = self.remoteHostStatus;
+      nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+      nextVC.internetConnectionStatus = self.internetConnectionStatus;
+      nextVC.managedObjectContext = self.managedObjectContext;
+      nextVC.selectedLand = selectedLand;
+      
+      NSArray * lands = [NSArray arrayWithObject:selectedLand];
+      nextVC.allLands = lands;
+      
+      
+      nextVC.title= selectedLand.LandName;
+      
+      [self.navigationController pushViewController:nextVC animated:YES];
+      [nextVC release];
 
     }else {
         [self.delegate BrowseViewControllerDidSelectFirstNation:landShort];
@@ -267,42 +249,20 @@
 -(IBAction) CancelButtonAction:(id) sender{
     [self dismissModalViewControllerAnimated:YES];
 }
-#pragma  mark - NetworkDataGetter Delegate
 
--(void)DataUpdate:(id)object{
-    if (!landIsSelected) {
-    //self.completeList = (NSArray*)object;
-    //self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
-    //[self.resultsTableView reloadData];
-	// self.resultsTableView.scrollEnabled = YES;
-    }
-    else{
-        WSLand * selectedLand = [[WSLand alloc] initWithDictionary:(NSDictionary*)object];
-        
-        LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
-        
-        nextVC.remoteHostStatus = self.remoteHostStatus;
-        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-        nextVC.internetConnectionStatus = self.internetConnectionStatus;
-        nextVC.managedObjectContext = self.managedObjectContext;
-        nextVC.selectedLand = selectedLand;
-        
-        NSArray * lands = [NSArray arrayWithObject:selectedLand];
-        nextVC.allLands = lands;
-        
-        
-        nextVC.title= selectedLand.LandName;
-        
-        [self.navigationController pushViewController:nextVC animated:YES];
-        [nextVC release];
-    }
-        
-}
--(void)DataError:(NSError *)error{
-    // Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
-	NSLog(@"%@", [error description]);
+
+// Notification handler
+- (void)updateUI:(NSNotification *)notif {
+    [self.completeList removeAllObjects];
+    
+    [self.completeList addObjectsFromArray:(NSArray*)notif];
+    
+    //= appDelegate.landGetter.landShortList;
+    [self.filteredList removeAllObjects];
+    self.filteredList=nil;
+    self.filteredList= [NSMutableArray arrayWithCapacity:[self.completeList count]];
+
+    [self.resultsTableView reloadData];
 }
 
 @end
