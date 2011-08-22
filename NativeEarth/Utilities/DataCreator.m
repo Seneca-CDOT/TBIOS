@@ -84,8 +84,9 @@
         if(! [managedObjectContext save:&error]){
             NSLog(@"Context save error %@, %@", error, [error userInfo]);
 			abort();
+        }else{
+        NSLog(@"initial data is saved.\n");
         }
-         
     }
 }
 -(void)DataError:(NSError *)error{
