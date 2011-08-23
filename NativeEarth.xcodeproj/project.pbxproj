@@ -10,7 +10,7 @@
 		D7003C1613CDEEF000587CD0 /* TextFieldCell_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */; };
 		D7003C1913CDEF1800587CD0 /* TextFieldCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */; };
 		D71CA1C413F2CF550016C3CB /* LandShortArray.m in Sources */ = {isa = PBXBuildFile; fileRef = D71CA1C313F2CF530016C3CB /* LandShortArray.m */; };
-		D71CA1C813F2F12C0016C3CB /* LocalLandGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D71CA1C713F2F12B0016C3CB /* LocalLandGetter.m */; };
+		D71CA1C813F2F12C0016C3CB /* LandGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D71CA1C713F2F12B0016C3CB /* LandGetter.m */; };
 		D71F404F13EC4CB800DA0BB6 /* PlannedVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D71F404E13EC4CB800DA0BB6 /* PlannedVisit.m */; };
 		D71F405213EC4CB800DA0BB6 /* Content.m in Sources */ = {isa = PBXBuildFile; fileRef = D71F405113EC4CB800DA0BB6 /* Content.m */; };
 		D71F405513EC4CB900DA0BB6 /* Land.m in Sources */ = {isa = PBXBuildFile; fileRef = D71F405413EC4CB900DA0BB6 /* Land.m */; };
@@ -23,7 +23,7 @@
 		D723153D13C2379D00DF3DF8 /* BrowseViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D723153C13C2379D00DF3DF8 /* BrowseViewController_iPhone.xib */; };
 		D7592E8713BBB2F700F1D28C /* LauncherViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7592E8513BBB2F700F1D28C /* LauncherViewController_iPhone.xib */; };
 		D7592EAF13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */; };
-		D75F6A1D13E88623001E6509 /* Algonquin.txt in Resources */ = {isa = PBXBuildFile; fileRef = D75F6A1C13E88622001E6509 /* Algonquin.txt */; };
+		D75F6A1D13E88623001E6509 /* Land0.txt in Resources */ = {isa = PBXBuildFile; fileRef = D75F6A1C13E88622001E6509 /* Land0.txt */; };
 		D77E0E1013BCC34300A738D8 /* LocationInfoViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */; };
 		D77E0E1A13BCC9CD00A738D8 /* GreetingsViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E1813BCC9CD00A738D8 /* GreetingsViewController_iPhone.m */; };
 		D77E0E1B13BCC9CD00A738D8 /* GreetingsViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77E0E1913BCC9CD00A738D8 /* GreetingsViewController_iPhone.xib */; };
@@ -44,6 +44,15 @@
 		D78D04B013E1D72200C04A5E /* WSLand.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04AF13E1D72200C04A5E /* WSLand.m */; };
 		D78D04B313E1D92200C04A5E /* WSGreetings.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B213E1D92100C04A5E /* WSGreetings.m */; };
 		D78D04B613E1DB6D00C04A5E /* WSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B513E1DB6A00C04A5E /* WSContent.m */; };
+		D794189E13FEFC920001CAA9 /* Land1.txt in Resources */ = {isa = PBXBuildFile; fileRef = D794189D13FEFC910001CAA9 /* Land1.txt */; };
+		D79418A113FEFC9A0001CAA9 /* Land2.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A013FEFC9A0001CAA9 /* Land2.txt */; };
+		D79418A313FEFCA20001CAA9 /* Land3.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A213FEFCA10001CAA9 /* Land3.txt */; };
+		D79418AA13FEFCC10001CAA9 /* Land4.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A413FEFCB20001CAA9 /* Land4.txt */; };
+		D79418AB13FEFCC10001CAA9 /* Land5.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A513FEFCB20001CAA9 /* Land5.txt */; };
+		D79418AC13FEFCC10001CAA9 /* Land6.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A613FEFCB30001CAA9 /* Land6.txt */; };
+		D79418AD13FEFCC10001CAA9 /* Land7.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A713FEFCB40001CAA9 /* Land7.txt */; };
+		D79418AE13FEFCC10001CAA9 /* Land8.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A813FEFCB70001CAA9 /* Land8.txt */; };
+		D79418AF13FEFCC10001CAA9 /* Land9.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A913FEFCBB0001CAA9 /* Land9.txt */; };
 		D794FACC13C361FF00BCE651 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = D794FAC413C361FF00BCE651 /* 1.png */; };
 		D794FACD13C361FF00BCE651 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = D794FAC513C361FF00BCE651 /* 2.png */; };
 		D794FACE13C361FF00BCE651 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = D794FAC613C361FF00BCE651 /* 3.png */; };
@@ -124,8 +133,8 @@
 		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
 		D71CA1C213F2CF530016C3CB /* LandShortArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandShortArray.h; sourceTree = "<group>"; };
 		D71CA1C313F2CF530016C3CB /* LandShortArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandShortArray.m; sourceTree = "<group>"; };
-		D71CA1C613F2F12A0016C3CB /* LocalLandGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalLandGetter.h; sourceTree = "<group>"; };
-		D71CA1C713F2F12B0016C3CB /* LocalLandGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocalLandGetter.m; sourceTree = "<group>"; };
+		D71CA1C613F2F12A0016C3CB /* LandGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandGetter.h; sourceTree = "<group>"; };
+		D71CA1C713F2F12B0016C3CB /* LandGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandGetter.m; sourceTree = "<group>"; };
 		D71F404D13EC4CB800DA0BB6 /* PlannedVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlannedVisit.h; sourceTree = "<group>"; };
 		D71F404E13EC4CB800DA0BB6 /* PlannedVisit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlannedVisit.m; sourceTree = "<group>"; };
 		D71F405013EC4CB800DA0BB6 /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content.h; sourceTree = "<group>"; };
@@ -142,7 +151,7 @@
 		D7592E8813BBB31000F1D28C /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LauncherViewController_iPhone.xib; sourceTree = "<group>"; };
 		D7592EAD13BBC06A00F1D28C /* LocatorRootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocatorRootViewController_iPhone.h; sourceTree = "<group>"; };
 		D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocatorRootViewController_iPhone.m; sourceTree = "<group>"; };
-		D75F6A1C13E88622001E6509 /* Algonquin.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Algonquin.txt; path = ../../Sites/Algonquin.txt; sourceTree = "<group>"; };
+		D75F6A1C13E88622001E6509 /* Land0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land0.txt; path = ../../Sites/Land0.txt; sourceTree = "<group>"; };
 		D77E0E0E13BCC34300A738D8 /* LocationInfoViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationInfoViewController_iPhone.h; sourceTree = "<group>"; };
 		D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationInfoViewController_iPhone.m; sourceTree = "<group>"; };
 		D77E0E1713BCC9CD00A738D8 /* GreetingsViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreetingsViewController_iPhone.h; sourceTree = "<group>"; };
@@ -176,6 +185,15 @@
 		D78D04B413E1DB6900C04A5E /* WSContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSContent.h; sourceTree = "<group>"; };
 		D78D04B513E1DB6A00C04A5E /* WSContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSContent.m; sourceTree = "<group>"; };
 		D78D04B713E1F78400C04A5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D794189D13FEFC910001CAA9 /* Land1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land1.txt; path = ../../Sites/Land1.txt; sourceTree = "<group>"; };
+		D79418A013FEFC9A0001CAA9 /* Land2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land2.txt; path = ../../Sites/Land2.txt; sourceTree = "<group>"; };
+		D79418A213FEFCA10001CAA9 /* Land3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land3.txt; path = ../../Sites/Land3.txt; sourceTree = "<group>"; };
+		D79418A413FEFCB20001CAA9 /* Land4.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land4.txt; path = ../../Sites/Land4.txt; sourceTree = "<group>"; };
+		D79418A513FEFCB20001CAA9 /* Land5.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land5.txt; path = ../../Sites/Land5.txt; sourceTree = "<group>"; };
+		D79418A613FEFCB30001CAA9 /* Land6.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land6.txt; path = ../../Sites/Land6.txt; sourceTree = "<group>"; };
+		D79418A713FEFCB40001CAA9 /* Land7.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land7.txt; path = ../../Sites/Land7.txt; sourceTree = "<group>"; };
+		D79418A813FEFCB70001CAA9 /* Land8.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land8.txt; path = ../../Sites/Land8.txt; sourceTree = "<group>"; };
+		D79418A913FEFCBB0001CAA9 /* Land9.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land9.txt; path = ../../Sites/Land9.txt; sourceTree = "<group>"; };
 		D794FAC413C361FF00BCE651 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		D794FAC513C361FF00BCE651 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		D794FAC613C361FF00BCE651 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
@@ -298,13 +316,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		D72157BE13C248B800AF9AD0 /* About */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = About;
-			sourceTree = "<group>";
-		};
 		D77E0E2113BCCB0A00A738D8 /* LocationInfo */ = {
 			isa = PBXGroup;
 			children = (
@@ -447,9 +458,17 @@
 			isa = PBXGroup;
 			children = (
 				D7967CB813E98A8C00E597B4 /* FirstNationList */,
-				D75F6A1C13E88622001E6509 /* Algonquin.txt */,
+				D794189D13FEFC910001CAA9 /* Land1.txt */,
+				D79418A413FEFCB20001CAA9 /* Land4.txt */,
+				D79418A513FEFCB20001CAA9 /* Land5.txt */,
+				D79418A613FEFCB30001CAA9 /* Land6.txt */,
+				D79418A713FEFCB40001CAA9 /* Land7.txt */,
+				D79418A813FEFCB70001CAA9 /* Land8.txt */,
+				D79418A913FEFCBB0001CAA9 /* Land9.txt */,
+				D79418A213FEFCA10001CAA9 /* Land3.txt */,
+				D79418A013FEFC9A0001CAA9 /* Land2.txt */,
+				D75F6A1C13E88622001E6509 /* Land0.txt */,
 				D78D045613E0449200C04A5E /* AlgonquinOverLap.txt */,
-				D72157F513C264AE00AF9AD0 /* QuartzCore.framework */,
 				D7BB0D8413BB9A0C0062C2A9 /* NativeEarth */,
 				D7BB0D7B13BB9A0C0062C2A9 /* Frameworks */,
 				D7BB0D7913BB9A0B0062C2A9 /* Products */,
@@ -467,6 +486,7 @@
 		D7BB0D7B13BB9A0C0062C2A9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D72157F513C264AE00AF9AD0 /* QuartzCore.framework */,
 				D7BB0DD613BB9DEA0062C2A9 /* json-framework */,
 				D7BB0DD413BB9D990062C2A9 /* SystemConfiguration.framework */,
 				D7BB0DD213BB9D910062C2A9 /* AVFoundation.framework */,
@@ -529,8 +549,8 @@
 				D7BB0DB913BB9CC30062C2A9 /* Utility.m */,
 				D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */,
 				D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */,
-				D71CA1C613F2F12A0016C3CB /* LocalLandGetter.h */,
-				D71CA1C713F2F12B0016C3CB /* LocalLandGetter.m */,
+				D71CA1C613F2F12A0016C3CB /* LandGetter.h */,
+				D71CA1C713F2F12B0016C3CB /* LandGetter.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -590,7 +610,6 @@
 				D7BB0DF613BBA22A0062C2A9 /* MainWindow_iPhone.xib */,
 				D7BB0DF313BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m */,
 				D7BB0DF413BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.h */,
-				D72157BE13C248B800AF9AD0 /* About */,
 				D7BB0DEF13BBA0440062C2A9 /* Launcher */,
 				D786011D13C6162A007EA5B0 /* Shared */,
 				D7BB0DEE13BBA0440062C2A9 /* Locator */,
@@ -747,8 +766,17 @@
 				D7DA7B4613D763B1009EEC0A /* 193-location-arrow.png in Resources */,
 				D7DA7B4813D763F0009EEC0A /* 02-redo.png in Resources */,
 				D78D045713E0449200C04A5E /* AlgonquinOverLap.txt in Resources */,
-				D75F6A1D13E88623001E6509 /* Algonquin.txt in Resources */,
+				D75F6A1D13E88623001E6509 /* Land0.txt in Resources */,
 				D7967CB913E98A8C00E597B4 /* FirstNationList in Resources */,
+				D794189E13FEFC920001CAA9 /* Land1.txt in Resources */,
+				D79418A113FEFC9A0001CAA9 /* Land2.txt in Resources */,
+				D79418A313FEFCA20001CAA9 /* Land3.txt in Resources */,
+				D79418AA13FEFCC10001CAA9 /* Land4.txt in Resources */,
+				D79418AB13FEFCC10001CAA9 /* Land5.txt in Resources */,
+				D79418AC13FEFCC10001CAA9 /* Land6.txt in Resources */,
+				D79418AD13FEFCC10001CAA9 /* Land7.txt in Resources */,
+				D79418AE13FEFCC10001CAA9 /* Land8.txt in Resources */,
+				D79418AF13FEFCC10001CAA9 /* Land9.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -806,7 +834,7 @@
 				D71F405513EC4CB900DA0BB6 /* Land.m in Sources */,
 				D71F405813EC4CB900DA0BB6 /* Greetings.m in Sources */,
 				D71CA1C413F2CF550016C3CB /* LandShortArray.m in Sources */,
-				D71CA1C813F2F12C0016C3CB /* LocalLandGetter.m in Sources */,
+				D71CA1C813F2F12C0016C3CB /* LandGetter.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
