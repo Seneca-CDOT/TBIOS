@@ -49,7 +49,6 @@
 {
     [super viewDidLoad];
     landIsSelected = NO;
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"NewList" object:nil];
     if (browseType== ForLocator) {
         [self.toolbar setHidden:YES];
         [self.resultsTableView removeFromSuperview];
@@ -61,6 +60,10 @@
     // Do any additional setup after loading the view from its nib.
     [self GetLandShortList];
     
+}
+-(void) awakeFromNib{
+    [super awakeFromNib];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"NewList" object:nil];
 }
 
 - (void)viewDidUnload
@@ -98,7 +101,7 @@
 }
 
 
--(Land* )GetLandLocallyByLandID:(int) landID{
+-(Land* )GetLandByLandID:(int) landID{
    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
    Land * selectedLand = [appDelegate.landGetter GetLandWithLandID:landID];
     
@@ -174,7 +177,7 @@
     
        
   if (browseType == ForLocator)  {
-      Land* selectedLand= [self GetLandLocallyByLandID:[landShort.landId  intValue]];
+      Land* selectedLand= [self GetLandByLandID:[landShort.landId  intValue]];
       LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
       
       nextVC.remoteHostStatus = self.remoteHostStatus;
@@ -253,6 +256,7 @@
 
 // Notification handler
 - (void)updateUI:(NSNotification *)notif {
+    NSLog(@"Notification received in browser");
     [self.completeList removeAllObjects];
     
     [self.completeList addObjectsFromArray:(NSArray*)notif];

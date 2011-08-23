@@ -49,7 +49,7 @@ typedef enum {
 -(IBAction) CancelButtonAction:(id) sender;
 
 -(void) GetLandShortList;
--(Land*) GetLandLocallyByLandID:(int) landID;
+-(Land*) GetLandByLandID:(int) landID;
 @end
 
 @protocol BrowseViewController_iPhoneDelegate
