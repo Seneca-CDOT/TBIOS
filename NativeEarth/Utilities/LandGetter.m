@@ -206,7 +206,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 -(Land *)GetLandWithLandID:(int)landId{
     Land * land = [self GetLandLocallyWithLandID:landId];
     //check for updates here
-    //post notif
+    [self CheckForLandUpdatesByLandID:[NSNumber numberWithInt: landId]];
     return land;
 }
 -(Land *)GetLandLocallyWithLandID:(int)landId{
@@ -273,7 +273,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 
 -(void)CheckForLandUpdatesByLandID:(NSNumber *)landId{
     if ([updateArray count]>0 &&[updateArray containsObject:landId]) {
-        
+        [self GetLandFromWebServiceWithLandID:landId];
     }
 }
 
@@ -337,10 +337,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
             }
         } // end of deletion
          
-        //post update notification (there is listener in location info view)
-        if ([updateArray count]>0) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdateArrayNotification" object:updateArray];        
-        }
+        
         //get objects to be addes
         if ([addArray count]>0) {
             
@@ -354,28 +351,40 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         updateCheckFinished=YES;
         
         
-    }else{// apply the additions
+    }else{// apply the additions and updates
+        //get the object
+        BOOL updating =NO;
+        WSLand * newLand = [[WSLand alloc] initWithDictionary:(NSDictionary*)object];
         
-        WSLand * land = [[WSLand alloc] initWithDictionary:(NSDictionary*)object];
-         NSLog(@"Adding land %d",[land.LandID intValue]);
-        Land * managedLand = [land ToManagedLand:self.managedObjectContext]; 
+        //check if the land is already there and should be deleted first:
+        Land * exsistingLand= [self GetLandLocallyWithLandID:[newLand.LandID intValue]];
+        if(exsistingLand!= nil){
+            [self.managedObjectContext deleteObject:exsistingLand];
+            updating = YES;
+        }
+        
+      
+        NSLog(@"Adding land %d",[newLand.LandID intValue]);
+        Land * managedLand = [newLand ToManagedLand:self.managedObjectContext]; 
         
         NSError * error;
         if(![managedLand.managedObjectContext save:&error]){
             NSLog(@"%@",[error description]);
-        } 
-        
+        } else{
+             NSLog(@"Added land %d",[managedLand.LandID intValue]);
+        }
+        if (updating==YES) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedLand" object:newLand.LandID]; 
+              NSLog(@"update notification posted");
+        }
       
             [landShortList removeAllObjects];
             [landShortList addObjectsFromArray: [[self GetLandShortsDictionary]allValues]];
             NSLog(@"%@",[landShortList description]);
             // Broadcast a notification
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:landShortList]; 
-
         
     }
-    
-    
 
     
 }
