@@ -55,6 +55,7 @@ typedef enum{
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -321,5 +322,15 @@ typedef enum{
 
 }
 
+// Notification handler
+- (void)updateUI:(NSNotification *)notif {
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    int landId = [(NSNumber*) notif intValue];
+    NSLog(@"Notification received in location info");
+    self.selectedLand =nil;
+    self.selectedLand=  [appDelegate.landGetter GetLandWithLandID: landId];
+    [self.tableView reloadData];
+    
+}
 
 @end
