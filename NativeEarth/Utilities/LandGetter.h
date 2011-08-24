@@ -35,7 +35,7 @@
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerShortLands;
-@property (nonatomic, copy) NSMutableArray* landShortList;
+@property (nonatomic, retain) NSMutableArray* landShortList;
 //Network Conectivity
 @property NetworkStatus internetConnectionStatus;
 @property NetworkStatus wifiConnectionStatus;
@@ -49,4 +49,5 @@
 -(NSDictionary *)GetLandShortsDictionary;
 -(void) GetLandFromWebServiceWithLandID:(NSNumber *)landId;
 -(void)CheckForLandUpdatesByLandID:(NSNumber *)landId;
+-(NSMutableArray *)GetLandShortArray;
 @end
