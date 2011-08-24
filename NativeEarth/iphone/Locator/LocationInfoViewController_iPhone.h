@@ -8,12 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
-
+#import "Land.h"
 
 @interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
     NSString *language;
 }
-@property (nonatomic, retain) id selectedLand;
+@property (nonatomic, retain) Land* selectedLand;
 @property (nonatomic, retain) NSArray * allLands;
 //NavigationMethods
 -(void) NavigateToGreetings;

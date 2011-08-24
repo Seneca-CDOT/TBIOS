@@ -365,23 +365,24 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         
       
         NSLog(@"Adding land %d",[newLand.LandID intValue]);
-        Land * managedLand = [newLand ToManagedLand:self.managedObjectContext]; 
+        Land * newManagedLand = [newLand ToManagedLand:self.managedObjectContext]; 
         
         NSError * error;
-        if(![managedLand.managedObjectContext save:&error]){
+        if(![newManagedLand.managedObjectContext save:&error]){
             NSLog(@"%@",[error description]);
         } else{
-             NSLog(@"Added land %d",[managedLand.LandID intValue]);
+             NSLog(@"Added land %d",[newManagedLand.LandID intValue]);
         }
         if (updating==YES) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedLand" object:newLand.LandID]; 
-              NSLog(@"update notification posted");
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedLand" object:newManagedLand]; 
+              NSLog(@"update land notification posted");
         }
       
             [landShortList removeAllObjects];
             [landShortList addObjectsFromArray: [[self GetLandShortsDictionary]allValues]];
             NSLog(@"%@",[landShortList description]);
             // Broadcast a notification
+         NSLog(@"new List notification posted");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:landShortList]; 
         
     }

@@ -48,6 +48,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"NewList" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
+
     landIsSelected = NO;
     if (browseType== ForLocator) {
         [self.toolbar setHidden:YES];
@@ -63,8 +66,7 @@
 }
 -(void) awakeFromNib{
     [super awakeFromNib];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"NewList" object:nil];
-}
+    }
 
 - (void)viewDidUnload
 {
@@ -92,7 +94,8 @@
 -(void) GetLandShortList{
      NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     
-    self.completeList = appDelegate.landGetter.landShortList;
+    self.completeList = [NSMutableArray arrayWithArray: appDelegate.landGetter.landShortList];
+    [self.completeList retain];
     NSLog(@"initial completelist in browser:");
     NSLog(@"%@",[self.completeList description]);
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
@@ -256,17 +259,23 @@
 
 // Notification handler
 - (void)updateUI:(NSNotification *)notif {
-    NSLog(@"Notification received in browser");
+    if ([[notif name] isEqualToString:@"NewList"]){
+    NSLog(@"New List Notification received in browser");
     [self.completeList removeAllObjects];
     
-    [self.completeList addObjectsFromArray:(NSArray*)notif];
+    [self.completeList addObjectsFromArray:(NSMutableArray*)[notif object]];
     
     //= appDelegate.landGetter.landShortList;
     [self.filteredList removeAllObjects];
     self.filteredList=nil;
     self.filteredList= [NSMutableArray arrayWithCapacity:[self.completeList count]];
-
     [self.resultsTableView reloadData];
+    }else if ([[notif name] isEqualToString:@"UpdatedLand"]){
+                NSLog(@"Updated land Notification received in browser");
+        [self GetLandShortList];
+        [self.resultsTableView reloadData];
+
+    }
 }
 
 @end

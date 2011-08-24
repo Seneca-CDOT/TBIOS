@@ -55,6 +55,7 @@ typedef enum{
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //[self.selectedLand retain];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     // Uncomment the following line to preserve selection between presentations.
@@ -68,12 +69,6 @@ typedef enum{
     
     self.view = self.tableView;
     
-    
-    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    if ([appDelegate.updateArray containsObject:((Land*)self.selectedLand).LandID]) {
-      //   update object
-    }
-
 }
 
 - (void)viewDidUnload
@@ -118,7 +113,7 @@ typedef enum{
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	switch (indexPath.row) {
         case sectionHeaderTitleName:
-            cell.textLabel.text=((Land *)selectedLand).LandName;
+            cell.textLabel.text=selectedLand.LandName;
             //cell.detailTextLabel.text = 
             cell.userInteractionEnabled = NO;
             break;
@@ -126,9 +121,9 @@ typedef enum{
           //  cell.textLabel.text=NSLocalizedString(@"Description",@"Description");
             cell.detailTextLabel.numberOfLines=0;
             if ([language compare:@"fr"]==0) {
-                cell.detailTextLabel.text = ((Land *)selectedLand).LandDescriptionFrench;
+                cell.detailTextLabel.text = selectedLand.LandDescriptionFrench;
             }else{
-                cell.detailTextLabel.text = ((Land *)selectedLand).LandDescriptionEnglish;  
+                cell.detailTextLabel.text = selectedLand.LandDescriptionEnglish;  
             }
              cell.userInteractionEnabled =NO;
             
@@ -251,9 +246,9 @@ typedef enum{
     if (indexPath.row == 1) {
         NSString *description = @"[No Description]";
         if ([language compare:@"fr"]==0) {
-                  if (((Land *)selectedLand).LandDescriptionFrench != nil) description = ((Land *)selectedLand).LandDescriptionFrench;  
+                  if (selectedLand.LandDescriptionFrench != nil) description = selectedLand.LandDescriptionFrench;  
         }else{
-            if (((Land *)selectedLand).LandDescriptionEnglish != nil) description = ((Land *)selectedLand).LandDescriptionEnglish;  
+            if (selectedLand.LandDescriptionEnglish != nil) description = selectedLand.LandDescriptionEnglish;  
         }
 
         CGSize s = [description sizeWithFont:[UIFont systemFontOfSize:15] 
@@ -324,12 +319,13 @@ typedef enum{
 
 // Notification handler
 - (void)updateUI:(NSNotification *)notif {
-    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    int landId = [(NSNumber*) notif intValue];
-    NSLog(@"Notification received in location info");
-    self.selectedLand =nil;
-    self.selectedLand=  [appDelegate.landGetter GetLandWithLandID: landId];
+    if ([[notif name] isEqualToString:@"UpdatedLand"]){
+  Land* updatedLand = (Land*) [notif object];
+    self.selectedLand= updatedLand;
+    [self.selectedLand retain];
+   NSLog(@"Notification received in location info");
     [self.tableView reloadData];
+    }
     
 }
 

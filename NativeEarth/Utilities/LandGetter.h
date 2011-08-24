@@ -35,7 +35,7 @@
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerShortLands;
-@property (nonatomic, assign) NSMutableArray* landShortList;
+@property (nonatomic, copy) NSMutableArray* landShortList;
 //Network Conectivity
 @property NetworkStatus internetConnectionStatus;
 @property NetworkStatus wifiConnectionStatus;
