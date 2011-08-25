@@ -224,7 +224,7 @@
 	 */
 	for (LandShort *nation in self.completeList)
 	{
-        NSComparisonResult result = [nation.landName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+        NSComparisonResult result = [nation.landName  compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
         if (result == NSOrderedSame)
         {
             [self.filteredList addObject:nation];
@@ -262,18 +262,10 @@
 // Notification handler
 - (void)updateUI:(NSNotification *)notif {
     if ([[notif name] isEqualToString:@"NewList"]){
-    NSLog(@"New List Notification received in browser");
-    [self.completeList removeAllObjects];
-    
-    [self.completeList addObjectsFromArray:(NSMutableArray*)[notif object]];
-    
-    //= appDelegate.landGetter.landShortList;
-    [self.filteredList removeAllObjects];
-    self.filteredList=nil;
-    self.filteredList= [NSMutableArray arrayWithCapacity:[self.completeList count]];
-    [self.resultsTableView reloadData];
+        NSLog(@"New List Notification received in browser");
+         [self GetLandShortList];
     }else if ([[notif name] isEqualToString:@"UpdatedLand"]){
-                NSLog(@"Updated land Notification received in browser");
+         NSLog(@"Updated land Notification received in browser");
         [self GetLandShortList];
 
     }
