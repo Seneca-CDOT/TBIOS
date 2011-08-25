@@ -174,19 +174,13 @@
 	[self dismissModalViewControllerAnimated:YES];
 }
 
--(void)GoToCurrentLocation{
-    if (!([internetReach currentReachabilityStatus]==NotReachable && [wifiReach currentReachabilityStatus]== NotReachable )) {
-        
-    
+-(void)GoToCurrentLocation{        
         self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally WithManagedObjectContext: self.managedObjectContext];
 
     self.locationDetector.delegate = self;
  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    
    [self.locationDetector.locationManager startUpdatingLocation];
-    }else{
-        //allert
-    }
+
     
 }
 -(void)BrowseByName;{
@@ -254,7 +248,7 @@
     nextVC.managedObjectContext = self.managedObjectContext;
     nextVC.landArray=lands;
     
-    nextVC.title= NSLocalizedString(@"Overlaping Lands", @"Overlaping Lands");
+    nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
     
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];

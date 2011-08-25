@@ -293,6 +293,7 @@ typedef enum{
     }
 }
 -(void) NavigateToImageGallery{
+    if (self.remoteHostStatus != NotReachable) {
     ImageBrowser_iPhone * nextVC = [[ImageBrowser_iPhone alloc]initWithNibName:@"ImageBrowser_iPhone" bundle:nil];
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
@@ -303,6 +304,9 @@ typedef enum{
     
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
+    }else{
+        //alert
+    }
 
    }
 -(void) NavigateToGazetter{

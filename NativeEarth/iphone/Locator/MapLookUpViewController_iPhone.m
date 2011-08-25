@@ -8,7 +8,7 @@
 
 #import "MapLookUpViewController_iPhone.h"
 #import "DDAnnotation.h"
-
+#import "LocationInfoViewController_iPhone.h"
 
 
 @implementation MapLookUpViewController_iPhone
@@ -78,6 +78,7 @@
 #pragma mark -
 #pragma mark MKMapViewDelegate
 
+
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
     
     if (oldState == MKAnnotationViewDragStateDragging) {
@@ -108,6 +109,13 @@
     
     
 // get the land names here and add it to anotation
+}
+
+-(void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error{
+    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Unable to load the map",@"Unable to load the map") message:NSLocalizedString(@"Check to see if you have internet access",@"Check to see if you have internet access") delegate:self cancelButtonTitle:NSLocalizedString(@"OK",@"OK") otherButtonTitles: nil];
+    [alert show];
+    [alert release];
 }
 
 - (MKAnnotationView *)mapView:(MKMapView *)mapView viewForAnnotation:(id <MKAnnotation>)annotation {
@@ -192,6 +200,7 @@
     [self flyToNorthAmerica];
     
 }
+
 -(IBAction)setMapType:(id)sender{
     UISegmentedControl * mapTypes = (UISegmentedControl*)sender;
     if (mapTypes.selectedSegmentIndex == Standard) {
@@ -200,7 +209,12 @@
          [self.mapView setMapType:MKMapTypeHybrid];
     }
 }
+
 -(void)showDetails: (id) sender{
+    
+    if ([landArray count]>1) {
+        
+    
     LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     
     nextVC.remoteHostStatus = self.remoteHostStatus;
@@ -209,10 +223,21 @@
     nextVC.managedObjectContext = self.managedObjectContext;
     
     nextVC.landArray=landArray;//lands;
-    nextVC.title= NSLocalizedString(@"Select", @"Select");
+    nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
     
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
+    }else if ([landArray count]==1){
+        LocationInfoViewController_iPhone * nextVC = [[LocationInfoViewController_iPhone alloc]init];
+        nextVC.remoteHostStatus = self.remoteHostStatus;
+        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+        nextVC.internetConnectionStatus = self.internetConnectionStatus;
+        nextVC.managedObjectContext = self.managedObjectContext;
+        nextVC.selectedLand = [landArray objectAtIndex:0];
+        nextVC.allLands=landArray;
+        [self.navigationController pushViewController:nextVC animated:YES];
+        [nextVC release];
+    }
     
 }
 
