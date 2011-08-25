@@ -37,9 +37,9 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
     // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
     // method "reachabilityChanged" will be called. 
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
-    landShortList = [[NSMutableArray arrayWithArray:[[self GetLandShortsDictionary] allValues]] retain];
+    self.landShortList = [[NSMutableArray arrayWithArray:[self GetLandShortArray] ] retain];
     NSLog(@"initial list:\n");
-    NSLog(@"%@",[landShortList description]);
+    NSLog(@"%@",[self.landShortList description]);
     
     hostReach = [[Reachability reachabilityWithHostName: kHostName] retain];
     [hostReach startNotifier];
@@ -225,27 +225,32 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 }
 
 -(NSDictionary *)GetLandShortsDictionary{
-    fetchedResultsControllerShortLands_=nil;
-    NSLog(@"Retriving list locally:");
-    NSError *error;
-    if(![[self fetchedResultsControllerShortLands]performFetch:&error]){
-        //handle Error
-    }
-    NSArray * results =[self.fetchedResultsControllerShortLands fetchedObjects];
-    int count = [results count];
+    NSArray * landShortArray =[self GetLandShortArray];//[self.fetchedResultsControllerShortLands fetchedObjects];
+    int count = [landShortArray count];
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:count];
     if (self) {
         
-        for (NSDictionary * land  in results) {
-            LandShort * landShort = [[LandShort alloc] initWithDictionary:land];        
+        for (LandShort * landShort  in landShortArray) 
             [dict setObject:landShort forKey:[NSString stringWithFormat:@"%d",[ landShort.landId intValue]]];
-            
-        }
+        
     }
-    [results release];
     return  dict;
 }
-
+-(NSArray*)GetLandShortArray{
+    fetchedResultsControllerShortLands_=nil;
+    NSError* error;
+    if(![[self fetchedResultsControllerShortLands]performFetch:&error]){
+        //handle error
+    }
+    NSArray * results=[self.fetchedResultsControllerShortLands fetchedObjects];
+    NSMutableArray * landShortArray= [[NSMutableArray alloc] initWithCapacity:[results count]];
+    for (NSDictionary * land  in results) {
+        LandShort * landShort = [[LandShort alloc] initWithDictionary:land];        
+        [landShortArray addObject:landShort];
+        
+    }
+    return landShortArray;
+}
 #pragma mark - Network data reterival
 -(void) GetLandShortsFromWebService{
     NSString *url = @"http://localhost/~ladan/FirstNationList";
@@ -328,11 +333,11 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
             if(![self.managedObjectContext save:&error]){
             }else{
                 if  ([deleteArray count]>0) {
-                    [landShortList removeAllObjects];
-                    [landShortList addObjectsFromArray: [[self GetLandShortsDictionary]allValues]];
-                    NSLog(@"%@",[landShortList description]);
+                    [self.landShortList removeAllObjects];
+                    [self.landShortList addObjectsFromArray: [self GetLandShortArray]];
+                    NSLog(@"%@",[self.landShortList description]);
                     // Broadcast a notification
-                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:landShortList]; 
+                    [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:self.landShortList]; 
                 }
             }
         } // end of deletion
@@ -378,12 +383,12 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
               NSLog(@"update land notification posted");
         }
       
-            [landShortList removeAllObjects];
-            [landShortList addObjectsFromArray: [[self GetLandShortsDictionary]allValues]];
-            NSLog(@"%@",[landShortList description]);
+            [self.landShortList removeAllObjects];
+            [self.landShortList addObjectsFromArray: [self GetLandShortArray]];
+            NSLog(@"%@",[self.landShortList description]);
             // Broadcast a notification
          NSLog(@"new List notification posted");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:landShortList]; 
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:self.landShortList]; 
         
     }
 

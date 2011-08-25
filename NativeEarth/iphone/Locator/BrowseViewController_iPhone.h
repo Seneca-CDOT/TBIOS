@@ -35,7 +35,7 @@ typedef enum {
 
 @property (nonatomic, assign) id<BrowseViewController_iPhoneDelegate> delegate;
 
-@property (nonatomic, copy ) NSMutableArray * completeList;
+@property (nonatomic, retain ) NSMutableArray * completeList;
 
 @property (nonatomic, retain) NSMutableArray * filteredList;
 

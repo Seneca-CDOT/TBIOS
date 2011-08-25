@@ -1,4 +1,4 @@
-//
+ //
 //  BrowseViewController_iPhone.m
 //  NativeEarth
 //
@@ -93,7 +93,9 @@
 #pragma mark - local data retrival opertion
 -(void) GetLandShortList{
      NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    
+    if (self.completeList!= nil) {
+        [self.completeList removeAllObjects];
+    }
     self.completeList = [NSMutableArray arrayWithArray: appDelegate.landGetter.landShortList];
     [self.completeList retain];
     NSLog(@"initial completelist in browser:");
@@ -273,7 +275,6 @@
     }else if ([[notif name] isEqualToString:@"UpdatedLand"]){
                 NSLog(@"Updated land Notification received in browser");
         [self GetLandShortList];
-        [self.resultsTableView reloadData];
 
     }
 }
