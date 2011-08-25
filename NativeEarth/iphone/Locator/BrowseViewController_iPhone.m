@@ -222,9 +222,9 @@
 	/*
 	 Search the main list for products whose type matches the scope (if selected) and whose name matches searchText; add items that match to the filtered array.
 	 */
-	for (NSDictionary *nation in self.completeList)
+	for (LandShort *nation in self.completeList)
 	{
-        NSComparisonResult result = [[nation valueForKey:@"Name"] compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+        NSComparisonResult result = [nation.landName compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
         if (result == NSOrderedSame)
         {
             [self.filteredList addObject:nation];
