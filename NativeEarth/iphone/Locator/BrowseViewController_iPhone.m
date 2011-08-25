@@ -80,7 +80,9 @@
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
+    
     landIsSelected = NO;
+    [self GetLandShortList];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -108,7 +110,7 @@
 
 -(Land* )GetLandByLandID:(int) landID{
    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-   Land * selectedLand = [appDelegate.landGetter GetLandWithLandID:landID];
+   Land * selectedLand = [appDelegate.landGetter GetLandWithLandId:landID];
     
     return selectedLand;
    }

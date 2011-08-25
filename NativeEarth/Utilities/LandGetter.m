@@ -1,4 +1,4 @@
-//
+ //
 //  LocalLandGetter.m
 //  NativeEarth
 //
@@ -200,16 +200,18 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 
 	
 }
-
+-(NSMutableArray*) landShortList{
+    return [NSMutableArray arrayWithArray:[self GetLandShortArray]];
+}
 
 #pragma mark - local data reterival
--(Land *)GetLandWithLandID:(int)landId{
-    Land * land = [self GetLandLocallyWithLandID:landId];
+-(Land *)GetLandWithLandId:(int)landId{
+    Land * land = [self GetLandLocallyWithLandId:landId];
     //check for updates here
-    [self CheckForLandUpdatesByLandID:[NSNumber numberWithInt: landId]];
+    [self CheckForLandUpdatesByLandId:[NSNumber numberWithInt: landId]];
     return land;
 }
--(Land *)GetLandLocallyWithLandID:(int)landId{
+-(Land *)GetLandLocallyWithLandId:(int)landId{
     fetchedResultsControllerLand_=nil;
     landID = landId;
     NSError *error;
@@ -236,6 +238,8 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
     }
     return  dict;
 }
+
+
 -(NSArray*)GetLandShortArray{
     fetchedResultsControllerShortLands_=nil;
     NSError* error;
@@ -262,7 +266,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
     [dataGetter GetResultsFromUrl:url];
 }
 
--(void) GetLandFromWebServiceWithLandID:(NSNumber *)landId{
+-(void) GetLandFromWebServiceWithLandId:(NSNumber *)landId{
     //pass landID and language here:
     NSLog(@"getting land %d from web service\n", [landId intValue]);
     NSString *url = [NSString stringWithFormat:@"http://localhost/~ladan/Land%d",[landId intValue]];
@@ -276,9 +280,9 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 }
 
 
--(void)CheckForLandUpdatesByLandID:(NSNumber *)landId{
+-(void)CheckForLandUpdatesByLandId:(NSNumber *)landId{
     if ([updateArray count]>0 &&[updateArray containsObject:landId]) {
-        [self GetLandFromWebServiceWithLandID:landId];
+        [self GetLandFromWebServiceWithLandId:landId];
     }
 }
 
@@ -325,7 +329,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         //apply deletes:
         if ([deleteArray count]>0) {
             for (NSNumber * n in deleteArray) {
-                Land * land = [self GetLandWithLandID:[n intValue]];
+                Land * land = [self GetLandWithLandId:[n intValue]];
                 [self.managedObjectContext deleteObject:land];
             }
             
@@ -347,7 +351,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         if ([addArray count]>0) {
             
             for (NSNumber * n in addArray){
-               [self GetLandFromWebServiceWithLandID:n];
+               [self GetLandFromWebServiceWithLandId:n];
             }
             fetchedResultsControllerShortLands_ =nil;
             fetchedResultsControllerLand_ =nil;
@@ -362,7 +366,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         WSLand * newLand = [[WSLand alloc] initWithDictionary:(NSDictionary*)object];
         
         //check if the land is already there and should be deleted first:
-        Land * exsistingLand= [self GetLandLocallyWithLandID:[newLand.LandID intValue]];
+        Land * exsistingLand= [self GetLandLocallyWithLandId:[newLand.LandID intValue]];
         if(exsistingLand!= nil){
             [self.managedObjectContext deleteObject:exsistingLand];
             updating = YES;
@@ -383,10 +387,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
               NSLog(@"update land notification posted");
         }
       
-            [self.landShortList removeAllObjects];
-            [self.landShortList addObjectsFromArray: [self GetLandShortArray]];
-            NSLog(@"%@",[self.landShortList description]);
-            // Broadcast a notification
+   
          NSLog(@"new List notification posted");
             [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:self.landShortList]; 
         

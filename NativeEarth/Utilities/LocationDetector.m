@@ -14,7 +14,6 @@
 
 @implementation LocationDetector
 @synthesize locationManager;
-//@synthesize dataStream;
 @synthesize  lands;
 @synthesize delegate;
 
@@ -35,7 +34,6 @@
 }
 
 -(void) dealloc{
- //   [dataStream release];
     [lands release];
     [locationManager release];
     [super dealloc];

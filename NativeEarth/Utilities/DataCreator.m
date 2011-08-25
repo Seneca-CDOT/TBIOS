@@ -88,6 +88,7 @@
         NSLog(@"initial data is saved.\n");
         }
     }
+    
 }
 -(void)DataError:(NSError *)error{
     
