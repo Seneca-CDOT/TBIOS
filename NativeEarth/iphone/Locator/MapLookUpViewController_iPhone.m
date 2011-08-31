@@ -305,7 +305,24 @@
 
 -(void) GeopoliticalSearchViewController:(GeopoliticalSearchViewController_iPhone *)controller didSelectAResult:(NSDictionary*) result{
     [self.navigationController dismissModalViewControllerAnimated:YES];
-
+    
+    
+    
+    NSDictionary *northeast = [[[result objectForKey:@"geometry"] objectForKey:@"bounds"] objectForKey:@"northeast"];
+    NSDictionary *southwest = [[[result objectForKey:@"geometry"] objectForKey:@"bounds"] objectForKey:@"southwest"];
+    NSDictionary *center = [[result objectForKey:@"geometry"] objectForKey:@"location"];
+    
+    CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake( [[center objectForKey:@"lat"] floatValue], [[center objectForKey:@"lng"] floatValue]);
+    
+    MKCoordinateSpan span = MKCoordinateSpanMake([[northeast objectForKey:@"lat"] floatValue]-[[southwest objectForKey:@"lat"] floatValue], [[northeast objectForKey:@"lng"] floatValue]-[[southwest objectForKey:@"lng"] floatValue]);
+    
+    MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, span);		
+ [self.mapView setRegion:region animated:YES]; 
+    [self.mapView removeAnnotations:mapView.annotations];
+    pinIsDropped= NO;
+    [self dropPin:nil];
+    
+    
 }
 
 @end
