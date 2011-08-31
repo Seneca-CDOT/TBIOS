@@ -60,6 +60,10 @@
 		D794FAD013C361FF00BCE651 /* 5.png in Resources */ = {isa = PBXBuildFile; fileRef = D794FAC813C361FF00BCE651 /* 5.png */; };
 		D794FAD113C361FF00BCE651 /* 6.png in Resources */ = {isa = PBXBuildFile; fileRef = D794FAC913C361FF00BCE651 /* 6.png */; };
 		D7967CB913E98A8C00E597B4 /* FirstNationList in Resources */ = {isa = PBXBuildFile; fileRef = D7967CB813E98A8C00E597B4 /* FirstNationList */; };
+		D7972E26140BFFFC00454BE3 /* Geocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E25140BFFFC00454BE3 /* Geocoder.m */; };
+		D7972E29140C000700454BE3 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E27140C000700454BE3 /* NSString+URLEncoding.m */; };
+		D7972E4D140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */; };
+		D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */; };
 		D79A3E5713CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A3E5513CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.m */; };
 		D79A3E5813CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D79A3E5613CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.xib */; };
 		D7A84F4B13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */; };
@@ -201,6 +205,13 @@
 		D794FAC813C361FF00BCE651 /* 5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 5.png; sourceTree = "<group>"; };
 		D794FAC913C361FF00BCE651 /* 6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 6.png; sourceTree = "<group>"; };
 		D7967CB813E98A8C00E597B4 /* FirstNationList */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = FirstNationList; path = ../../Sites/FirstNationList; sourceTree = "<group>"; };
+		D7972E23140BFFF400454BE3 /* Geocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Geocoder.h; sourceTree = "<group>"; };
+		D7972E25140BFFFC00454BE3 /* Geocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Geocoder.m; sourceTree = "<group>"; };
+		D7972E27140C000700454BE3 /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
+		D7972E28140C000700454BE3 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
+		D7972E4A140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeopoliticalSearchViewController_iPhone.h; sourceTree = "<group>"; };
+		D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeopoliticalSearchViewController_iPhone.m; sourceTree = "<group>"; };
+		D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeopoliticalSearchViewController_iPhone.xib; sourceTree = "<group>"; };
 		D79A3E5413CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoPoliticalLookupViewController_iPhone.h; sourceTree = "<group>"; };
 		D79A3E5513CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoPoliticalLookupViewController_iPhone.m; sourceTree = "<group>"; };
 		D79A3E5613CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeoPoliticalLookupViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -343,6 +354,9 @@
 				D7DA7B2C13D72EC7009EEC0A /* MapLookUpViewController_iPhone.h */,
 				D7DA7B2D13D72ECA009EEC0A /* MapLookUpViewController_iPhone.m */,
 				D7DA7B2E13D72ECD009EEC0A /* MapLookUpViewController_iPhone.xib */,
+				D7972E4A140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.h */,
+				D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */,
+				D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */,
 			);
 			name = Browse;
 			path = iphone/Locator;
@@ -535,6 +549,10 @@
 		D7BB0DAD13BB9CC30062C2A9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D7972E27140C000700454BE3 /* NSString+URLEncoding.m */,
+				D7972E28140C000700454BE3 /* NSString+URLEncoding.h */,
+				D7972E23140BFFF400454BE3 /* Geocoder.h */,
+				D7972E25140BFFFC00454BE3 /* Geocoder.m */,
 				D7BB0DAE13BB9CC30062C2A9 /* DataCreator.h */,
 				D7BB0DAF13BB9CC30062C2A9 /* DataCreator.m */,
 				D7BB0DB013BB9CC30062C2A9 /* KMLParser.h */,
@@ -777,6 +795,7 @@
 				D79418AD13FEFCC10001CAA9 /* Land7.txt in Resources */,
 				D79418AE13FEFCC10001CAA9 /* Land8.txt in Resources */,
 				D79418AF13FEFCC10001CAA9 /* Land9.txt in Resources */,
+				D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -835,6 +854,9 @@
 				D71F405813EC4CB900DA0BB6 /* Greetings.m in Sources */,
 				D71CA1C413F2CF550016C3CB /* LandShortArray.m in Sources */,
 				D71CA1C813F2F12C0016C3CB /* LandGetter.m in Sources */,
+				D7972E26140BFFFC00454BE3 /* Geocoder.m in Sources */,
+				D7972E29140C000700454BE3 /* NSString+URLEncoding.m in Sources */,
+				D7972E4D140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
