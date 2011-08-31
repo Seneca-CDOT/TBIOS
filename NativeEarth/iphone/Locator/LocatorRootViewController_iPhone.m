@@ -280,7 +280,7 @@
 - (void) receiveUpdateArrayNotification:(NSNotification *) notification
 {
     if ([[notification name] isEqualToString:@"UpdateArrayNotification"]){
-        NSArray * updatesArray = (NSArray*)notification;
+       // NSArray * updatesArray = (NSArray*)notification;
         //set the local veriable;
     }
     

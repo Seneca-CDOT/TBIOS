@@ -27,7 +27,6 @@
 }
 
 
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -87,6 +86,7 @@
         DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
      ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
     rgeocoder.managedObjectContext= self.managedObjectContext;
+      //  [landArray removeAllObjects];
     landArray= [rgeocoder findLandForCoordinateWithLat:annotation.coordinate.latitude AndLng:annotation.coordinate.longitude];
         
         
@@ -138,6 +138,7 @@
 		
     if(!draggablePinView){
         draggablePinView = [[MKPinAnnotationView alloc]initWithAnnotation: annotation reuseIdentifier:kPinAnnotationIdentifier];
+        draggablePinView.rightCalloutAccessoryView= nil;
     }
     draggablePinView.annotation = annotation;
     draggablePinView.draggable = YES;
@@ -149,6 +150,7 @@
     }else{
         ((DDAnnotation*) annotation).title = @"Drag to Move Pin";
         ((DDAnnotation*) annotation).subtitle = NSLocalizedString(@"No First Nation Found", @"No First Nation Found");
+        draggablePinView.rightCalloutAccessoryView = nil;
     }
 
 
@@ -161,21 +163,23 @@
     CLLocationCoordinate2D theCoordinate =self.mapView.centerCoordinate;
         
 	DDAnnotation *annotation = [[[DDAnnotation alloc] initWithCoordinate:theCoordinate addressDictionary:nil] autorelease];
-        pinLatitude= annotation.coordinate.latitude;
-        pinLongitude= annotation.coordinate.longitude;
         
-         
-	//annotation.title = @"Drag to Move Pin";
-    //annotation.subtitle = NSLocalizedString(@"No First Nation Found", @"No First Nation Found");// [NSString	stringWithFormat:@"%f %f", annotation.coordinate.latitude, annotation.coordinate.longitude];
 	
 	[self.mapView addAnnotation:annotation];
         
-    pinIsDropped = YES;
+    pinIsDropped = YES; 
+        
+    ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
+    rgeocoder.managedObjectContext= self.managedObjectContext;
+    //  [landArray removeAllObjects];
+    landArray= [rgeocoder findLandForCoordinateWithLat:theCoordinate.latitude AndLng:theCoordinate.longitude];
+
         
     }else{
         CLLocationCoordinate2D theCoordinate = [(DDAnnotation*)[self.mapView.annotations objectAtIndex:0] coordinate];
         [self flyToTheCoordinate:theCoordinate];
     }
+
 }
 -(IBAction)SearchWithAddress:(id)sender{
     self.SearchVC =[[GeopoliticalSearchViewController_iPhone alloc] initWithNibName:@"GeopoliticalSearchViewController_iPhone" bundle:nil];
@@ -183,7 +187,6 @@
     self.SearchVC.title= NSLocalizedString(@"Address", @"Address");
      [self.navigationController presentModalViewController:self.SearchVC animated:YES];
 }
-
 
 -(IBAction)reloadMap:(id)sender{
     [self.mapView removeAnnotations:mapView.annotations];
@@ -218,6 +221,7 @@
     MKCoordinateRegion savedRegion = [mapView regionThatFits:region];
     [self.mapView setRegion:savedRegion animated:YES];
 }
+
 -(void)showDetails: (id) sender{
     
     if ([landArray count]>1) {
@@ -248,59 +252,8 @@
     }
     
 }
+   
 
-#pragma  mark - NetworkDataGetter Delegate
-
--(void)DataUpdate:(id)object{
-
-    LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
-    
-    nextVC.remoteHostStatus = self.remoteHostStatus;
-    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-    nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.managedObjectContext = self.managedObjectContext;
-    
-    nextVC.landArray=[self GetWSLandsFromDictArray:(NSArray *)object];//lands;
-    nextVC.title= NSLocalizedString(@"Select", @"Select");
-    
-    [self.navigationController pushViewController:nextVC animated:YES];
-    [nextVC release];
-
-
-}
--(void)DataError:(NSError *)error{
-    // Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-	
-	NSLog(@"%@", [error description]);
-}
-
--(void) GetFirstNationLandFromWebServiceWithLatitude:(CLLocationDegrees)latitude andLongitude:(CLLocationDegrees) longitude {
-//get Land By latitude and longitude an language from web service
-    
-    NSString *url = @"http://localhost/~ladan/AlgonquinOverLap";
-    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
-    dataGetter.delegate = self;
-    
-    // Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [dataGetter GetResultsFromUrl:url];
-    
-}
-
-#pragma  mark - converter
--(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray{
-    
-    NSMutableArray * wSLands = [[NSMutableArray alloc]init];
-    for (NSDictionary* dict in dictArray) {
-        [wSLands addObject:[self GetWSLandForDict:dict]];
-    }
-    return wSLands;
-}
-
--(WSLand *)GetWSLandForDict:(NSDictionary *)dict{
-    return  [[WSLand alloc] initWithDictionary:dict];
-}
 #pragma mark - GeopoliticalSearchViewControllerDelegate Method
 
 -(void) GeopoliticalSearchViewController:(GeopoliticalSearchViewController_iPhone *)controller didSelectAResult:(NSDictionary*) result{
@@ -316,12 +269,13 @@
     
     MKCoordinateSpan span = MKCoordinateSpanMake([[northeast objectForKey:@"lat"] floatValue]-[[southwest objectForKey:@"lat"] floatValue], [[northeast objectForKey:@"lng"] floatValue]-[[southwest objectForKey:@"lng"] floatValue]);
     
-    MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, span);		
- [self.mapView setRegion:region animated:YES]; 
+    MKCoordinateRegion region = MKCoordinateRegionMake(centerCoordinate, span);	
+
+ [self.mapView setRegion:[self.mapView regionThatFits:region]animated:YES]; 
     [self.mapView removeAnnotations:mapView.annotations];
     pinIsDropped= NO;
     [self dropPin:nil];
-    
+   // [self mapView:self.mapView annotationView:[self.mapView viewForAnnotation:[[self.mapView annotations]objectAtIndex:0]]  didChangeDragState:MKAnnotationViewDragStateNone  fromOldState:MKAnnotationViewDragStateDragging];
     
 }
 

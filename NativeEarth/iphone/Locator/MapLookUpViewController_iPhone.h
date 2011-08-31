@@ -18,7 +18,7 @@ typedef enum {
 	Standard,
     Hybrid
 } MapTypes;
-@interface MapLookUpViewController_iPhone : BaseViewController <NetworkDataGetterDelegate,GeopoliticalSearchViewControllerDelegate >{
+@interface MapLookUpViewController_iPhone : BaseViewController <GeopoliticalSearchViewControllerDelegate>{ 
     MKMapView *mapView;
    BOOL pinIsDropped;
     UIBarButtonItem * redoButton;
@@ -43,9 +43,5 @@ typedef enum {
 -(IBAction)reloadMap:(id)sender;
 -(IBAction)setMapType:(id)sender;
 
--(void) GetFirstNationLandFromWebServiceWithLatitude:(CLLocationDegrees)latitude andLongitude:(CLLocationDegrees) longitude;
-//convertors
--(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray;
--(WSLand *)GetWSLandForDict:(NSDictionary *)dict;
 -(IBAction)SearchWithAddress:(id)sender;
 @end
