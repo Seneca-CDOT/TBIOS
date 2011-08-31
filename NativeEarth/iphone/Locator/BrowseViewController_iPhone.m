@@ -50,7 +50,9 @@
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"NewList" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
-
+    CGRect frame = CGRectMake(0, 0,  [self.searchBar frame].size.width, 44);
+                    
+    [self.searchBar setBounds:frame];
     landIsSelected = NO;
     if (browseType== ForLocator) {
         [self.toolbar setHidden:YES];
@@ -255,7 +257,7 @@
     // Return YES to cause the search result table view to be reloaded.
     return YES;
 }
-
+#pragma mark - 
 -(IBAction) CancelButtonAction:(id) sender{
     [self dismissModalViewControllerAnimated:YES];
 }

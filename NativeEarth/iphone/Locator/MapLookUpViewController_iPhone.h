@@ -13,12 +13,12 @@
 #import "WSLand.h"
 #import "LandSelectViewController_iPhone.h"
 #import "ReverseGeocoder.h"
-
+#import "GeopoliticalSearchViewController_iPhone.h"
 typedef enum {
 	Standard,
     Hybrid
 } MapTypes;
-@interface MapLookUpViewController_iPhone : BaseViewController <NetworkDataGetterDelegate >{
+@interface MapLookUpViewController_iPhone : BaseViewController <NetworkDataGetterDelegate,GeopoliticalSearchViewControllerDelegate >{
     MKMapView *mapView;
    BOOL pinIsDropped;
     UIBarButtonItem * redoButton;
@@ -27,12 +27,16 @@ typedef enum {
     CLLocationDegrees pinLatitude;
     CLLocationDegrees pinLongitude;
     NSArray * landArray;
+    GeopoliticalSearchViewController_iPhone *SearchVC;
+    
 }
 
 @property (nonatomic, retain) IBOutlet MKMapView *mapView;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *redoButton;
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeControl;
+@property(nonatomic, retain) GeopoliticalSearchViewController_iPhone *SearchVC;
+
 -(IBAction)dropPin:(id) sender;
 -(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate;
 -(void)flyToNorthAmerica;
@@ -43,4 +47,5 @@ typedef enum {
 //convertors
 -(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray;
 -(WSLand *)GetWSLandForDict:(NSDictionary *)dict;
+-(IBAction)SearchWithAddress:(id)sender;
 @end

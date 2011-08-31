@@ -64,10 +64,9 @@
 							<object class="IBUISegmentedControl" id="786556400">
 								<reference key="NSNextResponder" ref="29918981"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{68, 8}, {165, 30}}</string>
+								<string key="NSFrame">{{82, 8}, {117, 30}}</string>
 								<reference key="NSSuperview" ref="29918981"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBSegmentControlStyle">2</int>
@@ -114,10 +113,10 @@
 						<int key="IBUIBarStyle">1</int>
 						<object class="NSMutableArray" key="IBUIItems">
 							<bool key="EncodedWithXMLCoder">YES</bool>
-							<object class="IBUIBarButtonItem" id="654805517">
+							<object class="IBUIBarButtonItem" id="211603367">
 								<object class="NSCustomResource" key="IBUIImage">
 									<string key="NSClassName">NSImage</string>
-									<string key="NSResourceName">72-pin.png</string>
+									<string key="NSResourceName">icon_magnify.png</string>
 								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIStyle">1</int>
@@ -138,6 +137,15 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<reference key="IBUIToolbar" ref="29918981"/>
 								<int key="IBUISystemItemIdentifier">5</int>
+							</object>
+							<object class="IBUIBarButtonItem" id="654805517">
+								<object class="NSCustomResource" key="IBUIImage">
+									<string key="NSClassName">NSImage</string>
+									<string key="NSResourceName">72-pin.png</string>
+								</object>
+								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIStyle">1</int>
+								<reference key="IBUIToolbar" ref="29918981"/>
 							</object>
 							<object class="IBUIBarButtonItem" id="612314930">
 								<object class="NSCustomResource" key="IBUIImage">
@@ -238,6 +246,14 @@
 					</object>
 					<int key="connectionID">22</int>
 				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">SearchWithAddress:</string>
+						<reference key="source" ref="211603367"/>
+						<reference key="destination" ref="372490531"/>
+					</object>
+					<int key="connectionID">24</int>
+				</object>
 			</object>
 			<object class="IBMutableOrderedSet" key="objectRecords">
 				<object class="NSArray" key="orderedObjects">
@@ -280,10 +296,11 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="867632682"/>
-							<reference ref="654805517"/>
 							<reference ref="612314930"/>
 							<reference ref="484513966"/>
 							<reference ref="791521876"/>
+							<reference ref="211603367"/>
+							<reference ref="654805517"/>
 						</object>
 						<reference key="parent" ref="191373211"/>
 						<string key="objectName">Toolbar</string>
@@ -326,6 +343,11 @@
 						<reference key="object" ref="791521876"/>
 						<reference key="parent" ref="29918981"/>
 					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">23</int>
+						<reference key="object" ref="211603367"/>
+						<reference key="parent" ref="29918981"/>
+					</object>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="flattenedProperties">
@@ -340,6 +362,7 @@
 					<string>17.IBPluginDependency</string>
 					<string>17.IUISegmentedControlInspectorSelectedSegmentMetadataKey</string>
 					<string>19.IBPluginDependency</string>
+					<string>23.IBPluginDependency</string>
 					<string>4.IBPluginDependency</string>
 					<string>5.IBPluginDependency</string>
 					<string>7.IBPluginDependency</string>
@@ -359,6 +382,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
@@ -373,7 +397,7 @@
 				<reference key="dict.values" ref="0"/>
 			</object>
 			<nil key="sourceID"/>
-			<int key="maxID">22</int>
+			<int key="maxID">24</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<object class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -393,12 +417,14 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>SearchWithAddress:</string>
 							<string>dropPin:</string>
 							<string>reloadMap:</string>
 							<string>setMapType:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>id</string>
 							<string>id</string>
 							<string>id</string>
 							<string>id</string>
@@ -408,12 +434,17 @@
 						<bool key="EncodedWithXMLCoder">YES</bool>
 						<object class="NSArray" key="dict.sortedKeys">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<string>SearchWithAddress:</string>
 							<string>dropPin:</string>
 							<string>reloadMap:</string>
 							<string>setMapType:</string>
 						</object>
 						<object class="NSMutableArray" key="dict.values">
 							<bool key="EncodedWithXMLCoder">YES</bool>
+							<object class="IBActionInfo">
+								<string key="name">SearchWithAddress:</string>
+								<string key="candidateClassName">id</string>
+							</object>
 							<object class="IBActionInfo">
 								<string key="name">dropPin:</string>
 								<string key="candidateClassName">id</string>
@@ -495,11 +526,13 @@
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>02-redo.png</string>
 				<string>72-pin.png</string>
+				<string>icon_magnify.png</string>
 			</object>
 			<object class="NSMutableArray" key="dict.values">
 				<bool key="EncodedWithXMLCoder">YES</bool>
 				<string>{30, 26}</string>
 				<string>{10, 20}</string>
+				<string>{30, 30}</string>
 			</object>
 		</object>
 		<string key="IBCocoaTouchPluginVersion">301</string>

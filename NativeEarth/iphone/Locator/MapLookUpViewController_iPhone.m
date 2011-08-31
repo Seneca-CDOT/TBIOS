@@ -16,6 +16,7 @@
 @synthesize redoButton;
 @synthesize toolbar;
 @synthesize mapTypeControl;
+@synthesize SearchVC;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -40,6 +41,7 @@
 - (void)dealloc
 {
     self.mapView.delegate = nil;
+    [self.SearchVC release];
 	[self.mapView release];
     [self.toolbar release];
     [self.redoButton release];
@@ -153,7 +155,7 @@
 	return draggablePinView;
 }
 
-
+#pragma mark - IBAction Methods
 -(IBAction)dropPin:(id) sender{
     if (!pinIsDropped) {
     CLLocationCoordinate2D theCoordinate =self.mapView.centerCoordinate;
@@ -175,24 +177,13 @@
         [self flyToTheCoordinate:theCoordinate];
     }
 }
-
--(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate{
-[self.mapView setCenterCoordinate:coordinate animated:YES];
-
-}   
-
--(void)flyToNorthAmerica{
-    // canada: 58.263287,-104.765625
-    
-    MKCoordinateRegion region;
-    region.center.latitude = 58.263287;
-    region.center.longitude = -104.765625;
-    region.span.latitudeDelta = 50;
-    region.span.longitudeDelta = 50;
-    
-    MKCoordinateRegion savedRegion = [mapView regionThatFits:region];
-    [self.mapView setRegion:savedRegion animated:YES];
+-(IBAction)SearchWithAddress:(id)sender{
+    self.SearchVC =[[GeopoliticalSearchViewController_iPhone alloc] initWithNibName:@"GeopoliticalSearchViewController_iPhone" bundle:nil];
+    self.SearchVC.delegate = self;
+    self.SearchVC.title= NSLocalizedString(@"Address", @"Address");
+     [self.navigationController presentModalViewController:self.SearchVC animated:YES];
 }
+
 
 -(IBAction)reloadMap:(id)sender{
     [self.mapView removeAnnotations:mapView.annotations];
@@ -210,6 +201,23 @@
     }
 }
 
+-(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate{
+[self.mapView setCenterCoordinate:coordinate animated:YES];
+
+}   
+
+-(void)flyToNorthAmerica{
+    // canada: 
+    //http://maps.google.ca/maps/myplaces?hl=en&ll=56.130366,-106.346771&spn=128.783236,319.570313&mpa=0&ctz=240&mpf=0&z=2&vpsrc=0
+    MKCoordinateRegion region;
+    region.center.latitude = 58.130366;
+    region.center.longitude = -106.346771;
+    region.span.latitudeDelta = 50;
+    region.span.longitudeDelta = 50;
+    
+    MKCoordinateRegion savedRegion = [mapView regionThatFits:region];
+    [self.mapView setRegion:savedRegion animated:YES];
+}
 -(void)showDetails: (id) sender{
     
     if ([landArray count]>1) {
@@ -293,4 +301,11 @@
 -(WSLand *)GetWSLandForDict:(NSDictionary *)dict{
     return  [[WSLand alloc] initWithDictionary:dict];
 }
+#pragma mark - GeopoliticalSearchViewControllerDelegate Method
+
+-(void) GeopoliticalSearchViewController:(GeopoliticalSearchViewController_iPhone *)controller didSelectAResult:(NSDictionary*) result{
+    [self.navigationController dismissModalViewControllerAnimated:YES];
+
+}
+
 @end
