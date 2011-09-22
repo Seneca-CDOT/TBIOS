@@ -8,13 +8,11 @@
 
 #import "ReverseGeocoder.h"
 #import "Land.h"
-
+#import "NativeEarthAppDelegate_iPhone.h"
 @implementation ReverseGeocoder
 
 
-#pragma Mark -
-#pragma Mark Properties 
-@synthesize fetchedResultsControllerLands=fetchedResultsControllerLands_, managedObjectContext=managedObjectContext_;
+
 
 #pragma Mark -
 #pragma Mark Reverce Geocoder Public Methds
@@ -23,12 +21,11 @@
     
     curLatitude =round(lat*100000)/100000;
     curLongitude =round(lng*100000)/100000;
-    NSError *error;
-    if(![[self fetchedResultsControllerLands]performFetch:&error]){
-    //handle Error
-    }
     
-    NSArray * fetchedNearByLands = [self.fetchedResultsControllerLands fetchedObjects];
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    NSArray * fetchedNearByLands= [appDelegate.landGetter getNearbyLandsForLatitute:curLatitude andLongitute:curLongitude];
+
+
     return fetchedNearByLands;
 }
 
@@ -251,43 +248,6 @@
     
     return distanceFromSegment;
 }
-
-#pragma Mark -
-#pragma Mark fetchedResultsController delegate method
--(NSFetchedResultsController *) fetchedResultsControllerLands {
-    if(fetchedResultsControllerLands_ !=nil){
-        return  fetchedResultsControllerLands_;
-    }
-    
-    NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
-    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Land" inManagedObjectContext:self.managedObjectContext];
-    
-    [fetchedRequest setEntity:entity];
-    
-    // set sort key 
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"LandName" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
-    
-    [fetchedRequest setSortDescriptors:sortDescriptors];
-    
-    // set predicate
-    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"(BoundaryN>= %lf) AND (BoundaryS<= %lf) AND (BoundaryE >= %lf) AND (BoundaryW<= %lf)",curLatitude,curLatitude,curLongitude,curLongitude];
-    [fetchedRequest setPredicate:predicate];
-    
-    //create fetchedResultsController
-    [NSFetchedResultsController deleteCacheWithName:@"Land"];
-    
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Land"];
-    aFetchedResultsController.delegate = self;
-    self.fetchedResultsControllerLands = aFetchedResultsController;
-    
-    [aFetchedResultsController release];
-    [fetchedRequest release];
-    
-    
-    return fetchedResultsControllerLands_;
-}
-
 
 
 @end

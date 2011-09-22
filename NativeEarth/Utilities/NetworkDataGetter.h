@@ -21,7 +21,8 @@
 @property (nonatomic, retain)  NSMutableData *dataStream;
 @property (nonatomic, assign) id<NetworkDataGetterDelegate> delegate;
 -(void) GetResultsFromUrl:(NSString*) serviceURL ;
-
+//-(id) GetLandAcyncFromURL:(NSString *) serviceURL;
+//-(NSDictionary *) GetLandShortListAcync;
 @end
 
 

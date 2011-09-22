@@ -70,7 +70,6 @@
 -(void)getLandsLocallyForLocation:(CLLocation *)location{
     //must include language
     ReverseGeocoder * rgc = [[ReverseGeocoder alloc] init];
-     rgc.managedObjectContext = managedObjectContext;
       self.lands= [rgc findLandForCoordinateWithLat:location.coordinate.latitude AndLng:location.coordinate.longitude];
   if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
     [self.delegate LandUpdate:self.lands];

@@ -26,15 +26,20 @@
     
     BOOL updateCheckStarted;
     BOOL updateCheckFinished;
-    
+    double latitude;
+    double longitude;
     NSFetchedResultsController * fetchedResultsControllerLand_;
     NSFetchedResultsController * fetchedResultsControllerShortLands_;
+    NSFetchedResultsController * fetchedResultsControllerLandsForCoordinate_;
     NSManagedObjectContext * managedObjectContext_;
     int landID;
+    int toBeUpdatedLandID;
+    BOOL landIDUpdateFlag;
 }
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerShortLands;
+@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLandsForCoordinate;
 @property (nonatomic, retain) NSMutableArray* landShortList;
 //Network Conectivity
 @property NetworkStatus internetConnectionStatus;
@@ -50,4 +55,6 @@
 -(void) GetLandFromWebServiceWithLandId:(NSNumber *)landId;
 -(void)CheckForLandUpdatesByLandId:(NSNumber *)landId;
 -(NSMutableArray *)GetLandShortArray;
+-(NSArray*)getNearbyLandsForLatitute:(double)lat andLongitute:(double)lng;
+//-(void) updateList;
 @end

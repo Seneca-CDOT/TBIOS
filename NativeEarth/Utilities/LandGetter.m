@@ -21,7 +21,10 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 }
 
 @implementation LandGetter
-@synthesize fetchedResultsControllerLand=fetchedResultsControllerLand_, fetchedResultsControllerShortLands=fetchedResultsControllerShortLands_, managedObjectContext=managedObjectContext_;
+@synthesize fetchedResultsControllerLand=fetchedResultsControllerLand_, 
+fetchedResultsControllerShortLands=fetchedResultsControllerShortLands_, 
+fetchedResultsControllerLandsForCoordinate=fetchedResultsControllerLandsForCoordinate_,
+managedObjectContext=managedObjectContext_;
 
 
 @synthesize internetConnectionStatus;
@@ -53,6 +56,8 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
     self.remoteHostStatus = [hostReach currentReachabilityStatus] ;
     self.internetConnectionStatus= [internetReach currentReachabilityStatus];
     self.wifiConnectionStatus =[wifiReach currentReachabilityStatus];
+    latitude=0.0;
+    longitude=0.0;
     return self;
 }
 -(void) dealloc{
@@ -157,6 +162,41 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
     return fetchedResultsControllerShortLands_;
 }
 
+-(NSFetchedResultsController *) fetchedResultsControllerLandsForCoordinate{
+    if(fetchedResultsControllerLandsForCoordinate_ !=nil){
+        return  fetchedResultsControllerLandsForCoordinate_;
+    }
+    
+    NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Land" inManagedObjectContext:self.managedObjectContext];
+    
+    [fetchedRequest setEntity:entity];
+    
+    // set sort key 
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"LandName" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    
+    [fetchedRequest setSortDescriptors:sortDescriptors];
+    
+    // set predicate
+    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"(BoundaryN>= %lf) AND (BoundaryS<= %lf) AND (BoundaryE >= %lf) AND (BoundaryW<= %lf)",latitude,latitude,longitude,longitude];
+    [fetchedRequest setPredicate:predicate];
+    
+    //create fetchedResultsController
+    [NSFetchedResultsController deleteCacheWithName:@"Land"];
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Land"];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsControllerLandsForCoordinate = aFetchedResultsController;
+    
+    [aFetchedResultsController release];
+    [fetchedRequest release];
+    
+    
+    return fetchedResultsControllerLandsForCoordinate_;
+
+}
+
 
 #pragma mark- reachability
 - (void)reachabilityChanged:(NSNotification *)note {
@@ -184,33 +224,66 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         // self.viewController.wifiConnectionStatus=self.wifiConnectionStatus;
 	}
     
-    //check for updates
-    if (!updateCheckStarted) {
-        
-        if (remoteHostStatus!=NotReachable) {
-            addArray  =[[NSMutableArray alloc] init];
-            deleteArray  =[[NSMutableArray alloc] init];
-            updateArray  =[[NSMutableArray alloc] init];
-            [self GetLandShortsFromWebService]; 
-            updateCheckStarted = YES;
-            NSLog(@"Update Started\n");
+    
+    if (remoteHostStatus!=NotReachable){
+        if (toBeUpdatedLandID >0 && landIDUpdateFlag==NO){
+         [self CheckForLandUpdatesByLandId:[NSNumber numberWithInt: toBeUpdatedLandID]];
+            toBeUpdatedLandID=0;
+            landIDUpdateFlag=YES;
         }
-       
-    }
 
+        //check for updates
+        if (!updateCheckStarted) {
+        
+            if (remoteHostStatus!=NotReachable) {
+                addArray  =[[NSMutableArray alloc] init];
+                deleteArray  =[[NSMutableArray alloc] init];
+                updateArray  =[[NSMutableArray alloc] init];
+            
+                [self GetLandShortsFromWebService]; 
+                // change from here 
+            
+                updateCheckStarted = YES;
+                NSLog(@"Update Started\n");
+            
+            }
+       
+        }
 	
+    }
 }
+
+
 -(NSMutableArray*) landShortList{
     return [NSMutableArray arrayWithArray:[self GetLandShortArray]];
 }
 
 #pragma mark - local data reterival
+-(NSArray*)getNearbyLandsForLatitute:(double)lat andLongitute:(double)lng{
+    latitude=lat;
+    longitude=lng;
+    
+    NSError *error;
+        if(![[self fetchedResultsControllerLandsForCoordinate]performFetch:&error]){
+       //handle Error
+        }
+        
+       NSArray * fetchedNearByLands = [self.fetchedResultsControllerLandsForCoordinate fetchedObjects];
+    latitude=0.0;
+    longitude=0.0;
+    return fetchedNearByLands;
+}
 -(Land *)GetLandWithLandId:(int)landId{
+
     Land * land = [self GetLandLocallyWithLandId:landId];
     //check for updates here
-    [self CheckForLandUpdatesByLandId:[NSNumber numberWithInt: landId]];
+    toBeUpdatedLandID = landId;
+    NSLog(@"land to be updated: %d\n",toBeUpdatedLandID);
+    landIDUpdateFlag= NO;
+   
     return land;
 }
+
 -(Land *)GetLandLocallyWithLandId:(int)landId{
     fetchedResultsControllerLand_=nil;
     landID = landId;
@@ -227,7 +300,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 }
 
 -(NSDictionary *)GetLandShortsDictionary{
-    NSArray * landShortArray =[self GetLandShortArray];//[self.fetchedResultsControllerShortLands fetchedObjects];
+    NSArray * landShortArray =[self GetLandShortArray];
     int count = [landShortArray count];
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:count];
     if (self) {
@@ -255,6 +328,8 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
     }
     return landShortArray;
 }
+
+
 #pragma mark - Network data reterival
 -(void) GetLandShortsFromWebService{
     NSString *url = @"http://localhost/~ladan/FirstNationList";
@@ -281,18 +356,21 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 
 
 -(void)CheckForLandUpdatesByLandId:(NSNumber *)landId{
+   if (remoteHostStatus!=NotReachable) {
     if ([updateArray count]>0 &&[updateArray containsObject:landId]) {
         [self GetLandFromWebServiceWithLandId:landId];
+        [updateArray removeObject:landId];
     }
+   }
 }
 
 #pragma mark - NetworkDataGetterDelegate Methods
 
+//this method is a delegate method which might receive a list dictionary of a single land or a dictionary of land ids as keys and landShort objects as values. main data update operation takes place here.
 -(void)DataUpdate:(id)object{
     if(!updateCheckFinished){// check for updates
         //first get the local dictionary 
         NSDictionary * localLandShortDict= [self GetLandShortsDictionary];
-        
         //get the largest local land id 
         NSArray * localKeyArray= [[localLandShortDict allKeys] sortedArrayUsingFunction:firstNumSort context:nil];
         int localLargestID = [[localKeyArray lastObject] intValue];
@@ -300,7 +378,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         //second get the network array:
         NSDictionary * networkDict = (NSDictionary* )object;
         NSArray * networkIDArray =[[networkDict allKeys] sortedArrayUsingFunction: firstNumSort context:NULL ];
-        
+         //get the largest network land id 
         int netWorkLargestID =[[networkIDArray lastObject] intValue];
         
         // get the maximum of largest ids
@@ -323,8 +401,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
             }else if (landExistRemothly){
                 [addArray addObject:[NSNumber numberWithInt:i]];
             }
-            
-        
+
         }// end of for
         //apply deletes:
         if ([deleteArray count]>0) {
@@ -346,7 +423,6 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
             }
         } // end of deletion
          
-        
         //get objects to be addes
         if ([addArray count]>0) {
             
@@ -358,13 +434,14 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         }
           
         updateCheckFinished=YES;
-        
-        
     }else{// apply the additions and updates
         //get the object
         BOOL updating =NO;
         WSLand * newLand = [[WSLand alloc] initWithDictionary:(NSDictionary*)object];
-        
+//        if (toBeUpdatedLandID>0 && landIDUpdateFlag ==NO) {
+//            toBeUpdatedLandID=0;
+//            landIDUpdateFlag=YES;
+//        }
         //check if the land is already there and should be deleted first:
         Land * exsistingLand= [self GetLandLocallyWithLandId:[newLand.LandID intValue]];
         if(exsistingLand!= nil){
@@ -378,6 +455,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         
         NSError * error;
         if(![newManagedLand.managedObjectContext save:&error]){
+            
             NSLog(@"%@",[error description]);
         } else{
              NSLog(@"Added land %d",[newManagedLand.LandID intValue]);
@@ -393,7 +471,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
         
     }
 
-    
+    landID=0;
 }
 -(void)DataError:(NSError *)error{
     // Reference the app's network activity indicator in the status bar
