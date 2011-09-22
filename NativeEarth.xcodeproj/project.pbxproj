@@ -121,6 +121,7 @@
 		D7DA7B4413D760DF009EEC0A /* 01-refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4313D760DF009EEC0A /* 01-refresh.png */; };
 		D7DA7B4613D763B1009EEC0A /* 193-location-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4513D763B1009EEC0A /* 193-location-arrow.png */; };
 		D7DA7B4813D763F0009EEC0A /* 02-redo.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4713D763F0009EEC0A /* 02-redo.png */; };
+		D7DFB85D142A6E7600258875 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DFB85C142A6E7600258875 /* Toast+UIView.m */; };
 		D7E85FB513D4968900437CD7 /* 06-magnify.png in Resources */ = {isa = PBXBuildFile; fileRef = D7E85FAD13D4968800437CD7 /* 06-magnify.png */; };
 		D7E85FB613D4968900437CD7 /* icon_list.png in Resources */ = {isa = PBXBuildFile; fileRef = D7E85FAE13D4968800437CD7 /* icon_list.png */; };
 		D7E85FB713D4968900437CD7 /* icon_location.png in Resources */ = {isa = PBXBuildFile; fileRef = D7E85FAF13D4968800437CD7 /* icon_location.png */; };
@@ -138,7 +139,7 @@
 		D71CA1C213F2CF530016C3CB /* LandShortArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandShortArray.h; sourceTree = "<group>"; };
 		D71CA1C313F2CF530016C3CB /* LandShortArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandShortArray.m; sourceTree = "<group>"; };
 		D71CA1C613F2F12A0016C3CB /* LandGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandGetter.h; sourceTree = "<group>"; };
-		D71CA1C713F2F12B0016C3CB /* LandGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandGetter.m; sourceTree = "<group>"; };
+		D71CA1C713F2F12B0016C3CB /* LandGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandGetter.m; sourceTree = "<group>"; wrapsLines = 0; };
 		D71F404D13EC4CB800DA0BB6 /* PlannedVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlannedVisit.h; sourceTree = "<group>"; };
 		D71F404E13EC4CB800DA0BB6 /* PlannedVisit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlannedVisit.m; sourceTree = "<group>"; };
 		D71F405013EC4CB800DA0BB6 /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content.h; sourceTree = "<group>"; };
@@ -297,6 +298,8 @@
 		D7DA7B4313D760DF009EEC0A /* 01-refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01-refresh.png"; sourceTree = "<group>"; };
 		D7DA7B4513D763B1009EEC0A /* 193-location-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow.png"; sourceTree = "<group>"; };
 		D7DA7B4713D763F0009EEC0A /* 02-redo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "02-redo.png"; sourceTree = "<group>"; };
+		D7DFB85A142A6E6F00258875 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
+		D7DFB85C142A6E7600258875 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		D7E85FAD13D4968800437CD7 /* 06-magnify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "06-magnify.png"; path = "icons/06-magnify.png"; sourceTree = "<group>"; };
 		D7E85FAE13D4968800437CD7 /* icon_list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_list.png; path = icons/icon_list.png; sourceTree = "<group>"; };
 		D7E85FAF13D4968800437CD7 /* icon_location.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon_location.png; path = icons/icon_location.png; sourceTree = "<group>"; };
@@ -549,6 +552,8 @@
 		D7BB0DAD13BB9CC30062C2A9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D7DFB85C142A6E7600258875 /* Toast+UIView.m */,
+				D7DFB85A142A6E6F00258875 /* Toast+UIView.h */,
 				D7972E27140C000700454BE3 /* NSString+URLEncoding.m */,
 				D7972E28140C000700454BE3 /* NSString+URLEncoding.h */,
 				D7972E23140BFFF400454BE3 /* Geocoder.h */,
@@ -857,6 +862,7 @@
 				D7972E26140BFFFC00454BE3 /* Geocoder.m in Sources */,
 				D7972E29140C000700454BE3 /* NSString+URLEncoding.m in Sources */,
 				D7972E4D140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.m in Sources */,
+				D7DFB85D142A6E7600258875 /* Toast+UIView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
