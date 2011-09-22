@@ -28,6 +28,7 @@ typedef enum {
     UITableView * resultsTableView;
     UIToolbar * toolbar;
     UISearchBar *searchBar;
+    UISearchDisplayController *searchDisplayController;
     BOOL landIsSelected;
     
     }
@@ -45,6 +46,7 @@ typedef enum {
 
 @property(nonatomic,retain) IBOutlet UIToolbar* toolbar;
 @property(nonatomic,retain) IBOutlet UISearchBar *searchBar;
+@property(nonatomic,retain) IBOutlet UISearchDisplayController *searchDisplayController;
 
 -(IBAction) CancelButtonAction:(id) sender;
 

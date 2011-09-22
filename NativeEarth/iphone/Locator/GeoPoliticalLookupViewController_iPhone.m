@@ -106,7 +106,7 @@ typedef enum {CountryRow, RegionRow, LocalityRow,ButtonRow} RowType ;
 
 -(void)DataUpdate:(NSArray *)objectArray{
     self.resultList = objectArray;
-
+    
     [self.tableView reloadData];
 	self.tableView.scrollEnabled = YES;
 }

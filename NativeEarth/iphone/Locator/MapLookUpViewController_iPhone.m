@@ -85,7 +85,6 @@
     if (oldState == MKAnnotationViewDragStateDragging) {
         DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
      ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
-    rgeocoder.managedObjectContext= self.managedObjectContext;
       //  [landArray removeAllObjects];
     landArray= [rgeocoder findLandForCoordinateWithLat:annotation.coordinate.latitude AndLng:annotation.coordinate.longitude];
         
@@ -153,7 +152,6 @@
         draggablePinView.rightCalloutAccessoryView = nil;
     }
 
-
 	return draggablePinView;
 }
 
@@ -170,7 +168,6 @@
     pinIsDropped = YES; 
         
     ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
-    rgeocoder.managedObjectContext= self.managedObjectContext;
     //  [landArray removeAllObjects];
     landArray= [rgeocoder findLandForCoordinateWithLat:theCoordinate.latitude AndLng:theCoordinate.longitude];
 

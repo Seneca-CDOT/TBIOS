@@ -13,7 +13,7 @@
 #import "LandShortArray.h"
 #import "LandGetter.h"
 #import "NativeEarthAppDelegate_iPhone.h"
-
+#import "Toast+UIView.h"
 @implementation BrowseViewController_iPhone
 @synthesize browseType;
 @synthesize completeList;
@@ -23,10 +23,12 @@
 @synthesize resultsTableView;
 @synthesize toolbar;
 @synthesize searchBar;
+@synthesize searchDisplayController;
 
 - (void)dealloc
 {
     [searchBar release];
+    [searchDisplayController release];
     [resultsTableView release];
     [toolbar release];
     [dataStream release];
@@ -78,15 +80,18 @@
     self.resultsTableView = nil;
     self.toolbar = nil;
     searchBar = nil;
+    self.searchDisplayController =nil;
 }
 
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
-    
+   
     landIsSelected = NO;
     [self GetLandShortList];
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+     [self.searchDisplayController setActive:NO];
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
@@ -113,7 +118,6 @@
 -(Land* )GetLandByLandID:(int) landID{
    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
    Land * selectedLand = [appDelegate.landGetter GetLandWithLandId:landID];
-    
     return selectedLand;
    }
 
@@ -249,14 +253,15 @@
     return YES;
 }
 
-- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
-{
-    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
-     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
-    
-    // Return YES to cause the search result table view to be reloaded.
-    return YES;
-}
+//- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
+//{
+//    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
+//     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
+//    
+//    // Return YES to cause the search result table view to be reloaded.
+//    return YES;
+//}
+
 #pragma mark - 
 -(IBAction) CancelButtonAction:(id) sender{
     [self dismissModalViewControllerAnimated:YES];
@@ -273,6 +278,8 @@
         [self GetLandShortList];
 
     }
+    [self.view makeToast:NSLocalizedString(@"        Date Updated.         ", @"        Date Updated.         ")                 duration:2.0
+                position:@"bottom"]; 
 }
 
 @end

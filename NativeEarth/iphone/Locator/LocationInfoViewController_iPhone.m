@@ -14,6 +14,7 @@
 #import "MapBrowserViewController_iPhone.h"
 #import "WSLand.h"
 #import "Constants.h"
+#import "Toast+UIView.h"
 typedef enum{
     sectionHeaderTitleName,
     sectionHeaderTitleDescription,
@@ -68,6 +69,13 @@ typedef enum{
     self.tableView.delegate = self;
     
     self.view = self.tableView;
+    
+ 
+  //      NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
+   //    [appDelegate.landGetter CheckForLandUpdatesByLandId:selectedLand.LandID];
+        
+   
+  
     
 }
 
@@ -331,6 +339,12 @@ typedef enum{
     [self.tableView reloadData];
     }
     
+    self.title = selectedLand.LandName;
+    
+    [self.view makeToast:NSLocalizedString(@"        Date Updated.         ", @"        Date Updated.         ")                 duration:2.0
+                position:@"bottom"];  
+    
+        
 }
 
 @end
