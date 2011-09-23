@@ -157,7 +157,7 @@
    // nextVC.managedObjectContext = self.managedObjectContext;
     // add reffering object too.
         
-        nextVC.landArray = (NSArray*)[[fetchedResultsController objectAtIndexPath:indexPath] valueForKey:@"Lands"];
+        nextVC.landArray =[NSMutableArray arrayWithArray: (NSArray*)[[fetchedResultsController objectAtIndexPath:indexPath] valueForKey:@"Lands"]];
    nextVC.title = @"Title";
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];

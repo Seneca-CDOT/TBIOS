@@ -56,5 +56,6 @@
 -(void)CheckForLandUpdatesByLandId:(NSNumber *)landId;
 -(NSMutableArray *)GetLandShortArray;
 -(NSArray*)getNearbyLandsForLatitute:(double)lat andLongitute:(double)lng;
+-(void) setLandToBeUpdatedById:(int)landId;
 //-(void) updateList;
 @end

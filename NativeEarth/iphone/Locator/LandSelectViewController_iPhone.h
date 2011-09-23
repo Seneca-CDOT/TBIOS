@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
+#import "Land.h"
 
 @interface LandSelectViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
     NSString * language;
+    Land * selectedLand;
 }
-@property (nonatomic, retain) NSArray* landArray;
+@property (nonatomic, retain) NSMutableArray* landArray;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end

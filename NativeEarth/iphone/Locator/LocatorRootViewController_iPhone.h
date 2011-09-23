@@ -16,7 +16,7 @@
 @property (nonatomic,retain)   LocationDetector *locationDetector;
 -(void)GoToCurrentLocation;
 -(void)BrowseByName;
--(void)BrowseByGeopoliticalName;
+//-(void)BrowseByGeopoliticalName;
 -(void)BrowseMap;
 
 -(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray;

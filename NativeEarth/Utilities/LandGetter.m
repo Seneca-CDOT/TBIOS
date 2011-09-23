@@ -259,10 +259,14 @@ managedObjectContext=managedObjectContext_;
 }
 
 #pragma mark - local data reterival
+-(void) setLandToBeUpdatedById:(int)landId{
+    toBeUpdatedLandID=landId;
+    landIDUpdateFlag=NO;
+}
 -(NSArray*)getNearbyLandsForLatitute:(double)lat andLongitute:(double)lng{
     latitude=lat;
     longitude=lng;
-    
+    fetchedResultsControllerLandsForCoordinate_=nil;
     NSError *error;
         if(![[self fetchedResultsControllerLandsForCoordinate]performFetch:&error]){
        //handle Error
@@ -273,6 +277,7 @@ managedObjectContext=managedObjectContext_;
     longitude=0.0;
     return fetchedNearByLands;
 }
+
 -(Land *)GetLandWithLandId:(int)landId{
 
     Land * land = [self GetLandLocallyWithLandId:landId];

@@ -9,6 +9,8 @@
 #import "LandSelectViewController_iPhone.h"
 #import "LocationInfoViewController_iPhone.h"
 #import "WSLand.h"
+#import "NativeEarthAppDelegate_iPhone.h"
+#import "Toast+UIView.h"
 @implementation LandSelectViewController_iPhone
 
 @synthesize landArray;
@@ -38,6 +40,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //[self.selectedLand retain];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
 language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 }
 
@@ -134,12 +138,39 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
      LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
      // ...
      // Pass the selected object to the new view controller.
-    nextVC.selectedLand = [landArray objectAtIndex:indexPath.section];
+        
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
+       selectedLand =[landArray objectAtIndex:indexPath.section];
+        
+    [appDelegate.landGetter setLandToBeUpdatedById:[selectedLand.LandID intValue]];
+        
+        
+    nextVC.selectedLand = selectedLand;
         nextVC.allLands = landArray;
      [self.navigationController pushViewController:nextVC animated:YES];
      [nextVC release];
     }
      
+}
+
+
+// Notification handler
+- (void)updateUI:(NSNotification *)notif {
+    if ([[notif name] isEqualToString:@"UpdatedLand"]){
+        Land* updatedLand = (Land*) [notif object];
+        int index=[self.landArray indexOfObject:selectedLand];
+        [self.landArray replaceObjectAtIndex:index withObject:updatedLand];
+        
+        
+        NSLog(@"Notification received in location info");
+        [self.tableView reloadData];
+    }
+    
+    //notify user
+    [self.view makeToast:NSLocalizedString(@"        Date Updated.         ", @"        Date Updated.         ")                 duration:2.0
+                position:@"bottom"];  
+    
+    
 }
 
 @end

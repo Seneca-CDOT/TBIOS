@@ -231,7 +231,7 @@
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.managedObjectContext = self.managedObjectContext;
     
-    nextVC.landArray=landArray;//lands;
+    nextVC.landArray=[NSMutableArray arrayWithArray: landArray];//lands;
     nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
     
     [self.navigationController pushViewController:nextVC animated:YES];
