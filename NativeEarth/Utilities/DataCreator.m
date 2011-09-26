@@ -69,7 +69,7 @@
 }
 
 -(void) createDataFromWebServive{
-   NSString * urlString = @"http://localhost/~ladan/AlgonquinOverLap";
+   NSString * urlString = @"http://localhost/~ladan/InitialLands";
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc] init];
     dataGetter.delegate = self;
     [dataGetter GetResultsFromUrl:urlString];
