@@ -38,7 +38,7 @@
 		D783B42613BCBD4300A5C05F /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D783B42513BCBD4200A5C05F /* BaseTableViewController.m */; };
 		D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D786015C13C65D93007EA5B0 /* Spotlight.png */; };
 		D789BF7513D0B58600C1C9E8 /* NetworkDataGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */; };
-		D78D045713E0449200C04A5E /* AlgonquinOverLap.txt in Resources */ = {isa = PBXBuildFile; fileRef = D78D045613E0449200C04A5E /* AlgonquinOverLap.txt */; };
+		D78B5C94142D269D0009776B /* InitialLands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D78B5C93142D269D0009776B /* InitialLands.txt */; };
 		D78D045B13E046FB00C04A5E /* LandSelectViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D045A13E046FB00C04A5E /* LandSelectViewController_iPhone.m */; };
 		D78D04A013E0A0A200C04A5E /* AddAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D049F13E0A09F00C04A5E /* AddAVisitViewController_iPhone.m */; };
 		D78D04B013E1D72200C04A5E /* WSLand.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04AF13E1D72200C04A5E /* WSLand.m */; };
@@ -178,7 +178,7 @@
 		D786015C13C65D93007EA5B0 /* Spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spotlight.png; sourceTree = "<group>"; };
 		D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDataGetter.h; sourceTree = "<group>"; };
 		D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkDataGetter.m; sourceTree = "<group>"; };
-		D78D045613E0449200C04A5E /* AlgonquinOverLap.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = AlgonquinOverLap.txt; path = ../../Sites/AlgonquinOverLap.txt; sourceTree = "<group>"; };
+		D78B5C93142D269D0009776B /* InitialLands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = InitialLands.txt; path = ../../Sites/InitialLands.txt; sourceTree = "<group>"; };
 		D78D045913E046FA00C04A5E /* LandSelectViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandSelectViewController_iPhone.h; sourceTree = "<group>"; };
 		D78D045A13E046FB00C04A5E /* LandSelectViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandSelectViewController_iPhone.m; sourceTree = "<group>"; };
 		D78D049E13E0A09B00C04A5E /* AddAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAVisitViewController_iPhone.h; sourceTree = "<group>"; };
@@ -475,17 +475,17 @@
 			isa = PBXGroup;
 			children = (
 				D7967CB813E98A8C00E597B4 /* FirstNationList */,
+				D78B5C93142D269D0009776B /* InitialLands.txt */,
 				D794189D13FEFC910001CAA9 /* Land1.txt */,
+				D79418A013FEFC9A0001CAA9 /* Land2.txt */,
+				D79418A213FEFCA10001CAA9 /* Land3.txt */,
 				D79418A413FEFCB20001CAA9 /* Land4.txt */,
 				D79418A513FEFCB20001CAA9 /* Land5.txt */,
 				D79418A613FEFCB30001CAA9 /* Land6.txt */,
 				D79418A713FEFCB40001CAA9 /* Land7.txt */,
 				D79418A813FEFCB70001CAA9 /* Land8.txt */,
 				D79418A913FEFCBB0001CAA9 /* Land9.txt */,
-				D79418A213FEFCA10001CAA9 /* Land3.txt */,
-				D79418A013FEFC9A0001CAA9 /* Land2.txt */,
 				D75F6A1C13E88622001E6509 /* Land0.txt */,
-				D78D045613E0449200C04A5E /* AlgonquinOverLap.txt */,
 				D7BB0D8413BB9A0C0062C2A9 /* NativeEarth */,
 				D7BB0D7B13BB9A0C0062C2A9 /* Frameworks */,
 				D7BB0D7913BB9A0B0062C2A9 /* Products */,
@@ -788,7 +788,6 @@
 				D7DA7B4413D760DF009EEC0A /* 01-refresh.png in Resources */,
 				D7DA7B4613D763B1009EEC0A /* 193-location-arrow.png in Resources */,
 				D7DA7B4813D763F0009EEC0A /* 02-redo.png in Resources */,
-				D78D045713E0449200C04A5E /* AlgonquinOverLap.txt in Resources */,
 				D75F6A1D13E88623001E6509 /* Land0.txt in Resources */,
 				D7967CB913E98A8C00E597B4 /* FirstNationList in Resources */,
 				D794189E13FEFC920001CAA9 /* Land1.txt in Resources */,
@@ -801,6 +800,7 @@
 				D79418AE13FEFCC10001CAA9 /* Land8.txt in Resources */,
 				D79418AF13FEFCC10001CAA9 /* Land9.txt in Resources */,
 				D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */,
+				D78B5C94142D269D0009776B /* InitialLands.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
