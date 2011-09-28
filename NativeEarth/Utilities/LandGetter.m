@@ -24,6 +24,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 @synthesize fetchedResultsControllerLand=fetchedResultsControllerLand_, 
 fetchedResultsControllerShortLands=fetchedResultsControllerShortLands_, 
 fetchedResultsControllerLandsForCoordinate=fetchedResultsControllerLandsForCoordinate_,
+fetchedResultsControllerPlannedVisits= fetchedResultsControllerPlannedVisits_,
 managedObjectContext=managedObjectContext_;
 
 
@@ -62,6 +63,9 @@ managedObjectContext=managedObjectContext_;
 }
 -(void) dealloc{
     [self.fetchedResultsControllerLand release];
+    [self.fetchedResultsControllerLandsForCoordinate release];
+    [self.fetchedResultsControllerShortLands release];
+    [self.fetchedResultsControllerPlannedVisits release];
     [self.managedObjectContext release];
     [super dealloc];
 }
@@ -196,6 +200,49 @@ managedObjectContext=managedObjectContext_;
     return fetchedResultsControllerLandsForCoordinate_;
 
 }
+
+
+- (NSFetchedResultsController *)fetchedResultsControllerPlannedVisits {
+    
+    if (fetchedResultsControllerPlannedVisits_ != nil) {
+        return fetchedResultsControllerPlannedVisits_;
+    }
+    
+    /*
+     Set up the fetched results controller.
+	 */
+    // Create the fetch request for the entity.
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    // Edit the entity name as appropriate.
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:self.managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    // Set the batch size to a suitable number.
+    [fetchRequest setFetchBatchSize:20];
+    
+    // Edit the sort key as appropriate.
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"FromDate" ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+	// Clear the cache 
+	[NSFetchedResultsController deleteCacheWithName:@"PlannedVisit"];
+	
+    // Edit the section name key path and cache name if appropriate.
+    // nil for section name key path means "no sections".
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"PlannedVisit"];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsControllerPlannedVisits = aFetchedResultsController;
+    
+    [aFetchedResultsController release];
+    [fetchRequest release];
+    [sortDescriptor release];
+    [sortDescriptors release];
+    
+    
+    return fetchedResultsControllerPlannedVisits_;
+}   
 
 
 #pragma mark- reachability
@@ -334,6 +381,16 @@ managedObjectContext=managedObjectContext_;
     return landShortArray;
 }
 
+#pragma mark - Pllaned Visits
+-(NSArray *)GetAllPlannedVisits{
+    fetchedResultsControllerPlannedVisits_=nil;
+    NSError* error;
+    if(![[self fetchedResultsControllerPlannedVisits]performFetch:&error]){
+        //handle error
+    }
+    NSArray * results=[self.fetchedResultsControllerPlannedVisits fetchedObjects];
+    return results;
+}
 
 #pragma mark - Network data reterival
 -(void) GetLandShortsFromWebService{

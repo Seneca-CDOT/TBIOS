@@ -11,6 +11,7 @@
 #import "LandShort.h"
 #import "Reachability.h"
 #import "NetworkDataGetter.h"
+#import "PlannedVisit.h"
 @interface LandGetter : NSObject <NSFetchedResultsControllerDelegate,NetworkDataGetterDelegate>{
 
     Reachability* hostReach;
@@ -31,6 +32,7 @@
     NSFetchedResultsController * fetchedResultsControllerLand_;
     NSFetchedResultsController * fetchedResultsControllerShortLands_;
     NSFetchedResultsController * fetchedResultsControllerLandsForCoordinate_;
+    NSFetchedResultsController * fetchedResultsControllerPlannedVisits_;
     NSManagedObjectContext * managedObjectContext_;
     int landID;
     int toBeUpdatedLandID;
@@ -40,6 +42,7 @@
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerShortLands;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLandsForCoordinate;
+@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerPlannedVisits;
 @property (nonatomic, retain) NSMutableArray* landShortList;
 //Network Conectivity
 @property NetworkStatus internetConnectionStatus;
@@ -57,5 +60,6 @@
 -(NSMutableArray *)GetLandShortArray;
 -(NSArray*)getNearbyLandsForLatitute:(double)lat andLongitute:(double)lng;
 -(void) setLandToBeUpdatedById:(int)landId;
+-(NSArray *)GetAllPlannedVisits;
 //-(void) updateList;
 @end
