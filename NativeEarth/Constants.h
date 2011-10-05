@@ -8,11 +8,12 @@
 
 
 //contstants
-#define kUITextViewCellRowHeight 110.0
+
 #define kStdButtonWidth		60.0
 #define kStdButtonHeight	20.0
+#define kUITextViewCellRowHeight 110.0
 #define kRegularCellRowHeight  34.0
-#define kTextFieldRowHeight  37.0
+#define kTextFieldCellRowHeight  34.0
 #define kButtonTag			1		// for tagging our embedded controls for removal at cell recycle time
 
 
