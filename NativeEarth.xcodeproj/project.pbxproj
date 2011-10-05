@@ -66,6 +66,7 @@
 		D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */; };
 		D79A3E5713CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D79A3E5513CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.m */; };
 		D79A3E5813CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D79A3E5613CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.xib */; };
+		D7A84C761434FFB800032481 /* NativeEarth.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D7A84C751434FFB800032481 /* NativeEarth.sqlite */; };
 		D7A84F4B13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */; };
 		D7A84F4C13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */; };
 		D7A84F7213C4F04B0085E8C3 /* ViewAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F7013C4F04A0085E8C3 /* ViewAVisitViewController_iPhone.m */; };
@@ -216,6 +217,7 @@
 		D79A3E5413CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeoPoliticalLookupViewController_iPhone.h; sourceTree = "<group>"; };
 		D79A3E5513CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeoPoliticalLookupViewController_iPhone.m; sourceTree = "<group>"; };
 		D79A3E5613CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeoPoliticalLookupViewController_iPhone.xib; sourceTree = "<group>"; };
+		D7A84C751434FFB800032481 /* NativeEarth.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = NativeEarth.sqlite; sourceTree = "<group>"; };
 		D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitPlannerRootViewController_iPhone.h; sourceTree = "<group>"; };
 		D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitPlannerRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitPlannerRootViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -538,6 +540,7 @@
 		D7BB0D8513BB9A0C0062C2A9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D7A84C751434FFB800032481 /* NativeEarth.sqlite */,
 				D786015313C656FB007EA5B0 /* icons */,
 				D794FAC113C361FF00BCE651 /* Images */,
 				D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */,
@@ -801,6 +804,7 @@
 				D79418AF13FEFCC10001CAA9 /* Land9.txt in Resources */,
 				D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */,
 				D78B5C94142D269D0009776B /* InitialLands.txt in Resources */,
+				D7A84C761434FFB800032481 /* NativeEarth.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
