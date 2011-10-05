@@ -2,12 +2,13 @@
 //  LocalLandGetter.m
 //  NativeEarth
 //
+
 //  Created by Ladan Zahir on 11-08-10.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import "LandGetter.h"
-#import "WSLand.h"
+
 NSInteger firstNumSort(id str1, id str2, void *context) {
     int num1 = [str1 integerValue];
     int num2 = [str2 integerValue];
@@ -473,7 +474,10 @@ managedObjectContext=managedObjectContext_;
             }
             
             NSError * error;
-            if(![self.managedObjectContext save:&error]){
+            //if(![self.managedObjectContext save:&error]){
+            if (!(error=[self SaveData])) {
+                
+            
             }else{
                 if  ([deleteArray count]>0) {
                     [self.landShortList removeAllObjects];
@@ -507,23 +511,26 @@ managedObjectContext=managedObjectContext_;
         //check if the land is already there and should be deleted first:
         Land * exsistingLand= [self GetLandLocallyWithLandId:[newLand.LandID intValue]];
         if(exsistingLand!= nil){
-            [self.managedObjectContext deleteObject:exsistingLand];
-            updating = YES;
-        }
+            NSLog(@"Updating land %d",[newLand.LandID intValue]);
+            //[self.managedObjectContext deleteObject:exsistingLand];
+             updating = YES;
+            [self updateManagedLand: exsistingLand WithWSLand:newLand];
+                
+        }else{
+            NSLog(@"Adding land %d",[newLand.LandID intValue]);
+            Land * newManagedLand = [newLand ToManagedLand:self.managedObjectContext]; 
         
-      
-        NSLog(@"Adding land %d",[newLand.LandID intValue]);
-        Land * newManagedLand = [newLand ToManagedLand:self.managedObjectContext]; 
-        
-        NSError * error;
-        if(![newManagedLand.managedObjectContext save:&error]){
+            NSError * error;
+            //if(![newManagedLand.managedObjectContext save:&error]){
+            if (!(error=[self SaveData])) {
             
-            NSLog(@"%@",[error description]);
-        } else{
-             NSLog(@"Added land %d",[newManagedLand.LandID intValue]);
+                NSLog(@"%@",[error description]);
+            } else{
+                NSLog(@"Added land %d",[newManagedLand.LandID intValue]);
+            }
         }
         if (updating==YES) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedLand" object:newManagedLand]; 
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedLand" object:exsistingLand]; 
               NSLog(@"update land notification posted");
         }
       
@@ -542,6 +549,41 @@ managedObjectContext=managedObjectContext_;
 	NSLog(@"%@", [error description]);
 }
 
+-(void) updateManagedLand: (Land*) MLand WithWSLand:(WSLand *)webLand{
+    Land * newManagedLand = [webLand ToManagedLand:self.managedObjectContext];
+    MLand.LandName =newManagedLand.LandName;
+    MLand.Shape= newManagedLand.Shape;
+    MLand.VersionIdentifier=newManagedLand.VersionIdentifier;
+    MLand.LandDescriptionFrench=newManagedLand.LandDescriptionFrench;
+    MLand.LandDescriptionEnglish = newManagedLand.LandDescriptionEnglish;
+    MLand.BoundaryE=newManagedLand.BoundaryE;
+    MLand.BoundaryN=newManagedLand.BoundaryN;
+    MLand.BoundaryS=newManagedLand.BoundaryS;
+    MLand.BoundaryW=newManagedLand.BoundaryW;
+    MLand.CenterPoint=newManagedLand.CenterPoint;
+    MLand.Coordinates=newManagedLand.Coordinates;
+    MLand.Images = nil;
+    MLand.Images = newManagedLand.Images;
+    MLand.Greetings= nil;
+    MLand.Greetings= newManagedLand.Greetings;
+    MLand.DateTo=newManagedLand.DateTo;
+    MLand.DateFrom = newManagedLand.DateFrom;
+    [self.managedObjectContext deleteObject:newManagedLand];
+    
+    NSError * error;
+   // if(![self.managedObjectContext save:&error]){
+    if (!(error=[self SaveData])) {
+   
+        NSLog(@"%@",[error description]);
+    } else{
+        NSLog(@"updated land %d",[MLand.LandID intValue]);
+    }      
+}
 
-
+-(NSError *)SaveData{
+    NSError * error;
+    if(![self.managedObjectContext save:&error]) return error;
+    else return nil;
+    
+}
 @end

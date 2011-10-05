@@ -11,6 +11,7 @@
 #import "Utility.h"
 #import "KMLParser.h"
 #import "NetworkDataGetter.h"
+#import "PlannedVisit.h"
 
 @interface DataCreator : NSObject <NetworkDataGetterDelegate>{
     KMLParser *kml;
@@ -19,4 +20,6 @@
 -(id) initWithContext:(NSManagedObjectContext*) context;
 -(void) createDataFromKML;
 -(void) createDataFromWebServive;
+-(PlannedVisit *)CreateASampleVisit;
+
 @end

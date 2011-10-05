@@ -20,4 +20,8 @@
 @property (nonatomic, retain) NSDate * ToDate;
 @property (nonatomic, retain) NSSet* Lands;
 
+- (void)addLandsObject:(Land *)value;
+- (void)removeLandsObject:(Land *)value;
+- (void)addLands:(NSSet *)value;
+- (void)removeLands:(NSSet *)value;
 @end

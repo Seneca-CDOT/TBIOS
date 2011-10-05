@@ -45,17 +45,12 @@
 -(void)SetBackControls;
 - (IBAction)dateAction:(id)sender;	// when the user has changed the date picke values (m/d/y)
 - (IBAction)doneAction:(id)sender;
-- (void)changeButtonTapped:(id)sender;
+- (void)AddLand;
 
-- (UIButton *)newButtonWithTitle:(NSString *)title
-                          target:(id)target
-                        selector:(SEL)selector
-                           frame:(CGRect)frame
-                           image:(UIImage *)image
-                    imagePressed:(UIImage *)imagePressed
-                   darkTextColor:(BOOL)darkTextColor;
 -(IBAction)Cancel:(id)sender;
 -(void) shiftDownDatePicker;
--(void) setEnabledDateCells:(BOOL) enabled;
--(void) setEnabledTitleCell:(BOOL) enabled;
+-(void) SetEnabledDateCells:(BOOL) enabled;
+-(void) SetEnabledTitleCell:(BOOL) enabled;
+-(void) ShiftViewForCell:(UITableViewCell*) cell atIndexPath : (NSIndexPath *) indexpath;
+-(void) ShiftBackView;
 @end

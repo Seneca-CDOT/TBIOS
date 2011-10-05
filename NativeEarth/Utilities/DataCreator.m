@@ -80,7 +80,11 @@
     NSArray * landArray = (NSArray*)object;
     for (NSDictionary * landDict  in landArray) {
         WSLand *wsland = [[WSLand alloc] initWithDictionary:landDict];
-        [wsland ToManagedLand:managedObjectContext];
+       Land* managedland = [wsland ToManagedLand:managedObjectContext];
+        if ([managedland.LandID intValue]==1) {
+              managedland.PlannedVisits=[NSSet setWithObject:[self CreateASampleVisit]];
+        }
+        
         if(! [managedObjectContext save:&error]){
             NSLog(@"Context save error %@, %@", error, [error userInfo]);
 			abort();
@@ -93,4 +97,21 @@
 -(void)DataError:(NSError *)error{
     
 }
+
+-(PlannedVisit *)CreateASampleVisit{
+    
+    NSEntityDescription *entity= [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:managedObjectContext];
+     PlannedVisit * aVisit = [[PlannedVisit alloc] initWithEntity:entity insertIntoManagedObjectContext: managedObjectContext];
+    aVisit.Title = @"Test Visit";
+   
+    NSDateFormatter *df = [[[NSDateFormatter alloc] init] autorelease];
+    [df setDateFormat:@"dd-MM-yyyy"];
+   aVisit.FromDate = [df dateFromString: @"01-10-2011"];
+    aVisit.ToDate = [df dateFromString:@"12-10-2011"];
+    
+    aVisit.Notes=@"This is a test note, g kjg jkyg jyg jyg kjy jyhg kjf khjf khgf khfgfkhgfhgggggggg jkyhg kjh yg jyg jyg kjhgvhhhhhhbg hghghggggg jhgjhhhhhg jg jhg jhg jhg hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhgj";
+    return  aVisit;
+    
+}
+
 @end

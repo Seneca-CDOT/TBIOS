@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Land.h"
+#import "WSLand.h"
 #import "LandShort.h"
 #import "Reachability.h"
 #import "NetworkDataGetter.h"
@@ -61,5 +62,8 @@
 -(NSArray*)getNearbyLandsForLatitute:(double)lat andLongitute:(double)lng;
 -(void) setLandToBeUpdatedById:(int)landId;
 -(NSArray *)GetAllPlannedVisits;
+-(void) updateManagedLand: (Land*) MLand WithWSLand:(WSLand *)webLand;
 //-(void) updateList;
+-(NSError *)SaveData;
+
 @end
