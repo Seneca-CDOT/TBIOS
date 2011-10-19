@@ -9,29 +9,39 @@
 #import "ReverseGeocoder.h"
 #import "Land.h"
 #import "NativeEarthAppDelegate_iPhone.h"
-@implementation ReverseGeocoder
 
+@implementation ReverseGeocoder
+@synthesize mapView;
 
 
 
 #pragma Mark -
 #pragma Mark Reverce Geocoder Public Methds
 
-- (NSArray *) findNearByLandsForPointWithLat:(double)lat AndLng: (double) lng{
+- (NSArray *) FindEstimatedMatchingLandsForCoordinateWithLat:(double)lat AndLng: (double) lng{
     
     curLatitude =round(lat*100000)/100000;
     curLongitude =round(lng*100000)/100000;
     
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    NSArray * fetchedNearByLands= [appDelegate.landGetter getNearbyLandsForLatitute:curLatitude andLongitute:curLongitude];
+    NSArray * fetchedEstimatedMatchingLands= [appDelegate.landGetter GetEstimatedMatchingLandsForLatitude:curLatitude andLongitude:curLongitude];
 
 
-    return fetchedNearByLands;
+    return fetchedEstimatedMatchingLands;
 }
 
-- (NSArray *) findLandForCoordinateWithLat:(double)lat AndLng:(double) lng{
+- (NSArray *) FindNearbyLandsForCoordinateWithLat:(double)lat andLng:(double) lng{
+    curLatitude =round(lat*100000)/100000;
+    curLongitude =round(lng*100000)/100000;
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    NSArray * fetchedNearbyLands = [appDelegate.landGetter GetNearbyLandsForLatitude:curLatitude andLongitude:curLongitude];
+
+    return fetchedNearbyLands;
+}
+
+- (NSArray *) FindLandForCoordinateWithLat:(double)lat AndLng:(double) lng{
     
-    NSArray *nearByLands =[self findNearByLandsForPointWithLat:lat AndLng:lng];
+    NSArray *nearByLands =[self FindEstimatedMatchingLandsForCoordinateWithLat:lat AndLng:lng];
     if ([nearByLands count]>0) {
     
     
@@ -40,7 +50,8 @@
     
     for (Land  * land in nearByLands) {
          NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:[[land valueForKey:@"Coordinates"]description]];
-        if([self PointWithLatitute: lat AndLongitute: lng BelongsToPolygonWithCoordinates:coordinates]){
+       
+        if([self PointWithLatitude: lat AndLongitude: lng BelongsToPolygonWithCoordinates:coordinates]){
             [lands addObject:land];   
         }
     }// end of for loop
@@ -50,11 +61,13 @@
 #pragma Mark -
 #pragma Mark Geometrical Helper Methods
 
--(BOOL)PointWithLatitute: (double) lat AndLongitute:(double) lng BelongsToPolygonWithCoordinates:(NSArray*) coordinates {
+-(BOOL)PointWithLatitude: (double) lat AndLongitude:(double) lng BelongsToPolygonWithCoordinates:(NSArray*) coordinates {
     
-    if ([self PointWithLatitute:lat AndLongitute:lng IsAVerticeOfPolygonWithCoordinates:coordinates]) {
+
+    
+    if ([self PointWithLatitude:lat AndLongitude:lng IsAVerticeOfPolygonWithCoordinates:coordinates]) {
         return  YES;
-    }else if([self PointWithLatitute:lat AndLongitute:lng IsOnASideOfMultyLineWithCoordinates:coordinates]){
+    }else if([self PointWithLatitude:lat AndLongitude:lng IsOnASideOfMultyLineWithCoordinates:coordinates]){
         return  YES;
     }else{
     int N = [coordinates count] -1;//Number Of Vertices
@@ -91,15 +104,26 @@
     
 }
 
-- (BOOL)PointWithLatitute:(double)lat AndLongitute:(double)lng IsOnASideOfMultyLineWithCoordinates:(NSArray *)coordinates{
+- (BOOL)PointWithLatitude:(double)lat AndLongitude:(double)lng IsOnASideOfMultyLineWithCoordinates:(NSArray *)coordinates{
     BOOL rv= NO;
     
     for (int i=0; i<[coordinates count]-1; i++) {
-        double ax= [[coordinates objectAtIndex:i] coordinate].longitude;
-        double ay=[[coordinates objectAtIndex:i] coordinate].latitude;
-        double bx=[[coordinates objectAtIndex:i+1] coordinate].longitude;
-        double by=[[coordinates objectAtIndex:i+1] coordinate].latitude;
-        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:ay AndPointALng:ax AndPointBLat:by  AndPointBLng:bx];
+        double alng= [[coordinates objectAtIndex:i] coordinate].longitude;
+        double alat=[[coordinates objectAtIndex:i] coordinate].latitude;
+        double blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
+        double blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
+      
+        
+        CLLocationCoordinate2D coorda;
+        coorda.latitude = alat;
+        coorda.longitude = alng;
+        MKMapPoint pointA = MKMapPointForCoordinate(coorda);
+        
+        CLLocationCoordinate2D coordb;
+        coordb.latitude=blat;
+        coordb.longitude=blng;
+        MKMapPoint pointB = MKMapPointForCoordinate(coordb);
+        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:pointA.y AndPointALng:pointA.x AndPointBLat:pointB.y  AndPointBLng:pointB.x];
         
         if (distance <= 0.0002) {
             rv=YES;
@@ -109,8 +133,44 @@
     return  rv;
 }
 
+-(double)DistanceOfPointCWithCLat:(double)lat AndCLng:(double)lng FromPolygonWithCoordinates:(NSArray *)coordinates{
+    
+    double distance =0.0;
+    bool firstTime = YES;
+    for (int i=0; i<[coordinates count]-1; i++) {
+        double alng= [[coordinates objectAtIndex:i] coordinate].longitude;
+        double alat=[[coordinates objectAtIndex:i] coordinate].latitude;
+        double blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
+        double blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
+        
+        
+        CLLocationCoordinate2D coorda;
+        coorda.latitude = alat;
+        coorda.longitude = alng;
+        MKMapPoint pointA = MKMapPointForCoordinate(coorda);
+        
+        CLLocationCoordinate2D coordb;
+        coordb.latitude=blat;
+        coordb.longitude=blng;
+        MKMapPoint pointB = MKMapPointForCoordinate(coordb);
+      
+       double dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:pointA.y AndPointALng:pointA.x AndPointBLat:pointB.y  AndPointBLng:pointB.x];
+          if (firstTime) {
+              distance=dist;
+              firstTime=NO;
+          }else {
+              if (dist<distance) {
+                  distance=dist;
+              }
+          }
+       
+    }
+    return distance;
+    
+}
 
-- (BOOL)PointWithLatitute:(double)lat AndLongitute:(double)lng IsAVerticeOfPolygonWithCoordinates:(NSArray *)coordinates
+
+- (BOOL)PointWithLatitude:(double)lat AndLongitude:(double)lng IsAVerticeOfPolygonWithCoordinates:(NSArray *)coordinates
 {
     BOOL rv = NO;
     
@@ -248,6 +308,21 @@
     
     return distanceFromSegment;
 }
+
+-(double)MeterDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB{
+    CLLocationCoordinate2D pointACoordinate = CLLocationCoordinate2DMake(latA, lngA);
+    CLLocation *pointALocation = [[CLLocation alloc] initWithLatitude:pointACoordinate.latitude longitude:pointACoordinate.longitude];  
+    
+    CLLocationCoordinate2D pointBCoordinate = CLLocationCoordinate2DMake(latB, lngB);
+    CLLocation *pointBLocation = [[CLLocation alloc] initWithLatitude:pointBCoordinate.latitude longitude:pointBCoordinate.longitude];  
+    
+    double distanceMeters = [pointALocation distanceFromLocation:pointBLocation];
+    
+    [pointALocation release];
+    [pointBLocation release];
+    return distanceMeters;
+}
+
 
 
 @end

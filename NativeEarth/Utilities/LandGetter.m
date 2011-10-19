@@ -9,6 +9,7 @@
 
 #import "LandGetter.h"
 
+
 NSInteger firstNumSort(id str1, id str2, void *context) {
     int num1 = [str1 integerValue];
     int num2 = [str2 integerValue];
@@ -26,6 +27,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 fetchedResultsControllerShortLands=fetchedResultsControllerShortLands_, 
 fetchedResultsControllerLandsForCoordinate=fetchedResultsControllerLandsForCoordinate_,
 fetchedResultsControllerPlannedVisits= fetchedResultsControllerPlannedVisits_,
+fetchedResultsControllerNearByLands=fetchedResultsControllerNearByLands_,
 managedObjectContext=managedObjectContext_;
 
 
@@ -67,6 +69,7 @@ managedObjectContext=managedObjectContext_;
     [self.fetchedResultsControllerLandsForCoordinate release];
     [self.fetchedResultsControllerShortLands release];
     [self.fetchedResultsControllerPlannedVisits release];
+    [self.fetchedResultsControllerNearByLands release];
     [self.managedObjectContext release];
     [super dealloc];
 }
@@ -202,7 +205,60 @@ managedObjectContext=managedObjectContext_;
 
 }
 
+-(NSFetchedResultsController*) fetchedResultsControllerNearByLands{
+    if(fetchedResultsControllerNearByLands_!=nil){
+        return fetchedResultsControllerNearByLands_;
+    }
+   
+    CLLocationCoordinate2D CenterCoords =CLLocationCoordinate2DMake(latitude, longitude);
+    MKCoordinateRegion cRegion = MKCoordinateRegionMakeWithDistance(CenterCoords, 2000, 2000);
 
+    double MinLat = latitude - (cRegion.span.latitudeDelta/2);
+    double MaxLat = latitude + (cRegion.span.latitudeDelta/2);
+    double MinLng = longitude - (cRegion.span.longitudeDelta/2);
+    double MaxLng = longitude + (cRegion.span.longitudeDelta/2);
+   
+
+    NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Land" inManagedObjectContext:self.managedObjectContext];
+    
+    [fetchedRequest setEntity:entity];
+    
+    // set sort key 
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"LandName" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    
+    [fetchedRequest setSortDescriptors:sortDescriptors];
+    
+  // set predicate
+  //  (((MinLat<BoudaryN)&&(BoudaryN<MaxLat))||((MinLat<BoudaryS)&&(BoudaryS<MaxLat)) ||((BoundaryN>MaxLat)&&(BoundaryS<MinLat)))
+  //  &&
+  //  (((MinLng<BoudaryE)&&(BoudaryE<MaxLng))||((MinLng<BoudaryW)&&(BoudaryW<MaxLng))||((BoundaryE>MaxLng)&&(BoundaryW<MinLng)))
+
+    
+  //                                                  "(((MinLat<=BoudaryN)AND(BoudaryN<=MaxLat))OR((MinLat<=BoudaryS)AND(BoudaryS<=MaxLat)) OR ((BoundaryN>=MaxLat)AND(BoundaryS<=MinLat)))AND(((MinLng<=BoudaryE)AND(BoudaryE<=MaxLng))OR((MinLng<=BoudaryW)AND(BoudaryW<=MaxLng))OR((BoundaryE>=MaxLng)AND(BoundaryW<=MinLng)))"
+    //, MinLat,MaxLat,MinLat,MaxLat,MaxLat,MinLat,MinLng,MaxLng,MinLng,MaxLng,MaxLng,MinLng
+    
+
+    
+    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"(((%lf<=BoundaryN)AND(BoundaryN<=%lf))OR((%lf<=BoundaryS)AND(BoundaryS<=%lf)) OR ((BoundaryN>=%lf)AND(BoundaryS<=%lf)))AND(((%lf<=BoundaryE)AND(BoundaryE<=%lf))OR((%lf<=BoundaryW)AND(BoundaryW<=%lf))OR((BoundaryE>=%lf)AND(BoundaryW<=%lf)))",
+                             MinLat,MaxLat,MinLat,MaxLat,MaxLat,MinLat,MinLng,MaxLng,MinLng,MaxLng,MaxLng,MinLng];
+    [fetchedRequest setPredicate:predicate];
+   
+    //create fetchedResultsController
+    [NSFetchedResultsController deleteCacheWithName:@"NearByLands"];
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"NearbyLands"];
+    aFetchedResultsController.delegate = self;
+    self.fetchedResultsControllerNearByLands = aFetchedResultsController;
+    
+    [aFetchedResultsController release];
+    [fetchedRequest release];
+    
+    
+    return fetchedResultsControllerNearByLands_;
+    
+}
 - (NSFetchedResultsController *)fetchedResultsControllerPlannedVisits {
     
     if (fetchedResultsControllerPlannedVisits_ != nil) {
@@ -311,7 +367,7 @@ managedObjectContext=managedObjectContext_;
     toBeUpdatedLandID=landId;
     landIDUpdateFlag=NO;
 }
--(NSArray*)getNearbyLandsForLatitute:(double)lat andLongitute:(double)lng{
+-(NSArray*)GetEstimatedMatchingLandsForLatitude:(double)lat andLongitude:(double)lng{
     latitude=lat;
     longitude=lng;
     fetchedResultsControllerLandsForCoordinate_=nil;
@@ -320,7 +376,21 @@ managedObjectContext=managedObjectContext_;
        //handle Error
         }
         
-       NSArray * fetchedNearByLands = [self.fetchedResultsControllerLandsForCoordinate fetchedObjects];
+       NSArray * fetchedEstimatedMatchingLands = [self.fetchedResultsControllerLandsForCoordinate fetchedObjects];
+    latitude=0.0;
+    longitude=0.0;
+    return fetchedEstimatedMatchingLands;
+}
+
+-(NSArray*)GetNearbyLandsForLatitude:(double)lat andLongitude:(double)lng{
+    latitude=lat;
+    longitude=lng;
+    fetchedResultsControllerNearByLands_=nil;
+    NSError * error;
+    if(![[self fetchedResultsControllerNearByLands]performFetch:&error]){
+        //handle Error
+    }
+    NSArray * fetchedNearByLands = [self.fetchedResultsControllerNearByLands fetchedObjects];
     latitude=0.0;
     longitude=0.0;
     return fetchedNearByLands;

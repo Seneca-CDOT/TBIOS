@@ -13,6 +13,7 @@
 #import "Reachability.h"
 #import "NetworkDataGetter.h"
 #import "PlannedVisit.h"
+#import <MapKit/MapKit.h>
 @interface LandGetter : NSObject <NSFetchedResultsControllerDelegate,NetworkDataGetterDelegate>{
 
     Reachability* hostReach;
@@ -30,9 +31,11 @@
     BOOL updateCheckFinished;
     double latitude;
     double longitude;
+    double Radious;
     NSFetchedResultsController * fetchedResultsControllerLand_;
     NSFetchedResultsController * fetchedResultsControllerShortLands_;
     NSFetchedResultsController * fetchedResultsControllerLandsForCoordinate_;
+    NSFetchedResultsController * fetchedResultsControllerNearByLands_;
     NSFetchedResultsController * fetchedResultsControllerPlannedVisits_;
     NSManagedObjectContext * managedObjectContext_;
     int landID;
@@ -43,6 +46,7 @@
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerShortLands;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLandsForCoordinate;
+@property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerNearByLands;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerPlannedVisits;
 @property (nonatomic, retain) NSMutableArray* landShortList;
 //Network Conectivity
@@ -59,7 +63,8 @@
 -(void) GetLandFromWebServiceWithLandId:(NSNumber *)landId;
 -(void)CheckForLandUpdatesByLandId:(NSNumber *)landId;
 -(NSMutableArray *)GetLandShortArray;
--(NSArray*)getNearbyLandsForLatitute:(double)lat andLongitute:(double)lng;
+-(NSArray*)GetEstimatedMatchingLandsForLatitude:(double)lat andLongitude:(double)lng;
+-(NSArray*)GetNearbyLandsForLatitude:(double)lat andLongitude:(double)lng;
 -(void) setLandToBeUpdatedById:(int)landId;
 -(NSArray *)GetAllPlannedVisits;
 -(void) updateManagedLand: (Land*) MLand WithWSLand:(WSLand *)webLand;

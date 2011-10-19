@@ -257,6 +257,7 @@
 -(void) LocationError:(NSError *)error{
     NSLog(@"%@",[error description]);
 }
+
 -(void) locationUpdate:(CLLocation *)location{
      
 }

@@ -48,7 +48,8 @@
 - (void)AddLand;
 
 -(IBAction)Cancel:(id)sender;
--(void) shiftDownDatePicker;
+-(void) ShiftDownDatePicker;
+-(void) ShiftUpDatePicker;
 -(void) SetEnabledDateCells:(BOOL) enabled;
 -(void) SetEnabledTitleCell:(BOOL) enabled;
 -(void) ShiftViewForCell:(UITableViewCell*) cell atIndexPath : (NSIndexPath *) indexpath;

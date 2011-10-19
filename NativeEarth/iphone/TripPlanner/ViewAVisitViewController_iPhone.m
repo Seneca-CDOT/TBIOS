@@ -66,8 +66,9 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    ((TextFieldCell_iPhone *)[infoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailRow1 inSection:SectionTitle]]).textField.text =visit.Title;
     
-
+    ((TextViewCell *)[infoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailRow1 inSection:SectionNotes]]).textView.text =visit.Notes;
    
 }
 
@@ -119,7 +120,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     static NSString *HeaderCellIdentifier = @"HeaderCell";
     static NSString *DateCellIdentifier=@"DateCell";
     static NSString *FirstNationCellIdentifier=@"FirstNationCell";
-    static NSString *TitleCellIdentifier=@"TitleCell";
+    //static NSString *TitleCellIdentifier=@"TitleCell";
     
     
     UITableViewCell *cell ;
@@ -128,12 +129,11 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     BOOL cellIsNoteCell = NO;
     if (indexPath.row == HeaderRow) {
         cell =  [tableView dequeueReusableCellWithIdentifier:HeaderCellIdentifier];
-        cell.textLabel.text=@"";
     }else{
       if (indexPath.section==SectionFirstNationName) {
             cell =  [tableView dequeueReusableCellWithIdentifier:FirstNationCellIdentifier];
         } else  if(indexPath.section == SectionTitle){
-                cell = [tableView dequeueReusableCellWithIdentifier:TitleCellIdentifier];
+                cell = [tableView dequeueReusableCellWithIdentifier:kCellTextField_ID];
         }else if(indexPath.section== SectionDate){
             cell =  [tableView dequeueReusableCellWithIdentifier:DateCellIdentifier];
         }else if (indexPath.section== SectionNotes){
@@ -173,18 +173,14 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
                 }//end of if else
           }
     }else
-    {
-            
+    {   
         if(indexPath.section == SectionNotes && indexPath.row != HeaderRow){
                 [self configureCell:noteCell atIndexPath:indexPath];
                 cell = noteCell;
-            
         }else{
             [self configureCell:cell atIndexPath:indexPath];
         }
-
     }
-     NSLog(@"Indexpath: Section:%d, row: %d, UserInteractionEnabled: %@",indexPath.section, indexPath.row, (cell.userInteractionEnabled)?@"YES" : @"NO");
     return cell;
 }
 
@@ -206,7 +202,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
             cell.userInteractionEnabled = YES;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             ((TextFieldCell_iPhone *)cell).textField.delegate =(TextFieldCell_iPhone*)cell; 
-              ((TextFieldCell_iPhone *)cell).textField.placeholder = NSLocalizedString( @"Enter a title for your visit",  @"Enter a title for your visit"); 
+           ((TextFieldCell_iPhone *)cell).textField.placeholder = NSLocalizedString( @"Enter a title for your visit",  @"Enter a title for your visit"); 
            ((TextFieldCell_iPhone *)cell).delegate = self;
         }
 
@@ -245,7 +241,6 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
         }
     }
     
-  //  NSLog(@"Indexpath: Section:%d, row: %d, UserInteractionEnabled: %@",indexPath.section, indexPath.row, (cell.userInteractionEnabled)?@"YES" : @"NO");
 	
 }
 
@@ -290,22 +285,17 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
         if (indexPath.section == SectionFirstNationName || indexPath.section == SectionDate) {
             // Regular
             return kRegularCellRowHeight;
- 
-        } 
-        
-        else if (indexPath.section == SectionTitle){
+        }else if (indexPath.section == SectionTitle){
             CGFloat result;
             result = kTextFieldCellRowHeight;	
             return result; 
         }else if(indexPath.section == SectionNotes){
-		
             CGFloat result;
             result = kUITextViewCellRowHeight;	
             return result;
-
         } 
     }
-    return 34;
+    return kRegularCellRowHeight;
 }
 
 // Override to support conditional editing of the table view.
@@ -317,110 +307,55 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     return NO;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-   
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == SectionDate && indexPath.row != HeaderRow){
-        
         UITableViewCell *targetCell = [tableView cellForRowAtIndexPath:indexPath];
         self.pickerView.date = [self.dateFormatter dateFromString:targetCell.detailTextLabel.text];
-    
         // check if our date picker is already on screen
-        if (self.pickerView.superview == nil)
-        { 
-            
-            //[self.navigationItem setHidesBackButton:YES animated:YES]; 
-            
-            self.navigationItem.rightBarButtonItem = self.doneButton;
-            self.navigationItem.leftBarButtonItem = self.cancelButton;
-            
-            [self.view.window addSubview: self.pickerView];
-            
-       
-            // size up the picker view to our screen and compute the start/end frame origin for our slide up animation
-            //
-            // compute the start frame
-            CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
-            CGSize pickerSize = [self.pickerView sizeThatFits:CGSizeZero];
-            CGRect startRect = CGRectMake(0.0,
-                                          screenRect.origin.y + screenRect.size.height,
-                                          pickerSize.width, 
-                                          pickerSize.height);
-            self.pickerView.frame = startRect;
-            // compute the end frame
-            CGRect pickerRect = CGRectMake(0.0,
-                                           screenRect.origin.y + screenRect.size.height - pickerSize.height,
-                                           pickerSize.width,
-                                           pickerSize.height);
-            // start the slide up animation
-            [UIView beginAnimations:nil context:NULL];
-			[UIView setAnimationDuration:0.3];
-            
-			// we need to perform some post operations after the animation is complete
-			[UIView setAnimationDelegate:self];
-            
-			self.pickerView.frame = pickerRect;
-            
-			// shrink the table vertical size to make room for the date picker
-			CGRect newFrame = tableView.frame;
-			newFrame.size.height -= self.pickerView.frame.size.height;
-			tableView.frame = newFrame;
-           [UIView commitAnimations]; 
-            NSIndexPath * ip = [NSIndexPath indexPathForRow:2 inSection:1];
-            [self ShiftViewForCell:[infoTableView cellForRowAtIndexPath:ip] atIndexPath:ip];
-        }
-    }else{
-            [self shiftDownDatePicker];
-    
-    }
-    
+        if (self.pickerView.superview == nil) 
+            [self ShiftUpDatePicker];
+    }else [self ShiftDownDatePicker];
 }
 
-
+ 
 #pragma mark - IBActions
 
-- (IBAction)dateAction:(id)sender{
+-(IBAction)dateAction:(id)sender{
     NSIndexPath *indexPath = [self.infoTableView indexPathForSelectedRow];
 	UITableViewCell *cell = [self.infoTableView cellForRowAtIndexPath:indexPath];
 	cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.pickerView.date];
-    
 }
 
-- (IBAction)doneAction:(id)sender{
+-(IBAction)doneAction:(id)sender{
     // remove the "Done" button in the nav bar
 	self.navigationItem.rightBarButtonItem = nil; 
-     self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-       [self SetBackControls];   
-	
-    
+    self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
+    [self SetBackControls];   
 }
 
 -(IBAction)Cancel:(id)sender {
     self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-    // remove the "Done" button in the nav bar
+    //remove the "Done" button in the nav bar
 	self.navigationItem.rightBarButtonItem = nil; 
     [self SetBackControls];
 }
 
-#pragma mark -
-
+#pragma mark - Controls manipulation
 
 -(void) SetBackControls{
     [self ShiftBackView];
-    NSIndexPath *dateCell1IndexPath= [NSIndexPath indexPathForRow:1 inSection:SectionDate];
-    NSIndexPath *dateCell2IndexPath= [NSIndexPath indexPathForRow:2 inSection:SectionDate];
-    NSIndexPath *titleCellIndexPath= [NSIndexPath indexPathForRow:1 inSection:SectionTitle];
-    NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:SectionNotes];
+    NSIndexPath *dateCell1IndexPath= [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionDate];
+    NSIndexPath *dateCell2IndexPath= [NSIndexPath indexPathForRow:DetailRow2 inSection:SectionDate];
+    NSIndexPath *titleCellIndexPath= [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionTitle];
+    NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionNotes];
     
-    	// deselect the current table row
- 
+    //deselect the current table row
     [self.infoTableView deselectRowAtIndexPath:dateCell1IndexPath animated:NO];
     [self.infoTableView deselectRowAtIndexPath:dateCell2IndexPath animated:NO];
     [self.infoTableView deselectRowAtIndexPath:titleCellIndexPath animated:NO];
     [self.infoTableView deselectRowAtIndexPath:noteCellIndexPath animated:NO];
     
     UITableViewCell *noteCell = [self.infoTableView cellForRowAtIndexPath:noteCellIndexPath];
-    
-        
     UITableViewCell *titleCell =[self.infoTableView cellForRowAtIndexPath:titleCellIndexPath];
     
     if ([titleCell isKindOfClass:[TextFieldCell_iPhone class]]) {
@@ -432,25 +367,21 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
         [((TextViewCell * )[self.infoTableView cellForRowAtIndexPath:noteCellIndexPath]).textView resignFirstResponder];
     }
     
-    [self shiftDownDatePicker];
-	
+    [self ShiftDownDatePicker];
 }
 
 -(void) SetEnabledDateCells:(BOOL) enabled{
-    NSIndexPath *dateCell1IndexPath= [NSIndexPath indexPathForRow:1 inSection:1];
-    NSIndexPath *dateCell2IndexPath= [NSIndexPath indexPathForRow:2 inSection:1];
+    NSIndexPath *dateCell1IndexPath= [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionDate];
+    NSIndexPath *dateCell2IndexPath= [NSIndexPath indexPathForRow:DetailRow2 inSection:SectionDate];
     UITableViewCell * dateCell1= [self.infoTableView cellForRowAtIndexPath:dateCell1IndexPath]; 
     UITableViewCell *dateCell2=[self.infoTableView cellForRowAtIndexPath:dateCell2IndexPath];
     dateCell1.userInteractionEnabled =enabled;
     dateCell2.userInteractionEnabled =enabled;
     
-    if (!enabled) {
-
-    }
 }
 
 -(void) SetEnabledTitleCell:(BOOL) enabled{
-     NSIndexPath * titleCellIndexPath= [NSIndexPath indexPathForRow:1 inSection:2];
+     NSIndexPath * titleCellIndexPath= [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionTitle];
      UITableViewCell * titleCell= [self.infoTableView cellForRowAtIndexPath:titleCellIndexPath]; 
      titleCell.userInteractionEnabled =enabled;
     
@@ -461,7 +392,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 	[self.pickerView removeFromSuperview];
 }
 
--(void) shiftDownDatePicker{
+-(void) ShiftDownDatePicker{
     if (self.pickerView.superview != nil) {  
         
         CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
@@ -486,19 +417,57 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
         
         [UIView commitAnimations];
 
-        }
+    }
+}
 
+-(void) ShiftUpDatePicker{
+    //[self.navigationItem setHidesBackButton:YES animated:YES]; 
+    
+    self.navigationItem.rightBarButtonItem = self.doneButton;
+    self.navigationItem.leftBarButtonItem = self.cancelButton;
+    
+    [self.view.window addSubview: self.pickerView];
+    
+    // size up the picker view to our screen and compute the start/end frame origin for our slide up animation
+    //
+    // compute the start frame
+    CGRect screenRect = [[UIScreen mainScreen] applicationFrame];
+    CGSize pickerSize = [self.pickerView sizeThatFits:CGSizeZero];
+    CGRect startRect = CGRectMake(0.0,
+                                  screenRect.origin.y + screenRect.size.height,
+                                  pickerSize.width, 
+                                  pickerSize.height);
+    self.pickerView.frame = startRect;
+    // compute the end frame
+    CGRect pickerRect = CGRectMake(0.0,
+                                   screenRect.origin.y + screenRect.size.height - pickerSize.height,
+                                   pickerSize.width,
+                                   pickerSize.height);
+    // start the slide up animation
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationDuration:0.3];
+    
+    // we need to perform some post operations after the animation is complete
+    [UIView setAnimationDelegate:self];
+    
+    self.pickerView.frame = pickerRect;
+    
+    // shrink the table vertical size to make room for the date picker
+    CGRect newFrame = infoTableView.frame;
+    newFrame.size.height -= self.pickerView.frame.size.height;
+    infoTableView.frame = newFrame;
+    [UIView commitAnimations]; 
+    NSIndexPath * ip = [NSIndexPath indexPathForRow:2 inSection:1];
+    [self ShiftViewForCell:[infoTableView cellForRowAtIndexPath:ip] atIndexPath:ip];
 }
 
 #pragma  mark - EditFieldCellDelegate Methods
--(void) ShiftViewForCell:(UITableViewCell*) cell atIndexPath : (NSIndexPath *) indexpath{
+-(void)ShiftViewForCell:(UITableViewCell*) cell atIndexPath : (NSIndexPath *) indexpath{
     CGFloat leftbottomEdge =cell.frame.origin.y + cell.frame.size.height; 	
 	// If the bottom edge is 250 or more, we want to shift the view up
 	// We chose 250 here instead of 264, so that we would have some visual buffer space
     
-    CGFloat ExtraHeight ;
-
-    
+    CGFloat ExtraHeight ;    
     if (leftbottomEdge >= 250) {
             // Make a CGRect for the view (which should be positioned at 0,0 and be 320px wide and 480px tall)
             //CGRect viewFrame = self.view.frame;
@@ -543,7 +512,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     
 }
 
--(void) ShiftBackView {
+-(void)ShiftBackView {
     [self.infoTableView setScrollEnabled:YES];
     [self SetEnabledDateCells:YES];
     /// Shift view:
@@ -573,37 +542,33 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 }
 
 -(void)TextFieldCellEditStarted:(TextFieldCell_iPhone *)tfc{
-     [self shiftDownDatePicker];
-    [self SetEnabledDateCells:NO];
- // self.navigationItem.rightBarButtonItem = self.doneButton;
-self.navigationItem.leftBarButtonItem = self.cancelButton;
-       
-    NSIndexPath *titleCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:2];
+    [self ShiftDownDatePicker];
+   // [self SetEnabledDateCells:NO];
+    self.navigationItem.leftBarButtonItem = self.cancelButton;  
+    NSIndexPath *titleCellIndexPath = [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionTitle];
     [self ShiftViewForCell:tfc atIndexPath:titleCellIndexPath];
-     
 }
 
-- (void)TextFieldCellEditDidFinish:(TextFieldCell_iPhone *)tfc{  
+-(void)TextFieldCellEditDidFinish:(TextFieldCell_iPhone *)tfc{  
      self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
     [self SetBackControls];
 }
 
 -(void)TextViewCellEditStarted:(TextViewCell *)tvc{
-    [self shiftDownDatePicker];
+    [self ShiftDownDatePicker];
+    [self SetEnabledDateCells:NO];
    [self SetEnabledTitleCell:NO];
     self.navigationItem.rightBarButtonItem = self.doneButton;
    self.navigationItem.leftBarButtonItem = self.cancelButton;
     
-   NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:1 inSection:3];
+   NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionNotes];
   [self ShiftViewForCell:tvc atIndexPath:noteCellIndexPath];
 
 }
 
-- (void)TextViewCellEditDidFinish: (TextViewCell *)tvc {  
-    //[self ShiftBackView];   
-   // [self SetBackControls];
+-(void)TextViewCellEditDidFinish: (TextViewCell *)tvc {  
+    [self ShiftBackView];
 } 
-
 
 -(void)AddLand{
     
@@ -622,13 +587,11 @@ self.navigationItem.leftBarButtonItem = self.cancelButton;
 #pragma mark - ActionSheet delegate methods
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-	// the user clicked one of the OK/Cancel buttons
+	// the user clicked one of the buttons
 	if (buttonIndex == 0)
 	{
-		//NSLog(@"name");
         [self SetBackControls];
         BrowseViewController_iPhone * nextVC = [[BrowseViewController_iPhone alloc]initWithNibName:@"BrowseViewController_iPhone" bundle:nil];
-        
         nextVC.remoteHostStatus = self.remoteHostStatus;
         nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
         nextVC.internetConnectionStatus = self.internetConnectionStatus;
@@ -639,15 +602,11 @@ self.navigationItem.leftBarButtonItem = self.cancelButton;
         
         [self.navigationController presentModalViewController:nextVC animated:YES];
         [nextVC release];
-        
-
     
     } else if (buttonIndex == 1){
-       // NSLog(@"map");
         [self SetBackControls];
     }else
 	{
-		//NSLog(@"cancel");
         [self SetBackControls];
 	}
 }

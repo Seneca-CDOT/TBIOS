@@ -50,15 +50,16 @@
 							<object class="IBUITextField" id="922200725">
 								<reference key="NSNextResponder" ref="366732184"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 6}, {280, 31}}</string>
+								<string key="NSFrame">{{20, 6}, {280, 27}}</string>
 								<reference key="NSSuperview" ref="366732184"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<bool key="IBUIClipsSubviews">YES</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentVerticalAlignment">0</int>
 								<string key="IBUIText"/>
-								<string key="IBUIPlaceholder">Key word</string>
+								<string key="IBUIPlaceholder">Enter a title</string>
 								<object class="NSColor" key="IBUITextColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MAA</bytes>
@@ -68,7 +69,7 @@
 								</object>
 								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">18</double>
+									<double key="NSSize">17</double>
 									<int key="NSfFlags">16</int>
 								</object>
 								<bool key="IBUIAdjustsFontSizeToFit">YES</bool>
@@ -81,7 +82,7 @@
 								<int key="IBUIClearButtonMode">1</int>
 							</object>
 						</object>
-						<string key="NSFrameSize">{320, 44}</string>
+						<string key="NSFrameSize">{320, 47}</string>
 						<reference key="NSSuperview" ref="160876349"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="922200725"/>
@@ -96,7 +97,7 @@
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 					</object>
 				</object>
-				<string key="NSFrameSize">{320, 44}</string>
+				<string key="NSFrameSize">{320, 47}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="366732184"/>

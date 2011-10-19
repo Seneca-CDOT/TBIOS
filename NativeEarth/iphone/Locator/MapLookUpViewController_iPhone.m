@@ -86,7 +86,7 @@
         DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
      ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
       //  [landArray removeAllObjects];
-    landArray= [rgeocoder findLandForCoordinateWithLat:annotation.coordinate.latitude AndLng:annotation.coordinate.longitude];
+    landArray= [rgeocoder FindLandForCoordinateWithLat:annotation.coordinate.latitude AndLng:annotation.coordinate.longitude];
         
         
         if ([landArray count]>0) {
@@ -169,7 +169,7 @@
         
     ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
     //  [landArray removeAllObjects];
-    landArray= [rgeocoder findLandForCoordinateWithLat:theCoordinate.latitude AndLng:theCoordinate.longitude];
+    landArray= [rgeocoder FindLandForCoordinateWithLat:theCoordinate.latitude AndLng:theCoordinate.longitude];
 
         
     }else{
