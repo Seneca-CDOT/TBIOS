@@ -134,9 +134,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCell_iPhone.h; sourceTree = "<group>"; };
-		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell_iPhone.m; sourceTree = "<group>"; };
-		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
+		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldCell_iPhone.h; path = ../Locator/TextFieldCell_iPhone.h; sourceTree = "<group>"; };
+		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TextFieldCell_iPhone.m; path = ../Locator/TextFieldCell_iPhone.m; sourceTree = "<group>"; };
+		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldCell_iPhone.xib; path = ../Locator/TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
 		D71CA1C213F2CF530016C3CB /* LandShortArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandShortArray.h; sourceTree = "<group>"; };
 		D71CA1C313F2CF530016C3CB /* LandShortArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandShortArray.m; sourceTree = "<group>"; };
 		D71CA1C613F2F12A0016C3CB /* LandGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandGetter.h; sourceTree = "<group>"; };
@@ -353,9 +353,6 @@
 				D79A3E5413CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.h */,
 				D79A3E5513CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.m */,
 				D79A3E5613CDE198004F4582 /* GeoPoliticalLookupViewController_iPhone.xib */,
-				D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */,
-				D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */,
-				D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */,
 				D7DA7B2C13D72EC7009EEC0A /* MapLookUpViewController_iPhone.h */,
 				D7DA7B2D13D72ECA009EEC0A /* MapLookUpViewController_iPhone.m */,
 				D7DA7B2E13D72ECD009EEC0A /* MapLookUpViewController_iPhone.xib */,
@@ -648,6 +645,9 @@
 		D7BB0DEC13BBA0290062C2A9 /* VisitPlanner */ = {
 			isa = PBXGroup;
 			children = (
+				D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */,
+				D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */,
+				D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */,
 				D7BC54CE13C7A21500542880 /* TextViewCell.h */,
 				D7BC54CF13C7A21500542880 /* TextViewCell.m */,
 				D7BC54D113C7A7E000542880 /* TextViewCell.xib */,
