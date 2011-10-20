@@ -35,8 +35,18 @@
     curLongitude =round(lng*100000)/100000;
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     NSArray * fetchedNearbyLands = [appDelegate.landGetter GetNearbyLandsForLatitude:curLatitude andLongitude:curLongitude];
-
+    NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyLands count]];
+//    for (Land * l in  fetchedNearbyLands) {
+//        NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
+//        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:l.Coordinates]];
+//        [dict setValue:l forKey:@"Land"];
+//        [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
+//    
+//        [dictArray addObject:dict];
+//    }
+    
     return fetchedNearbyLands;
+  //  return dictArray;
 }
 
 - (NSArray *) FindLandForCoordinateWithLat:(double)lat AndLng:(double) lng{
@@ -136,34 +146,37 @@
 -(double)DistanceOfPointCWithCLat:(double)lat AndCLng:(double)lng FromPolygonWithCoordinates:(NSArray *)coordinates{
     
     double distance =0.0;
-    bool firstTime = YES;
-    for (int i=0; i<[coordinates count]-1; i++) {
-        double alng= [[coordinates objectAtIndex:i] coordinate].longitude;
-        double alat=[[coordinates objectAtIndex:i] coordinate].latitude;
-        double blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
-        double blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
+    
+    if(![self PointWithLatitude:lat AndLongitude:lng BelongsToPolygonWithCoordinates:coordinates]){
+    
+        bool firstTime = YES;
+        for (int i=0; i<[coordinates count]-1; i++) {
+            double alng=[[coordinates objectAtIndex:i] coordinate].longitude;
+            double alat=[[coordinates objectAtIndex:i] coordinate].latitude;
+            double blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
+            double blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
         
+            CLLocationCoordinate2D coorda;
+            coorda.latitude = alat;
+            coorda.longitude = alng;
+            MKMapPoint pointA = MKMapPointForCoordinate(coorda);
         
-        CLLocationCoordinate2D coorda;
-        coorda.latitude = alat;
-        coorda.longitude = alng;
-        MKMapPoint pointA = MKMapPointForCoordinate(coorda);
-        
-        CLLocationCoordinate2D coordb;
-        coordb.latitude=blat;
-        coordb.longitude=blng;
-        MKMapPoint pointB = MKMapPointForCoordinate(coordb);
+            CLLocationCoordinate2D coordb;
+            coordb.latitude=blat;
+            coordb.longitude=blng;
+            MKMapPoint pointB = MKMapPointForCoordinate(coordb);
       
-       double dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:pointA.y AndPointALng:pointA.x AndPointBLat:pointB.y  AndPointBLng:pointB.x];
-          if (firstTime) {
-              distance=dist;
-              firstTime=NO;
-          }else {
-              if (dist<distance) {
-                  distance=dist;
-              }
-          }
+            double dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:pointA.y AndPointALng:pointA.x AndPointBLat:pointB.y  AndPointBLng:pointB.x];
+            if (firstTime) {
+                distance=dist;
+                firstTime=NO;
+            }else {
+                if (dist<distance) {
+                    distance=dist;
+                }
+            }
        
+        }
     }
     return distance;
     
