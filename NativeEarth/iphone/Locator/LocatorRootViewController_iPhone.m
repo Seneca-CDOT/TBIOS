@@ -198,20 +198,7 @@
 
     
 }
-//-(void)BrowseByGeopoliticalName{
-//   GeoPoliticalLookupViewController_iPhone * nextVC = [[GeoPoliticalLookupViewController_iPhone alloc]initWithNibName:@"GeoPoliticalLookupViewController_iPhone" bundle:nil];
-//    
-//    nextVC.remoteHostStatus = self.remoteHostStatus;
-//    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-//    nextVC.internetConnectionStatus = self.internetConnectionStatus;
-//    nextVC.managedObjectContext = self.managedObjectContext;
-//    nextVC.title= NSLocalizedString(@"Geopolitical Name", @"Geopolitical Name");
-//    nextVC.geoLookupType = ForLocator;
-//    
-//    [self.navigationController pushViewController:nextVC animated:YES];
-//
-//    [nextVC release];
-//}
+
 -(void)BrowseMap{
     MapLookUpViewController_iPhone * nextVC = [[MapLookUpViewController_iPhone alloc] initWithNibName:@"MapLookUpViewController_iPhone" bundle:nil];
     nextVC.remoteHostStatus = self.remoteHostStatus;
