@@ -211,7 +211,7 @@ managedObjectContext=managedObjectContext_;
     }
    
     CLLocationCoordinate2D CenterCoords =CLLocationCoordinate2DMake(latitude, longitude);
-    MKCoordinateRegion cRegion = MKCoordinateRegionMakeWithDistance(CenterCoords, 2000, 2000);
+    MKCoordinateRegion cRegion = MKCoordinateRegionMakeWithDistance(CenterCoords, 5000, 5000);
 
     double MinLat = latitude - (cRegion.span.latitudeDelta/2);
     double MaxLat = latitude + (cRegion.span.latitudeDelta/2);
