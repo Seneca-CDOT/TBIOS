@@ -36,14 +36,15 @@
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     NSArray * fetchedNearbyLands = [appDelegate.landGetter GetNearbyLandsForLatitude:curLatitude andLongitude:curLongitude];
     NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyLands count]];
-//    for (Land * l in  fetchedNearbyLands) {
-//        NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
-//        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:l.Coordinates]];
-//        [dict setValue:l forKey:@"Land"];
-//        [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
-//    
-//        [dictArray addObject:dict];
-//    }
+    for (Land * l in  fetchedNearbyLands) {
+        NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
+        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:l.Coordinates]];
+        [dict setValue:l forKey:@"Land"];
+        [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
+    
+        [dictArray addObject:dict];
+        [dict release];
+   }
     
     return fetchedNearbyLands;
   //  return dictArray;
