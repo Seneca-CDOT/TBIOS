@@ -12,9 +12,11 @@
 
 @interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
     NSString *language;
+    CLLocationCoordinate2D originLocation;
 }
 @property (nonatomic, retain) Land* selectedLand;
 @property (nonatomic, retain) NSArray * allLands;
+@property (nonatomic) CLLocationCoordinate2D originLocation;
 //NavigationMethods
 -(void) NavigateToGreetings;
 -(void) NavigateToImageGallery;

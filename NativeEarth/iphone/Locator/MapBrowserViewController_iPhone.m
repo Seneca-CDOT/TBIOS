@@ -19,7 +19,7 @@
 
 @synthesize     mapView;
 @synthesize lands;
-//@synthesize     locationDetector;
+@synthesize     originLocation;
 @synthesize     selectedAnnotationView = _selectedAnnotationView;
 @synthesize     calloutAnnotation = _calloutAnnotation;
 
@@ -114,6 +114,12 @@
 	[mapView addOverlays:(NSArray*)polygons];   
     [mapView addAnnotations:annotations];
     
+        //Add Annotation for originLocation: 
+        
+        DistrictCenterAnnotation * originAnnotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:originLocation.latitude andLongitude:originLocation.longitude] autorelease];
+        originAnnotation.title = @"Origin";
+        [mapView addAnnotation:originAnnotation];
+        
     [self flyToPin:nil];
 
     }
@@ -173,7 +179,9 @@
       
 		MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 	reuseIdentifier:@"Annotation"] autorelease];
 		annotationView.canShowCallout = YES;
-		annotationView.pinColor = MKPinAnnotationColorGreen;
+    if (((DistrictCenterAnnotation*)annotation).title == @"Origin") {
+        annotationView.pinColor = MKPinAnnotationColorRed;
+    }else 	annotationView.pinColor = MKPinAnnotationColorPurple;
 		return annotationView;
 	
 	return nil;

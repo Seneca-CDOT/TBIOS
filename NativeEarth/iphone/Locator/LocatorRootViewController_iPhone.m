@@ -236,7 +236,7 @@
     nextVC.landArray=[NSMutableArray arrayWithArray: lands];
     
     nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
-    
+        nextVC.originLocation = currentlocation;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
     }
@@ -246,7 +246,8 @@
 }
 
 -(void) locationUpdate:(CLLocation *)location{
-     
+    currentlocation.latitude=location.coordinate.latitude;
+    currentlocation.longitude = location.coordinate.longitude;
 }
 
 #pragma  mark - converter
@@ -269,7 +270,7 @@
 {
     if ([[notification name] isEqualToString:@"UpdateArrayNotification"]){
        // NSArray * updatesArray = (NSArray*)notification;
-        //set the local veriable;
+       // set the local veriable;
     }
     
 }

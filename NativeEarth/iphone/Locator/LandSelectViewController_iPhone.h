@@ -13,7 +13,9 @@
 @interface LandSelectViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
     NSString * language;
     Land * selectedLand;
+    CLLocationCoordinate2D originLocation;
 }
 @property (nonatomic, retain) NSMutableArray* landArray;
+@property (nonatomic) CLLocationCoordinate2D  originLocation;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end

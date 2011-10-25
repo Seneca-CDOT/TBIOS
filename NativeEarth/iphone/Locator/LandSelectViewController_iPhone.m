@@ -14,6 +14,7 @@
 @implementation LandSelectViewController_iPhone
 
 @synthesize landArray;
+@synthesize originLocation;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -113,7 +114,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	if ([self.landArray count]>0) {
         
-        cell.textLabel.text =((WSLand *)[landArray objectAtIndex:indexPath.section]).LandName;
+        cell.textLabel.text =((Land *)[landArray objectAtIndex:indexPath.section]).LandName;
       //  cell.detailTextLabel.text=((WSLand *)[landArray objectAtIndex:indexPath.section]).LandDescription;
         cell.userInteractionEnabled= YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -146,6 +147,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
         
         
     nextVC.selectedLand = selectedLand;
+        nextVC.originLocation = self.originLocation;
         nextVC.allLands = landArray;
      [self.navigationController pushViewController:nextVC animated:YES];
      [nextVC release];

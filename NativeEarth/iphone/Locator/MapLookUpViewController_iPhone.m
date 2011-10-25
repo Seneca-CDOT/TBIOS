@@ -83,11 +83,14 @@
 - (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)annotationView didChangeDragState:(MKAnnotationViewDragState)newState fromOldState:(MKAnnotationViewDragState)oldState {
     
     if (oldState == MKAnnotationViewDragStateDragging) {
+        
         DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
      ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
-      //  [landArray removeAllObjects];
-    landArray= [rgeocoder FindLandForCoordinateWithLat:annotation.coordinate.latitude AndLng:annotation.coordinate.longitude];
-        
+      //  [landArray removeAllObjects];      
+        pinLatitude = annotation.coordinate.latitude;
+        pinLongitude = annotation.coordinate.longitude;
+    landArray= [rgeocoder FindNearbyLandsForCoordinateWithLat:pinLatitude andLng:pinLongitude];
+
         
         if ([landArray count]>0) {
             annotation.title = NSLocalizedString(@"Select",@"Select");
@@ -222,20 +225,19 @@
 -(void)showDetails: (id) sender{
     
     if ([landArray count]>1) {
-        
+        LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     
-    LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
+        nextVC.remoteHostStatus = self.remoteHostStatus;
+        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+        nextVC.internetConnectionStatus = self.internetConnectionStatus;
+        nextVC.managedObjectContext = self.managedObjectContext;
     
-    nextVC.remoteHostStatus = self.remoteHostStatus;
-    nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-    nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.managedObjectContext = self.managedObjectContext;
-    
-    nextVC.landArray=[NSMutableArray arrayWithArray: landArray];//lands;
-    nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
-    
-    [self.navigationController pushViewController:nextVC animated:YES];
-    [nextVC release];
+        nextVC.landArray=[NSMutableArray arrayWithArray: landArray];//lands;
+        nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
+        CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);
+        nextVC.originLocation = origin;
+        [self.navigationController pushViewController:nextVC animated:YES];
+        [nextVC release];
     }else if ([landArray count]==1){
         LocationInfoViewController_iPhone * nextVC = [[LocationInfoViewController_iPhone alloc]init];
         nextVC.remoteHostStatus = self.remoteHostStatus;
@@ -244,6 +246,8 @@
         nextVC.managedObjectContext = self.managedObjectContext;
         nextVC.selectedLand = [landArray objectAtIndex:0];
         nextVC.allLands=landArray;
+        CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);
+        nextVC.originLocation = origin;
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release];
     }
@@ -255,8 +259,6 @@
 
 -(void) GeopoliticalSearchViewController:(GeopoliticalSearchViewController_iPhone *)controller didSelectAResult:(NSDictionary*) result{
     [self.navigationController dismissModalViewControllerAnimated:YES];
-    
-    
     
     NSDictionary *northeast = [[[result objectForKey:@"geometry"] objectForKey:@"bounds"] objectForKey:@"northeast"];
     NSDictionary *southwest = [[[result objectForKey:@"geometry"] objectForKey:@"bounds"] objectForKey:@"southwest"];
@@ -272,7 +274,7 @@
     [self.mapView removeAnnotations:mapView.annotations];
     pinIsDropped= NO;
     [self dropPin:nil];
-   // [self mapView:self.mapView annotationView:[self.mapView viewForAnnotation:[[self.mapView annotations]objectAtIndex:0]]  didChangeDragState:MKAnnotationViewDragStateNone  fromOldState:MKAnnotationViewDragStateDragging];
+  
     
 }
 

@@ -27,6 +27,7 @@ typedef enum{
 @implementation LocationInfoViewController_iPhone
 @synthesize selectedLand;
 @synthesize allLands;
+@synthesize originLocation;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -293,6 +294,7 @@ typedef enum{
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
     nextVC.managedObjectContext= self.managedObjectContext;
     nextVC.lands = self.allLands;
+    nextVC.originLocation= self.originLocation;
     nextVC.title=NSLocalizedString(@"Map",@"Map");
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
