@@ -41,6 +41,7 @@
     int landID;
     int toBeUpdatedLandID;
     BOOL landIDUpdateFlag;
+    int searchDistanceMeter;
 }
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;

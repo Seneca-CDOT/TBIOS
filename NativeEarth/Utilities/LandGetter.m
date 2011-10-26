@@ -62,6 +62,7 @@ managedObjectContext=managedObjectContext_;
     self.wifiConnectionStatus =[wifiReach currentReachabilityStatus];
     latitude=0.0;
     longitude=0.0;
+    searchDistanceMeter=10000;
     return self;
 }
 -(void) dealloc{
@@ -211,7 +212,7 @@ managedObjectContext=managedObjectContext_;
     }
    
     CLLocationCoordinate2D CenterCoords =CLLocationCoordinate2DMake(latitude, longitude);
-    MKCoordinateRegion cRegion = MKCoordinateRegionMakeWithDistance(CenterCoords, 5000, 5000);
+    MKCoordinateRegion cRegion = MKCoordinateRegionMakeWithDistance(CenterCoords, searchDistanceMeter, searchDistanceMeter);
 
     double MinLat = latitude - (cRegion.span.latitudeDelta/2);
     double MaxLat = latitude + (cRegion.span.latitudeDelta/2);
@@ -391,6 +392,7 @@ managedObjectContext=managedObjectContext_;
         //handle Error
     }
     NSArray * fetchedNearByLands = [self.fetchedResultsControllerNearByLands fetchedObjects];
+    
     latitude=0.0;
     longitude=0.0;
     return fetchedNearByLands;

@@ -26,7 +26,8 @@ typedef enum {
     UISegmentedControl *mapTypeControl;
     CLLocationDegrees pinLatitude;
     CLLocationDegrees pinLongitude;
-    NSArray * landArray;
+    NSString * pinLocationTitle;
+    NSMutableArray * landArray;
     GeopoliticalSearchViewController_iPhone *SearchVC;
     
 }
@@ -36,6 +37,7 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeControl;
 @property(nonatomic, retain) GeopoliticalSearchViewController_iPhone *SearchVC;
+@property(nonatomic, retain) NSMutableArray * landArray;
 
 -(IBAction)dropPin:(id) sender;
 -(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate;

@@ -27,7 +27,7 @@
 - (BOOL)PointWithLatitude:(double)lat AndLongitude:(double)lng IsAVerticeOfPolygonWithCoordinates:(NSArray *)coordinates;
 - (BOOL)PointWithLatitude:(double)lat AndLongitude:(double)lng IsOnASideOfMultyLineWithCoordinates:(NSArray *)coordinates;
 -(double) DistanceOfPointCWithCLat: (double) cy AndCLng:(double) cx FromLineWithPointALat:(double) ay AndPointALng:(double) ax AndPointBLat:(double) by AndPointBLng:(double)bx;
--(double)MeterDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB;
+-(double)KilometerDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB;
 -(double)DistanceOfPointCWithCLat:(double)cy AndCLng:(double)cx FromPolygonWithCoordinates:(NSArray *)coordinates;
 
 @end

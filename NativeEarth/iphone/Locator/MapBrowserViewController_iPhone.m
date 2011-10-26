@@ -22,7 +22,7 @@
 @synthesize     originLocation;
 @synthesize     selectedAnnotationView = _selectedAnnotationView;
 @synthesize     calloutAnnotation = _calloutAnnotation;
-
+@synthesize originAnnotationTitle;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,7 +39,7 @@
     [self .lands release];
     [self.calloutAnnotation release];
     [self.selectedAnnotationView release];
-   // [self.locationDetector release];
+    [self.originAnnotationTitle release];
     [self.mapView release];
     [super dealloc];
 }
@@ -90,7 +90,7 @@
     NSMutableArray * polygons = [[NSMutableArray alloc]init];
     NSMutableArray *annotations =[[NSMutableArray alloc]init];
         
-   for (WSLand * land in landsArray) {
+   for (Land * land in landsArray) {
 
       NSString * coordinateString = land.Coordinates;
      
@@ -117,8 +117,13 @@
         //Add Annotation for originLocation: 
         
         DistrictCenterAnnotation * originAnnotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:originLocation.latitude andLongitude:originLocation.longitude] autorelease];
-        originAnnotation.title = @"Origin";
+        originAnnotation.title = self.originAnnotationTitle;
         [mapView addAnnotation:originAnnotation];
+        for (DistrictCenterAnnotation * annot in mapView.annotations) {       
+            if (annot.title == originAnnotationTitle) {
+                [mapView selectAnnotation:annot animated:FALSE];
+            }
+        }
         
     [self flyToPin:nil];
 
@@ -179,7 +184,7 @@
       
 		MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 	reuseIdentifier:@"Annotation"] autorelease];
 		annotationView.canShowCallout = YES;
-    if (((DistrictCenterAnnotation*)annotation).title == @"Origin") {
+    if (((DistrictCenterAnnotation*)annotation).title == self.originAnnotationTitle) {
         annotationView.pinColor = MKPinAnnotationColorRed;
     }else 	annotationView.pinColor = MKPinAnnotationColorPurple;
 		return annotationView;

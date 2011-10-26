@@ -26,6 +26,7 @@
 
     NSString * language;
     CLLocationCoordinate2D originLocation;
+    NSString * originAnnotationTitle;
 }
 
 
@@ -35,6 +36,8 @@
 @property (nonatomic, retain)           MKAnnotationView          *selectedAnnotationView;
 @property (nonatomic, retain)           DistrictCenterAnnotation  *calloutAnnotation;
 @property(nonatomic) CLLocationCoordinate2D originLocation;
+@property(nonatomic,retain)             NSString                   *originAnnotationTitle;
+
 -(IBAction)flyToPin:(id) sender;
 
 -(void)  drawOverlaysOfArray: (NSArray*)landsArray;

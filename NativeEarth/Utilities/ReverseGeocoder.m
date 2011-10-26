@@ -9,7 +9,7 @@
 #import "ReverseGeocoder.h"
 #import "Land.h"
 #import "NativeEarthAppDelegate_iPhone.h"
-
+#import <math.h>
 @implementation ReverseGeocoder
 @synthesize mapView;
 
@@ -46,8 +46,8 @@
         [dict release];
    }
     
-    return fetchedNearbyLands;
-  //  return dictArray;
+   // return fetchedNearbyLands;
+    return dictArray;
 }
 
 - (NSArray *) FindLandForCoordinateWithLat:(double)lat AndLng:(double) lng{
@@ -125,16 +125,16 @@
         double blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
       
         
-        CLLocationCoordinate2D coorda;
-        coorda.latitude = alat;
-        coorda.longitude = alng;
-        MKMapPoint pointA = MKMapPointForCoordinate(coorda);
-        
-        CLLocationCoordinate2D coordb;
-        coordb.latitude=blat;
-        coordb.longitude=blng;
-        MKMapPoint pointB = MKMapPointForCoordinate(coordb);
-        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:pointA.y AndPointALng:pointA.x AndPointBLat:pointB.y  AndPointBLng:pointB.x];
+//        CLLocationCoordinate2D coorda;
+//        coorda.latitude = alat;
+//        coorda.longitude = alng;
+//        MKMapPoint pointA = MKMapPointForCoordinate(coorda);
+//        
+//        CLLocationCoordinate2D coordb;
+//        coordb.latitude=blat;
+//        coordb.longitude=blng;
+//        MKMapPoint pointB = MKMapPointForCoordinate(coordb);
+        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
         
         if (distance <= 0.0002) {
             rv=YES;
@@ -157,17 +157,18 @@
             double blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
             double blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
         
-            CLLocationCoordinate2D coorda;
-            coorda.latitude = alat;
-            coorda.longitude = alng;
-            MKMapPoint pointA = MKMapPointForCoordinate(coorda);
-        
-            CLLocationCoordinate2D coordb;
-            coordb.latitude=blat;
-            coordb.longitude=blng;
-            MKMapPoint pointB = MKMapPointForCoordinate(coordb);
+//            CLLocationCoordinate2D coorda;
+//            coorda.latitude = alat;
+//            coorda.longitude = alng;
+//            MKMapPoint pointA = MKMapPointForCoordinate(coorda);
+//        
+//            CLLocationCoordinate2D coordb;
+//            coordb.latitude=blat;
+//            coordb.longitude=blng;
+//            MKMapPoint pointB = MKMapPointForCoordinate(coordb);
       
-            double dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:pointA.y AndPointALng:pointA.x AndPointBLat:pointB.y  AndPointBLng:pointB.x];
+            double dist ;
+            dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
             if (firstTime) {
                 distance=dist;
                 firstTime=NO;
@@ -301,9 +302,11 @@
     }
     else
     {
+        //destance between c and a
+        double dist1 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:ay andLng:ax];//(cx-ax)*(cx-ax) + (cy-ay)*(cy-ay);
         
-        double dist1 = (cx-ax)*(cx-ax) + (cy-ay)*(cy-ay);
-        double dist2 = (cx-bx)*(cx-bx) + (cy-by)*(cy-by);
+        //distance between c and b
+        double dist2 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:ay andLng:ax];//(cx-bx)*(cx-bx) + (cy-by)*(cy-by);
         if (dist1 < dist2)
         {
             xx = ax;
@@ -323,7 +326,7 @@
     return distanceFromSegment;
 }
 
--(double)MeterDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB{
+-(double)KilometerDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB{
     CLLocationCoordinate2D pointACoordinate = CLLocationCoordinate2DMake(latA, lngA);
     CLLocation *pointALocation = [[CLLocation alloc] initWithLatitude:pointACoordinate.latitude longitude:pointACoordinate.longitude];  
     
@@ -334,9 +337,20 @@
     
     [pointALocation release];
     [pointBLocation release];
-    return distanceMeters;
+    return distanceMeters/1000;
 }
 
-
+//-(double)KilometerDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB{
+//
+//    double e=(3.1415926538*latA/180);
+//    double f=(3.1415926538*lngA/180);
+//    double g=(3.1415926538*latB/180);
+//    double h=(3.1415926538*lngB/180);
+//    double i=(cos(e)* cos(g)* cos(f)* cos(h)+cos(e)*sin(f)*cos(g)*sin(h)+sin(e)*sin(g));
+//    double j=(acos(i));
+//    double k=(6371*j);
+//    
+//    return k;
+//}
 
 @end

@@ -11,10 +11,27 @@
 #import "WSLand.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "Toast+UIView.h"
+
+NSInteger landDictSort(id landDict1, id landDict2, void *context) {
+   
+    double dist1=[[(NSMutableDictionary *)landDict1 valueForKey:@"Distance"] doubleValue];
+    double dist2=[[(NSMutableDictionary *)landDict2 valueForKey:@"Distance"] doubleValue];
+    
+    if (dist1 < dist2)
+        return NSOrderedAscending;
+    else if (dist1 > dist2)
+        return NSOrderedDescending;
+    
+    return NSOrderedSame;
+}
+
+
 @implementation LandSelectViewController_iPhone
 
 @synthesize landArray;
 @synthesize originLocation;
+@synthesize originTitle;
+@synthesize nearbyLands;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -25,6 +42,8 @@
 - (void)dealloc
 {
     [self.landArray release];
+    [self.nearbyLands release];
+    [self.originTitle release];
     [super dealloc];
 }
 
@@ -44,6 +63,15 @@
     //[self.selectedLand retain];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
 language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
+    NSMutableArray * tempArray = [[NSMutableArray alloc] initWithCapacity:[self.landArray count]];
+    for (NSDictionary * landDict  in self.landArray) {
+        if([[landDict valueForKey:@"Distance"] doubleValue]!=0.0 ){
+           [tempArray addObject:landDict];
+        }
+    }
+    [self.landArray removeObjectsInArray:tempArray];
+    self.nearbyLands = [[NSArray arrayWithArray:tempArray] sortedArrayUsingFunction:landDictSort
+                                                                            context:nil];
 }
 
 - (void)viewDidUnload
@@ -83,20 +111,30 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    // Return the number of sections.
-    int c = [self.landArray count];
-    if (c>0) {
-         return c;
-    }
-    return 1;
+    
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
- 
-    return 1;
+    int rv=1;
+    int landCount =[self.landArray count];
+    int nearByCount =[self.nearbyLands count];
+    if (section==0 && landCount>0) {
+        rv=landCount;
+    }else if(section==1 && nearByCount>0){
+        rv=nearByCount;
+    }
+    return rv;
 }
-
+-(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
+    if (section==0) {
+        return NSLocalizedString(@"Your location is inside:", @"Your location is inside:");
+    }else if(section==1){
+        return NSLocalizedString(@"Nearby Lands:", @"Nearby Lands:");
+    }
+    return @"";
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
@@ -112,19 +150,40 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-	if ([self.landArray count]>0) {
-        
-        cell.textLabel.text =((Land *)[landArray objectAtIndex:indexPath.section]).LandName;
-      //  cell.detailTextLabel.text=((WSLand *)[landArray objectAtIndex:indexPath.section]).LandDescription;
-        cell.userInteractionEnabled= YES;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.alpha=1.0;
-    }
-    else{
-        cell.textLabel.text= NSLocalizedString(@"No first nation land is detected in your location.", @"No first nation land is detected in your location." );
-        cell.userInteractionEnabled= NO;
-        cell.accessoryType = UITableViewCellAccessoryNone;
-        cell.textLabel.alpha=0.5;
+    
+    if (indexPath.section ==0) {
+        if ([self.landArray count]>0) {
+            Land * land = (Land *)[(NSMutableDictionary *)[self.landArray objectAtIndex:indexPath.row] valueForKey:@"Land"];
+           // NSNumber * distance = [(NSNumber *)[landArray objectAtIndex:indexPath.section] valueForKey:@"Distance"];
+            // cell.textLabel.text =((Land *)[landArray objectAtIndex:indexPath.section]).LandName;
+            cell.textLabel.text = land.LandName;
+            //cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %lf Km", [distance doubleValue]];
+            cell.userInteractionEnabled= YES;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.alpha=1.0;
+        }
+        else{
+            cell.textLabel.text= NSLocalizedString(@"No first nation land is detected in your location.", @"No first nation land is detected in your location." );
+            cell.userInteractionEnabled= NO;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.alpha=0.5;
+        }
+    }else if(indexPath.section==1){
+        if ([self.nearbyLands count]>0) {
+            Land * land = (Land *)[(NSMutableDictionary *)[self.nearbyLands objectAtIndex:indexPath.row] valueForKey:@"Land"];
+            NSNumber * distance = [(NSNumber *)[self.nearbyLands objectAtIndex:indexPath.row] valueForKey:@"Distance"];
+            cell.textLabel.text = land.LandName;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %lf Km", [distance doubleValue]];
+            cell.userInteractionEnabled= YES;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.alpha=1.0;
+        }
+        else{
+            cell.textLabel.text= NSLocalizedString(@"No first nation land is detected nearby your location.", @"No first nation land is detected in your location." );
+            cell.userInteractionEnabled= NO;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+            cell.textLabel.alpha=0.5;
+        }
     }
 }
 
@@ -134,23 +193,63 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    if ([landArray count]>0) {
+    if (indexPath.section==0) {
+        if ([self.landArray count]>0) {
         
-     LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-        
-    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
-       selectedLand =[landArray objectAtIndex:indexPath.section];
-        
-    [appDelegate.landGetter setLandToBeUpdatedById:[selectedLand.LandID intValue]];
-        
-        
-    nextVC.selectedLand = selectedLand;
-        nextVC.originLocation = self.originLocation;
-        nextVC.allLands = landArray;
-     [self.navigationController pushViewController:nextVC animated:YES];
-     [nextVC release];
+            LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
+            // ...
+            // Pass the selected object to the new view controller.
+            selectedLand =(Land *)[(NSMutableDictionary *)[self.landArray objectAtIndex:indexPath.row] valueForKey:@"Land"];
+            //[landArray objectAtIndex:indexPath.section];    
+            //ask for the land to be updates  
+            NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
+            [appDelegate.landGetter setLandToBeUpdatedById:[selectedLand.LandID intValue]];
+          
+            nextVC.selectedLand = selectedLand;
+            nextVC.originLocation = self.originLocation;
+            nextVC.originTitle = self.originTitle;
+            NSMutableArray *allLands =[[NSMutableArray alloc]initWithCapacity:[self.nearbyLands count]+[landArray count]];
+            for (NSMutableDictionary * dict in landArray) {
+                Land * land = (Land*)[dict valueForKey:@"Land"];
+                [allLands addObject:land];
+            }  
+            for (NSMutableDictionary * dict in self.nearbyLands) {
+                Land * land = (Land*)[dict valueForKey:@"Land"];
+                [allLands addObject:land];
+            } 
+            nextVC.allLands = allLands;
+            [self.navigationController pushViewController:nextVC animated:YES];
+            [nextVC release];
+        }
+    } else if(indexPath.section==1){
+        if ([self.nearbyLands count]>0) {
+            
+            LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
+            // ...
+            // Pass the selected object to the new view controller.
+            selectedLand =(Land *)[(NSMutableDictionary *)[self.nearbyLands objectAtIndex:indexPath.row] valueForKey:@"Land"];
+            //[landArray objectAtIndex:indexPath.section];    
+            //ask for the land to be updates  
+            NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
+            [appDelegate.landGetter setLandToBeUpdatedById:[selectedLand.LandID intValue]];
+            
+            nextVC.selectedLand = selectedLand;
+            nextVC.originLocation = self.originLocation;
+            nextVC.originTitle = self.originTitle;
+            NSMutableArray *allLands =[[NSMutableArray alloc]initWithCapacity:[self.nearbyLands count]+[self.landArray count]];
+            for (NSMutableDictionary * dict in self.landArray) {
+                Land * land = (Land*)[dict valueForKey:@"Land"];
+                [allLands addObject:land];
+            }  
+            for (NSMutableDictionary * dict in self.nearbyLands) {
+                Land * land = (Land*)[dict valueForKey:@"Land"];
+                [allLands addObject:land];
+            } 
+            nextVC.allLands = allLands;
+            [self.navigationController pushViewController:nextVC animated:YES];
+            [nextVC release];
+        }
+
     }
      
 }

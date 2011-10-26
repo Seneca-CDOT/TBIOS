@@ -28,6 +28,7 @@ typedef enum{
 @synthesize selectedLand;
 @synthesize allLands;
 @synthesize originLocation;
+@synthesize originTitle;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -41,6 +42,7 @@ typedef enum{
 {
     [self.selectedLand release];
     [self.allLands release];
+    [self.originTitle release];
     [super dealloc];
 }
 
@@ -76,7 +78,6 @@ typedef enum{
    //    [appDelegate.landGetter CheckForLandUpdatesByLandId:selectedLand.LandID];
         
    
-  
     
 }
 
@@ -295,6 +296,7 @@ typedef enum{
     nextVC.managedObjectContext= self.managedObjectContext;
     nextVC.lands = self.allLands;
     nextVC.originLocation= self.originLocation;
+    nextVC.originAnnotationTitle= self.originTitle;
     nextVC.title=NSLocalizedString(@"Map",@"Map");
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];

@@ -87,52 +87,5 @@
     [super dealloc];
 }
 
-//-(id) GetLandSyncFromURL:(NSString *) serviceURL{
-//    
-//    NSURL *uRL = [NSURL URLWithString:serviceURL];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:uRL];
-//        NSURLResponse *response = nil;
-//        NSError *error = nil;
-//        NSData *receivedData = [NSURLConnection sendSynchronousRequest:request
-//                                                     returningResponse:&response
-//                                                                 error:&error];
-//        
-//    WSLand * land= nil;
-//        if(receivedData==nil)
-//        {
-//            int statCode = [(NSHTTPURLResponse *)response statusCode];
-//            //do something with statcode...
-//        }else{
-//            NSString *responseString = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-//            land = [[WSLand alloc] initWithDictionary:[responseString JSONValue]];
-//           
-//        }
-//    return land;
-//}
 
-//-(NSDictionary *) GetLandShortListAcync{
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-//    NSURL *uRL = [NSURL URLWithString:@"http://localhost/~ladan/FirstNationList"];
-//    NSURLRequest *request = [NSURLRequest requestWithURL:uRL];
-//    NSURLResponse *response = nil;
-//    NSError *error = nil;
-//    NSData *receivedData = [NSURLConnection sendSynchronousRequest:request
-//                                                 returningResponse:&response
-//                                                             error:&error];
-//    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
-//    NSDictionary * dict= nil;
-//   
-//    if(receivedData==nil)
-//    {
-//        int statCode = [(NSHTTPURLResponse *)response statusCode];
-//        //do something with statcode...
-//    }else{
-//        NSString *responseString = [[NSString alloc] initWithData:receivedData encoding:NSUTF8StringEncoding];
-//        dict = [responseString JSONValue];
-//                                  
-//    }
-//    
-//    return dict;
-//}
-//
 @end

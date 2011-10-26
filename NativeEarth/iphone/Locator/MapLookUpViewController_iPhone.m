@@ -17,6 +17,7 @@
 @synthesize toolbar;
 @synthesize mapTypeControl;
 @synthesize SearchVC;
+@synthesize landArray;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -45,6 +46,7 @@
     [self.toolbar release];
     [self.redoButton release];
     [self.mapTypeControl release];
+    [self.landArray release];
     [super dealloc];
 }
 
@@ -89,10 +91,11 @@
       //  [landArray removeAllObjects];      
         pinLatitude = annotation.coordinate.latitude;
         pinLongitude = annotation.coordinate.longitude;
-    landArray= [rgeocoder FindNearbyLandsForCoordinateWithLat:pinLatitude andLng:pinLongitude];
+        pinLocationTitle =@"Your destination!";
+    self.landArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyLandsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
         
-        if ([landArray count]>0) {
+        if ([self.landArray count]>0) {
             annotation.title = NSLocalizedString(@"Select",@"Select");
             annotation.subtitle = nil;
             UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
@@ -145,7 +148,7 @@
     draggablePinView.annotation = annotation;
     draggablePinView.draggable = YES;
     draggablePinView.canShowCallout = YES;
-    if ([landArray count]>0) {
+    if ([self.landArray count]>0) {
         ((DDAnnotation*) annotation).title = NSLocalizedString(@"Select",@"Select");
         ((DDAnnotation*) annotation).subtitle = nil;
             draggablePinView.rightCalloutAccessoryView = rightButton;
@@ -162,7 +165,8 @@
 -(IBAction)dropPin:(id) sender{
     if (!pinIsDropped) {
     CLLocationCoordinate2D theCoordinate =self.mapView.centerCoordinate;
-        
+        pinLatitude = theCoordinate.latitude;
+        pinLongitude= theCoordinate.longitude;
 	DDAnnotation *annotation = [[[DDAnnotation alloc] initWithCoordinate:theCoordinate addressDictionary:nil] autorelease];
         
 	
@@ -171,10 +175,9 @@
     pinIsDropped = YES; 
         
     ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
-    //  [landArray removeAllObjects];
-    landArray= [rgeocoder FindLandForCoordinateWithLat:theCoordinate.latitude AndLng:theCoordinate.longitude];
+    //[landArray removeAllObjects];
+    self.landArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyLandsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
-        
     }else{
         CLLocationCoordinate2D theCoordinate = [(DDAnnotation*)[self.mapView.annotations objectAtIndex:0] coordinate];
         [self flyToTheCoordinate:theCoordinate];
@@ -224,7 +227,7 @@
 
 -(void)showDetails: (id) sender{
     
-    if ([landArray count]>1) {
+    if ([landArray count]>=1) {
         LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     
         nextVC.remoteHostStatus = self.remoteHostStatus;
@@ -233,24 +236,27 @@
         nextVC.managedObjectContext = self.managedObjectContext;
     
         nextVC.landArray=[NSMutableArray arrayWithArray: landArray];//lands;
+        
         nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
         CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);
         nextVC.originLocation = origin;
-        [self.navigationController pushViewController:nextVC animated:YES];
-        [nextVC release];
-    }else if ([landArray count]==1){
-        LocationInfoViewController_iPhone * nextVC = [[LocationInfoViewController_iPhone alloc]init];
-        nextVC.remoteHostStatus = self.remoteHostStatus;
-        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-        nextVC.internetConnectionStatus = self.internetConnectionStatus;
-        nextVC.managedObjectContext = self.managedObjectContext;
-        nextVC.selectedLand = [landArray objectAtIndex:0];
-        nextVC.allLands=landArray;
-        CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);
-        nextVC.originLocation = origin;
+        nextVC.originTitle = pinLocationTitle;
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release];
     }
+//    else if ([landArray count]>=1){
+//        LocationInfoViewController_iPhone * nextVC = [[LocationInfoViewController_iPhone alloc]init];
+//        nextVC.remoteHostStatus = self.remoteHostStatus;
+//        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
+//        nextVC.internetConnectionStatus = self.internetConnectionStatus;
+//        nextVC.managedObjectContext = self.managedObjectContext;
+//        nextVC.selectedLand = [landArray objectAtIndex:0];
+//        nextVC.allLands=landArray;
+//        CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);
+//        nextVC.originLocation = origin;
+//        [self.navigationController pushViewController:nextVC animated:YES];
+//        [nextVC release];
+//    }
     
 }
    
@@ -263,7 +269,7 @@
     NSDictionary *northeast = [[[result objectForKey:@"geometry"] objectForKey:@"bounds"] objectForKey:@"northeast"];
     NSDictionary *southwest = [[[result objectForKey:@"geometry"] objectForKey:@"bounds"] objectForKey:@"southwest"];
     NSDictionary *center = [[result objectForKey:@"geometry"] objectForKey:@"location"];
-    
+    pinLocationTitle = [[result valueForKey:@"formatted_address"] description];
     CLLocationCoordinate2D centerCoordinate = CLLocationCoordinate2DMake( [[center objectForKey:@"lat"] floatValue], [[center objectForKey:@"lng"] floatValue]);
     
     MKCoordinateSpan span = MKCoordinateSpanMake([[northeast objectForKey:@"lat"] floatValue]-[[southwest objectForKey:@"lat"] floatValue], [[northeast objectForKey:@"lng"] floatValue]-[[southwest objectForKey:@"lng"] floatValue]);
