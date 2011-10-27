@@ -91,7 +91,7 @@
       //  [landArray removeAllObjects];      
         pinLatitude = annotation.coordinate.latitude;
         pinLongitude = annotation.coordinate.longitude;
-        pinLocationTitle =@"Your destination!";
+       pinLocationTitle =NSLocalizedString(@"Your destination!",@"Your destination!");
     self.landArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyLandsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
         
@@ -106,7 +106,7 @@
             annotationView.rightCalloutAccessoryView = rightButton;
 
         }else{
-            annotation.title = @"Drag to Move Pin";
+            annotation.title = NSLocalizedString(@"Drag to Move Pin",@"Drag to Move Pin");
             annotation.subtitle = NSLocalizedString(@"No First Nation Found", @"No First Nation Found");
             annotationView.rightCalloutAccessoryView=nil;
         }
@@ -153,7 +153,7 @@
         ((DDAnnotation*) annotation).subtitle = nil;
             draggablePinView.rightCalloutAccessoryView = rightButton;
     }else{
-        ((DDAnnotation*) annotation).title = @"Drag to Move Pin";
+        ((DDAnnotation*) annotation).title = NSLocalizedString(@"Drag to Move Pin",@"Drag to Move Pin");
         ((DDAnnotation*) annotation).subtitle = NSLocalizedString(@"No First Nation Found", @"No First Nation Found");
         draggablePinView.rightCalloutAccessoryView = nil;
     }
@@ -167,6 +167,7 @@
     CLLocationCoordinate2D theCoordinate =self.mapView.centerCoordinate;
         pinLatitude = theCoordinate.latitude;
         pinLongitude= theCoordinate.longitude;
+        pinLocationTitle =NSLocalizedString(@"Your destination!",@"Your destination!");
 	DDAnnotation *annotation = [[[DDAnnotation alloc] initWithCoordinate:theCoordinate addressDictionary:nil] autorelease];
         
 	
