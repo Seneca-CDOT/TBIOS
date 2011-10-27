@@ -295,6 +295,7 @@ typedef enum{
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
     nextVC.managedObjectContext= self.managedObjectContext;
     nextVC.lands = self.allLands;
+    nextVC.selectedLandName = ((Land *)selectedLand).LandName;
     nextVC.originLocation= self.originLocation;
     nextVC.originAnnotationTitle= self.originTitle;
     nextVC.title=NSLocalizedString(@"Map",@"Map");

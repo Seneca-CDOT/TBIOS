@@ -7,16 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ViewAVisitViewController_iPhone.h"
+#import "EditAVisitViewController_iPhone.h"
 
 @protocol AddAVisitViewController_iPhoneDelegate;
 
-@interface AddAVisitViewController_iPhone : ViewAVisitViewController_iPhone {
+@interface AddAVisitViewController_iPhone : EditAVisitViewController_iPhone {
     
 }
 
 @end
 
 @protocol AddAVisitViewController_iPhoneDelegate
-- (void)addAVisitViewController:(ViewAVisitViewController_iPhone *)controller didFinishWithSave:(BOOL)save;
+- (void)addAVisitViewController:(EditAVisitViewController_iPhone *)controller didFinishWithSave:(BOOL)save;
 @end

@@ -14,6 +14,7 @@
 #import "NetworkDataGetter.h"
 #import "PlannedVisit.h"
 #import <MapKit/MapKit.h>
+
 @interface LandGetter : NSObject <NSFetchedResultsControllerDelegate,NetworkDataGetterDelegate>{
 
     Reachability* hostReach;
@@ -42,6 +43,7 @@
     int toBeUpdatedLandID;
     BOOL landIDUpdateFlag;
     int searchDistanceMeter;
+   
 }
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
 @property (nonatomic, retain) NSFetchedResultsController * fetchedResultsControllerLand;

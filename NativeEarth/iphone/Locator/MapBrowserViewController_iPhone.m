@@ -22,7 +22,7 @@
 @synthesize     originLocation;
 @synthesize     selectedAnnotationView = _selectedAnnotationView;
 @synthesize     calloutAnnotation = _calloutAnnotation;
-@synthesize originAnnotationTitle;
+@synthesize originAnnotationTitle, selectedLandName;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -34,12 +34,13 @@
     return self;
 }
 
-- (void)dealloc
+- (void)dealloc 
 {
     [self .lands release];
     [self.calloutAnnotation release];
     [self.selectedAnnotationView release];
     [self.originAnnotationTitle release];
+    [self.selectedLandName release];
     [self.mapView release];
     [super dealloc];
 }
@@ -120,7 +121,7 @@
         originAnnotation.title = self.originAnnotationTitle;
         [mapView addAnnotation:originAnnotation];
         for (DistrictCenterAnnotation * annot in mapView.annotations) {       
-            if (annot.title == originAnnotationTitle) {
+            if (annot.title == self.originAnnotationTitle || annot.title== self.selectedLandName) {
                 [mapView selectAnnotation:annot animated:FALSE];
             }
         }
@@ -142,6 +143,23 @@
             flyTo = MKMapRectUnion(flyTo, [overlay boundingMapRect]);
         }
     }
+    
+    
+    ///
+    for (id <MKAnnotation> annotation in mapView.annotations) {
+        MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
+        MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
+        if (MKMapRectIsNull(flyTo)) {
+            flyTo = pointRect;
+        } else {
+            flyTo = MKMapRectUnion(flyTo, pointRect);
+        }
+    }
+
+    ///
+    
+    
+    
         MKCoordinateRegion region = MKCoordinateRegionForMapRect(flyTo);
         
         MKCoordinateRegion savedRegion = [mapView regionThatFits:region];

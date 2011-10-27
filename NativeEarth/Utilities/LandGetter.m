@@ -9,6 +9,9 @@
 
 #import "LandGetter.h"
 
+#define kSearchDistance 10000
+#define kSearchExpantionParameter 2000
+#define kSearchDistanceLimit 100000
 
 NSInteger firstNumSort(id str1, id str2, void *context) {
     int num1 = [str1 integerValue];
@@ -62,7 +65,7 @@ managedObjectContext=managedObjectContext_;
     self.wifiConnectionStatus =[wifiReach currentReachabilityStatus];
     latitude=0.0;
     longitude=0.0;
-    searchDistanceMeter=10000;
+    searchDistanceMeter=kSearchDistance;
     return self;
 }
 -(void) dealloc{
@@ -391,11 +394,18 @@ managedObjectContext=managedObjectContext_;
     if(![[self fetchedResultsControllerNearByLands]performFetch:&error]){
         //handle Error
     }
-    NSArray * fetchedNearByLands = [self.fetchedResultsControllerNearByLands fetchedObjects];
+    NSMutableArray * fetchedNearByLands = [NSMutableArray arrayWithArray:[self.fetchedResultsControllerNearByLands fetchedObjects]];
     
-    latitude=0.0;
-    longitude=0.0;
-    return fetchedNearByLands;
+    
+    if ([fetchedNearByLands count]>=4 || searchDistanceMeter>kSearchDistanceLimit) {
+        latitude=0.0;
+        longitude=0.0;
+
+    }else {
+        searchDistanceMeter += kSearchExpantionParameter;
+       fetchedNearByLands= [NSMutableArray arrayWithArray:[self GetNearbyLandsForLatitude:latitude andLongitude:longitude]];
+    }
+    return fetchedNearByLands; 
 }
 
 -(Land *)GetLandWithLandId:(int)landId{

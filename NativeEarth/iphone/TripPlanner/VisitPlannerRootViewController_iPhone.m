@@ -143,7 +143,7 @@
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath 
 {
-    ViewAVisitViewController_iPhone * nextVC = [[ViewAVisitViewController_iPhone alloc] initWithNibName:@"ViewAVisitViewController_iPhone" bundle:nil];
+    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
     nextVC.title = @"Trip Title";
     nextVC.managedObjectContext = self.managedObjectContext;
     nextVC.visit = (PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row];
@@ -157,7 +157,7 @@
 }
 
 -(void)AddNewVisit{
-    AddAVisitViewController_iPhone * nextVC = [[AddAVisitViewController_iPhone alloc] initWithNibName:@"ViewAVisitViewController_iPhone" bundle:nil];
+    AddAVisitViewController_iPhone * nextVC = [[AddAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
  
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     nextVC.managedObjectContext = self.managedObjectContext;
