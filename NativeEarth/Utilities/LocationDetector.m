@@ -45,9 +45,10 @@
 
 // DELEGATE METHOD - handle a location update
 - (void) locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation {
-    [self.delegate locationUpdate:newLocation];
-   // if (abs([newLocation.timestamp timeIntervalSinceDate: [NSDate date]]) < 120){
-        
+  
+    if (abs([newLocation.timestamp timeIntervalSinceDate: [NSDate date]]) < 120){
+         
+        [self.delegate locationUpdate:newLocation];
            // Turn off updating
         [self.locationManager stopUpdatingLocation];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -56,7 +57,7 @@
         }else 
             [self getLandsLocallyForLocation:newLocation];
         
-   // }  
+    }  
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
