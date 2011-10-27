@@ -67,8 +67,8 @@
 		D7A84C761434FFB800032481 /* NativeEarth.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D7A84C751434FFB800032481 /* NativeEarth.sqlite */; };
 		D7A84F4B13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */; };
 		D7A84F4C13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */; };
-		D7A84F7213C4F04B0085E8C3 /* ViewAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F7013C4F04A0085E8C3 /* ViewAVisitViewController_iPhone.m */; };
-		D7A84F7313C4F04B0085E8C3 /* ViewAVisitViewController_iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A84F7113C4F04B0085E8C3 /* ViewAVisitViewController_iphone.xib */; };
+		D7A84F7213C4F04B0085E8C3 /* EditAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */; };
+		D7A84F7313C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */; };
 		D7BB0D7D13BB9A0C0062C2A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */; };
 		D7BB0D7F13BB9A0C0062C2A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */; };
 		D7BB0D8113BB9A0C0062C2A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D8013BB9A0C0062C2A9 /* CoreGraphics.framework */; };
@@ -216,9 +216,9 @@
 		D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitPlannerRootViewController_iPhone.h; sourceTree = "<group>"; };
 		D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitPlannerRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitPlannerRootViewController_iPhone.xib; sourceTree = "<group>"; };
-		D7A84F6F13C4F04A0085E8C3 /* ViewAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewAVisitViewController_iPhone.h; sourceTree = "<group>"; };
-		D7A84F7013C4F04A0085E8C3 /* ViewAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewAVisitViewController_iPhone.m; sourceTree = "<group>"; };
-		D7A84F7113C4F04B0085E8C3 /* ViewAVisitViewController_iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewAVisitViewController_iphone.xib; sourceTree = "<group>"; };
+		D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EditAVisitViewController_iPhone.h; sourceTree = "<group>"; };
+		D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAVisitViewController_iPhone.m; sourceTree = "<group>"; };
+		D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAVisitViewController_iphone.xib; sourceTree = "<group>"; };
 		D7BB0D7813BB9A0B0062C2A9 /* NativeEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -646,9 +646,9 @@
 				D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */,
 				D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */,
 				D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */,
-				D7A84F6F13C4F04A0085E8C3 /* ViewAVisitViewController_iPhone.h */,
-				D7A84F7013C4F04A0085E8C3 /* ViewAVisitViewController_iPhone.m */,
-				D7A84F7113C4F04B0085E8C3 /* ViewAVisitViewController_iphone.xib */,
+				D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */,
+				D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */,
+				D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */,
 				D78D049E13E0A09B00C04A5E /* AddAVisitViewController_iPhone.h */,
 				D78D049F13E0A09F00C04A5E /* AddAVisitViewController_iPhone.m */,
 			);
@@ -757,7 +757,7 @@
 				D794FAD013C361FF00BCE651 /* 5.png in Resources */,
 				D794FAD113C361FF00BCE651 /* 6.png in Resources */,
 				D7A84F4C13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib in Resources */,
-				D7A84F7313C4F04B0085E8C3 /* ViewAVisitViewController_iphone.xib in Resources */,
+				D7A84F7313C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib in Resources */,
 				D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */,
 				D7BC54D213C7A7E000542880 /* TextViewCell.xib in Resources */,
 				D7BC54DC13C7BABD00542880 /* whiteButton.png in Resources */,
@@ -836,7 +836,7 @@
 				D77E0E6413BCFAB400A738D8 /* ImageBrowser_iPhone.m in Sources */,
 				D723152C13C221C500DF3DF8 /* BrowseViewController_iPhone.m in Sources */,
 				D7A84F4B13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m in Sources */,
-				D7A84F7213C4F04B0085E8C3 /* ViewAVisitViewController_iPhone.m in Sources */,
+				D7A84F7213C4F04B0085E8C3 /* EditAVisitViewController_iPhone.m in Sources */,
 				D7BC54D013C7A21500542880 /* TextViewCell.m in Sources */,
 				D7003C1613CDEEF000587CD0 /* TextFieldCell_iPhone.m in Sources */,
 				D789BF7513D0B58600C1C9E8 /* NetworkDataGetter.m in Sources */,
