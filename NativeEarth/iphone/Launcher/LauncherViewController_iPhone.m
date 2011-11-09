@@ -57,13 +57,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    // R: 128 G: 90 B: 200
+    UIColor *bgColor = [UIColor colorWithRed:(100.0 / 255.0) green:(150.0 / 255.0) blue:(40.0 / 255.0) alpha: 1];
     // Do any additional setup after loading the view from its nib.
     
     // create the container view which we will use for flip animation (centered horizontally)
 	containerView = [[UIView alloc] initWithFrame:self.view.bounds];
 	[self.view addSubview:self.containerView];
-    
+    [self.launcherView setBackgroundColor:bgColor];
     [self.containerView addSubview:self.launcherView];
+    
 
 }
 

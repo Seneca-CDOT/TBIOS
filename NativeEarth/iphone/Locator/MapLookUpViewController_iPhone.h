@@ -43,7 +43,7 @@ typedef enum {
 -(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate;
 -(void)flyToNorthAmerica;
 -(IBAction)reloadMap:(id)sender;
--(IBAction)setMapType:(id)sender;
+
 
 -(IBAction)SearchWithAddress:(id)sender;
 @end

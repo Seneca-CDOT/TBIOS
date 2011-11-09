@@ -199,14 +199,6 @@
     
 }
 
--(IBAction)setMapType:(id)sender{
-    UISegmentedControl * mapTypes = (UISegmentedControl*)sender;
-    if (mapTypes.selectedSegmentIndex == Standard) {
-        [self.mapView setMapType:MKMapTypeStandard];
-    }else{
-         [self.mapView setMapType:MKMapTypeHybrid];
-    }
-}
 
 -(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate{
 [self.mapView setCenterCoordinate:coordinate animated:YES];
