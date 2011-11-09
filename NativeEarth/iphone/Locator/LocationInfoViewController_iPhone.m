@@ -29,6 +29,7 @@ typedef enum{
 @synthesize allLands;
 @synthesize originLocation;
 @synthesize originTitle;
+@synthesize showOrigin;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -295,6 +296,7 @@ typedef enum{
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
     nextVC.managedObjectContext= self.managedObjectContext;
     nextVC.lands = self.allLands;
+    nextVC.showOrigin= self.showOrigin;
     nextVC.selectedLandName = ((Land *)selectedLand).LandName;
     nextVC.originLocation= self.originLocation;
     nextVC.originAnnotationTitle= self.originTitle;

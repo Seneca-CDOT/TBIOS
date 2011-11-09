@@ -19,7 +19,7 @@
 @property (nonatomic, retain) NSArray * allLands;
 @property (nonatomic) CLLocationCoordinate2D originLocation;
 @property (nonatomic, retain) NSString * originTitle;
-
+@property (nonatomic)           BOOL showOrigin;
 //NavigationMethods
 -(void) NavigateToGreetings;
 -(void) NavigateToImageGallery;

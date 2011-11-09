@@ -101,7 +101,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<int key="NSvFlags">266</int>
 						<string key="NSFrame">{{0, 436}, {320, 44}}</string>
 						<reference key="NSSuperview" ref="32282362"/>
-						<reference key="NSNextKeyView"/>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClearsContextBeforeDrawing">NO</bool>
 						<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -143,7 +142,6 @@ AAMAAAABAAEAAAFTAAMAAAAEAAACAgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 				<int key="NSvFlags">290</int>
 				<string key="NSFrameSize">{320, 216}</string>
 				<reference key="NSSuperview"/>
-				<reference key="NSNextKeyView"/>
 				<bool key="IBUIClipsSubviews">YES</bool>
 				<bool key="IBUIMultipleTouchEnabled">YES</bool>
 				<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -329,6 +327,7 @@ AQABAAEAAQAB//+dkAEA//+PgAAE//+dkAEI//+dkAEMUERUAFBTVABQV1QAUFBUAAAAAAEAAAABA</b
 							<reference ref="210488452"/>
 						</object>
 						<reference key="parent" ref="32282362"/>
+						<string key="objectName">Toolbar</string>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">21</int>

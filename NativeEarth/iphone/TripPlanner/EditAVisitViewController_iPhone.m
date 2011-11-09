@@ -12,8 +12,10 @@
 #import "NativeEarthAppDelegate_iPhone.h"
 //typedef enum {SectionFirstNationName, SectionDate, SectionTitle, SectionNotes,SectionCount} SectionType;
 typedef enum {SectionTitle,  SectionDate, SectionFirstNationName, SectionNotes,SectionCount} SectionType;
-
 typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
+
+typedef enum {noteCellTag} textViewCellTags;
+typedef enum {titleCellTag} textFieldCellTags;
 
 @implementation EditAVisitViewController_iPhone
 @synthesize dateFormatter;
@@ -26,6 +28,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 @synthesize shiftForKeyboard;
 @synthesize trashButton;
 @synthesize visit;
+@synthesize visitFistNations,visitFromDate,visitNotes,visitTitle,visitToDate;
 - (void)dealloc
 {
     [self.visit release];
@@ -37,6 +40,12 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     [self.toolBar release];
     [self.infoTableView release];
     [self.dateFormatter release];
+    
+    [self.visitFistNations release];
+    [self.visitFromDate release];
+    [self.visitNotes release];
+    [self.visitTitle release]; 
+    [self.visitToDate release];
     [super dealloc];
 }
 
@@ -52,10 +61,10 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    infoTableView.editing = YES;
-    infoTableView.allowsSelectionDuringEditing=YES;
-    [infoTableView setScrollEnabled:YES];
-    infoTableView.delegate = self;
+    self.infoTableView.editing = YES;
+    self.infoTableView.allowsSelectionDuringEditing=YES;
+    [self.infoTableView setScrollEnabled:YES];
+    self.infoTableView.delegate = self;
     
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
@@ -66,16 +75,37 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    ((TextFieldCell_iPhone *)[infoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailRow1 inSection:SectionTitle]]).textField.text =visit.Title;
+    // self.visitFistNations = self.visit.Lands;
+
+    self.visitTitle =(self.visit.Title .length>0)?[NSMutableString stringWithString: self.visit.Title]:[NSMutableString stringWithString: @""];
+    self.visitNotes = (self.visit.Notes.length>0 )?[NSMutableString stringWithString:self.visit.Notes]:[NSMutableString stringWithString: @""];
     
-    ((TextViewCell *)[infoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:DetailRow1 inSection:SectionNotes]]).textView.text =visit.Notes;
-   
+    if (![self.dateFormatter stringFromDate:visit.FromDate].length >0) {
+        self.visitFromDate=[NSMutableString stringWithString: @""];
+    }else{
+        
+    }
+    
+    if (![self.dateFormatter stringFromDate:visit.ToDate].length >0) {
+        self.visitToDate=[NSMutableString stringWithString: @""];
+    }else{
+        
+    }
+
+
 }
 
+
 -(void)viewDidDisappear:(BOOL)animated{
+   self.visit.Title = visitTitle;
+   self.visit.FromDate = [self.dateFormatter dateFromString: visitFromDate];
+    self.visit.ToDate = [self.dateFormatter dateFromString: visitToDate];
+    self.visit.Notes = visitNotes;
+    
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     [appDelegate.landGetter SaveData];
 
+    
 }
 
 - (void)viewDidUnload {
@@ -120,7 +150,6 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     static NSString *HeaderCellIdentifier = @"HeaderCell";
     static NSString *DateCellIdentifier=@"DateCell";
     static NSString *FirstNationCellIdentifier=@"FirstNationCell";
-    //static NSString *TitleCellIdentifier=@"TitleCell";
     
     
     UITableViewCell *cell ;
@@ -137,8 +166,8 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
         }else if(indexPath.section== SectionDate){
             cell =  [tableView dequeueReusableCellWithIdentifier:DateCellIdentifier];
         }else if (indexPath.section== SectionNotes){
-            cellIsNoteCell = YES;
-            noteCell= (TextViewCell *) [tableView dequeueReusableCellWithIdentifier:kCellTextView_ID];
+           cellIsNoteCell = YES;
+        noteCell= (TextViewCell *) [tableView dequeueReusableCellWithIdentifier:kCellTextView_ID];
         }
         
     }
@@ -147,9 +176,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
         if (indexPath.row == HeaderRow ){           
                  cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier] autorelease];
               [self configureCell:cell atIndexPath:indexPath];
-         
          }else{
-            
             if (indexPath.section == SectionFirstNationName){
                 cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:FirstNationCellIdentifier] autorelease];
                    [self configureCell:cell atIndexPath:indexPath];
@@ -157,26 +184,27 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
             } else if (indexPath.section == SectionTitle) {
                  titleCell = [TextFieldCell_iPhone createNewTextFieldCellFromNib];
                  [self configureCell:titleCell atIndexPath:indexPath];
+                titleCell.tag = titleCellTag;
                  cell = titleCell;
              } 
             else if (indexPath.section == SectionDate ) {
-                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:DateCellIdentifier] autorelease];
+                cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DateCellIdentifier] autorelease];
                    [self configureCell:cell atIndexPath:indexPath];
               
             }else if (indexPath.section == SectionNotes){
-            
                 noteCell = [TextViewCell createNewTextCellFromNib];
                 [self configureCell:noteCell atIndexPath:indexPath];
-                
+                noteCell.tag = noteCellTag;
                 cell = noteCell;
-                
                 }//end of if else
           }
+        
     }else
     {   
         if(indexPath.section == SectionNotes && indexPath.row != HeaderRow){
                 [self configureCell:noteCell atIndexPath:indexPath];
                 cell = noteCell;
+            cell.tag=noteCellTag;
         }else{
             [self configureCell:cell atIndexPath:indexPath];
         }
@@ -204,26 +232,24 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
             ((TextFieldCell_iPhone *)cell).textField.delegate =(TextFieldCell_iPhone*)cell; 
            ((TextFieldCell_iPhone *)cell).textField.placeholder = NSLocalizedString( @"Enter a title for your visit",  @"Enter a title for your visit"); 
            ((TextFieldCell_iPhone *)cell).delegate = self;
+        ((TextFieldCell_iPhone *)cell).textField.text =self.visitTitle;
         }
 
     }else if(indexPath.section == SectionDate){
         if(indexPath.row == HeaderRow){
-            cell.textLabel.text = NSLocalizedString(@"Date:", @"Date:");
-            cell.userInteractionEnabled = NO;
-
+            cell.textLabel.text = NSLocalizedString(@"Dates:", @"Dates:");
         }
         else if (indexPath.row == DetailRow1) {
-              cell.textLabel.text = NSLocalizedString(@"From Date:", @"From Date:");
-            cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[NSDate date]];
+              cell.textLabel.text = NSLocalizedString(@"From:", @"From:");
+            cell.detailTextLabel.text = self.visitFromDate;
             cell.userInteractionEnabled = YES;
-            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
 
         } else if (indexPath.row ==DetailRow2){
-                cell.textLabel.text = NSLocalizedString(@"To Date:", @"To Date:");
-
-                cell.detailTextLabel.text = [self.dateFormatter stringFromDate:[NSDate date]];
+                cell.textLabel.text = NSLocalizedString(@"To:", @"To:");
+            cell.detailTextLabel.text = visitToDate;
                 cell.userInteractionEnabled = YES;
-            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
 
             }
            
@@ -236,8 +262,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             ((TextViewCell*)cell).textView.delegate =(TextViewCell*)cell;                    
             ((TextViewCell*)cell).delegate = self;
-            cell.detailTextLabel.numberOfLines = 0;
-           
+            ((TextViewCell *)cell).textView.text =self.visitNotes;//visit.Notes;
         }
     }
     
@@ -278,24 +303,10 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 }
     
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == HeaderRow) {
-        return kRegularCellRowHeight;
-    }else{
-    
-        if (indexPath.section == SectionFirstNationName || indexPath.section == SectionDate) {
-            // Regular
-            return kRegularCellRowHeight;
-        }else if (indexPath.section == SectionTitle){
-            CGFloat result;
-            result = kTextFieldCellRowHeight;	
-            return result; 
-        }else if(indexPath.section == SectionNotes){
-            CGFloat result;
-            result = kUITextViewCellRowHeight;	
-            return result;
-        } 
-    }
-    return kRegularCellRowHeight;
+    int rv= kRegularCellRowHeight;
+    if (indexPath.row != HeaderRow && indexPath.section == SectionNotes)
+            return kUITextViewCellRowHeight;
+    return rv;
 }
 
 // Override to support conditional editing of the table view.
@@ -310,11 +321,17 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == SectionDate && indexPath.row != HeaderRow){
         UITableViewCell *targetCell = [tableView cellForRowAtIndexPath:indexPath];
+        if (targetCell.detailTextLabel.text.length>0) {
         self.pickerView.date = [self.dateFormatter dateFromString:targetCell.detailTextLabel.text];
+        } else self.pickerView.date = [NSDate date];
+        [self.infoTableView setScrollEnabled:NO];
+        [self SetEnabledTitleCell:NO];
+        [self SetEnabledFirstNationEdit:NO];
         // check if our date picker is already on screen
         if (self.pickerView.superview == nil) 
             [self ShiftUpDatePicker];
     }else [self ShiftDownDatePicker];
+       
 }
 
  
@@ -323,21 +340,28 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 -(IBAction)dateAction:(id)sender{
     NSIndexPath *indexPath = [self.infoTableView indexPathForSelectedRow];
 	UITableViewCell *cell = [self.infoTableView cellForRowAtIndexPath:indexPath];
-	cell.detailTextLabel.text = [self.dateFormatter stringFromDate:self.pickerView.date];
+    NSString* date = [self.dateFormatter stringFromDate:self.pickerView.date];
+	cell.detailTextLabel.text = date;
+    
 }
 
 -(IBAction)doneAction:(id)sender{
     // remove the "Done" button in the nav bar
 	self.navigationItem.rightBarButtonItem = nil; 
     self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-    [self SetBackControls];   
+    [self SetBackControls];  
+    [self.infoTableView setScrollEnabled:YES];
 }
 
 -(IBAction)Cancel:(id)sender {
+    [self.infoTableView reloadData];
     self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
     //remove the "Done" button in the nav bar
 	self.navigationItem.rightBarButtonItem = nil; 
+    
     [self SetBackControls];
+    self.shiftForKeyboard= 0;
+    [self.infoTableView setScrollEnabled:YES];
 }
 
 #pragma mark - Controls manipulation
@@ -349,11 +373,15 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     NSIndexPath *titleCellIndexPath= [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionTitle];
     NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionNotes];
     
+    NSIndexPath * firstNationAddCellIndexPath= [NSIndexPath indexPathForRow:HeaderRow inSection:SectionFirstNationName];
+
+    
     //deselect the current table row
     [self.infoTableView deselectRowAtIndexPath:dateCell1IndexPath animated:NO];
     [self.infoTableView deselectRowAtIndexPath:dateCell2IndexPath animated:NO];
     [self.infoTableView deselectRowAtIndexPath:titleCellIndexPath animated:NO];
     [self.infoTableView deselectRowAtIndexPath:noteCellIndexPath animated:NO];
+    [self.infoTableView deselectRowAtIndexPath:firstNationAddCellIndexPath animated:NO];
     
     UITableViewCell *noteCell = [self.infoTableView cellForRowAtIndexPath:noteCellIndexPath];
     UITableViewCell *titleCell =[self.infoTableView cellForRowAtIndexPath:titleCellIndexPath];
@@ -366,7 +394,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     if ([noteCell isKindOfClass:[TextViewCell class]]) {
         [((TextViewCell * )[self.infoTableView cellForRowAtIndexPath:noteCellIndexPath]).textView resignFirstResponder];
     }
-    
+    [self SetEnabledFirstNationEdit:YES];
     [self ShiftDownDatePicker];
 }
 
@@ -387,6 +415,12 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     
 }
 
+-(void) SetEnabledFirstNationEdit:(BOOL) enabled{
+    int count = [self.infoTableView numberOfRowsInSection:SectionFirstNationName];
+    for (int row = 0; row< count; row++ ){
+        [[self.infoTableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:row inSection:SectionFirstNationName]] setUserInteractionEnabled:enabled];
+    }
+}
 - (void)slideDownDidStop {
 	// the date picker has finished sliding downwards, so remove it
 	[self.pickerView removeFromSuperview];
@@ -458,11 +492,12 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     infoTableView.frame = newFrame;
     [UIView commitAnimations]; 
     NSIndexPath * ip = [NSIndexPath indexPathForRow:2 inSection:1];
-    [self ShiftViewForCell:[infoTableView cellForRowAtIndexPath:ip] atIndexPath:ip];
+    [self ShiftViewForCellAtIndexPath:ip];
 }
 
 #pragma  mark - EditFieldCellDelegate Methods
--(void)ShiftViewForCell:(UITableViewCell*) cell atIndexPath : (NSIndexPath *) indexpath{
+-(void)ShiftViewForCellAtIndexPath : (NSIndexPath *) indexpath{
+    UITableViewCell *cell = [self.infoTableView cellForRowAtIndexPath:indexpath];
     CGFloat leftbottomEdge =cell.frame.origin.y + cell.frame.size.height; 	
 	// If the bottom edge is 250 or more, we want to shift the view up
 	// We chose 250 here instead of 264, so that we would have some visual buffer space
@@ -483,7 +518,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
                } else ExtraHeight = -1 *kRegularCellRowHeight;
           
                 // Determine the amount of the shift
-                self.shiftForKeyboard = leftbottomEdge - 250.0f ;
+                self.shiftForKeyboard = leftbottomEdge - 250.0f  - 20.0;
                 self.shiftForKeyboard-=ExtraHeight;
            
                 // Adjust the origin for the viewFrame CGRect
@@ -541,34 +576,54 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     [self.infoTableView scrollToRowAtIndexPath:firstNationCellIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
+
+//////TEXT FIELD
+
 -(void)TextFieldCellEditStarted:(TextFieldCell_iPhone *)tfc{
     [self ShiftDownDatePicker];
-   // [self SetEnabledDateCells:NO];
+    [self.infoTableView setScrollEnabled:NO];
+    [self SetEnabledDateCells:NO];
     self.navigationItem.leftBarButtonItem = self.cancelButton;  
     NSIndexPath *titleCellIndexPath = [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionTitle];
-    [self ShiftViewForCell:tfc atIndexPath:titleCellIndexPath];
+    [self ShiftViewForCellAtIndexPath:titleCellIndexPath];
 }
 
+
+
 -(void)TextFieldCellEditDidFinish:(TextFieldCell_iPhone *)tfc{  
+    if (tfc.tag == titleCellTag) {
+        self.visitTitle = tfc.textField.text;
+    }
+   [self.navigationItem setHidesBackButton:NO animated:YES];
      self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-    [self SetBackControls];
+    [self SetBackControls]; 
+    
+   
 }
+
+///// TEXT VIEW
 
 -(void)TextViewCellEditStarted:(TextViewCell *)tvc{
     [self ShiftDownDatePicker];
     [self SetEnabledDateCells:NO];
    [self SetEnabledTitleCell:NO];
     self.navigationItem.rightBarButtonItem = self.doneButton;
-   self.navigationItem.leftBarButtonItem = self.cancelButton;
-    
+  self.navigationItem.leftBarButtonItem  = self.cancelButton;
    NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionNotes];
-  [self ShiftViewForCell:tvc atIndexPath:noteCellIndexPath];
-
+  [self ShiftViewForCellAtIndexPath:noteCellIndexPath];
 }
 
+
 -(void)TextViewCellEditDidFinish: (TextViewCell *)tvc {  
+    if (tvc.tag == noteCellTag) {
+        self.visitNotes = tvc.textView.text;
+    }
     [self ShiftBackView];
 } 
+
+////////
+
+
 
 -(void)AddLand{
     

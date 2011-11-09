@@ -7,10 +7,16 @@
 //
 
 #import "ViewAVisitViewController_iPhone.h"
+#import "Land.h"
+#import "LocationInfoViewController_iPhone.h"
+#import "EditAVisitViewController_iPhone.h"
+typedef enum {SectionTitle,  SectionDate, SectionFirstNationName, SectionNotes,SectionCount} SectionType;
 
+typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 
 @implementation ViewAVisitViewController_iPhone
 @synthesize visit;
+@synthesize dateFormatter;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -22,7 +28,8 @@
 
 - (void)dealloc
 {
-    [visit release];
+    [self.visit release];
+    [self.dateFormatter release];
     [super dealloc];
 }
 
@@ -44,7 +51,18 @@
     // self.clearsSelectionOnViewWillAppear = NO;
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    [self.editButtonItem setAction:@selector(EditButtonAction:)];
+    
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
+    self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    
+    self.view = self.tableView;
+    self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
+	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
 }
 
 - (void)viewDidUnload
@@ -57,11 +75,15 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+     
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
+   [self.tableView reloadData];
     [super viewDidAppear:animated];
+   
+
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -84,40 +106,141 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
-    // Return the number of sections.
-    return 0;
+
+    return SectionCount;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return 0;
+    if (section == SectionDate) {
+        return  3;
+    }else if (section == SectionFirstNationName){
+        return  1+ [self.visit.Lands count];
+    }
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+    static NSString *RegularCellIdentifier = @"RegularCell";
+    static NSString *DateCellIdentifier = @"DateCell";
+    UITableViewCell *cell;
+    if(indexPath.section== SectionDate &&(indexPath.row== DetailRow1 || indexPath.row == DetailRow2)){
+        cell = [tableView dequeueReusableCellWithIdentifier:DateCellIdentifier];
+    }else{
+        cell = [tableView dequeueReusableCellWithIdentifier:RegularCellIdentifier];
+
     }
     
+    if (cell == nil) {
+        if(indexPath.section== SectionDate &&(indexPath.row== DetailRow1 || indexPath.row == DetailRow2)){
+         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:DateCellIdentifier] autorelease];
+        }else{
+         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:RegularCellIdentifier] autorelease];
+        }   
+    } 
+    cell.accessoryType = UITableViewCellAccessoryNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     // Configure the cell...
-    
+    [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
-/*
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section == SectionFirstNationName) {
+        if (indexPath.row == HeaderRow) {
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:15] ;
+            cell.textLabel.text = NSLocalizedString(@"First Nation Lands:", @"First Nation Lands:") ;
+        }else {
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ;
+            cell.detailTextLabel.text =((Land *)[[visit.Lands allObjects] objectAtIndex:indexPath.row -1]).LandName;
+            cell.userInteractionEnabled = YES;
+            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        } 
+    }else if(indexPath.section == SectionTitle){
+        if (indexPath.row == HeaderRow) {
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:15] ;
+            cell.textLabel.text = NSLocalizedString(@"Title:", @"Title:") ;
+        }else if (indexPath.row == DetailRow1){
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ;
+            cell.detailTextLabel.numberOfLines =0;
+            cell.detailTextLabel.text=visit.Title;
+        }
+        
+    }else if(indexPath.section == SectionDate){
+        if(indexPath.row == HeaderRow){
+                cell.textLabel.font = [UIFont boldSystemFontOfSize:15] ;
+            cell.textLabel.text = NSLocalizedString(@"Dates:", @"Dates:");
+            
+        }
+        else if (indexPath.row == DetailRow1) {
+            cell.textLabel.font = [UIFont systemFontOfSize:15] ;
+           // cell.textLabel.text =  NSLocalizedString(@"From:", @"From:");
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ;
+            cell.detailTextLabel.text= [NSString stringWithFormat:@"From: %@",[self.dateFormatter stringFromDate:visit.FromDate]];
+            //cell.textLabel.textAlignment= UITextAlignmentRight;
+            
+        } else if (indexPath.row ==DetailRow2){
+            cell.textLabel.font = [UIFont systemFontOfSize:15] ;
+            cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ;
+            //cell.detailTextLabel.textColor=[UIColor blueColor];
+           // cell.textLabel.text = NSLocalizedString(@"To:", @"To:");
+            cell.detailTextLabel.text=[NSString stringWithFormat:@"To: %@",[self.dateFormatter stringFromDate:visit.ToDate]];
+            
+        }
+        
+    }else if(indexPath.section == SectionNotes ) {
+        if(indexPath.row == HeaderRow){
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:15] ;
+            cell.textLabel.text =NSLocalizedString( @"Notes:",@"Notes:");
+        }else{
+            
+            cell.textLabel.font = [UIFont systemFontOfSize:15] ;
+            cell.detailTextLabel.numberOfLines =0;
+            cell.detailTextLabel.text=visit.Notes;
+        }
+    }
+    
+	
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    int rv = kRegularCellRowHeight;
+    if (indexPath.section==SectionNotes && indexPath.row == DetailRow1) {
+        NSMutableString *text = [[NSMutableString alloc] init];
+        text=[NSMutableString stringWithString: visit.Notes];
+        if (text.length !=0) {
+		CGSize s = [text sizeWithFont:[UIFont systemFontOfSize:15] 
+					   constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
+						   lineBreakMode:UILineBreakModeWordWrap];
+		rv=  s.height + 16; // Add padding
+        }
+    }else if(indexPath.section==SectionTitle && indexPath.row == DetailRow1)
+    { NSString *text =visit.Title;
+        if (text.length!=0) {
+       
+		CGSize s = [text sizeWithFont:[UIFont systemFontOfSize:15] 
+                    constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
+                        lineBreakMode:UILineBreakModeWordWrap];
+		rv=s.height + 16; // Add padding
+        }
+    }
+    return  rv;
+}
+
+
 // Override to support conditional editing of the table view.
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the specified item to be editable.
-    return YES;
+    return NO;
 }
-*/
+
 
 /*
 // Override to support editing the table view.
@@ -153,14 +276,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // Navigation logic may go here. Create and push another view controller.
-    /*
-     <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-     // ...
-     // Pass the selected object to the new view controller.
-     [self.navigationController pushViewController:detailViewController animated:YES];
-     [detailViewController release];
-     */
+    
+    if (indexPath.section == SectionFirstNationName && indexPath.row>HeaderRow ) {
+        LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
+        NSArray * lands = (NSArray*)[visit.Lands allObjects];
+        nextVC.allLands = lands;
+        nextVC.selectedLand= [lands objectAtIndex:indexPath.row -1];  
+        [self.navigationController pushViewController:nextVC animated:YES];
+        nextVC.showOrigin=NO;
+        [nextVC release];
+    }
 }
 
+-(void)EditButtonAction:(id) sender{
+    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] init];
+    nextVC.visit = self.visit;
+    nextVC.title=NSLocalizedString(@"Edit Visit",@"Edit Visit");
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
+}
 @end

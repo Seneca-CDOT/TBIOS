@@ -39,7 +39,6 @@ NSString* kCellTextView_ID = @"CellTextView_ID";
 
 - (void)dealloc
 {
-    
     [self.textView release];
     [super dealloc];
 }

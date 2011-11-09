@@ -24,11 +24,20 @@
     UIBarButtonItem *trashButton;
     
     PlannedVisit * visit;
+    NSMutableString * visitTitle;
+    NSMutableString *visitNotes;
+    NSMutableString *visitFromDate;
+    NSMutableString * visitToDate;
+    NSArray * visitFistNations;
 
 }
 @property (nonatomic, retain) PlannedVisit * visit;
 
-
+@property (nonatomic, retain) NSString * visitTitle;
+@property (nonatomic, retain) NSString *visitNotes;
+@property (nonatomic, retain) NSString *visitFromDate;
+@property (nonatomic, retain) NSString * visitToDate;
+@property (nonatomic, retain) NSArray * visitFistNations;
 @property (nonatomic, retain) NSDateFormatter *dateFormatter; 
 // Number of pixels to shift the view up or down
 @property CGFloat shiftForKeyboard;
@@ -52,6 +61,7 @@
 -(void) ShiftUpDatePicker;
 -(void) SetEnabledDateCells:(BOOL) enabled;
 -(void) SetEnabledTitleCell:(BOOL) enabled;
--(void) ShiftViewForCell:(UITableViewCell*) cell atIndexPath : (NSIndexPath *) indexpath;
+-(void) SetEnabledFirstNationEdit:(BOOL) enabled;
+-(void) ShiftViewForCellAtIndexPath : (NSIndexPath *) indexpath;
 -(void) ShiftBackView;
 @end

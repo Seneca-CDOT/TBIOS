@@ -9,9 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
 #import "PlannedVisit.h"
-@interface ViewAVisitViewController_iPhone : BaseTableViewController {
+#import "Constants.h"
+@interface ViewAVisitViewController_iPhone : BaseTableViewController <UITableViewDataSource,UITableViewDelegate>{
     
     PlannedVisit * visit;
+      NSDateFormatter *dateFormatter; 
+
 }
 @property (nonatomic, retain) PlannedVisit * visit;
+
+@property (nonatomic, retain) NSDateFormatter *dateFormatter; 
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+-(void)EditButtonAction:(id) sender;
 @end

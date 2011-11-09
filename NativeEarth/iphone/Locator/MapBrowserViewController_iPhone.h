@@ -36,9 +36,10 @@
 @property (nonatomic, retain)           NSArray                   *lands;
 @property (nonatomic, retain)           MKAnnotationView          *selectedAnnotationView;
 @property (nonatomic, retain)           DistrictCenterAnnotation  *calloutAnnotation;
-@property(nonatomic) CLLocationCoordinate2D originLocation;
+@property(nonatomic)                    CLLocationCoordinate2D     originLocation;
 @property(nonatomic,retain)             NSString                   *originAnnotationTitle;
 @property(nonatomic,retain)             NSString                   *selectedLandName;
+@property(nonatomic)                    BOOL                        showOrigin;
 -(IBAction)flyToPin:(id) sender;
 
 -(void)  drawOverlaysOfArray: (NSArray*)landsArray;

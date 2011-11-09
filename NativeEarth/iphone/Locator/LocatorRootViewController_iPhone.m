@@ -89,12 +89,16 @@
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	switch (indexPath.section) {
         case 0:
-            cell.textLabel.text=NSLocalizedString(@"Current Location", @"Current Location");            break;
+            cell.textLabel.text=NSLocalizedString(@"Current Location", @"Current Location"); 
+            cell.imageView.image= [UIImage imageNamed:@"icon_location.png"];
+            break;
         case 1:
             cell.textLabel.text=NSLocalizedString(@"Browse By First Nation Name",@"Browse By First Nation Name");
+            cell.imageView.image= [UIImage imageNamed:@"list.png"];
             break;
         case 2:
             cell.textLabel.text=NSLocalizedString(@"Browse By Map",@"Browse By Map");
+            cell.imageView.image= [UIImage imageNamed:@"72-pin.png"];
             break;
         default:
             break;
@@ -128,7 +132,7 @@
     if (cell == nil) {
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
-    
+    cell.imageView.image= nil;
     // Configure the cell...
 	[self configureCell:cell atIndexPath:indexPath];
     return cell;
@@ -221,7 +225,7 @@
 //
 //    }else{
     
-    LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
+    LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStylePlain];
     
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;

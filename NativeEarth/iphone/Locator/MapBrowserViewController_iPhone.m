@@ -22,7 +22,7 @@
 @synthesize     originLocation;
 @synthesize     selectedAnnotationView = _selectedAnnotationView;
 @synthesize     calloutAnnotation = _calloutAnnotation;
-@synthesize originAnnotationTitle, selectedLandName;
+@synthesize originAnnotationTitle, selectedLandName,showOrigin;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -117,14 +117,16 @@
     
         //Add Annotation for originLocation: 
         
+     if (showOrigin==YES) {
         DistrictCenterAnnotation * originAnnotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:originLocation.latitude andLongitude:originLocation.longitude] autorelease];
         originAnnotation.title = self.originAnnotationTitle;
-        [mapView addAnnotation:originAnnotation];
-        for (DistrictCenterAnnotation * annot in mapView.annotations) {       
+        [mapView addAnnotation:originAnnotation]; 
+      }
+     for (DistrictCenterAnnotation * annot in mapView.annotations) {       
             if (annot.title == self.originAnnotationTitle || annot.title== self.selectedLandName) {
                 [mapView selectAnnotation:annot animated:FALSE];
             }
-        }
+     }
         
     [self flyToPin:nil];
 

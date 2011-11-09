@@ -7,8 +7,8 @@
 //
 
 #import "VisitPlannerRootViewController_iPhone.h"
-//#import "Reachability.h"
 #import "AddAVisitViewController_iPhone.h"
+#import "ViewAVisitViewController_iPhone.h"
 #import "LandSelectViewController_iPhone.h"
 #import "PlannedVisit.h"
 #import "Land.h"
@@ -63,12 +63,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+   
     [super viewWillAppear:animated];
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated
-{
+{  
     [super viewDidAppear:animated];
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -126,27 +129,37 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([plannedVisits count]>0) {
-        
-   
-    LandSelectViewController_iPhone * nextVC = [[LandSelectViewController_iPhone alloc] init];
-   // nextVC.managedObjectContext = self.managedObjectContext;
-    // add reffering object too.
-        
-        nextVC.landArray =[NSMutableArray arrayWithArray: [((PlannedVisit*)[plannedVisits objectAtIndex:indexPath.row]).Lands allObjects]];
-   nextVC.title = @"Lands";
-    [self.navigationController pushViewController:nextVC animated:YES];
-    [nextVC release];
+//    if ([plannedVisits count]>0) {
+//        
+//   
+//    LandSelectViewController_iPhone * nextVC = [[LandSelectViewController_iPhone alloc] init];
+//   // nextVC.managedObjectContext = self.managedObjectContext;
+//    // add reffering object too.
+//        
+//        nextVC.landArray =[NSMutableArray arrayWithArray: [((PlannedVisit*)[plannedVisits objectAtIndex:indexPath.row]).Lands allObjects]];
+//   nextVC.title = @"Lands";
+//    [self.navigationController pushViewController:nextVC animated:YES];
+//    [nextVC release];
+//    }
+    
+    if([plannedVisits count]>0){
+        PlannedVisit * visit = (PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row];
+        ViewAVisitViewController_iPhone * nextVC = [[ViewAVisitViewController_iPhone alloc] init];
+        nextVC.title = visit.Title;
+        nextVC.managedObjectContext = self.managedObjectContext;
+        nextVC.visit = visit;
+        [self.navigationController pushViewController:nextVC animated:YES];
+        [nextVC release]; 
     }
 }
 
 
 - (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath 
 {
+    PlannedVisit * visit = (PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row];
     EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
-    nextVC.title = @"Trip Title";
-    nextVC.managedObjectContext = self.managedObjectContext;
-    nextVC.visit = (PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row];
+    nextVC.title = visit.Title;
+    nextVC.visit = visit;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }
