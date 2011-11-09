@@ -44,6 +44,8 @@
 		D78D04B013E1D72200C04A5E /* WSLand.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04AF13E1D72200C04A5E /* WSLand.m */; };
 		D78D04B313E1D92200C04A5E /* WSGreetings.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B213E1D92100C04A5E /* WSGreetings.m */; };
 		D78D04B613E1DB6D00C04A5E /* WSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B513E1DB6A00C04A5E /* WSContent.m */; };
+		D7922ED814686135000D7344 /* turtle2.png in Resources */ = {isa = PBXBuildFile; fileRef = D7922ED714686135000D7344 /* turtle2.png */; };
+		D7922EDA14686B0E000D7344 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = D7922ED914686B0E000D7344 /* list.png */; };
 		D794189E13FEFC920001CAA9 /* Land1.txt in Resources */ = {isa = PBXBuildFile; fileRef = D794189D13FEFC910001CAA9 /* Land1.txt */; };
 		D79418A113FEFC9A0001CAA9 /* Land2.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A013FEFC9A0001CAA9 /* Land2.txt */; };
 		D79418A313FEFCA20001CAA9 /* Land3.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A213FEFCA10001CAA9 /* Land3.txt */; };
@@ -107,6 +109,7 @@
 		D7BC54D213C7A7E000542880 /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BC54D113C7A7E000542880 /* TextViewCell.xib */; };
 		D7BC54DC13C7BABD00542880 /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D7BC54DB13C7BABD00542880 /* whiteButton.png */; };
 		D7BC54DE13C7BAC300542880 /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D7BC54DD13C7BAC300542880 /* blueButton.png */; };
+		D7C4B53E145F02280082F0FF /* ViewAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */; };
 		D7DA7B0513D72412009EEC0A /* DDAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DA7B0213D72412009EEC0A /* DDAnnotation.m */; };
 		D7DA7B0E13D72442009EEC0A /* Pin.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0813D72442009EEC0A /* Pin.png */; };
 		D7DA7B0F13D72442009EEC0A /* PinDown1.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0913D72442009EEC0A /* PinDown1.png */; };
@@ -189,6 +192,8 @@
 		D78D04B413E1DB6900C04A5E /* WSContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSContent.h; sourceTree = "<group>"; };
 		D78D04B513E1DB6A00C04A5E /* WSContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSContent.m; sourceTree = "<group>"; };
 		D78D04B713E1F78400C04A5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D7922ED714686135000D7344 /* turtle2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle2.png; sourceTree = SOURCE_ROOT; };
+		D7922ED914686B0E000D7344 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = SOURCE_ROOT; };
 		D794189D13FEFC910001CAA9 /* Land1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land1.txt; path = ../../Sites/Land1.txt; sourceTree = "<group>"; };
 		D79418A013FEFC9A0001CAA9 /* Land2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land2.txt; path = ../../Sites/Land2.txt; sourceTree = "<group>"; };
 		D79418A213FEFCA10001CAA9 /* Land3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land3.txt; path = ../../Sites/Land3.txt; sourceTree = "<group>"; };
@@ -216,7 +221,7 @@
 		D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitPlannerRootViewController_iPhone.h; sourceTree = "<group>"; };
 		D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitPlannerRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitPlannerRootViewController_iPhone.xib; sourceTree = "<group>"; };
-		D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; path = EditAVisitViewController_iPhone.h; sourceTree = "<group>"; };
+		D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditAVisitViewController_iPhone.h; sourceTree = "<group>"; };
 		D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditAVisitViewController_iPhone.m; sourceTree = "<group>"; };
 		D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAVisitViewController_iphone.xib; sourceTree = "<group>"; };
 		D7BB0D7813BB9A0B0062C2A9 /* NativeEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -280,6 +285,8 @@
 		D7BC54D113C7A7E000542880 /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextViewCell.xib; sourceTree = "<group>"; };
 		D7BC54DB13C7BABD00542880 /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteButton.png; path = Images/whiteButton.png; sourceTree = "<group>"; };
 		D7BC54DD13C7BAC300542880 /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueButton.png; path = Images/blueButton.png; sourceTree = "<group>"; };
+		D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewAVisitViewController_iPhone.h; sourceTree = "<group>"; };
+		D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewAVisitViewController_iPhone.m; sourceTree = "<group>"; };
 		D7DA7B0113D72412009EEC0A /* DDAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAnnotation.h; sourceTree = "<group>"; };
 		D7DA7B0213D72412009EEC0A /* DDAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAnnotation.m; sourceTree = "<group>"; };
 		D7DA7B0813D72442009EEC0A /* Pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pin.png; sourceTree = "<group>"; };
@@ -407,10 +414,12 @@
 		D786015313C656FB007EA5B0 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				D7922ED914686B0E000D7344 /* list.png */,
 				D7DA7B0813D72442009EEC0A /* Pin.png */,
 				D7DA7B4113D76070009EEC0A /* 72-pin.png */,
 				D7DA7B4313D760DF009EEC0A /* 01-refresh.png */,
 				D7DA7B4513D763B1009EEC0A /* 193-location-arrow.png */,
+				D7922ED714686135000D7344 /* turtle2.png */,
 				D7DA7B4713D763F0009EEC0A /* 02-redo.png */,
 				D7DA7B0913D72442009EEC0A /* PinDown1.png */,
 				D7DA7B0A13D72442009EEC0A /* PinDown2.png */,
@@ -651,6 +660,8 @@
 				D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */,
 				D78D049E13E0A09B00C04A5E /* AddAVisitViewController_iPhone.h */,
 				D78D049F13E0A09F00C04A5E /* AddAVisitViewController_iPhone.m */,
+				D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */,
+				D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */,
 			);
 			name = VisitPlanner;
 			path = iphone/TripPlanner;
@@ -796,6 +807,8 @@
 				D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */,
 				D78B5C94142D269D0009776B /* InitialLands.txt in Resources */,
 				D7A84C761434FFB800032481 /* NativeEarth.sqlite in Resources */,
+				D7922ED814686135000D7344 /* turtle2.png in Resources */,
+				D7922EDA14686B0E000D7344 /* list.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -857,6 +870,7 @@
 				D7972E29140C000700454BE3 /* NSString+URLEncoding.m in Sources */,
 				D7972E4D140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.m in Sources */,
 				D7DFB85D142A6E7600258875 /* Toast+UIView.m in Sources */,
+				D7C4B53E145F02280082F0FF /* ViewAVisitViewController_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
