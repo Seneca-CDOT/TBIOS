@@ -13,6 +13,7 @@
 #import "Reachability.h"
 #import "NetworkDataGetter.h"
 #import "PlannedVisit.h"
+#import "Map.h"
 #import <MapKit/MapKit.h>
 
 @interface LandGetter : NSObject <NSFetchedResultsControllerDelegate,NetworkDataGetterDelegate>{
@@ -57,21 +58,21 @@
 @property NetworkStatus wifiConnectionStatus;
 @property NetworkStatus remoteHostStatus;
 
-- (void) updateStatusesWithReachability: (Reachability*) curReach;
+-(void) updateStatusesWithReachability: (Reachability*) curReach;
 -(id) initWithManagedObjectContext:(NSManagedObjectContext* ) context;
--(Land *)GetLandWithLandId:(int)landId;
--(Land *)GetLandLocallyWithLandId:(int)landId;
--(void) GetLandShortsFromWebService;
--(NSDictionary *)GetLandShortsDictionary;
--(void) GetLandFromWebServiceWithLandId:(NSNumber *)landId;
--(void)CheckForLandUpdatesByLandId:(NSNumber *)landId;
--(NSMutableArray *)GetLandShortArray;
--(NSArray*)GetEstimatedMatchingLandsForLatitude:(double)lat andLongitude:(double)lng;
--(NSArray*)GetNearbyLandsForLatitude:(double)lat andLongitude:(double)lng;
+-(Land *)getLandWithLandId:(int)landId;
+-(Land *)getLandLocallyWithLandId:(int)landId;
+-(void) getLandShortsFromWebService;
+-(NSDictionary *)getLandShortsDictionary;
+-(void) getLandFromWebServiceWithLandId:(NSNumber *)landId;
+-(void) checkForLandUpdatesByLandId:(NSNumber *)landId;
+-(NSMutableArray *)getLandShortArray;
+-(NSArray*)getEstimatedMatchingLandsForLatitude:(double)lat andLongitude:(double)lng;
+-(NSArray*)getNearbyLandsForLatitude:(double)lat andLongitude:(double)lng;
 -(void) setLandToBeUpdatedById:(int)landId;
--(NSArray *)GetAllPlannedVisits;
--(void) updateManagedLand: (Land*) MLand WithWSLand:(WSLand *)webLand;
-//-(void) updateList;
+-(NSArray *)getAllPlannedVisits;
+-(void) updateManagedLand: (Land*) mLand WithWSLand:(WSLand *)webLand;
 -(NSError *)SaveData;
-
+-(PlannedVisit *)getNewPlannedVisit;
+-(Map *)getNewMap;
 @end

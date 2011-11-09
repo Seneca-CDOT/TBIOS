@@ -61,6 +61,7 @@
 }
 
 -(void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
       if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
     [self.delegate LocationError:error];
       }

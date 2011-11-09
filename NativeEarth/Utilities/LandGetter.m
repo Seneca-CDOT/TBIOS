@@ -47,7 +47,7 @@ managedObjectContext=managedObjectContext_;
     // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
     // method "reachabilityChanged" will be called. 
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
-    self.landShortList = [[NSMutableArray arrayWithArray:[self GetLandShortArray] ] retain];
+    self.landShortList = [[NSMutableArray arrayWithArray:[self getLandShortArray] ] retain];
     NSLog(@"initial list:\n");
     NSLog(@"%@",[self.landShortList description]);
     
@@ -263,6 +263,7 @@ managedObjectContext=managedObjectContext_;
     return fetchedResultsControllerNearByLands_;
     
 }
+
 - (NSFetchedResultsController *)fetchedResultsControllerPlannedVisits {
     
     if (fetchedResultsControllerPlannedVisits_ != nil) {
@@ -312,8 +313,8 @@ managedObjectContext=managedObjectContext_;
 	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
 	[self updateStatusesWithReachability: curReach];
 }
-- (void) updateStatusesWithReachability: (Reachability*) curReach
-{
+
+- (void) updateStatusesWithReachability: (Reachability*) curReach {
     if(curReach == hostReach)
 	{
         self.remoteHostStatus = [curReach currentReachabilityStatus];
@@ -335,7 +336,7 @@ managedObjectContext=managedObjectContext_;
     
     if (remoteHostStatus!=NotReachable){
         if (toBeUpdatedLandID >0 && landIDUpdateFlag==NO){
-         [self CheckForLandUpdatesByLandId:[NSNumber numberWithInt: toBeUpdatedLandID]];
+         [self checkForLandUpdatesByLandId:[NSNumber numberWithInt: toBeUpdatedLandID]];
             toBeUpdatedLandID=0;
             landIDUpdateFlag=YES;
         }
@@ -348,7 +349,7 @@ managedObjectContext=managedObjectContext_;
                 deleteArray  =[[NSMutableArray alloc] init];
                 updateArray  =[[NSMutableArray alloc] init];
             
-                [self GetLandShortsFromWebService]; 
+                [self getLandShortsFromWebService]; 
                 // change from here 
             
                 updateCheckStarted = YES;
@@ -361,17 +362,18 @@ managedObjectContext=managedObjectContext_;
     }
 }
 
-
--(NSMutableArray*) landShortList{
-    return [NSMutableArray arrayWithArray:[self GetLandShortArray]];
+- (NSMutableArray*) landShortList{
+    return [NSMutableArray arrayWithArray:[self getLandShortArray]];
 }
+
 
 #pragma mark - local data reterival
 -(void) setLandToBeUpdatedById:(int)landId{
     toBeUpdatedLandID=landId;
     landIDUpdateFlag=NO;
 }
--(NSArray*)GetEstimatedMatchingLandsForLatitude:(double)lat andLongitude:(double)lng{
+
+-(NSArray*)getEstimatedMatchingLandsForLatitude:(double)lat andLongitude:(double)lng{
     latitude=lat;
     longitude=lng;
     fetchedResultsControllerLandsForCoordinate_=nil;
@@ -386,7 +388,7 @@ managedObjectContext=managedObjectContext_;
     return fetchedEstimatedMatchingLands;
 }
 
--(NSArray*)GetNearbyLandsForLatitude:(double)lat andLongitude:(double)lng{
+-(NSArray*)getNearbyLandsForLatitude:(double)lat andLongitude:(double)lng{
     latitude=lat;
     longitude=lng;
     fetchedResultsControllerNearByLands_=nil;
@@ -403,14 +405,14 @@ managedObjectContext=managedObjectContext_;
 
     }else {
         searchDistanceMeter += kSearchExpantionParameter;
-       fetchedNearByLands= [NSMutableArray arrayWithArray:[self GetNearbyLandsForLatitude:latitude andLongitude:longitude]];
+       fetchedNearByLands= [NSMutableArray arrayWithArray:[self getNearbyLandsForLatitude:latitude andLongitude:longitude]];
     }
     return fetchedNearByLands; 
 }
 
--(Land *)GetLandWithLandId:(int)landId{
+-(Land *)getLandWithLandId:(int)landId{
 
-    Land * land = [self GetLandLocallyWithLandId:landId];
+    Land * land = [self getLandLocallyWithLandId:landId];
     //check for updates here
     toBeUpdatedLandID = landId;
     NSLog(@"land to be updated: %d\n",toBeUpdatedLandID);
@@ -419,7 +421,7 @@ managedObjectContext=managedObjectContext_;
     return land;
 }
 
--(Land *)GetLandLocallyWithLandId:(int)landId{
+-(Land *)getLandLocallyWithLandId:(int)landId{
     fetchedResultsControllerLand_=nil;
     landID = landId;
     NSError *error;
@@ -434,8 +436,8 @@ managedObjectContext=managedObjectContext_;
         return nil;
 }
 
--(NSDictionary *)GetLandShortsDictionary{
-    NSArray * landShortArray =[self GetLandShortArray];
+-(NSDictionary *)getLandShortsDictionary{
+    NSArray * landShortArray =[self getLandShortArray];
     int count = [landShortArray count];
     NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:count];
     if (self) {
@@ -447,8 +449,7 @@ managedObjectContext=managedObjectContext_;
     return  dict;
 }
 
-
--(NSArray*)GetLandShortArray{
+-(NSArray*)getLandShortArray{
     fetchedResultsControllerShortLands_=nil;
     NSError* error;
     if(![[self fetchedResultsControllerShortLands]performFetch:&error]){
@@ -464,8 +465,9 @@ managedObjectContext=managedObjectContext_;
     return landShortArray;
 }
 
-#pragma mark - Pllaned Visits
--(NSArray *)GetAllPlannedVisits{
+
+#pragma mark - Planned Visits
+-(NSArray *)getAllPlannedVisits{
     fetchedResultsControllerPlannedVisits_=nil;
     NSError* error;
     if(![[self fetchedResultsControllerPlannedVisits]performFetch:&error]){
@@ -474,9 +476,25 @@ managedObjectContext=managedObjectContext_;
     NSArray * results=[self.fetchedResultsControllerPlannedVisits fetchedObjects];
     return results;
 }
+-(PlannedVisit *)getNewPlannedVisit{
+    
+    NSEntityDescription *entity= [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:self.managedObjectContext];
+    PlannedVisit * aVisit = [[PlannedVisit alloc] initWithEntity:entity insertIntoManagedObjectContext: self.managedObjectContext];
+    return  aVisit;
+    
+}
+
+
+#pragma mark - Map
+-(Map *)getNewMap{
+    NSEntityDescription *entity= [NSEntityDescription entityForName:@"Map" inManagedObjectContext:self.managedObjectContext];
+    Map * aMap = [[Map alloc] initWithEntity:entity insertIntoManagedObjectContext: self.managedObjectContext];
+    return  aMap;
+
+}
 
 #pragma mark - Network data reterival
--(void) GetLandShortsFromWebService{
+-(void) getLandShortsFromWebService{
     NSString *url = @"http://localhost/~ladan/FirstNationList";
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
     dataGetter.delegate = self;
@@ -486,7 +504,7 @@ managedObjectContext=managedObjectContext_;
     [dataGetter GetResultsFromUrl:url];
 }
 
--(void) GetLandFromWebServiceWithLandId:(NSNumber *)landId{
+-(void) getLandFromWebServiceWithLandId:(NSNumber *)landId{
     //pass landID and language here:
     NSLog(@"getting land %d from web service\n", [landId intValue]);
     NSString *url = [NSString stringWithFormat:@"http://localhost/~ladan/Land%d",[landId intValue]];
@@ -499,23 +517,22 @@ managedObjectContext=managedObjectContext_;
     
 }
 
-
--(void)CheckForLandUpdatesByLandId:(NSNumber *)landId{
+-(void)checkForLandUpdatesByLandId:(NSNumber *)landId{
    if (remoteHostStatus!=NotReachable) {
     if ([updateArray count]>0 &&[updateArray containsObject:landId]) {
-        [self GetLandFromWebServiceWithLandId:landId];
+        [self getLandFromWebServiceWithLandId:landId];
         [updateArray removeObject:landId];
     }
    }
 }
 
-#pragma mark - NetworkDataGetterDelegate Methods
 
+#pragma mark - NetworkDataGetterDelegate Methods
 //this method is a delegate method which might receive a list dictionary of a single land or a dictionary of land ids as keys and landShort objects as values. main data update operation takes place here.
 -(void)DataUpdate:(id)object{
     if(!updateCheckFinished){// check for updates
         //first get the local dictionary 
-        NSDictionary * localLandShortDict= [self GetLandShortsDictionary];
+        NSDictionary * localLandShortDict= [self getLandShortsDictionary];
         //get the largest local land id 
         NSArray * localKeyArray= [[localLandShortDict allKeys] sortedArrayUsingFunction:firstNumSort context:nil];
         int localLargestID = [[localKeyArray lastObject] intValue];
@@ -551,7 +568,7 @@ managedObjectContext=managedObjectContext_;
         //apply deletes:
         if ([deleteArray count]>0) {
             for (NSNumber * n in deleteArray) {
-                Land * land = [self GetLandWithLandId:[n intValue]];
+                Land * land = [self getLandWithLandId:[n intValue]];
                 [self.managedObjectContext deleteObject:land];
             }
             
@@ -563,7 +580,7 @@ managedObjectContext=managedObjectContext_;
             }else{
                 if  ([deleteArray count]>0) {
                     [self.landShortList removeAllObjects];
-                    [self.landShortList addObjectsFromArray: [self GetLandShortArray]];
+                    [self.landShortList addObjectsFromArray: [self getLandShortArray]];
                     NSLog(@"%@",[self.landShortList description]);
                     // Broadcast a notification
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:self.landShortList]; 
@@ -575,7 +592,7 @@ managedObjectContext=managedObjectContext_;
         if ([addArray count]>0) {
             
             for (NSNumber * n in addArray){
-               [self GetLandFromWebServiceWithLandId:n];
+               [self getLandFromWebServiceWithLandId:n];
             }
             fetchedResultsControllerShortLands_ =nil;
             fetchedResultsControllerLand_ =nil;
@@ -591,7 +608,7 @@ managedObjectContext=managedObjectContext_;
 //            landIDUpdateFlag=YES;
 //        }
         //check if the land is already there and should be deleted first:
-        Land * exsistingLand= [self GetLandLocallyWithLandId:[newLand.LandID intValue]];
+        Land * exsistingLand= [self getLandLocallyWithLandId:[newLand.LandID intValue]];
         if(exsistingLand!= nil){
             NSLog(@"Updating land %d",[newLand.LandID intValue]);
             //[self.managedObjectContext deleteObject:exsistingLand];
@@ -624,6 +641,7 @@ managedObjectContext=managedObjectContext_;
 
     landID=0;
 }
+
 -(void)DataError:(NSError *)error{
     // Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
@@ -631,25 +649,25 @@ managedObjectContext=managedObjectContext_;
 	NSLog(@"%@", [error description]);
 }
 
--(void) updateManagedLand: (Land*) MLand WithWSLand:(WSLand *)webLand{
+-(void) updateManagedLand: (Land*) mLand WithWSLand:(WSLand *)webLand{
     Land * newManagedLand = [webLand ToManagedLand:self.managedObjectContext];
-    MLand.LandName =newManagedLand.LandName;
-    MLand.Shape= newManagedLand.Shape;
-    MLand.VersionIdentifier=newManagedLand.VersionIdentifier;
-    MLand.LandDescriptionFrench=newManagedLand.LandDescriptionFrench;
-    MLand.LandDescriptionEnglish = newManagedLand.LandDescriptionEnglish;
-    MLand.BoundaryE=newManagedLand.BoundaryE;
-    MLand.BoundaryN=newManagedLand.BoundaryN;
-    MLand.BoundaryS=newManagedLand.BoundaryS;
-    MLand.BoundaryW=newManagedLand.BoundaryW;
-    MLand.CenterPoint=newManagedLand.CenterPoint;
-    MLand.Coordinates=newManagedLand.Coordinates;
-    MLand.Images = nil;
-    MLand.Images = newManagedLand.Images;
-    MLand.Greetings= nil;
-    MLand.Greetings= newManagedLand.Greetings;
-    MLand.DateTo=newManagedLand.DateTo;
-    MLand.DateFrom = newManagedLand.DateFrom;
+    mLand.LandName =newManagedLand.LandName;
+    mLand.Shape= newManagedLand.Shape;
+    mLand.VersionIdentifier=newManagedLand.VersionIdentifier;
+    mLand.LandDescriptionFrench=newManagedLand.LandDescriptionFrench;
+    mLand.LandDescriptionEnglish = newManagedLand.LandDescriptionEnglish;
+    mLand.BoundaryE=newManagedLand.BoundaryE;
+    mLand.BoundaryN=newManagedLand.BoundaryN;
+    mLand.BoundaryS=newManagedLand.BoundaryS;
+    mLand.BoundaryW=newManagedLand.BoundaryW;
+    mLand.CenterPoint=newManagedLand.CenterPoint;
+    mLand.Coordinates=newManagedLand.Coordinates;
+    mLand.Images = nil;
+    mLand.Images = newManagedLand.Images;
+    mLand.Greetings= nil;
+    mLand.Greetings= newManagedLand.Greetings;
+    mLand.DateTo=newManagedLand.DateTo;
+    mLand.DateFrom = newManagedLand.DateFrom;
     [self.managedObjectContext deleteObject:newManagedLand];
     
     NSError * error;
@@ -658,7 +676,7 @@ managedObjectContext=managedObjectContext_;
    
         NSLog(@"%@",[error description]);
     } else{
-        NSLog(@"updated land %d",[MLand.LandID intValue]);
+        NSLog(@"updated land %d",[mLand.LandID intValue]);
     }      
 }
 

@@ -24,7 +24,7 @@
     curLongitude =round(lng*100000)/100000;
     
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    NSArray * fetchedEstimatedMatchingLands= [appDelegate.landGetter GetEstimatedMatchingLandsForLatitude:curLatitude andLongitude:curLongitude];
+    NSArray * fetchedEstimatedMatchingLands= [appDelegate.landGetter getEstimatedMatchingLandsForLatitude:curLatitude andLongitude:curLongitude];
 
 
     return fetchedEstimatedMatchingLands;
@@ -34,7 +34,7 @@
     curLatitude =round(lat*100000)/100000;
     curLongitude =round(lng*100000)/100000;
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    NSArray * fetchedNearbyLands = [appDelegate.landGetter GetNearbyLandsForLatitude:curLatitude andLongitude:curLongitude];
+    NSArray * fetchedNearbyLands = [appDelegate.landGetter getNearbyLandsForLatitude:curLatitude andLongitude:curLongitude];
     NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyLands count]];
     for (Land * l in  fetchedNearbyLands) {
         NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];

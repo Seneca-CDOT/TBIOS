@@ -117,7 +117,7 @@
 
 -(Land* )GetLandByLandID:(int) landID{
    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-   Land * selectedLand = [appDelegate.landGetter GetLandWithLandId:landID];
+   Land * selectedLand = [appDelegate.landGetter getLandWithLandId:landID];
     return selectedLand;
    }
 
