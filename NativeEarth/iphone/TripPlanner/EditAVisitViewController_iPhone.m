@@ -669,7 +669,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 #pragma  mark - BrowseViewController_iPhoneDelegate methods
 -(void) BrowseViewControllerDidSelectFirstNation:(LandShort *)nation{
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    Land * newLand = [appDelegate.landGetter GetLandWithLandId:[nation.landId intValue]];
+    Land * newLand = [appDelegate.landGetter getLandWithLandId:[nation.landId intValue]];
     [self.visit addLandsObject:newLand];
     [self.infoTableView reloadData];
     [self.navigationController dismissModalViewControllerAnimated:YES];

@@ -51,7 +51,7 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddNewVisit)];
     
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    plannedVisits= [appDelegate.landGetter GetAllPlannedVisits];
+    plannedVisits= [appDelegate.landGetter getAllPlannedVisits];
 }
 
 - (void)viewDidUnload
