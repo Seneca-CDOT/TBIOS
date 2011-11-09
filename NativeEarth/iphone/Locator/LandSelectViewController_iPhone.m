@@ -199,8 +199,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
             LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
             // ...
             // Pass the selected object to the new view controller.
-            selectedLand =(Land *)[(NSMutableDictionary *)[self.landArray objectAtIndex:indexPath.row] valueForKey:@"Land"];
-            //[landArray objectAtIndex:indexPath.section];    
+            selectedLand =(Land *)[(NSMutableDictionary *)[self.landArray objectAtIndex:indexPath.row] valueForKey:@"Land"];   
             //ask for the land to be updates  
             NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
             [appDelegate.landGetter setLandToBeUpdatedById:[selectedLand.LandID intValue]];

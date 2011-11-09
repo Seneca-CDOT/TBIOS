@@ -43,6 +43,7 @@
 -(IBAction)flyToPin:(id) sender;
 
 -(void)  drawOverlaysOfArray: (NSArray*)landsArray;
-
+-(UIImage*) screenshot;
+-(IBAction)takeScreenShot :(id) sender;
 @end
 
