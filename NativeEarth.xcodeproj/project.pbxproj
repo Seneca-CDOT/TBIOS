@@ -49,6 +49,8 @@
 		D7922F08146B09CA000D7344 /* Land.m in Sources */ = {isa = PBXBuildFile; fileRef = D7922F07146B09C7000D7344 /* Land.m */; };
 		D7922F0B146B09D2000D7344 /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = D7922F0A146B09CF000D7344 /* Map.m */; };
 		D7922F0D146B1712000D7344 /* NativeEarth.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = D7922F0C146B1711000D7344 /* NativeEarth.sqlite */; };
+		D7922F11146B20F5000D7344 /* ScreenShotTest.m in Sources */ = {isa = PBXBuildFile; fileRef = D7922F0F146B20F2000D7344 /* ScreenShotTest.m */; };
+		D7922F12146B20F5000D7344 /* ScreenShotTest.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7922F10146B20F4000D7344 /* ScreenShotTest.xib */; };
 		D794189E13FEFC920001CAA9 /* Land1.txt in Resources */ = {isa = PBXBuildFile; fileRef = D794189D13FEFC910001CAA9 /* Land1.txt */; };
 		D79418A113FEFC9A0001CAA9 /* Land2.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A013FEFC9A0001CAA9 /* Land2.txt */; };
 		D79418A313FEFCA20001CAA9 /* Land3.txt in Resources */ = {isa = PBXBuildFile; fileRef = D79418A213FEFCA10001CAA9 /* Land3.txt */; };
@@ -201,6 +203,9 @@
 		D7922F09146B09CD000D7344 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
 		D7922F0A146B09CF000D7344 /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
 		D7922F0C146B1711000D7344 /* NativeEarth.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = NativeEarth.sqlite; sourceTree = "<group>"; };
+		D7922F0E146B20F1000D7344 /* ScreenShotTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenShotTest.h; sourceTree = "<group>"; };
+		D7922F0F146B20F2000D7344 /* ScreenShotTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenShotTest.m; sourceTree = "<group>"; };
+		D7922F10146B20F4000D7344 /* ScreenShotTest.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenShotTest.xib; sourceTree = "<group>"; };
 		D794189D13FEFC910001CAA9 /* Land1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land1.txt; path = ../../Sites/Land1.txt; sourceTree = "<group>"; };
 		D79418A013FEFC9A0001CAA9 /* Land2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land2.txt; path = ../../Sites/Land2.txt; sourceTree = "<group>"; };
 		D79418A213FEFCA10001CAA9 /* Land3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land3.txt; path = ../../Sites/Land3.txt; sourceTree = "<group>"; };
@@ -375,6 +380,9 @@
 				D77E0E3013BCD38600A738D8 /* MapBrowserViewController_iPhone.h */,
 				D77E0E3113BCD38600A738D8 /* MapBrowserViewController_iPhone.m */,
 				D77E0E3213BCD38600A738D8 /* MapBrowserViewController_iPhone.xib */,
+				D7922F0E146B20F1000D7344 /* ScreenShotTest.h */,
+				D7922F0F146B20F2000D7344 /* ScreenShotTest.m */,
+				D7922F10146B20F4000D7344 /* ScreenShotTest.xib */,
 			);
 			name = Map;
 			sourceTree = "<group>";
@@ -819,6 +827,7 @@
 				D7922ED814686135000D7344 /* turtle2.png in Resources */,
 				D7922EDA14686B0E000D7344 /* list.png in Resources */,
 				D7922F0D146B1712000D7344 /* NativeEarth.sqlite in Resources */,
+				D7922F12146B20F5000D7344 /* ScreenShotTest.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -883,6 +892,7 @@
 				D7922F02146B0429000D7344 /* ImageToDataTransformer.m in Sources */,
 				D7922F08146B09CA000D7344 /* Land.m in Sources */,
 				D7922F0B146B09D2000D7344 /* Map.m in Sources */,
+				D7922F11146B20F5000D7344 /* ScreenShotTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
