@@ -7,8 +7,8 @@
 //
 
 #import "ScreenShotTest.h"
-
-
+#import "Land.h"
+#import "NativeEarthAppDelegate_iPhone.h"
 @implementation ScreenShotTest
 @synthesize map;
 @synthesize imageView;
@@ -45,12 +45,13 @@
     self.imageView.image= map.Image;
     
     ///work here more:
-    UIBarButtonItem * deleteButton= [[UIBarButtonItem alloc]init];
-    [deleteButton setTitle:@"Delete"];
+    UIBarButtonItem * deleteButton= [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Delete", @"Delete")  style:UIBarButtonSystemItemTrash target:self action:@selector(deleteImage:)];
     
-     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    deleteButton.enabled=YES;
 
-   
+     self.navigationItem.rightBarButtonItem = deleteButton;
+
+    self.title=NSLocalizedString(@"Saved Map", @"Saved Map");
 }
 
 - (void)viewDidUnload
@@ -59,11 +60,18 @@
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
 }
-
+-(void)viewWillDisappear:(BOOL)animated{
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.landGetter SaveData];
+}
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
-
+-(void)deleteImage:(id)sender{
+    Land * land = self.map.Land;
+    [land removeMapsObject:self.map];
+    [self.navigationController popViewControllerAnimated:YES];
+    }
 @end

@@ -219,7 +219,7 @@
 
 #pragma mark - screenshot
 -(IBAction)takeScreenShot :(id) sender{
-    UIImage * image = [self screenshot];
+    UIImage * image = [self GetMapviewImage];//[self screenshot];
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     Map * map =[appDelegate.landGetter getNewMap];
     map.Image= image;
@@ -230,6 +230,8 @@
         }
    }
 }
+
+///not used:
 -(UIImage*) screenshot{//http://developer.apple.com/library/ios/#qa/qa1703/_index.html
     // Create a graphics context with the target size
     // On iOS 4 and later, use UIGraphicsBeginImageContextWithOptions to take the scale into consideration
@@ -251,28 +253,58 @@
             // so we must first apply the layer's geometry to the graphics context
             CGContextSaveGState(context);
             // Center the context around the window's anchor point
-            CGContextTranslateCTM(context, [window center].x, [window center].y+44);
+            CGContextTranslateCTM(context, [window center].x, [window center].y);
             // Apply the window's transform about the anchor point
             CGContextConcatCTM(context, [window transform]);
             // Offset by the portion of the bounds left of and above the anchor point
             CGContextTranslateCTM(context,
                                   -[window bounds].size.width * [[window layer] anchorPoint].x,
-                                  -[window bounds].size.height-44 * [[window layer] anchorPoint].y-44);
+                                  (-[window bounds].size.height * [[window layer] anchorPoint].y)-10);
             
             // Render the layer hierarchy to the current context
             [[window layer] renderInContext:context];
             
             // Restore the context
             CGContextRestoreGState(context);
-        }
+        } 
+        //Crop image:
+    // Create rect for image
+  
     }
-    
     // Retrieve the screenshot image
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+
+    UIGraphicsEndImageContext();
+     //////Crop it:
+     CGRect rect = CGRectMake(0, 0,image.size.width , image.size.height -110);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGContextClearRect(ctx, CGRectMake(0,0, image.size.width, image.size.height));
+
     
+    // Translate to compensate for the different positions of the image
+  CGContextTranslateCTM(ctx, -((image.size.width*0.5)-(rect.size.width*0.5)),
+                         (image.size.height*0.5)-(rect.size.height*0.5));
+    
+    // Tanslate and scale upside-down to compensate for Quartz's inverted coordinate system
+    CGContextTranslateCTM(ctx, 0.0, rect.size.height);
+    CGContextScaleCTM(ctx, 1.0, -1.0);
+    
+    // Draw view into context
+    CGContextDrawImage(ctx, CGRectMake(0,0,image.size.width,image.size.height),image.CGImage);
+    
+    // Create the new UIImage from the context
+    image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    // End the drawing
     UIGraphicsEndImageContext();
     
     return image;
 }
-
+-(UIImage *)GetMapviewImage{
+    UIGraphicsBeginImageContext(self.mapView.bounds.size);
+    [self.mapView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *mapImage = UIGraphicsGetImageFromCurrentImageContext();
+    return mapImage;
+}
 @end

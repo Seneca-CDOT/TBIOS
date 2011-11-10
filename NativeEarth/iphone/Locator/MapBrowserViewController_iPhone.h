@@ -44,6 +44,7 @@
 
 -(void)  drawOverlaysOfArray: (NSArray*)landsArray;
 -(UIImage*) screenshot;
+-(UIImage *)GetMapviewImage;
 -(IBAction)takeScreenShot :(id) sender;
 @end
 

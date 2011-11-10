@@ -12,6 +12,8 @@
 @interface ScreenShotTest : UIViewController {
     
 }
+
 @property(nonatomic,retain) Map * map;
 @property(nonatomic,retain) IBOutlet UIImageView * imageView;
+-(void)deleteImage:(id)sender;
 @end
