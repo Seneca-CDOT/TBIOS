@@ -15,15 +15,18 @@
 #import "WSLand.h"
 #import "Constants.h"
 #import "Toast+UIView.h"
+#import "ScreenShotTest.h"
 typedef enum{
-    sectionHeaderTitleName,
-    sectionHeaderTitleDescription,
-    sectionHeaderTitleGreetings,
-    sectionHeaderTitleMap,
-    sectionHeaderTitleImage,
-    sectionHeaderTitleGazetter
+    rowTitleName,
+    rowTitleDescription,
+    rowTitleGreetings,
+    rowTitleMap,
+    rowTitleScreenshots,
+    rowTitleImage,
+    rowTitleGazetter,
+    rowCount
     
-} sectionHeaderTitle;
+} rowTitle;
 @implementation LocationInfoViewController_iPhone
 @synthesize selectedLand;
 @synthesize allLands;
@@ -60,25 +63,15 @@ typedef enum{
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self.selectedLand retain];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-   
+       
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
     self.view = self.tableView;
-    
- 
-  //      NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
-   //    [appDelegate.landGetter CheckForLandUpdatesByLandId:selectedLand.LandID];
-        
-   
     
 }
 
@@ -123,13 +116,12 @@ typedef enum{
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 	switch (indexPath.row) {
-        case sectionHeaderTitleName:
+        case rowTitleName:
             cell.textLabel.text=selectedLand.LandName;
             //cell.detailTextLabel.text = 
             cell.userInteractionEnabled = NO;
             break;
-        case sectionHeaderTitleDescription:
-          //  cell.textLabel.text=NSLocalizedString(@"Description",@"Description");
+        case rowTitleDescription:
             cell.detailTextLabel.numberOfLines=0;
             if ([language compare:@"fr"]==0) {
                 cell.detailTextLabel.text = selectedLand.LandDescriptionFrench;
@@ -140,7 +132,7 @@ typedef enum{
             
             
             break;
-        case sectionHeaderTitleGreetings:
+        case rowTitleGreetings:
             cell.textLabel.text=NSLocalizedString(@"Greetings",@"Greetings");
             if (((Land *)selectedLand).Greetings != nil) {
             cell.userInteractionEnabled = YES;
@@ -152,14 +144,26 @@ typedef enum{
                 cell.textLabel.alpha = 0.5;
             }
             break;
-        case sectionHeaderTitleMap:
+        case rowTitleMap:
             cell.textLabel.text=NSLocalizedString(@"Map",@"Map");
-             cell.userInteractionEnabled = YES;
+            cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
-        
             break;
-        case sectionHeaderTitleImage:
+        case rowTitleScreenshots:
+            cell.textLabel.text=NSLocalizedString(@"Saved Maps",@"Saved Maps");
+            if ([self.selectedLand.Maps count] != 0){
+                cell.userInteractionEnabled = YES; 
+                cell.textLabel.alpha = 1;
+            }
+            else{
+                cell.userInteractionEnabled=NO;
+                 cell.textLabel.alpha = 0.5;
+            }
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.alpha = 1;
+            break;
+        case rowTitleImage:
             cell.textLabel.text=NSLocalizedString(@"IMage Gallery",@"Image Gallery");
             if (([((Land *)selectedLand).Images count] >0)) {
              cell.userInteractionEnabled = YES;
@@ -171,7 +175,7 @@ typedef enum{
                 cell.textLabel.alpha = 0.5;
             }
             break;
-        case sectionHeaderTitleGazetter:
+        case rowTitleGazetter:
             cell.textLabel.text=NSLocalizedString(@"Gazetter",@"Gazetter");
             cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -189,8 +193,8 @@ typedef enum{
 }
 
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 6;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {    
+    return rowCount;
 }
 
 
@@ -231,20 +235,23 @@ typedef enum{
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
-        case 0:
+        case rowTitleName:
           break;
-        case 1:
+        case rowTitleDescription:
            break;
-        case 2:
+        case rowTitleGreetings:
             [self NavigateToGreetings];
             break;
-        case 3:
+        case rowTitleMap:
             [self NavigateToMap];
             break;
-        case 4:
+        case rowTitleScreenshots:
+            [self NavigateToScreenshot];
+            break;
+        case rowTitleImage:
             [self NavigateToImageGallery];
             break;
-        case 5:
+        case rowTitleGazetter:
             [self NavigateToGazetter];
             break;
         default:
@@ -306,6 +313,14 @@ typedef enum{
     }else{
         //alert
     }
+}
+
+-(void) NavigateToScreenshot{
+    ScreenShotTest * nextVC = [[ScreenShotTest alloc]initWithNibName:@"ScreenShotTest" bundle:nil];
+    NSArray * maps = [self.selectedLand.Maps allObjects];
+    nextVC.map=[maps objectAtIndex:0];
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
 }
 -(void) NavigateToImageGallery{
     if (self.remoteHostStatus != NotReachable) {

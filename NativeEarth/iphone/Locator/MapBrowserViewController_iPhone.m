@@ -219,10 +219,10 @@
 
 #pragma mark - screenshot
 -(IBAction)takeScreenShot :(id) sender{
-//    UIImage * image = [self screenshot];
-    
-NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    UIImage * image = [self screenshot];
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     Map * map =[appDelegate.landGetter getNewMap];
+    map.Image= image;
     for (Land* land in self.lands) {
         if(land.LandName == selectedLandName){
             [land addMapsObject:map];
@@ -251,13 +251,13 @@ NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[
             // so we must first apply the layer's geometry to the graphics context
             CGContextSaveGState(context);
             // Center the context around the window's anchor point
-            CGContextTranslateCTM(context, [window center].x, [window center].y);
+            CGContextTranslateCTM(context, [window center].x, [window center].y+44);
             // Apply the window's transform about the anchor point
             CGContextConcatCTM(context, [window transform]);
             // Offset by the portion of the bounds left of and above the anchor point
             CGContextTranslateCTM(context,
                                   -[window bounds].size.width * [[window layer] anchorPoint].x,
-                                  -[window bounds].size.height * [[window layer] anchorPoint].y);
+                                  -[window bounds].size.height-44 * [[window layer] anchorPoint].y-44);
             
             // Render the layer hierarchy to the current context
             [[window layer] renderInContext:context];
