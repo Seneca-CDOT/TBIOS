@@ -10,10 +10,10 @@
 #import "BaseViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
-#import "WSGreetings.h"
-#import "WSContent.h"
+#import "Greeting.h"
+#import "Content.h"
 @interface GreetingsViewController_iPhone : BaseViewController < AVAudioPlayerDelegate>{
-    Greetings                   *greetings;
+    NSArray                   *greetings;
     AVAudioPlayer				*appSoundPlayer;
     UILabel                     *helloLabel;
     UILabel                     *landLabel;
@@ -22,19 +22,11 @@
     UIButton                    *helloButton;
     UIButton                    *thankYouButton;
     UIButton                    *landButton;
-    NSString                    *language;
 }
-@property (nonatomic, retain)      Greetings               *greetings;
+@property (nonatomic, retain)      NSArray              *greetings;
+@property (nonatomic, retain)      NSString                  *language;
 @property (nonatomic, retain)      AVAudioPlayer             *appSoundPlayer;
-@property (nonatomic, retain)      IBOutlet UILabel          *helloLabel;
-@property (nonatomic, retain)      IBOutlet UILabel          *landLabel;
-@property (nonatomic, retain)      IBOutlet UILabel          *thankYouLabel;
-@property (nonatomic, retain)      IBOutlet UIButton         *languageButton;
-@property (nonatomic, retain)      IBOutlet UIButton         *helloButton;
-@property (nonatomic, retain)      IBOutlet UIButton         *thankYouButton;
-@property (nonatomic, retain)      IBOutlet UIButton         *landButton;
 
--(IBAction)     playHello:          (id) sender;
--(IBAction)     playThankYou:		(id) sender;
--(IBAction)     playLand:           (id) sender;
+-(IBAction)     playSound:          (id) sender;
+
 @end

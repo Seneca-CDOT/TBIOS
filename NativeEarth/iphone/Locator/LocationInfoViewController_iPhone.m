@@ -284,7 +284,8 @@ typedef enum{
 -(void) NavigateToGreetings{
     GreetingsViewController_iPhone * nextVC = [[GreetingsViewController_iPhone alloc]init];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
-    nextVC.greetings = (Greetings *)((Land *)selectedLand).Greetings;
+
+    nextVC.greetings = [(NSMutableSet *)((Land *)selectedLand).Greetings allObjects];
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;

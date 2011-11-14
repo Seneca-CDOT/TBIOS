@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "Map.h"
 
-@interface ScreenShotTest : UIViewController {
+@interface ScreenShotTest : UIViewController <UIAlertViewDelegate>{
     
 }
 

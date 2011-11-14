@@ -16,7 +16,7 @@
 //#import "WSLand.h"
 #import "Map.h"
 #import "NativeEarthAppDelegate_iPhone.h"
-
+#import "Toast+UIView.h"
 #import <QuartzCore/QuartzCore.h>
 
 @implementation MapBrowserViewController_iPhone
@@ -225,10 +225,12 @@
     map.Image= image;
     for (Land* land in self.lands) {
         if(land.LandName == selectedLandName){
-            [land addMapsObject:map];
+            [land addMapObject:map];
             [appDelegate.landGetter SaveData];
         }
    }
+    
+  [self.view makeToast:NSLocalizedString(@"        Map image is saved.         ", @"        Map image is saved.         ")                 duration:2.0  position:@"bottom"];
 }
 
 ///not used:

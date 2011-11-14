@@ -70,8 +70,20 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 -(void)deleteImage:(id)sender{
-    Land * land = self.map.Land;
-    [land removeMapsObject:self.map];
-    [self.navigationController popViewControllerAnimated:YES];
+    
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Do you want to delete the map?",@"Do you want to delete the map?") message:NSLocalizedString(@"",@"") delegate:self cancelButtonTitle:NSLocalizedString(@"No",@"No") otherButtonTitles: NSLocalizedString(@"Yes",@"Yes"),nil];
+    [alert show];
+    [alert release];
+}
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (buttonIndex == 1)//YES
+    {
+        Land * land = self.map.Land;
+        [land removeMapObject:self.map];
+        [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
 @end

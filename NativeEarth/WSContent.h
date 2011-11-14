@@ -12,6 +12,7 @@
 @interface WSContent : NSObject {
     
 }
+@property (nonatomic, retain) NSString * ArtistName;
 @property (nonatomic, retain) NSString * SynopsisEnglish;
 @property (nonatomic, retain) NSString * SynopsisFrench;
 @property (nonatomic, retain) NSString * License;

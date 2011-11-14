@@ -2,14 +2,14 @@
 //  Content.h
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-08-05.
+//  Created by Ladan Zahir on 11-11-14.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Greetings, Land;
+@class Greeting, Land;
 
 @interface Content : NSManagedObject {
 @private
@@ -21,11 +21,8 @@
 @property (nonatomic, retain) NSString * SynopsisFrench;
 @property (nonatomic, retain) NSString * SynopsisEnglish;
 @property (nonatomic, retain) NSString * MIMEType;
-@property (nonatomic, retain) Greetings * HelloContentOfGreeting;
-@property (nonatomic, retain) Land * MapOfLand;
-@property (nonatomic, retain) Greetings * ThankYouContentOfGreeting;
-@property (nonatomic, retain) Greetings * LandContentOfGreeting;
-@property (nonatomic, retain) Greetings * WelcomeContentOfGreeting;
-@property (nonatomic, retain) Land * ImageOfLand;
+@property (nonatomic, retain) NSString * ArtistName;
+@property (nonatomic, retain) Greeting * Greeting;
+@property (nonatomic, retain) Land * Land;
 
 @end

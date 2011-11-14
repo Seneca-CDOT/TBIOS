@@ -14,6 +14,7 @@
     
 }
 @property (nonatomic, retain) NSNumber * LandID;
+@property (nonatomic, retain) NSString * Language;
 @property (nonatomic, retain) NSString * LandName;
 @property (nonatomic, retain) NSString * LandDescriptionEnglish;
 @property (nonatomic, retain) NSString * LandDescriptionFrench;
@@ -28,7 +29,7 @@
 @property (nonatomic, retain) NSDate * DateTo;
 @property (nonatomic, retain) NSNumber * VersionIdentifier;
 
-@property (nonatomic, retain) WSGreetings * Greetings;
+@property (nonatomic, retain) NSMutableArray * Greetings;
 @property (nonatomic, retain) NSMutableArray * Images;
 
 -(id)initWithDictionary:(NSDictionary *)landDict;

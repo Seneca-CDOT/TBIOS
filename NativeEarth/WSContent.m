@@ -11,6 +11,7 @@
 
 @implementation WSContent
 
+@synthesize ArtistName;
 @synthesize SynopsisEnglish,SynopsisFrench;
 @synthesize License;
 @synthesize DataLocation;
@@ -20,7 +21,7 @@
 
 
 -(void)dealloc{
-    
+    [self.ArtistName release];
     [self.SynopsisEnglish release];
     [self.SynopsisFrench release];
     [self.License release];
@@ -34,6 +35,7 @@
 -(id) initWithDictionary:(NSDictionary *) contentDict{
     self=[super init];
     if (self) {
+        self.ArtistName = [[contentDict valueForKey:@"ArtistName"] description];
         self.SynopsisEnglish = [[contentDict valueForKey:@"SynopsisEnglish"] description];
         self.SynopsisFrench = [[contentDict valueForKey:@"SynopsisFrench"] description];
         self.License = [[contentDict valueForKey:@"License"] description];
@@ -48,7 +50,7 @@
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"Content" inManagedObjectContext:context];
     Content * managedContent = [[Content alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
     
-
+    managedContent.ArtistName = self.ArtistName;
     managedContent.TitleEnglish=self.TitleEnglish;
     managedContent.TitleFrench=self.TitleFrench;
     managedContent.SynopsisEnglish=self.SynopsisEnglish;

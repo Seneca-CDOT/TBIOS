@@ -10,8 +10,8 @@
 
 
 @implementation GreetingsViewController_iPhone
-@synthesize greetings,appSoundPlayer,helloLabel,landLabel,thankYouLabel;
-@synthesize languageButton, helloButton,thankYouButton,landButton;
+@synthesize greetings,appSoundPlayer;
+@synthesize language;
 
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -27,10 +27,7 @@
 {
     [self.greetings release];
     [self.appSoundPlayer release];
-    [self.helloLabel release];
-    [self.thankYouLabel release];
-    [self.landLabel release];
-    [self.languageButton release];
+    [self.language release];
     [super dealloc];
 }
 
@@ -47,47 +44,52 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-      language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
+      self.language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
           // Do any additional setup after loading the view from its nib.
-    NSString * languageBtnTitle = [NSString stringWithFormat:@"  %@: %@" , NSLocalizedString(@"Language", @"Language"),self.greetings.Language];
     
-    [self.languageButton setTitle:languageBtnTitle forState:UIControlStateNormal];
-    [self.languageButton setTitle:languageBtnTitle forState:UIControlStateHighlighted];
-    [self.languageButton setTitle:languageBtnTitle forState:UIControlStateDisabled];
-    [self.languageButton setTitle:languageBtnTitle forState:UIControlStateSelected];
-   
-    NSString *helloBtnTitle = [NSString stringWithFormat:@"  %@: ", NSLocalizedString(@"Hello", @"Hello")];
+    NSString * languageBtnTitle = [NSString stringWithFormat:@"  %@: %@" , NSLocalizedString(@"Language", @"Language"),self.language];
+    UIButton * languageBtn =[UIButton buttonWithType:UIButtonTypeRoundedRect];
     
-     [self.helloButton setTitle:helloBtnTitle forState:UIControlStateNormal];
-     [self.helloButton setTitle:helloBtnTitle forState:UIControlStateHighlighted];
-     [self.helloButton setTitle:helloBtnTitle forState:UIControlStateDisabled];
-     [self.helloButton setTitle:helloBtnTitle forState:UIControlStateSelected];
-     
-
     
-    NSString *landBtnTitle = [NSString stringWithFormat:@"  %@: ", self.greetings.LandPhrase];
-    
-    [self.landButton setTitle:landBtnTitle forState:UIControlStateNormal];
-    [self.landButton setTitle:landBtnTitle forState:UIControlStateHighlighted];
-    [self.landButton setTitle:landBtnTitle forState:UIControlStateDisabled];
-    [self.landButton setTitle:landBtnTitle forState:UIControlStateSelected];
-
-    NSString *thankYouBtnTitle = [NSString stringWithFormat:@"  %@: ", NSLocalizedString(@"Thank You", @"Thank You")];
-    
-    [self.thankYouButton setTitle:thankYouBtnTitle forState:UIControlStateNormal];
-    [self.thankYouButton setTitle:thankYouBtnTitle forState:UIControlStateHighlighted];
-    [self.thankYouButton setTitle:thankYouBtnTitle forState:UIControlStateDisabled];
-    [self.thankYouButton setTitle:thankYouBtnTitle forState:UIControlStateSelected];
-    if ([language compare:@"fr"]==0) {
-        self.thankYouLabel.text = greetings.ThankYouPronounciationFrench;
-        self.helloLabel.text = greetings.HelloPronounciationFrench;
-        self.landLabel.text = greetings.LandPronounciationFrench;
-    }else{
-    
-        self.thankYouLabel.text = greetings.ThankYouPronounciationEnglish;
-        self.helloLabel.text = greetings.HelloPronounciationEnglish;
-        self.landLabel.text = greetings.LandPronounciationEnglish;
+    [languageBtn setTitle:languageBtnTitle forState:UIControlStateNormal];
+    [languageBtn setTitle:languageBtnTitle forState:UIControlStateHighlighted];
+    [languageBtn setTitle:languageBtnTitle forState:UIControlStateDisabled];
+    [languageBtn setTitle:languageBtnTitle forState:UIControlStateSelected];
+    CGRect languageBtnRect =CGRectMake(20, 40, 100,20 );
+    [self.view addSubview:languageBtn];
+    ////
+    for (Greeting * greeting in self.greetings) {
+        //Create Phrase lable
+        
+        UILabel * phraseLable = [[UILabel alloc] init];
+        [phraseLable setText:greeting.Phrase];
+        
+        
+        //Create Pronounciation Lable
+        
+        
+        //Create Play Button
+        
+        
+        
+        
+        //Add them to view (position them properly)
+        
+        
+        
+        NSString *btnTitle = [NSString stringWithFormat:@"  %@: ", greeting.Phrase];
+        UIButton * btn =[UIButton buttonWithType:UIButtonTypeCustom];
+        [btn  setTitle:btnTitle forState:UIControlStateNormal];
+        [btn  setTitle:btnTitle forState:UIControlStateHighlighted];
+        [btn  setTitle:btnTitle forState:UIControlStateDisabled];
+        [btn  setTitle:btnTitle forState:UIControlStateSelected];
+        
+        
     }
+   
+   
+  
+    
   
     
 }
@@ -97,10 +99,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
-    self.landLabel= nil;
-    self.languageButton = nil;
-    self.thankYouLabel=nil;
-    self.helloLabel = nil;
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -136,15 +135,12 @@
     }
 }
 
--(IBAction)     playHello:          (id) sender{
-    [self playContent:(Content*)greetings.HelloContent];
+-(IBAction)     playSound:(id)sender{
+   // change later
+    int i = 1;
+    [self playContent: ((Greeting*)[greetings objectAtIndex:1]).Content];
 }
 
--(IBAction)     playLand:          (id) sender{
-    [self playContent:(Content*)greetings.LandContent];
-}
--(IBAction)     playThankYou:          (id) sender{
-    [self playContent:(Content*)greetings.ThankYouContent];
-}
+
 
 @end

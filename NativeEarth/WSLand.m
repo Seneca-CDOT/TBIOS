@@ -8,10 +8,11 @@
 
 #import "WSLand.h"
 #import "WSContent.h"
-#import "WSGreetings.h"
+#import "WSGreeting.h"
 #import "Utility.h"
 @implementation WSLand
 @synthesize BoundaryW;
+@synthesize Language;
 @synthesize LandDescriptionEnglish, LandDescriptionFrench;
 @synthesize LandName;
 @synthesize BoundaryS;
@@ -31,6 +32,7 @@
 -(void)dealloc{
     
     [self.BoundaryW release];
+    [self.Language release];
     [self.LandDescriptionEnglish release];
     [self.LandDescriptionFrench release];
     [self.LandName release];
@@ -55,6 +57,7 @@
     if (self) {
         
         self.LandName=[landDict valueForKey:@"LandName"];
+        self.Language=[landDict valueForKey:@"Language"];
         self.LandID = [NSNumber numberWithInt:[[landDict valueForKey:@"LandID"]intValue]];
         self.LandDescriptionEnglish = [landDict valueForKey:@"LandDescriptionEnglish"];
         self.LandDescriptionFrench=[landDict valueForKey:@"LandDescriptionFrench"];
@@ -63,15 +66,19 @@
         self.Shape = [landDict valueForKey:@"Shape"];
         self.CenterPoint = [landDict valueForKey:@"CenterPoint"];
         self.Coordinates = [landDict valueForKey:@"Coordinates"];
-        //self.DateFrom = [landDict valueForKey:@"DateFrom"];
+       // self.DateFrom = [landDict valueForKey:@"DateFrom"];
         //self.DateTo = [landDict valueForKey:@"DateTo"];
         self.BoundaryE= [NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryE"]doubleValue]];
         self.BoundaryN=[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryN"]doubleValue]];
         self.BoundaryS = [NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryS"]doubleValue]];
         self.BoundaryW =[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryW"]doubleValue]];
         
-        NSDictionary * greetings = [landDict valueForKey:@"Greetings"];
-        self.Greetings =[[WSGreetings alloc] initWithDictionary:greetings];
+        NSArray* greetings = [landDict valueForKey:@"Greetings"];
+        self.Greetings =[[NSMutableArray alloc] initWithCapacity:[greetings count]];
+        for (NSDictionary * dict in greetings) {
+            [self.Greetings addObject:[[WSGreeting alloc] initWithDictionary:dict]];
+        }
+        
         NSArray *images = [landDict valueForKey:@"Images"];
         self.Images = [[NSMutableArray alloc] initWithCapacity:[images count]];
         for (NSDictionary * dict in images) {
@@ -89,6 +96,7 @@
     Land * managedLand = [[Land alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
     
     managedLand.LandName= self.LandName;
+   // managedLand.Language= self.Language;
     managedLand.LandID= self.LandID;
     managedLand.LandDescriptionEnglish=self.LandDescriptionEnglish;
     managedLand.LandDescriptionFrench=self.LandDescriptionFrench;
@@ -112,7 +120,11 @@
     managedLand.BoundaryS=south;
     managedLand.BoundaryW=west;
     
-    managedLand.Greetings= [self.Greetings ToManagedGreetings:context];
+    NSMutableSet * greetingSet = [[NSMutableSet alloc] init];
+    for (WSGreeting * greeting in self.Greetings) {
+        [greetingSet addObject:[greeting ToManagedGreeting:context]];
+    }
+    managedLand.Greetings= greetingSet;
    
     NSMutableSet * imageSet= [[NSMutableSet alloc] init];
     for (WSContent* image in  self.Images) {

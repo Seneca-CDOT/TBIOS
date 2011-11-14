@@ -2,12 +2,12 @@
 //  Content.m
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-08-05.
+//  Created by Ladan Zahir on 11-11-14.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
 #import "Content.h"
-#import "Greetings.h"
+#import "Greeting.h"
 #import "Land.h"
 
 
@@ -19,16 +19,9 @@
 @dynamic SynopsisFrench;
 @dynamic SynopsisEnglish;
 @dynamic MIMEType;
-@dynamic HelloContentOfGreeting;
-@dynamic MapOfLand;
-@dynamic ThankYouContentOfGreeting;
-@dynamic LandContentOfGreeting;
-@dynamic WelcomeContentOfGreeting;
-@dynamic ImageOfLand;
-
-
-
-
+@dynamic ArtistName;
+@dynamic Greeting;
+@dynamic Land;
 
 
 
