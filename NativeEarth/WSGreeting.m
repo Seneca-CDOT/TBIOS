@@ -44,7 +44,7 @@
 
 }
 -(Greeting*) ToManagedGreeting:(NSManagedObjectContext*) context{
-    NSEntityDescription *entity= [NSEntityDescription entityForName:@"Greetings" inManagedObjectContext:context];
+    NSEntityDescription *entity= [NSEntityDescription entityForName:@"Greeting" inManagedObjectContext:context];
     Greeting * managedGreeting = [[Greeting alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
 
     managedGreeting.Language=self.Language;
