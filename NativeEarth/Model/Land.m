@@ -17,6 +17,7 @@
 @dynamic BoundaryN;
 @dynamic LandDescriptionEnglish;
 @dynamic LandName;
+@dynamic Language;
 @dynamic BoundaryE;
 @dynamic Shape;
 @dynamic LandDescriptionFrench;
