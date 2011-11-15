@@ -292,6 +292,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] init];
     nextVC.visit = self.visit;
     nextVC.title=NSLocalizedString(@"Edit Visit",@"Edit Visit");
+    
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }

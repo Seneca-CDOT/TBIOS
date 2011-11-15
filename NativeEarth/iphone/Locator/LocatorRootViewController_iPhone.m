@@ -212,19 +212,6 @@
 #pragma  mark - LocationDetectorDelegate
 -(void) LandUpdate:(NSArray *)lands{
     
-//    if ([lands count]==1) { 
-//        LocationInfoViewController_iPhone * nextVC = [[LocationInfoViewController_iPhone alloc]init];
-//        nextVC.remoteHostStatus = self.remoteHostStatus;
-//        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-//        nextVC.internetConnectionStatus = self.internetConnectionStatus;
-//        nextVC.managedObjectContext = self.managedObjectContext;
-//        nextVC.selectedLand = [lands objectAtIndex:0];
-//        nextVC.allLands=lands;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//        [nextVC release];
-//
-//    }else{
-    
     LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStylePlain];
     
     nextVC.remoteHostStatus = self.remoteHostStatus;
@@ -234,11 +221,11 @@
     nextVC.landArray=[NSMutableArray arrayWithArray: lands];
     nextVC.originTitle = NSLocalizedString(@"You are here!", @"You are here!");
     nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
-        nextVC.originLocation = currentlocation;
-    
+    nextVC.originLocation = currentlocation;
+    nextVC.showOrigin=NO;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
-//    }
+
 }
 -(void) LocationError:(NSError *)error{
     NSLog(@"%@",[error description]);
