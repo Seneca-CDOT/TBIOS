@@ -22,12 +22,10 @@
 @dynamic Shape;
 @dynamic LandDescriptionFrench;
 @dynamic BoundaryS;
-@dynamic DateFrom;
 @dynamic Coordinates;
 @dynamic VersionIdentifier;
 @dynamic CenterPoint;
 @dynamic BoundaryW;
-@dynamic DateTo;
 @dynamic LandID;
 @dynamic Maps;
 @dynamic Greetings;

@@ -17,16 +17,15 @@
 @property (nonatomic, retain) NSNumber * BoundaryN;
 @property (nonatomic, retain) NSString * LandDescriptionEnglish;
 @property (nonatomic, retain) NSString * LandName;
+@property (nonatomic, retain) NSString * Language;
 @property (nonatomic, retain) NSNumber * BoundaryE;
 @property (nonatomic, retain) NSString * Shape;
 @property (nonatomic, retain) NSString * LandDescriptionFrench;
 @property (nonatomic, retain) NSNumber * BoundaryS;
-@property (nonatomic, retain) NSDate * DateFrom;
 @property (nonatomic, retain) NSString * Coordinates;
 @property (nonatomic, retain) NSNumber * VersionIdentifier;
 @property (nonatomic, retain) NSString * CenterPoint;
 @property (nonatomic, retain) NSNumber * BoundaryW;
-@property (nonatomic, retain) NSDate * DateTo;
 @property (nonatomic, retain) NSNumber * LandID;
 @property (nonatomic, retain) NSSet* Maps;
 @property (nonatomic, retain) NSSet* Greetings;
