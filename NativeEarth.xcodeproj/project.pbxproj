@@ -21,7 +21,6 @@
 		D7592EAF13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */; };
 		D75F6A1D13E88623001E6509 /* Land0.txt in Resources */ = {isa = PBXBuildFile; fileRef = D75F6A1C13E88622001E6509 /* Land0.txt */; };
 		D77E0E1013BCC34300A738D8 /* LocationInfoViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */; };
-		D77E0E1A13BCC9CD00A738D8 /* GreetingsViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E1813BCC9CD00A738D8 /* GreetingsViewController_iPhone.m */; };
 		D77E0E1F13BCCADB00A738D8 /* GazetterViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E1D13BCCADB00A738D8 /* GazetterViewController_iPhone.m */; };
 		D77E0E2013BCCADB00A738D8 /* GazetterViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77E0E1E13BCCADB00A738D8 /* GazetterViewController_iPhone.xib */; };
 		D77E0E3313BCD38600A738D8 /* MapBrowserViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E3113BCD38600A738D8 /* MapBrowserViewController_iPhone.m */; };
@@ -39,6 +38,7 @@
 		D78D04B013E1D72200C04A5E /* WSLand.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04AF13E1D72200C04A5E /* WSLand.m */; };
 		D78D04B313E1D92200C04A5E /* WSGreeting.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B213E1D92100C04A5E /* WSGreeting.m */; };
 		D78D04B613E1DB6D00C04A5E /* WSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B513E1DB6A00C04A5E /* WSContent.m */; };
+		D78E16D51472C64A00ED49E4 /* GreetingsViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78E16D41472C64A00ED49E4 /* GreetingsViewController_iPhone.m */; };
 		D7922ED814686135000D7344 /* turtle2.png in Resources */ = {isa = PBXBuildFile; fileRef = D7922ED714686135000D7344 /* turtle2.png */; };
 		D7922EDA14686B0E000D7344 /* list.png in Resources */ = {isa = PBXBuildFile; fileRef = D7922ED914686B0E000D7344 /* list.png */; };
 		D7922F02146B0429000D7344 /* ImageToDataTransformer.m in Sources */ = {isa = PBXBuildFile; fileRef = D7922F01146B0426000D7344 /* ImageToDataTransformer.m */; };
@@ -156,8 +156,6 @@
 		D75F6A1C13E88622001E6509 /* Land0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land0.txt; path = ../../Sites/Land0.txt; sourceTree = "<group>"; };
 		D77E0E0E13BCC34300A738D8 /* LocationInfoViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationInfoViewController_iPhone.h; sourceTree = "<group>"; };
 		D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationInfoViewController_iPhone.m; sourceTree = "<group>"; };
-		D77E0E1713BCC9CD00A738D8 /* GreetingsViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreetingsViewController_iPhone.h; sourceTree = "<group>"; };
-		D77E0E1813BCC9CD00A738D8 /* GreetingsViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreetingsViewController_iPhone.m; sourceTree = "<group>"; };
 		D77E0E1C13BCCADB00A738D8 /* GazetterViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GazetterViewController_iPhone.h; sourceTree = "<group>"; };
 		D77E0E1D13BCCADB00A738D8 /* GazetterViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GazetterViewController_iPhone.m; sourceTree = "<group>"; };
 		D77E0E1E13BCCADB00A738D8 /* GazetterViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GazetterViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -186,6 +184,8 @@
 		D78D04B413E1DB6900C04A5E /* WSContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSContent.h; sourceTree = "<group>"; };
 		D78D04B513E1DB6A00C04A5E /* WSContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSContent.m; sourceTree = "<group>"; };
 		D78D04B713E1F78400C04A5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D78E16D31472C64A00ED49E4 /* GreetingsViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreetingsViewController_iPhone.h; sourceTree = "<group>"; };
+		D78E16D41472C64A00ED49E4 /* GreetingsViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreetingsViewController_iPhone.m; sourceTree = "<group>"; };
 		D7922ED714686135000D7344 /* turtle2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = turtle2.png; sourceTree = SOURCE_ROOT; };
 		D7922ED914686B0E000D7344 /* list.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = list.png; sourceTree = SOURCE_ROOT; };
 		D7922F00146B0424000D7344 /* ImageToDataTransformer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageToDataTransformer.h; sourceTree = "<group>"; };
@@ -389,14 +389,14 @@
 		D77E0E2F13BCCE3E00A738D8 /* Results */ = {
 			isa = PBXGroup;
 			children = (
-				D77E0E1713BCC9CD00A738D8 /* GreetingsViewController_iPhone.h */,
-				D77E0E1813BCC9CD00A738D8 /* GreetingsViewController_iPhone.m */,
 				D77E0E1C13BCCADB00A738D8 /* GazetterViewController_iPhone.h */,
 				D77E0E1D13BCCADB00A738D8 /* GazetterViewController_iPhone.m */,
 				D77E0E1E13BCCADB00A738D8 /* GazetterViewController_iPhone.xib */,
 				D77E0E6113BCFAAB00A738D8 /* ImageBrowser_iPhone.h */,
 				D77E0E6213BCFAAD00A738D8 /* ImageBrowser_iPhone.m */,
 				D77E0E6313BCFAB000A738D8 /* ImageBrowser_iPhone.xib */,
+				D78E16D31472C64A00ED49E4 /* GreetingsViewController_iPhone.h */,
+				D78E16D41472C64A00ED49E4 /* GreetingsViewController_iPhone.m */,
 			);
 			name = Results;
 			path = iphone/Locator;
@@ -859,7 +859,6 @@
 				D7592EAF13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m in Sources */,
 				D783B42613BCBD4300A5C05F /* BaseTableViewController.m in Sources */,
 				D77E0E1013BCC34300A738D8 /* LocationInfoViewController_iPhone.m in Sources */,
-				D77E0E1A13BCC9CD00A738D8 /* GreetingsViewController_iPhone.m in Sources */,
 				D77E0E1F13BCCADB00A738D8 /* GazetterViewController_iPhone.m in Sources */,
 				D77E0E3313BCD38600A738D8 /* MapBrowserViewController_iPhone.m in Sources */,
 				D77E0E6413BCFAB400A738D8 /* ImageBrowser_iPhone.m in Sources */,
@@ -890,6 +889,7 @@
 				D7D86AF514718ECC0009837F /* Map.m in Sources */,
 				D7D86AF814718ECC0009837F /* PlannedVisit.m in Sources */,
 				D7D86AFB14718ECC0009837F /* Greeting.m in Sources */,
+				D78E16D51472C64A00ED49E4 /* GreetingsViewController_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
