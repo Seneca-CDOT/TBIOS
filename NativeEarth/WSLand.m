@@ -20,8 +20,6 @@
 @synthesize BoundaryN;
 @synthesize Coordinates;
 @synthesize CenterPoint;
-@synthesize DateFrom;
-@synthesize DateTo;
 @synthesize BoundaryE;
 @synthesize LandID;
 @synthesize VersionIdentifier;
@@ -41,8 +39,6 @@
     [self.BoundaryN release];
     [self.Coordinates release];
     [self.CenterPoint release];
-    [self.DateFrom release];
-    [self.DateTo release];
     [self.BoundaryE release];
     [self.LandID release];
     [self.VersionIdentifier release];
@@ -96,7 +92,7 @@
     Land * managedLand = [[Land alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
     
     managedLand.LandName= self.LandName;
-   // managedLand.Language= self.Language;
+    managedLand.Language= self.Language;
     managedLand.LandID= self.LandID;
     managedLand.LandDescriptionEnglish=self.LandDescriptionEnglish;
     managedLand.LandDescriptionFrench=self.LandDescriptionFrench;
@@ -104,8 +100,7 @@
     managedLand.Shape= self.Shape;
     managedLand.CenterPoint=self.CenterPoint;
     managedLand.Coordinates=self.Coordinates;
-    managedLand.DateFrom=self.DateFrom;
-    managedLand.DateTo= self.DateTo;
+   
     
     NSDictionary * rectInfo = [Utility findOuterRectInfoForPolygonWithCoordinatesString:self.Coordinates];
     NSNumber* north = [rectInfo objectForKey:@"NORTH"];

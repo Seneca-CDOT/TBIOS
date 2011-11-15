@@ -25,8 +25,6 @@
 @property (nonatomic, retain) NSNumber * BoundaryW;
 @property (nonatomic, retain) NSString * Coordinates;
 @property (nonatomic, retain) NSString * CenterPoint;
-@property (nonatomic, retain) NSDate * DateFrom;
-@property (nonatomic, retain) NSDate * DateTo;
 @property (nonatomic, retain) NSNumber * VersionIdentifier;
 
 @property (nonatomic, retain) NSMutableArray * Greetings;
