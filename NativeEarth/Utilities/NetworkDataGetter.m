@@ -28,6 +28,9 @@
     
     // Create a request
 	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+    NSMutableURLRequest *foo = [[NSMutableURLRequest alloc] init];
+    [foo setHTTPMethod:@"POST"];
+    
 	
 	// Create a connection
 	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];

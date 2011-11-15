@@ -657,6 +657,7 @@ managedObjectContext=managedObjectContext_;
     mLand.LandDescriptionFrench=newManagedLand.LandDescriptionFrench;
     mLand.LandDescriptionEnglish = newManagedLand.LandDescriptionEnglish;
     mLand.BoundaryE=newManagedLand.BoundaryE;
+    mLand.Language= newManagedLand.Language;
     mLand.BoundaryN=newManagedLand.BoundaryN;
     mLand.BoundaryS=newManagedLand.BoundaryS;
     mLand.BoundaryW=newManagedLand.BoundaryW;
@@ -666,8 +667,6 @@ managedObjectContext=managedObjectContext_;
     mLand.Images = newManagedLand.Images;
     mLand.Greetings= nil;
     mLand.Greetings= newManagedLand.Greetings;
-    mLand.DateTo=newManagedLand.DateTo;
-    mLand.DateFrom = newManagedLand.DateFrom;
     [self.managedObjectContext deleteObject:newManagedLand];
     
     NSError * error;

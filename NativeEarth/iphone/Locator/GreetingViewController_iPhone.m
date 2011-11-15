@@ -1,16 +1,18 @@
 //
-//  GreetingsViewController_iPhone.m
+//  GreetingViewController.m
 //  NativeEarth
 //
 //  Created by Ladan Zahir on 11-11-15.
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "GreetingsViewController_iPhone.h"
+#import "GreetingViewController_iPhone.h"
 
 
-@implementation GreetingsViewController_iPhone
-@synthesize greetings, language, appSoundPlayer;
+@implementation GreetingViewController_iPhone
+@synthesize language, greetings;
+@synthesize  appSoundPlayer;
+@synthesize btnLanguage;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -22,8 +24,9 @@
 
 - (void)dealloc
 {
-    [self.greetings release];
+    [self.btnLanguage release];
     [self.appSoundPlayer release];
+    [self.greetings release];
     [self.language release];
     [super dealloc];
 }
@@ -38,24 +41,20 @@
 
 #pragma mark - View lifecycle
 
-
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
+   locale = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     // Do any additional setup after loading the view from its nib.
     
-    NSString * languageBtnTitle = [NSString stringWithFormat:@"  %@: %@" , NSLocalizedString(@"Language", @"Language"),self.language];
-    UIButton * languageBtn =[UIButton buttonWithType:UIButtonTypeRoundedRect];
+    NSString * btnLanguageTitle = [NSString stringWithFormat:@"  %@: %@" , NSLocalizedString(@"Language", @"Language"),self.language];
+        
+    [btnLanguage setTitle:btnLanguageTitle forState:UIControlStateNormal];
+    [btnLanguage setTitle:btnLanguageTitle forState:UIControlStateHighlighted];
+    [btnLanguage setTitle:btnLanguageTitle forState:UIControlStateDisabled];
+    [btnLanguage setTitle:btnLanguageTitle forState:UIControlStateSelected];
     
-    
-    [languageBtn setTitle:languageBtnTitle forState:UIControlStateNormal];
-    [languageBtn setTitle:languageBtnTitle forState:UIControlStateHighlighted];
-    [languageBtn setTitle:languageBtnTitle forState:UIControlStateDisabled];
-    [languageBtn setTitle:languageBtnTitle forState:UIControlStateSelected];
- //   CGRect languageBtnRect =CGRectMake(20, 40, 100,20 );
-    [self.view addSubview:languageBtn];
+
     ////
     for (Greeting * greeting in self.greetings) {
         //Create Phrase lable
@@ -84,12 +83,9 @@
         [btn  setTitle:btnTitle forState:UIControlStateSelected];
         
         
-    }
-    
-    
-    
-    
-    
+   }
+
+ 
     
 }
 
@@ -99,6 +95,7 @@
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+    self.btnLanguage=nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -107,8 +104,7 @@
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
 
-#pragma mark -  Sound player methods
-
+#pragma mark - Soundplayer Methods
 - (void) playContent:(Content *)content {
 	
     if (self.remoteHostStatus!=NotReachable) {
@@ -129,16 +125,18 @@
         //		starts quickly when the user taps Play
         [appSoundPlayer prepareToPlay];
         //[appSoundPlayer setVolume: 1.0];
-        [appSoundPlayer setDelegate: self];
+       // [appSoundPlayer setDelegate: self];
         [appSoundPlayer play];
     }else{
         //allert
     }
 }
 
--(void)  playSound:(id)sender{
+-(void)playSound:(id)sender{
     // change later
     int i = 1;
-    [self playContent: ((Greeting*)[self.greetings objectAtIndex:1]).Content];
+    [self playContent: ((Greeting*)[greetings objectAtIndex:i]).Content];
 }
+
+
 @end

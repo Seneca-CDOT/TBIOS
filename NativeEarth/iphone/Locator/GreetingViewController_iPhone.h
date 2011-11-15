@@ -1,5 +1,5 @@
 //
-//  GreetingsViewController_iPhone.h
+//  GreetingViewController.h
 //  NativeEarth
 //
 //  Created by Ladan Zahir on 11-11-15.
@@ -12,16 +12,14 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "Greeting.h"
 #import "Content.h"
-@interface GreetingsViewController_iPhone : BaseViewController {
-    
-    AVAudioPlayer				*appSoundPlayer;
+@interface GreetingViewController_iPhone : BaseViewController {
+    NSString             *locale;
 
 }
 @property (nonatomic, retain)      NSArray              *greetings;
-@property (nonatomic, retain)      NSString                  *language;
-@property (nonatomic, retain)      AVAudioPlayer             *appSoundPlayer;
-
--(IBAction)     playSound:          (id) sender;
-
+@property (nonatomic, retain)      NSString             *language;
+@property (nonatomic, retain)      AVAudioPlayer        *appSoundPlayer;
+@property (nonatomic, retain)      IBOutlet UIButton    *btnLanguage;
+-(void) playSound:(id) sender;
 
 @end

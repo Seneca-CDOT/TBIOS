@@ -299,6 +299,7 @@
     if ( (r >= 0) && (r <= 1) )
     {
         distanceFromSegment = distanceFromLine;
+        //fix here
     }
     else
     {
@@ -322,6 +323,8 @@
         
         
     }
+    
+//    return [self KilometerDistanceOfPointAWithLat:cx andLng:cy fromPointBWithLat:px andLng:py];
     
     return distanceFromSegment;
 }
