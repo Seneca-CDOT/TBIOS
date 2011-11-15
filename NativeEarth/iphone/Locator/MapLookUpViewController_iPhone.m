@@ -234,22 +234,10 @@
         CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);
         nextVC.originLocation = origin;
         nextVC.originTitle = pinLocationTitle;
+        nextVC.showOrigin=YES;
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release];
     }
-//    else if ([landArray count]>=1){
-//        LocationInfoViewController_iPhone * nextVC = [[LocationInfoViewController_iPhone alloc]init];
-//        nextVC.remoteHostStatus = self.remoteHostStatus;
-//        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-//        nextVC.internetConnectionStatus = self.internetConnectionStatus;
-//        nextVC.managedObjectContext = self.managedObjectContext;
-//        nextVC.selectedLand = [landArray objectAtIndex:0];
-//        nextVC.allLands=landArray;
-//        CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);
-//        nextVC.originLocation = origin;
-//        [self.navigationController pushViewController:nextVC animated:YES];
-//        [nextVC release];
-//    }
     
 }
    

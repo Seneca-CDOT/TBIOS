@@ -32,6 +32,7 @@ NSInteger landDictSort(id landDict1, id landDict2, void *context) {
 @synthesize originLocation;
 @synthesize originTitle;
 @synthesize nearbyLands;
+@synthesize showOrigin;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -217,6 +218,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
                 [allLands addObject:land];
             } 
             nextVC.allLands = allLands;
+            nextVC.showOrigin= self.showOrigin;
             [self.navigationController pushViewController:nextVC animated:YES];
             [nextVC release];
         }
@@ -245,6 +247,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
                 [allLands addObject:land];
             } 
             nextVC.allLands = allLands;
+            nextVC.showOrigin =self.showOrigin;
             [self.navigationController pushViewController:nextVC animated:YES];
             [nextVC release];
         }

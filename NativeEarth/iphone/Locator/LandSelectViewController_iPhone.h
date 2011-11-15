@@ -17,6 +17,7 @@
     NSString * originTitle;
     
 }
+@property (nonatomic)           BOOL showOrigin;
 @property (nonatomic, retain) NSMutableArray* landArray;
 @property (nonatomic, retain) NSArray* nearbyLands;
 @property (nonatomic) CLLocationCoordinate2D  originLocation;

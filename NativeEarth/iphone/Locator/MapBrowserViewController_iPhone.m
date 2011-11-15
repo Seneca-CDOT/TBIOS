@@ -112,7 +112,6 @@
            DistrictCenterAnnotation * annotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:centreCoordinates[0].latitude andLongitude:centreCoordinates[0].longitude]autorelease];
            
            annotation.title = land.LandName;
-           annotation.subTitle= [land.DateFrom description];
            [annotations addObject:annotation];
        } 
     }

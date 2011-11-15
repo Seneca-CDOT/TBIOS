@@ -8,7 +8,7 @@
 
 #import "LocationInfoViewController_iPhone.h"
 #import "NativeEarthAppDelegate_iPhone.h"
-#import "GreetingsViewController_iPhone.h"
+#import "GreetingViewController_iPhone.h"
 #import "GazetterViewController_iPhone.h"
 #import "ImageBrowser_iPhone.h"
 #import "MapBrowserViewController_iPhone.h"
@@ -282,9 +282,9 @@ typedef enum{
 
 
 -(void) NavigateToGreetings{
-    GreetingsViewController_iPhone * nextVC = [[GreetingsViewController_iPhone alloc]init];
+    GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]init];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
-
+//nextVC.language = 
     nextVC.greetings = [(NSMutableSet *)((Land *)selectedLand).Greetings allObjects];
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
