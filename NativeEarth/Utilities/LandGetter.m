@@ -174,6 +174,7 @@ managedObjectContext=managedObjectContext_;
     return fetchedResultsControllerShortLands_;
 }
 
+// tends to get matching lands but includes the lands that could circle around the coordinate
 -(NSFetchedResultsController *) fetchedResultsControllerLandsForCoordinate{
     if(fetchedResultsControllerLandsForCoordinate_ !=nil){
         return  fetchedResultsControllerLandsForCoordinate_;
@@ -234,13 +235,9 @@ managedObjectContext=managedObjectContext_;
     
     [fetchedRequest setSortDescriptors:sortDescriptors];
     
-  // set predicate
-  //  (((MinLat<BoudaryN)&&(BoudaryN<MaxLat))||((MinLat<BoudaryS)&&(BoudaryS<MaxLat)) ||((BoundaryN>MaxLat)&&(BoundaryS<MinLat)))
-  //  &&
-  //  (((MinLng<BoudaryE)&&(BoudaryE<MaxLng))||((MinLng<BoudaryW)&&(BoudaryW<MaxLng))||((BoundaryE>MaxLng)&&(BoundaryW<MinLng)))
-
+  
     
-  //                                                  "(((MinLat<=BoudaryN)AND(BoudaryN<=MaxLat))OR((MinLat<=BoudaryS)AND(BoudaryS<=MaxLat)) OR ((BoundaryN>=MaxLat)AND(BoundaryS<=MinLat)))AND(((MinLng<=BoudaryE)AND(BoudaryE<=MaxLng))OR((MinLng<=BoudaryW)AND(BoudaryW<=MaxLng))OR((BoundaryE>=MaxLng)AND(BoundaryW<=MinLng)))"
+  //  "(((MinLat<=BoudaryN)AND(BoudaryN<=MaxLat))OR((MinLat<=BoudaryS)AND(BoudaryS<=MaxLat)) OR ((BoundaryN>=MaxLat)AND(BoundaryS<=MinLat)))AND(((MinLng<=BoudaryE)AND(BoudaryE<=MaxLng))OR((MinLng<=BoudaryW)AND(BoudaryW<=MaxLng))OR((BoundaryE>=MaxLng)AND(BoundaryW<=MinLng)))"
     //, MinLat,MaxLat,MinLat,MaxLat,MaxLat,MinLat,MinLng,MaxLng,MinLng,MaxLng,MaxLng,MinLng
     
 
