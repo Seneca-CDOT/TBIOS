@@ -150,18 +150,19 @@
     
         bool firstTime = YES;
         for (int i=0; i<[coordinates count]-1; i++) {
-//            CLLocationDegrees alng=[[coordinates objectAtIndex:i] coordinate].longitude;
-//            CLLocationDegrees alat=[[coordinates objectAtIndex:i] coordinate].latitude;
-//            CLLocationDegrees blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
-//            CLLocationDegrees blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
+           CLLocationDegrees alng=[[coordinates objectAtIndex:i] coordinate].longitude;
+           CLLocationDegrees alat=[[coordinates objectAtIndex:i] coordinate].latitude;
+           CLLocationDegrees blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
+            CLLocationDegrees blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
       
             CLLocation * loc  = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
             CLLocation * locA = [coordinates objectAtIndex:i];
             CLLocation * locB = [coordinates objectAtIndex:i+1];
             
             CLLocationDistance dist ;
-            //dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
-            dist = [loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
+           // dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
+            dist = [self RevisedDistanceOfPointC:loc FromLineWithPointA:locA AndPointB:locB];
+           // dist = [loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
             if (firstTime) {
                 distance=dist;
                 firstTime=NO;
@@ -396,23 +397,23 @@
     
     double r_numerator = (cx-ax)*(bx-ax) + (cy-ay)*(by-ay);
     
-    double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);//[A distanceFromLocation:B]* [A distanceFromLocation:B];
+    double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);
     
     double r = r_numerator / r_denomenator;
     //
     //perpendicular coordinates
-    double px = ax + r*(bx-ax);//lngp
-    double py = ay + r*(by-ay);//latp
+ //   double px = ax + r*(bx-ax);//lngp
+ //   double py = ay + r*(by-ay);//latp
     //    
-    double s =  ((ay-cy)*(bx-ax)-(ax-cx)*(by-ay) ) / r_denomenator;
+ //   double s =  ((ay-cy)*(bx-ax)-(ax-cx)*(by-ay) )/r_denomenator;
     
-    distanceFromLine = fabs(s)*sqrt(r_denomenator);
+  //  distanceFromLine = fabs(s)*sqrt(r_denomenator);
     
     //
     // (xx,yy) is the point on the lineSegment closest to (cx,cy)
     //
-    double xx = px;
-    double yy = py;
+ //   double xx = px;
+ //   double yy = py;
     
     if ( (r >= 0) && (r <= 1) )
     {
@@ -428,18 +429,18 @@
         double dist1 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:ay andLng:ax];//(cx-ax)*(cx-ax) + (cy-ay)*(cy-ay);
         
         //distance between c and b
-        double dist2 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:ay andLng:ax];//(cx-bx)*(cx-bx) + (cy-by)*(cy-by);
+        double dist2 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:by andLng:bx];//(cx-bx)*(cx-bx) + (cy-by)*(cy-by);
         if (dist1 < dist2)
         {
-            xx = ax;
-            yy = ay;
-            distanceFromSegment = sqrt(dist1);
+         //   xx = ax;
+          //  yy = ay;
+            distanceFromSegment = dist1;//sqrt(dist1);
         }
         else
         {
-            xx = bx;
-            yy = by;
-            distanceFromSegment = sqrt(dist2);
+        //    xx = bx;
+        //    yy = by;
+            distanceFromSegment =dist2; //sqrt(dist2);
         }
         
         
