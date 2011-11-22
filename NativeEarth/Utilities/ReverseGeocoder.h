@@ -29,5 +29,5 @@
 -(double) DistanceOfPointCWithCLat: (double) cy AndCLng:(double) cx FromLineWithPointALat:(double) ay AndPointALng:(double) ax AndPointBLat:(double) by AndPointBLng:(double)bx;
 -(double)KilometerDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB;
 -(double)DistanceOfPointCWithCLat:(double)cy AndCLng:(double)cx FromPolygonWithCoordinates:(NSArray *)coordinates;
-
+-(double) RevisedDistanceOfPointC:(CLLocation*) C FromLineWithPointA:(CLLocation *) A AndPointB:(CLLocation*)B;
 @end
