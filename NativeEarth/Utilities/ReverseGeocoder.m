@@ -10,6 +10,7 @@
 #import "Land.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #import <math.h>
+#import "Utility+CLLocation.h"
 @implementation ReverseGeocoder
 @synthesize mapView;
 
@@ -38,7 +39,7 @@
     NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyLands count]];
     for (Land * l in  fetchedNearbyLands) {
         NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
-        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:l.Coordinates]];
+        CLLocationDistance distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:l.Coordinates]];
         [dict setValue:l forKey:@"Land"];
         [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
     
@@ -60,7 +61,7 @@
     NSMutableArray* lands= [[NSMutableArray alloc] init];
     
     for (Land  * land in nearByLands) {
-         NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:[[land valueForKey:@"Coordinates"]description]];
+         NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:land.Coordinates];
        
         if([self PointWithLatitude: lat AndLongitude: lng BelongsToPolygonWithCoordinates:coordinates]){
             [lands addObject:land];   
@@ -76,11 +77,12 @@
     
 
     
-    if ([self PointWithLatitude:lat AndLongitude:lng IsAVerticeOfPolygonWithCoordinates:coordinates]) {
-        return  YES;
-    }else if([self PointWithLatitude:lat AndLongitude:lng IsOnASideOfMultyLineWithCoordinates:coordinates]){
-        return  YES;
-    }else{
+    if ([self PointWithLatitude:lat AndLongitude:lng IsAVerticeOfPolygonWithCoordinates:coordinates]) 
+    return  YES;
+    
+    if([self PointWithLatitude:lat AndLongitude:lng IsOnASideOfMultyLineWithCoordinates:coordinates])
+    return  YES;
+    
     int N = [coordinates count] -1;//Number Of Vertices
     
     int counter = 0;
@@ -111,7 +113,7 @@
         return NO;
     else
         return YES;
-    }
+    
     
 }
 
@@ -119,22 +121,18 @@
     BOOL rv= NO;
     
     for (int i=0; i<[coordinates count]-1; i++) {
-        double alng= [[coordinates objectAtIndex:i] coordinate].longitude;
-        double alat=[[coordinates objectAtIndex:i] coordinate].latitude;
-        double blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
-        double blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
+       // CLLocationDegrees alng= [[coordinates objectAtIndex:i] coordinate].longitude;
+       // CLLocationDegrees alat=[[coordinates objectAtIndex:i] coordinate].latitude;
+       // CLLocationDegrees blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
+       // CLLocationDegrees blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
       
+        CLLocation * loc  = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+        CLLocation * locA = [coordinates objectAtIndex:i] ;
+        CLLocation * locB = [coordinates objectAtIndex:i+1];
         
-//        CLLocationCoordinate2D coorda;
-//        coorda.latitude = alat;
-//        coorda.longitude = alng;
-//        MKMapPoint pointA = MKMapPointForCoordinate(coorda);
-//        
-//        CLLocationCoordinate2D coordb;
-//        coordb.latitude=blat;
-//        coordb.longitude=blng;
-//        MKMapPoint pointB = MKMapPointForCoordinate(coordb);
-        double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
+        CLLocationDistance distance = [self RevisedDistanceOfPointC:loc FromLineWithPointA:locA AndPointB:locB]; //[loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
+
+      //  double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
         
         if (distance <= 0.0002) {
             rv=YES;
@@ -152,23 +150,18 @@
     
         bool firstTime = YES;
         for (int i=0; i<[coordinates count]-1; i++) {
-            double alng=[[coordinates objectAtIndex:i] coordinate].longitude;
-            double alat=[[coordinates objectAtIndex:i] coordinate].latitude;
-            double blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
-            double blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
-        
-//            CLLocationCoordinate2D coorda;
-//            coorda.latitude = alat;
-//            coorda.longitude = alng;
-//            MKMapPoint pointA = MKMapPointForCoordinate(coorda);
-//        
-//            CLLocationCoordinate2D coordb;
-//            coordb.latitude=blat;
-//            coordb.longitude=blng;
-//            MKMapPoint pointB = MKMapPointForCoordinate(coordb);
+//            CLLocationDegrees alng=[[coordinates objectAtIndex:i] coordinate].longitude;
+//            CLLocationDegrees alat=[[coordinates objectAtIndex:i] coordinate].latitude;
+//            CLLocationDegrees blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
+//            CLLocationDegrees blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
       
-            double dist ;
-            dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
+            CLLocation * loc  = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
+            CLLocation * locA = [coordinates objectAtIndex:i];
+            CLLocation * locB = [coordinates objectAtIndex:i+1];
+            
+            CLLocationDistance dist ;
+            //dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
+            dist = [loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
             if (firstTime) {
                 distance=dist;
                 firstTime=NO;
@@ -192,13 +185,10 @@
     for (CLLocation * vertice in coordinates) {
         double la = [vertice coordinate].latitude;
         double ln = [vertice coordinate].longitude;
-        
         if ( la == lat && ln== lng) {
             rv=YES;
         }
-        
     }
-    
     return  rv;
 }
 
@@ -230,19 +220,12 @@
      r>1      P is on the forward extension of AB
      0<r<1    P is interior to AB
      
-     The length of a line segment in d dimensions, AB is computed by:
-     
-     L = sqrt( (Bx-Ax)^2 + (By-Ay)^2 + ... + (Bd-Ad)^2)
-     
-     so in 2D:  
-     
+     The length of a line segment , AB is computed by:
+  
      L = sqrt( (Bx-Ax)^2 + (By-Ay)^2 )
      
-     and the dot product of two vectors in d dimensions, U dot V is computed:
+     and the dot product of two vectors , U dot V is computed:
      
-     D = (Ux * Vx) + (Uy * Vy) + ... + (Ud * Vd)
-     
-     so in 2D:  
      
      D = (Ux * Vx) + (Uy * Vy) 
      
@@ -283,8 +266,9 @@
     double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);
     double r = r_numerator / r_denomenator;
     //
-    double px = ax + r*(bx-ax);
-    double py = ay + r*(by-ay);
+    //perpendicular coordinates
+    double px = ax + r*(bx-ax);//lngp
+    double py = ay + r*(by-ay);//latp
     //    
     double s =  ((ay-cy)*(bx-ax)-(ax-cx)*(by-ay) ) / r_denomenator;
     
@@ -329,6 +313,144 @@
     return distanceFromSegment;
 }
 
+-(double) RevisedDistanceOfPointC:(CLLocation*) C FromLineWithPointA:(CLLocation *) A AndPointB:(CLLocation*)B{
+    
+    /*
+     
+     Subject 1.02: How do I find the distance from a point to a line?
+     
+     
+     Let the point be C (Cx,Cy) and the line be AB (Ax,Ay) to (Bx,By).
+     Let P be the point of perpendicular projection of C on AB.  The parameter
+     r, which indicates P's position along AB, is computed by the dot product 
+     of AC and AB divided by the square of the length of AB:
+     
+     (1)     AC dot AB
+     r = ---------  
+     ||AB||^2
+     
+     r has the following meaning:
+     
+     r=0      P = A
+     r=1      P = B
+     r<0      P is on the backward extension of AB
+     r>1      P is on the forward extension of AB
+     0<r<1    P is interior to AB
+     
+     The length of a line segment , AB is computed by:
+     
+     L = sqrt( (Bx-Ax)^2 + (By-Ay)^2 )
+     
+     and the dot product of two vectors , U dot V is computed:
+     
+     
+     D = (Ux * Vx) + (Uy * Vy) 
+     
+     So (1) expands to:
+     
+     (Cx-Ax)(Bx-Ax) + (Cy-Ay)(By-Ay)
+     r = -------------------------------
+     L^2
+     
+     The point P can then be found:
+     
+     Px = Ax + r(Bx-Ax)
+     Py = Ay + r(By-Ay)
+     
+     And the distance from A to P = r*L.
+     
+     Use another parameter s to indicate the location along PC, with the 
+     following meaning:
+     s<0      C is left of AB
+     s>0      C is right of AB
+     s=0      C is on AB
+     
+     Compute s as follows:
+     
+     (Ay-Cy)(Bx-Ax)-(Ax-Cx)(By-Ay)
+     s = -----------------------------
+     L^2
+     
+     
+     Then the distance from C to P = |s|*L.
+     
+     */
+    /*
+     @param xDistance - east-west distance in kilometers.
+    @param yDistance - north-south distance in kilometers.
+     kilometerPerDegree = 111;
+     span.latitudeDelta = xDistance / kilometersPerDegree;
+     span.longitudeDelta = yDistance / (kilometersPerDegree * cos(coord.latitude * M_PI / 180.0));
+     */
+    double cx =C.coordinate.longitude;
+    double cy= C.coordinate.latitude;
+    
+    double ax=A.coordinate.longitude;
+    double ay=A.coordinate.latitude;
+    
+    double bx=B.coordinate.longitude;
+    double by=B.coordinate.latitude;
+    
+    double distanceFromLine;   //distance from the point to the line (assuming infinite extent in both directions)
+    double distanceFromSegment;//distance from the point to the line segment
+    
+    double r_numerator = (cx-ax)*(bx-ax) + (cy-ay)*(by-ay);
+    
+    double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);//[A distanceFromLocation:B]* [A distanceFromLocation:B];
+    
+    double r = r_numerator / r_denomenator;
+    //
+    //perpendicular coordinates
+    double px = ax + r*(bx-ax);//lngp
+    double py = ay + r*(by-ay);//latp
+    //    
+    double s =  ((ay-cy)*(bx-ax)-(ax-cx)*(by-ay) ) / r_denomenator;
+    
+    distanceFromLine = fabs(s)*sqrt(r_denomenator);
+    
+    //
+    // (xx,yy) is the point on the lineSegment closest to (cx,cy)
+    //
+    double xx = px;
+    double yy = py;
+    
+    if ( (r >= 0) && (r <= 1) )
+    {
+        //distanceFromSegment = distanceFromLine;
+        //fix here
+      distanceFromSegment =   [C distanceFromPathWithStartPoint:A andEndPoint:B];
+        
+       
+    }
+    else
+    {
+        //destance between c and a
+        double dist1 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:ay andLng:ax];//(cx-ax)*(cx-ax) + (cy-ay)*(cy-ay);
+        
+        //distance between c and b
+        double dist2 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:ay andLng:ax];//(cx-bx)*(cx-bx) + (cy-by)*(cy-by);
+        if (dist1 < dist2)
+        {
+            xx = ax;
+            yy = ay;
+            distanceFromSegment = sqrt(dist1);
+        }
+        else
+        {
+            xx = bx;
+            yy = by;
+            distanceFromSegment = sqrt(dist2);
+        }
+        
+        
+    }
+    
+    //    return [self KilometerDistanceOfPointAWithLat:cx andLng:cy fromPointBWithLat:px andLng:py];
+    
+    return distanceFromSegment;
+}
+
+
 -(double)KilometerDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB{
     CLLocationCoordinate2D pointACoordinate = CLLocationCoordinate2DMake(latA, lngA);
     CLLocation *pointALocation = [[CLLocation alloc] initWithLatitude:pointACoordinate.latitude longitude:pointACoordinate.longitude];  
@@ -336,24 +458,14 @@
     CLLocationCoordinate2D pointBCoordinate = CLLocationCoordinate2DMake(latB, lngB);
     CLLocation *pointBLocation = [[CLLocation alloc] initWithLatitude:pointBCoordinate.latitude longitude:pointBCoordinate.longitude];  
     
-    double distanceMeters = [pointALocation distanceFromLocation:pointBLocation];
+    CLLocationDistance distanceMeters = [pointALocation distanceFromLocation:pointBLocation];
     
     [pointALocation release];
     [pointBLocation release];
     return distanceMeters/1000;
 }
 
-//-(double)KilometerDistanceOfPointAWithLat:(double)latA andLng:(double) lngA fromPointBWithLat:(double)latB andLng:(double)lngB{
-//
-//    double e=(3.1415926538*latA/180);
-//    double f=(3.1415926538*lngA/180);
-//    double g=(3.1415926538*latB/180);
-//    double h=(3.1415926538*lngB/180);
-//    double i=(cos(e)* cos(g)* cos(f)* cos(h)+cos(e)*sin(f)*cos(g)*sin(h)+sin(e)*sin(g));
-//    double j=(acos(i));
-//    double k=(6371*j);
-//    
-//    return k;
-//}
+
+
 
 @end
