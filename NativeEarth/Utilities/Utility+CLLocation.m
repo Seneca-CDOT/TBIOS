@@ -87,14 +87,14 @@
 //        }else{
 //            shortestdistance= distToEnd;
 //        }
-//    } else if( directionToEndPoint-directionToStartPoint == 180){// on one line and inside segment
+//    } else if( directionToEndPoint-directionToStartPoint == 180){// on one  and inside segment
 //        shortestdistance = 0.0;
 //    } else {
     
 //     shortestdistance= fabs(asin(sin(distToStart/ER)*sin(directionToStartPoint-directionFromStartToEnd))*ER);
 //    }
 //    
-    
+ //   CLLocationDistance distanceToStartPoint = [self distanceFromLocation:startPoint]/1000;
     
     CLLocationDistance  distanceFromStartPoint = [startPoint distanceFromLocation:self]/1000; //d13
     CLLocationDirection directionFromStartPoint = [startPoint directionToLocation:self];//013
