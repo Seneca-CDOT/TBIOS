@@ -130,7 +130,8 @@
         CLLocation * locA = [coordinates objectAtIndex:i] ;
         CLLocation * locB = [coordinates objectAtIndex:i+1];
         
-        CLLocationDistance distance = [self RevisedDistanceOfPointC:loc FromLineWithPointA:locA AndPointB:locB]; //[loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
+       CLLocationDistance distance = [self RevisedDistanceOfPointC:loc FromLineWithPointA:locA AndPointB:locB]; 
+       //CLLocationDistance distance =[loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
 
       //  double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
         
@@ -150,10 +151,10 @@
     
         bool firstTime = YES;
         for (int i=0; i<[coordinates count]-1; i++) {
-           CLLocationDegrees alng=[[coordinates objectAtIndex:i] coordinate].longitude;
-           CLLocationDegrees alat=[[coordinates objectAtIndex:i] coordinate].latitude;
-           CLLocationDegrees blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
-            CLLocationDegrees blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
+        //   CLLocationDegrees alng=[[coordinates objectAtIndex:i] coordinate].longitude;
+        //   CLLocationDegrees alat=[[coordinates objectAtIndex:i] coordinate].latitude;
+        //   CLLocationDegrees blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
+        //   CLLocationDegrees blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
       
             CLLocation * loc  = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
             CLLocation * locA = [coordinates objectAtIndex:i];
