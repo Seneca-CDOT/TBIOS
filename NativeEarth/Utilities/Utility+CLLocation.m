@@ -96,11 +96,11 @@
 //    
     
     
-    CLLocationDistance distanceToStartPoint = [self distanceFromLocation:startPoint]/1000; //d13
-    CLLocationDirection directionToStartPoint = [self directionToLocation:startPoint];//013
+    CLLocationDistance  distanceFromStartPoint = [startPoint distanceFromLocation:self]/1000; //d13
+    CLLocationDirection directionFromStartPoint = [startPoint directionToLocation:self];//013
     CLLocationDirection directionFromStartToEnd = [startPoint directionToLocation:endPoint];//012
     
-    return  fabs(asin(sin(distanceToStartPoint/ER)*sin(directionToStartPoint-directionFromStartToEnd))*ER);
+    return  fabs(asin(sin(distanceFromStartPoint/ER)*sin(directionFromStartPoint-directionFromStartToEnd))*ER);
     
     
 }
