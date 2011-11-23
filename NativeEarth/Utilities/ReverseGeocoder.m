@@ -54,10 +54,7 @@
 - (NSArray *) FindLandForCoordinateWithLat:(double)lat AndLng:(double) lng{
     
     NSArray *nearByLands =[self FindEstimatedMatchingLandsForCoordinateWithLat:lat AndLng:lng];
-    if ([nearByLands count]>0) {
-    
-    
-    }
+
     NSMutableArray* lands= [[NSMutableArray alloc] init];
     
     for (Land  * land in nearByLands) {
@@ -121,10 +118,6 @@
     BOOL rv= NO;
     
     for (int i=0; i<[coordinates count]-1; i++) {
-       // CLLocationDegrees alng= [[coordinates objectAtIndex:i] coordinate].longitude;
-       // CLLocationDegrees alat=[[coordinates objectAtIndex:i] coordinate].latitude;
-       // CLLocationDegrees blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
-       // CLLocationDegrees blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
       
         CLLocation * loc  = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
         CLLocation * locA = [coordinates objectAtIndex:i] ;
@@ -132,8 +125,6 @@
         
        CLLocationDistance distance = [self RevisedDistanceOfPointC:loc FromLineWithPointA:locA AndPointB:locB]; 
        //CLLocationDistance distance =[loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
-
-      //  double distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
         
         if (distance <= 0.0002) {
             rv=YES;
@@ -151,17 +142,13 @@
     
         bool firstTime = YES;
         for (int i=0; i<[coordinates count]-1; i++) {
-        //   CLLocationDegrees alng=[[coordinates objectAtIndex:i] coordinate].longitude;
-        //   CLLocationDegrees alat=[[coordinates objectAtIndex:i] coordinate].latitude;
-        //   CLLocationDegrees blng=[[coordinates objectAtIndex:i+1] coordinate].longitude;
-        //   CLLocationDegrees blat=[[coordinates objectAtIndex:i+1] coordinate].latitude;
       
             CLLocation * loc  = [[CLLocation alloc] initWithLatitude:lat longitude:lng];
             CLLocation * locA = [coordinates objectAtIndex:i];
             CLLocation * locB = [coordinates objectAtIndex:i+1];
             
             CLLocationDistance dist ;
-           // dist = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromLineWithPointALat:alat AndPointALng:alng AndPointBLat:blat  AndPointBLng:blng];
+           
             dist = [self RevisedDistanceOfPointC:loc FromLineWithPointA:locA AndPointB:locB];
            // dist = [loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
             if (firstTime) {
@@ -384,6 +371,7 @@
      span.latitudeDelta = xDistance / kilometersPerDegree;
      span.longitudeDelta = yDistance / (kilometersPerDegree * cos(coord.latitude * M_PI / 180.0));
      */
+    
     double cx =C.coordinate.longitude;
     double cy= C.coordinate.latitude;
     
@@ -393,9 +381,10 @@
     double bx=B.coordinate.longitude;
     double by=B.coordinate.latitude;
     
-    double distanceFromLine;   //distance from the point to the line (assuming infinite extent in both directions)
+   
     double distanceFromSegment;//distance from the point to the line segment
     
+    //using linear algorythm to decide where the perpendicular point stands
     double r_numerator = (cx-ax)*(bx-ax) + (cy-ay)*(by-ay);
     
     double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);
@@ -441,8 +430,6 @@
     [pointBLocation release];
     return distanceMeters/1000;
 }
-
-
 
 
 @end
