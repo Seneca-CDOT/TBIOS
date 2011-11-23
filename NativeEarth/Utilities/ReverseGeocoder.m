@@ -174,7 +174,7 @@
             }
        
         }
-    }
+    } 
     return distance;
     
 }
@@ -194,7 +194,7 @@
     return  rv;
 }
 
-
+//not used:
 // find the distance from the point (cx,cy) to the line
 // determined by the points (ax,ay) and (bx,by)
 //
@@ -401,53 +401,28 @@
     double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);
     
     double r = r_numerator / r_denomenator;
-    //
-    //perpendicular coordinates
- //   double px = ax + r*(bx-ax);//lngp
- //   double py = ay + r*(by-ay);//latp
-    //    
- //   double s =  ((ay-cy)*(bx-ax)-(ax-cx)*(by-ay) )/r_denomenator;
-    
-  //  distanceFromLine = fabs(s)*sqrt(r_denomenator);
-    
-    //
-    // (xx,yy) is the point on the lineSegment closest to (cx,cy)
-    //
- //   double xx = px;
- //   double yy = py;
+
     
     if ( (r >= 0) && (r <= 1) )
     {
-        //distanceFromSegment = distanceFromLine;
-        //fix here
-      distanceFromSegment =   [C distanceFromPathWithStartPoint:A andEndPoint:B];
-        
-       
+      distanceFromSegment = [C distanceFromPathWithStartPoint:A andEndPoint:B];
     }
     else
     {
         //destance between c and a
-        double dist1 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:ay andLng:ax];//(cx-ax)*(cx-ax) + (cy-ay)*(cy-ay);
+        double dist1 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:ay andLng:ax];
         
         //distance between c and b
-        double dist2 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:by andLng:bx];//(cx-bx)*(cx-bx) + (cy-by)*(cy-by);
+        double dist2 = [self KilometerDistanceOfPointAWithLat:cy andLng:cx fromPointBWithLat:by andLng:bx];
         if (dist1 < dist2)
         {
-         //   xx = ax;
-          //  yy = ay;
-            distanceFromSegment = dist1;//sqrt(dist1);
+            distanceFromSegment = dist1;
         }
         else
         {
-        //    xx = bx;
-        //    yy = by;
-            distanceFromSegment =dist2; //sqrt(dist2);
+            distanceFromSegment =dist2;
         }
-        
-        
     }
-    
-    //    return [self KilometerDistanceOfPointAWithLat:cx andLng:cy fromPointBWithLat:px andLng:py];
     
     return distanceFromSegment;
 }
