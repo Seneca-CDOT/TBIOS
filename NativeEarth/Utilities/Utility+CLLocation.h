@@ -13,5 +13,5 @@
 - (CLLocationDirection)directionToLocation:(CLLocation *)location;
 - (CLLocation *) destinationWithDistance:(CLLocationDistance) distance andDirection:(CLLocationDirection) direction;
 - (CLLocationDistance)distanceFromPathWithStartPoint:(CLLocation *)startPoint andEndPoint :(CLLocation*)endPoint;
-
+- (CLLocation *) destinationWithDistance:(CLLocationDistance) distance andDirection:(CLLocationDirection) direction;
 @end
