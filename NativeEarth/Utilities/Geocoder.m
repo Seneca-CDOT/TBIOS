@@ -55,6 +55,7 @@
 
     [delegate locationFound:results];
 }
+
 -(void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error{
     	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
 }
