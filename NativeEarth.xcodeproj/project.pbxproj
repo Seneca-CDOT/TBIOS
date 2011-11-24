@@ -29,6 +29,7 @@
 		D77E0E6513BCFAB400A738D8 /* ImageBrowser_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77E0E6313BCFAB000A738D8 /* ImageBrowser_iPhone.xib */; };
 		D77FB60C13BBA8170088DA60 /* LauncherViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77FB60A13BBA8170088DA60 /* LauncherViewController_iPhone.m */; };
 		D77FB61013BBA8660088DA60 /* LauncherViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FB60E13BBA8660088DA60 /* LauncherViewController_iPhone.xib */; };
+		D7827763147AD51B00BD749F /* Utility+CLLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7827762147AD51900BD749F /* Utility+CLLocation.m */; };
 		D783B42613BCBD4300A5C05F /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D783B42513BCBD4200A5C05F /* BaseTableViewController.m */; };
 		D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D786015C13C65D93007EA5B0 /* Spotlight.png */; };
 		D789BF7513D0B58600C1C9E8 /* NetworkDataGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */; };
@@ -168,6 +169,8 @@
 		D77E0E6313BCFAB000A738D8 /* ImageBrowser_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ImageBrowser_iPhone.xib; sourceTree = "<group>"; };
 		D77FB60913BBA8170088DA60 /* LauncherViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController_iPhone.h; sourceTree = "<group>"; };
 		D77FB60A13BBA8170088DA60 /* LauncherViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController_iPhone.m; sourceTree = "<group>"; };
+		D7827761147AD51800BD749F /* Utility+CLLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Utility+CLLocation.h"; sourceTree = "<group>"; };
+		D7827762147AD51900BD749F /* Utility+CLLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Utility+CLLocation.m"; sourceTree = "<group>"; };
 		D783B42413BCBD4200A5C05F /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		D783B42513BCBD4200A5C05F /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		D786015C13C65D93007EA5B0 /* Spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spotlight.png; sourceTree = "<group>"; };
@@ -355,7 +358,6 @@
 				D78D045A13E046FB00C04A5E /* LandSelectViewController_iPhone.m */,
 			);
 			name = LocationInfo;
-			path = iphone/Locator;
 			sourceTree = "<group>";
 		};
 		D77E0E2213BCCB2A00A738D8 /* Browse */ = {
@@ -572,16 +574,18 @@
 				D7BB0DB313BB9CC30062C2A9 /* LocationDetector.m */,
 				D7BB0DB413BB9CC30062C2A9 /* Reachability.h */,
 				D7BB0DB513BB9CC30062C2A9 /* Reachability.m */,
-				D7BB0DB613BB9CC30062C2A9 /* ReverseGeocoder.h */,
-				D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */,
 				D7BB0DB813BB9CC30062C2A9 /* Utility.h */,
 				D7BB0DB913BB9CC30062C2A9 /* Utility.m */,
 				D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */,
 				D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */,
-				D71CA1C613F2F12A0016C3CB /* LandGetter.h */,
-				D71CA1C713F2F12B0016C3CB /* LandGetter.m */,
 				D7922F00146B0424000D7344 /* ImageToDataTransformer.h */,
 				D7922F01146B0426000D7344 /* ImageToDataTransformer.m */,
+				D71CA1C613F2F12A0016C3CB /* LandGetter.h */,
+				D71CA1C713F2F12B0016C3CB /* LandGetter.m */,
+				D7BB0DB613BB9CC30062C2A9 /* ReverseGeocoder.h */,
+				D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */,
+				D7827761147AD51800BD749F /* Utility+CLLocation.h */,
+				D7827762147AD51900BD749F /* Utility+CLLocation.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -644,7 +648,6 @@
 				D7BB0DF313BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m */,
 				D7BB0DF413BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.h */,
 				D77E0E2F13BCCE3E00A738D8 /* Results */,
-				D77E0E2113BCCB0A00A738D8 /* LocationInfo */,
 				D7BB0DEF13BBA0440062C2A9 /* Launcher */,
 				D77E0E2213BCCB2A00A738D8 /* Browse */,
 				D7BB0DEE13BBA0440062C2A9 /* Locator */,
@@ -689,6 +692,7 @@
 		D7BB0DEE13BBA0440062C2A9 /* Locator */ = {
 			isa = PBXGroup;
 			children = (
+				D77E0E2113BCCB0A00A738D8 /* LocationInfo */,
 				D77E0E2413BCCB6000A738D8 /* Map */,
 				D7592EAD13BBC06A00F1D28C /* LocatorRootViewController_iPhone.h */,
 				D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */,
@@ -886,6 +890,7 @@
 				D7D86AF814718ECC0009837F /* PlannedVisit.m in Sources */,
 				D7D86AFB14718ECC0009837F /* Greeting.m in Sources */,
 				D78E16DA1472CC9D00ED49E4 /* GreetingViewController_iPhone.m in Sources */,
+				D7827763147AD51B00BD749F /* Utility+CLLocation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
