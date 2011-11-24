@@ -8,9 +8,6 @@
 
 #import "Utility+CLLocation.h"
 
-#define  ERM  6378137 //earth radious in m 
-#define RAD_TO_DEG(r) ((r) * (180 / M_PI))
-#define DEG_TO_RAD(d) (((d) * M_PI)/180)
 
 @implementation CLLocation (Utility)
 //http://forrst.com/posts/Direction_between_2_CLLocations-uAo
@@ -55,7 +52,6 @@
      d/R is the angular distance (in radians), where d is the distance travelled and R is the earth’s radius
      */
     double ER = ERM/1000;
-    distance = distance/ER;
     direction = DEG_TO_RAD(direction);
     
     CLLocationDegrees lat1= DEG_TO_RAD( self.coordinate.latitude);
@@ -63,7 +59,8 @@
     
     CLLocationDegrees lat2= asin(sin(lat1)* cos(distance/ER) + cos(lat1)* sin(distance/ER)*cos(direction));
     CLLocationDegrees lng2 = lng1+ atan2(sin(direction)*sin(distance/ER)*cos(lat1), cos(distance/ER)-sin(lat1)*sin(lat2));
-    lng2 = fmod((lng2+3*M_PI), (2*M_PI))-M_PI;
+    
+    lng2 = fmod((lng2+3*M_PI), (2*M_PI))-M_PI;//normalize to -180...+180
     CLLocation * destination = [[CLLocation alloc] initWithLatitude:RAD_TO_DEG(lat2) longitude:RAD_TO_DEG(lng2)];
     return destination;
 }

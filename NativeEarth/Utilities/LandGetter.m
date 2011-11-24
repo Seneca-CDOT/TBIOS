@@ -8,10 +8,13 @@
 //
 
 #import "LandGetter.h"
+#import "Utility+CLLocation.h"
 
-#define kSearchDistance 10000
-#define kSearchExpantionParameter 2000
-#define kSearchDistanceLimit 100000
+#define kSearchDistance 5 //km
+#define kSearchExpantionParameter 2 //km
+#define kSearchDistanceLimit 20 //km
+#define kSearchCountLimit 6
+
 
 NSInteger firstNumSort(id str1, id str2, void *context) {
     int num1 = [str1 integerValue];
@@ -65,7 +68,7 @@ managedObjectContext=managedObjectContext_;
     self.wifiConnectionStatus =[wifiReach currentReachabilityStatus];
     latitude=0.0;
     longitude=0.0;
-    searchDistanceMeter=kSearchDistance;
+    searchDistanceKM=kSearchDistance;
     return self;
 }
 -(void) dealloc{
@@ -214,15 +217,23 @@ managedObjectContext=managedObjectContext_;
     if(fetchedResultsControllerNearByLands_!=nil){
         return fetchedResultsControllerNearByLands_;
     }
-   
+  // this is not good for long distances
+ /* double  searchDistanceMeter = searchDistanceKM*1000 *2;   
     CLLocationCoordinate2D CenterCoords =CLLocationCoordinate2DMake(latitude, longitude);
     MKCoordinateRegion cRegion = MKCoordinateRegionMakeWithDistance(CenterCoords, searchDistanceMeter, searchDistanceMeter);
-
+   
     double MinLat = latitude - (cRegion.span.latitudeDelta/2);
     double MaxLat = latitude + (cRegion.span.latitudeDelta/2);
     double MinLng = longitude - (cRegion.span.longitudeDelta/2);
     double MaxLng = longitude + (cRegion.span.longitudeDelta/2);
-   
+  */
+  
+    CLLocation * center = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+    CLLocationDegrees MinLat = [center destinationWithDistance:searchDistanceKM andDirection:180].coordinate.latitude;//south
+    CLLocationDegrees MaxLat = [center destinationWithDistance:searchDistanceKM andDirection:0].coordinate.latitude;//north
+    CLLocationDegrees MinLng = [center destinationWithDistance:searchDistanceKM andDirection:270].coordinate.longitude;//west
+    CLLocationDegrees MaxLng = [center destinationWithDistance:searchDistanceKM andDirection:90].coordinate.longitude;//east
+ 
 
     NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
     NSEntityDescription *entity =[NSEntityDescription entityForName:@"Land" inManagedObjectContext:self.managedObjectContext];
@@ -238,7 +249,7 @@ managedObjectContext=managedObjectContext_;
   
     
   //  "(((MinLat<=BoudaryN)AND(BoudaryN<=MaxLat))OR((MinLat<=BoudaryS)AND(BoudaryS<=MaxLat)) OR ((BoundaryN>=MaxLat)AND(BoundaryS<=MinLat)))AND(((MinLng<=BoudaryE)AND(BoudaryE<=MaxLng))OR((MinLng<=BoudaryW)AND(BoudaryW<=MaxLng))OR((BoundaryE>=MaxLng)AND(BoundaryW<=MinLng)))"
-    //, MinLat,MaxLat,MinLat,MaxLat,MaxLat,MinLat,MinLng,MaxLng,MinLng,MaxLng,MaxLng,MinLng
+  //, MinLat,MaxLat,MinLat,MaxLat,MaxLat,MinLat,MinLng,MaxLng,MinLng,MaxLng,MaxLng,MinLng
     
 
     
@@ -396,12 +407,12 @@ managedObjectContext=managedObjectContext_;
     NSMutableArray * fetchedNearByLands = [NSMutableArray arrayWithArray:[self.fetchedResultsControllerNearByLands fetchedObjects]];
     
     
-    if ([fetchedNearByLands count]>=4 || searchDistanceMeter>kSearchDistanceLimit) {
+    if ([fetchedNearByLands count]>=kSearchCountLimit || searchDistanceKM>kSearchDistanceLimit) {
         latitude=0.0;
         longitude=0.0;
 
     }else {
-        searchDistanceMeter += kSearchExpantionParameter;
+        searchDistanceKM += kSearchExpantionParameter;
        fetchedNearByLands= [NSMutableArray arrayWithArray:[self getNearbyLandsForLatitude:latitude andLongitude:longitude]];
     }
     return fetchedNearByLands; 

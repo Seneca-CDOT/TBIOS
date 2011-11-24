@@ -43,7 +43,7 @@
     int landID;
     int toBeUpdatedLandID;
     BOOL landIDUpdateFlag;
-    int searchDistanceMeter;
+    double searchDistanceKM;
    
 }
 @property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;

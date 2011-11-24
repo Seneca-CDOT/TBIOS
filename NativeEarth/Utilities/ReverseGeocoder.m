@@ -152,7 +152,7 @@
             dist = [self RevisedDistanceOfPointC:loc FromLineWithPointA:locA AndPointB:locB];
            // dist = [loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
             if (firstTime) {
-                distance=dist;
+                distance=dist; 
                 firstTime=NO;
             }else {
                 if (dist<distance) {
@@ -371,23 +371,43 @@
      span.latitudeDelta = xDistance / kilometersPerDegree;
      span.longitudeDelta = yDistance / (kilometersPerDegree * cos(coord.latitude * M_PI / 180.0));
      */
-    
-    double cx =C.coordinate.longitude;
-    double cy= C.coordinate.latitude;
+  
+    double cx = C.coordinate.longitude;
+    double cy=C.coordinate.latitude;
     
     double ax=A.coordinate.longitude;
-    double ay=A.coordinate.latitude;
+    double ay= A.coordinate.latitude;
     
     double bx=B.coordinate.longitude;
     double by=B.coordinate.latitude;
-    
-   
+
     double distanceFromSegment;//distance from the point to the line segment
     
-    //using linear algorythm to decide where the perpendicular point stands
-    double r_numerator = (cx-ax)*(bx-ax) + (cy-ay)*(by-ay);
+      /*
+     http://mathforum.org/library/drmath/view/51833.html
+     
+     if we have coordinates in lat and lond butwe want to calculate coordinate deltas in x an y :
+       a            c
+     (lng1,lat1) , (lng2,lat2)
+       (a1,b1)    , (a2,b2)
+       
+      y = R*(b2-b1)*pi/180
+     deltaY or delta lat = R*(lat2-lat1)*pi/180
+       
+    x  = R*(a2-a1)*(pi/180)*cos(b1)
+     deltaX or deltaLng= R*(lnf2-lng1)*(pi/180)*cos(lat1)
+     */
     
-    double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);
+    //using linear algorythm to decide where the perpendicular point stands
+ //   double r_numerator = (cx-ax)*(bx-ax) + (cy-ay)*(by-ay);
+    
+   // double r_denomenator = (bx-ax)*(bx-ax) + (by-ay)*(by-ay);
+    
+// converting above formulas to use lat and lng:
+    
+double r_numerator=(ERM*DEG_TO_RAD(cx-ax)*cos(ay))*(ERM*DEG_TO_RAD(bx-ax)*cos(ay))+(ERM*DEG_TO_RAD(cy-ay))*(ERM*DEG_TO_RAD(by-ay));
+    double r_denomenator= [A distanceFromLocation:B]*[A distanceFromLocation:B];
+    
     
     double r = r_numerator / r_denomenator;
 
