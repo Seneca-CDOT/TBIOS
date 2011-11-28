@@ -8,10 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
+#import "NativeEarthAppDelegate_iPhone.h"
 
 @interface VisitPlannerRootViewController_iPhone : BaseTableViewController {
-    NSArray * plannedVisits;
+    NSMutableArray * plannedVisits;
+    NativeEarthAppDelegate_iPhone *appDelegate ;
 }
-
+@property(nonatomic,retain) NSMutableArray * plannedVisits;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end

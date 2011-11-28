@@ -81,31 +81,36 @@ typedef enum {titleCellTag} textFieldCellTags;
     self.visitNotes = (self.visit.Notes.length>0 )?[NSMutableString stringWithString:self.visit.Notes]:[NSMutableString stringWithString: @""];
     
     if (![self.dateFormatter stringFromDate:visit.FromDate].length >0) {
-        self.visitFromDate=[NSMutableString stringWithString: @""];
+        self.visitFromDate=@"no date selected yet";//[NSMutableString stringWithString: @""];
     }else{
-        
+        self.visitFromDate= [self.dateFormatter stringFromDate:visit.FromDate];
     }
     
     if (![self.dateFormatter stringFromDate:visit.ToDate].length >0) {
-        self.visitToDate=[NSMutableString stringWithString: @""];
+        self.visitToDate=@"no date selected yet";//[NSMutableString stringWithString: @""];
     }else{
-        
+        self.visitToDate=[self.dateFormatter stringFromDate:visit.ToDate];
     }
 
 
 }
 
 
--(void)viewDidDisappear:(BOOL)animated{
+-(void)viewWillDisappear:(BOOL)animated{
+    
    self.visit.Title = visitTitle;
+    if (self.visitFromDate != @"no date selected yet") {
    self.visit.FromDate = [self.dateFormatter dateFromString: visitFromDate];
+    }
+     if (self.visitToDate != @"no date selected yet") {
     self.visit.ToDate = [self.dateFormatter dateFromString: visitToDate];
+     }
     self.visit.Notes = visitNotes;
     
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     [appDelegate.landGetter SaveData];
 
-    
+    [super viewWillDisappear:animated];
 }
 
 - (void)viewDidUnload {
@@ -321,7 +326,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == SectionDate && indexPath.row != HeaderRow){
         UITableViewCell *targetCell = [tableView cellForRowAtIndexPath:indexPath];
-        if (targetCell.detailTextLabel.text.length>0) {
+        if (targetCell.detailTextLabel.text.length>0 && targetCell.detailTextLabel.text !=@"no date selected yet") {
         self.pickerView.date = [self.dateFormatter dateFromString:targetCell.detailTextLabel.text];
         } else self.pickerView.date = [NSDate date];
         [self.infoTableView setScrollEnabled:NO];
@@ -342,7 +347,9 @@ typedef enum {titleCellTag} textFieldCellTags;
 	UITableViewCell *cell = [self.infoTableView cellForRowAtIndexPath:indexPath];
     NSString* date = [self.dateFormatter stringFromDate:self.pickerView.date];
 	cell.detailTextLabel.text = date;
-    
+    if (indexPath.row==DetailRow1) {
+        self.visitFromDate=date;
+    }else self.visitToDate=date;
 }
 
 -(IBAction)doneAction:(id)sender{

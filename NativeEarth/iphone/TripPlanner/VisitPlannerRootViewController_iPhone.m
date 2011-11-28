@@ -7,14 +7,14 @@
 //
 
 #import "VisitPlannerRootViewController_iPhone.h"
-#import "AddAVisitViewController_iPhone.h"
+#import "EditAVisitViewController_iPhone.h"
 #import "ViewAVisitViewController_iPhone.h"
 #import "LandSelectViewController_iPhone.h"
 #import "PlannedVisit.h"
 #import "Land.h"
-#import "NativeEarthAppDelegate_iPhone.h"
-@implementation VisitPlannerRootViewController_iPhone
 
+@implementation VisitPlannerRootViewController_iPhone
+@synthesize plannedVisits;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -26,7 +26,7 @@
 
 - (void)dealloc
 {
-
+    [plannedVisits release];
     [super dealloc];
 }
 
@@ -50,8 +50,8 @@
 
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddNewVisit)];
     
-    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    plannedVisits= [appDelegate.landGetter getAllPlannedVisits];
+  appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    self.plannedVisits= [NSMutableArray arrayWithArray:[appDelegate.landGetter getAllPlannedVisits]];
 }
 
 - (void)viewDidUnload
@@ -63,15 +63,15 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-   
-    [super viewWillAppear:animated];
-   
+[super viewWillAppear:animated];
+    [self.plannedVisits removeAllObjects];
+   self.plannedVisits= [NSMutableArray arrayWithArray:[appDelegate.landGetter getAllPlannedVisits]];
+   [self.tableView reloadData];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {  
     [super viewDidAppear:animated];
-    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -99,7 +99,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [plannedVisits count];
+    return [self.plannedVisits count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -117,8 +117,10 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+    
     cell.textLabel.text = ((PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row]).Title;
-    cell.accessoryType =UITableViewCellAccessoryDetailDisclosureButton;
+    if([cell.textLabel.text length]==0)cell.textLabel.text=NSLocalizedString(@"New Visit", @"New Visit");
+    cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
    
 }
 
@@ -129,21 +131,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if ([plannedVisits count]>0) {
-//        
-//   
-//    LandSelectViewController_iPhone * nextVC = [[LandSelectViewController_iPhone alloc] init];
-//   // nextVC.managedObjectContext = self.managedObjectContext;
-//    // add reffering object too.
-//        
-//        nextVC.landArray =[NSMutableArray arrayWithArray: [((PlannedVisit*)[plannedVisits objectAtIndex:indexPath.row]).Lands allObjects]];
-//   nextVC.title = @"Lands";
-//    [self.navigationController pushViewController:nextVC animated:YES];
-//    [nextVC release];
-//    }
     
     if([plannedVisits count]>0){
-        PlannedVisit * visit = (PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row];
+        PlannedVisit * visit = (PlannedVisit *)[self.plannedVisits objectAtIndex:indexPath.row];
         ViewAVisitViewController_iPhone * nextVC = [[ViewAVisitViewController_iPhone alloc] init];
         nextVC.title = visit.Title;
         nextVC.managedObjectContext = self.managedObjectContext;
@@ -154,15 +144,6 @@
 }
 
 
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath 
-{
-    PlannedVisit * visit = (PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row];
-    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
-    nextVC.title = visit.Title;
-    nextVC.visit = visit;
-    [self.navigationController pushViewController:nextVC animated:YES];
-    [nextVC release];
-}
 #pragma mark -
 #pragma mark Navigation Methods
 - (void) goHome {
@@ -170,7 +151,7 @@
 }
 
 -(void)AddNewVisit{
-    AddAVisitViewController_iPhone * nextVC = [[AddAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
+    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
  
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     nextVC.managedObjectContext = self.managedObjectContext;
@@ -178,12 +159,16 @@
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:self.managedObjectContext];
     nextVC.visit = [[PlannedVisit alloc]initWithEntity:entity insertIntoManagedObjectContext:nextVC.managedObjectContext];
     
-    [self.navigationController presentModalViewController:nextVC animated:YES];
+    [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }
 
 
-
+- (void)addAVisitViewController:(EditAVisitViewController_iPhone *)controller didFinishWithSave:(BOOL)save{
+    if (save==YES) {
+        [self.tableView reloadData];
+    }
+}
 
 @end
 
