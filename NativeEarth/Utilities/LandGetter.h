@@ -73,6 +73,7 @@
 -(NSArray *)getAllPlannedVisits;
 -(void) updateManagedLand: (Land*) mLand WithWSLand:(WSLand *)webLand;
 -(NSError *)SaveData;
+-(NSError*)DeleteVisit:(PlannedVisit*) visit;
 -(PlannedVisit *)getNewPlannedVisit;
 -(Map *)getNewMap;
 @end
