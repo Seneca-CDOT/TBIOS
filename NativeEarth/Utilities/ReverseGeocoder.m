@@ -21,8 +21,8 @@
 
 - (NSArray *) FindEstimatedMatchingLandsForCoordinateWithLat:(double)lat AndLng: (double) lng{
     
-    curLatitude =round(lat*100000)/100000;
-    curLongitude =round(lng*100000)/100000;
+    curLatitude =lat;//round(lat*100000)/100000;
+    curLongitude =lng;//round(lng*100000)/100000;
     
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     NSArray * fetchedEstimatedMatchingLands= [appDelegate.landGetter getEstimatedMatchingLandsForLatitude:curLatitude andLongitude:curLongitude];
@@ -32,8 +32,8 @@
 }
 
 - (NSArray *) FindNearbyLandsForCoordinateWithLat:(double)lat andLng:(double) lng{
-    curLatitude =round(lat*100000)/100000;
-    curLongitude =round(lng*100000)/100000;
+    curLatitude =lat;//=round(lat*100000)/100000;
+    curLongitude =lng;//round(lng*100000)/100000;
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     NSArray * fetchedNearbyLands = [appDelegate.landGetter getNearbyLandsForLatitude:curLatitude andLongitude:curLongitude];
     NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyLands count]];
@@ -126,7 +126,7 @@
        CLLocationDistance distance = [self RevisedDistanceOfPointC:loc FromLineWithPointA:locA AndPointB:locB]; 
        //CLLocationDistance distance =[loc distanceFromPathWithStartPoint:locA andEndPoint:locB];
         
-        if (distance <= 0.0002) {
+        if (distance ==0) {
             rv=YES;
         }
     }
