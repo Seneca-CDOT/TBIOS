@@ -56,7 +56,7 @@
             [self getLandsFromWebServiceForLocation:newLocation];
         }else 
             [self getLandsLocallyForLocation:newLocation];
-        
+
     }  
 }
 
