@@ -65,7 +65,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     self.infoTableView.allowsSelectionDuringEditing=YES;
     [self.infoTableView setScrollEnabled:YES];
     self.infoTableView.delegate = self;
-    
+    appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -99,15 +99,14 @@ typedef enum {titleCellTag} textFieldCellTags;
 -(void)viewWillDisappear:(BOOL)animated{
     
    self.visit.Title = visitTitle;
-    if (self.visitFromDate != @"no date selected yet") {
+    if (self.visitFromDate != NSLocalizedString(@"No date selected yet",@"No date selected yet")) {
    self.visit.FromDate = [self.dateFormatter dateFromString: visitFromDate];
     }
-     if (self.visitToDate != @"no date selected yet") {
+     if (self.visitToDate != NSLocalizedString(@"No date selected yet",@"No date selected yet")) {
     self.visit.ToDate = [self.dateFormatter dateFromString: visitToDate];
      }
     self.visit.Notes = visitNotes;
     
-    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     [appDelegate.landGetter SaveData];
 
     [super viewWillDisappear:animated];
@@ -326,7 +325,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == SectionDate && indexPath.row != HeaderRow){
         UITableViewCell *targetCell = [tableView cellForRowAtIndexPath:indexPath];
-        if (targetCell.detailTextLabel.text.length>0 && targetCell.detailTextLabel.text !=@"no date selected yet") {
+        if (targetCell.detailTextLabel.text.length>0 && targetCell.detailTextLabel.text !=NSLocalizedString(@"No date selected yet",@"No date selected yet")) {
         self.pickerView.date = [self.dateFormatter dateFromString:targetCell.detailTextLabel.text];
         } else self.pickerView.date = [NSDate date];
         [self.infoTableView setScrollEnabled:NO];
@@ -675,7 +674,6 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 #pragma  mark - BrowseViewController_iPhoneDelegate methods
 -(void) BrowseViewControllerDidSelectFirstNation:(LandShort *)nation{
-    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     Land * newLand = [appDelegate.landGetter getLandWithLandId:[nation.landId intValue]];
     [self.visit addLandsObject:newLand];
     [self.infoTableView reloadData];

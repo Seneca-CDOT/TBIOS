@@ -12,6 +12,7 @@
 #import "TextFieldCell_iPhone.h"
 #import "BrowseViewController_iPhone.h"
 #import "PlannedVisit.h"
+#import "NativeEarthAppDelegate_iPhone.h"
 
 @interface EditAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate, UIActionSheetDelegate, BrowseViewController_iPhoneDelegate,TextFieldCellDelegate> {
     
@@ -29,6 +30,7 @@
     NSMutableString *visitFromDate;
     NSMutableString * visitToDate;
     NSArray * visitFistNations;
+    NativeEarthAppDelegate_iPhone *appDelegate;
 
 }
 @property (nonatomic, retain) PlannedVisit * visit;
