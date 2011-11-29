@@ -35,7 +35,6 @@
 		D789BF7513D0B58600C1C9E8 /* NetworkDataGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */; };
 		D78B5C94142D269D0009776B /* InitialLands.txt in Resources */ = {isa = PBXBuildFile; fileRef = D78B5C93142D269D0009776B /* InitialLands.txt */; };
 		D78D045B13E046FB00C04A5E /* LandSelectViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D045A13E046FB00C04A5E /* LandSelectViewController_iPhone.m */; };
-		D78D04A013E0A0A200C04A5E /* AddAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D049F13E0A09F00C04A5E /* AddAVisitViewController_iPhone.m */; };
 		D78D04B013E1D72200C04A5E /* WSLand.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04AF13E1D72200C04A5E /* WSLand.m */; };
 		D78D04B313E1D92200C04A5E /* WSGreeting.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B213E1D92100C04A5E /* WSGreeting.m */; };
 		D78D04B613E1DB6D00C04A5E /* WSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B513E1DB6A00C04A5E /* WSContent.m */; };
@@ -179,8 +178,6 @@
 		D78B5C93142D269D0009776B /* InitialLands.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = InitialLands.txt; path = ../../Sites/InitialLands.txt; sourceTree = "<group>"; };
 		D78D045913E046FA00C04A5E /* LandSelectViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandSelectViewController_iPhone.h; sourceTree = "<group>"; };
 		D78D045A13E046FB00C04A5E /* LandSelectViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandSelectViewController_iPhone.m; sourceTree = "<group>"; };
-		D78D049E13E0A09B00C04A5E /* AddAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAVisitViewController_iPhone.h; sourceTree = "<group>"; };
-		D78D049F13E0A09F00C04A5E /* AddAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAVisitViewController_iPhone.m; sourceTree = "<group>"; };
 		D78D04AE13E1D72200C04A5E /* WSLand.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLand.h; sourceTree = "<group>"; };
 		D78D04AF13E1D72200C04A5E /* WSLand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLand.m; sourceTree = "<group>"; };
 		D78D04B113E1D92000C04A5E /* WSGreeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSGreeting.h; sourceTree = "<group>"; };
@@ -377,7 +374,7 @@
 			path = iphone/Locator;
 			sourceTree = "<group>";
 		};
-		D77E0E2413BCCB6000A738D8 /* Map */ = {
+		D77E0E2F13BCCE3E00A738D8 /* Results */ = {
 			isa = PBXGroup;
 			children = (
 				D77E0E3013BCD38600A738D8 /* MapBrowserViewController_iPhone.h */,
@@ -386,13 +383,6 @@
 				D7922F0E146B20F1000D7344 /* ScreenShotTest.h */,
 				D7922F0F146B20F2000D7344 /* ScreenShotTest.m */,
 				D7922F10146B20F4000D7344 /* ScreenShotTest.xib */,
-			);
-			name = Map;
-			sourceTree = "<group>";
-		};
-		D77E0E2F13BCCE3E00A738D8 /* Results */ = {
-			isa = PBXGroup;
-			children = (
 				D77E0E1C13BCCADB00A738D8 /* GazetterViewController_iPhone.h */,
 				D77E0E1D13BCCADB00A738D8 /* GazetterViewController_iPhone.m */,
 				D77E0E1E13BCCADB00A738D8 /* GazetterViewController_iPhone.xib */,
@@ -672,8 +662,6 @@
 				D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */,
 				D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */,
 				D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */,
-				D78D049E13E0A09B00C04A5E /* AddAVisitViewController_iPhone.h */,
-				D78D049F13E0A09F00C04A5E /* AddAVisitViewController_iPhone.m */,
 				D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */,
 				D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */,
 			);
@@ -693,7 +681,6 @@
 			isa = PBXGroup;
 			children = (
 				D77E0E2113BCCB0A00A738D8 /* LocationInfo */,
-				D77E0E2413BCCB6000A738D8 /* Map */,
 				D7592EAD13BBC06A00F1D28C /* LocatorRootViewController_iPhone.h */,
 				D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */,
 			);
@@ -871,7 +858,6 @@
 				D7DA7B0513D72412009EEC0A /* DDAnnotation.m in Sources */,
 				D7DA7B2F13D72ED1009EEC0A /* MapLookUpViewController_iPhone.m in Sources */,
 				D78D045B13E046FB00C04A5E /* LandSelectViewController_iPhone.m in Sources */,
-				D78D04A013E0A0A200C04A5E /* AddAVisitViewController_iPhone.m in Sources */,
 				D78D04B013E1D72200C04A5E /* WSLand.m in Sources */,
 				D78D04B313E1D92200C04A5E /* WSGreeting.m in Sources */,
 				D78D04B613E1DB6D00C04A5E /* WSContent.m in Sources */,
