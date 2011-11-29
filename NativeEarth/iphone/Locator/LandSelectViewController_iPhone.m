@@ -130,7 +130,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section==0) {
-        return NSLocalizedString(@"Your location is inside:", @"Your location is inside:");
+        return NSLocalizedString(@"You are inside:", @"You are inside:");
     }else if(section==1){
         return NSLocalizedString(@"Nearby Lands:", @"Nearby Lands:");
     }
