@@ -170,6 +170,29 @@
     }
 }
 
+// DELEGATE PROTOCOL METHOD
+// This method is called when the user asks to delete a row
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+	
+	// You should think long and hard about whether you will permit deleting this way
+	
+    // Did the user request to delete the row?
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        // Delete the managed object for the given index path
+				
+		// Save the context.
+		NSError *error= [appDelegate.landGetter DeleteVisit:[plannedVisits objectAtIndex:indexPath.row]];
+		if (error!=nil) {
+			// Handle the error... (and do it better in a production app)
+			NSLog(@"%@", [error description]);
+		}
+    }
+    [self.plannedVisits removeAllObjects];
+    self.plannedVisits=[NSMutableArray arrayWithArray:[appDelegate.landGetter getAllPlannedVisits]];
+    [self.tableView reloadData];
+}
+
+
 @end
 
 
