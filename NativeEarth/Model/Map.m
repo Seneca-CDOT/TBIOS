@@ -12,6 +12,7 @@
 
 @implementation Map
 @dynamic Image;
+@dynamic Thumb;
 @dynamic Land;
 
 

@@ -15,6 +15,7 @@
 @private
 }
 @property (nonatomic, retain) id Image;
+@property (nonatomic,retain) id Thumb;
 @property (nonatomic, retain) Land * Land;
 
 @end
