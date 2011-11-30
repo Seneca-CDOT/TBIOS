@@ -9,11 +9,10 @@
 #import "MapBrowserViewController_iPhone.h"
 #import "ReverseGeocoder.h"
 #import "LandShort.h"
-//#import "SearchListController.h"
+#import "UIImage+Resizing.h"
 #import "DistrictCenterAnnotation.h"
 #import "DistrictCenterAnnotationView.h"
 #import "CalloutMapAnnotationView.h"
-//#import "WSLand.h"
 #import "Map.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "Toast+UIView.h"
@@ -222,6 +221,8 @@
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     Map * map =[appDelegate.landGetter getNewMap];
     map.Image= image;
+    CGSize thumbSize = CGSizeMake(image.size.width/3, image.size.height/3);
+    map.Thumb=[image scaleToSize:thumbSize];
     for (Land* land in self.lands) {
         if(land.LandName == selectedLandName){
             [land addMapObject:map];
@@ -302,6 +303,7 @@
     
     return image;
 }
+//this one is currently used
 -(UIImage *)GetMapviewImage{
     UIGraphicsBeginImageContext(self.mapView.bounds.size);
     [self.mapView.layer renderInContext:UIGraphicsGetCurrentContext()];
