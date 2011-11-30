@@ -16,14 +16,17 @@
 #import "Constants.h"
 #import "Toast+UIView.h"
 #import "ScreenShotTest.h"
+#import "ScreenshotBrowser.h"
 typedef enum{
     rowTitleName,
     rowTitleDescription,
     rowTitleGreetings,
     rowTitleMap,
     rowTitleScreenshots,
+    rowTitleSSBrowser, 
     rowTitleImage,
     rowTitleGazetter,
+
     rowCount
     
 } rowTitle;
@@ -155,13 +158,15 @@ typedef enum{
             if ([self.selectedLand.Maps count] != 0){
                 cell.userInteractionEnabled = YES; 
                 cell.textLabel.alpha = 1;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             else{
                 cell.userInteractionEnabled=NO;
                  cell.textLabel.alpha = 0.5;
+                cell.accessoryType = UITableViewCellAccessoryNone;
             }
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.alpha = 1;
+         
+
             break;
         case rowTitleImage:
             cell.textLabel.text=NSLocalizedString(@"IMage Gallery",@"Image Gallery");
@@ -181,6 +186,20 @@ typedef enum{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
             break;
+        case rowTitleSSBrowser:
+            cell.textLabel.text=NSLocalizedString(@"SSBrowser",@"SSBrowser");
+            if ([self.selectedLand.Maps count] != 0){
+                cell.userInteractionEnabled = YES; 
+                cell.textLabel.alpha = 1; 
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
+            else{
+                cell.userInteractionEnabled=NO;
+                cell.textLabel.alpha = 0.5;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+           
+          
         default:
             break;
     }
@@ -253,6 +272,9 @@ typedef enum{
             break;
         case rowTitleGazetter:
             [self NavigateToGazetter];
+            break;
+        case rowTitleSSBrowser:
+            [self NavigateToSSBrowser];
             break;
         default:
             break;
@@ -351,6 +373,13 @@ typedef enum{
       [nextVC release];
 
 }
+-(void)NavigateToSSBrowser{
+    ScreenshotBrowser *nextVC=[[ScreenshotBrowser alloc] initWithNibName:@"ScreenshotBrowser" bundle:nil];
+    NSArray * maps = [self.selectedLand.Maps allObjects];
+    nextVC.maps= maps;
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
+}
 
 // Notification handler
 - (void)updateUI:(NSNotification *)notif {
@@ -363,7 +392,6 @@ typedef enum{
     }
     
     self.title = selectedLand.LandName;
-    
     [self.view makeToast:NSLocalizedString(@"        Date Updated.         ", @"        Date Updated.         ")                 duration:2.0
                 position:@"bottom"];  
     
