@@ -66,6 +66,11 @@
 		D7972E29140C000700454BE3 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E27140C000700454BE3 /* NSString+URLEncoding.m */; };
 		D7972E4D140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */; };
 		D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */; };
+		D7A621EB1485760D006E7BC3 /* ThumbImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621EA1485760D006E7BC3 /* ThumbImageView.m */; };
+		D7A621EE14857850006E7BC3 /* ScreenshotBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621ED1485784F006E7BC3 /* ScreenshotBrowser.m */; };
+		D7A621F01485786F006E7BC3 /* ScreenshotBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A621EF1485786F006E7BC3 /* ScreenshotBrowser.xib */; };
+		D7A621F414857BC7006E7BC3 /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621F314857BC5006E7BC3 /* UIImage+Resizing.m */; };
+		D7A621F714858FC9006E7BC3 /* TapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621F614858FC8006E7BC3 /* TapDetectingImageView.m */; };
 		D7A84F4B13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */; };
 		D7A84F4C13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */; };
 		D7A84F7213C4F04B0085E8C3 /* EditAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */; };
@@ -219,6 +224,16 @@
 		D7972E4A140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeopoliticalSearchViewController_iPhone.h; sourceTree = "<group>"; };
 		D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeopoliticalSearchViewController_iPhone.m; sourceTree = "<group>"; };
 		D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeopoliticalSearchViewController_iPhone.xib; sourceTree = "<group>"; };
+		D7A621E91485760D006E7BC3 /* ThumbImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbImageView.h; sourceTree = "<group>"; };
+		D7A621EA1485760D006E7BC3 /* ThumbImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbImageView.m; sourceTree = "<group>"; };
+		D7A621EC1485784F006E7BC3 /* ScreenshotBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenshotBrowser.h; sourceTree = "<group>"; };
+		D7A621ED1485784F006E7BC3 /* ScreenshotBrowser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScreenshotBrowser.m; sourceTree = "<group>"; };
+		D7A621EF1485786F006E7BC3 /* ScreenshotBrowser.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScreenshotBrowser.xib; sourceTree = "<group>"; };
+		D7A621F114857AFE006E7BC3 /* NativeEarth 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 3.xcdatamodel"; sourceTree = "<group>"; };
+		D7A621F214857BC5006E7BC3 /* UIImage+Resizing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resizing.h"; sourceTree = "<group>"; };
+		D7A621F314857BC5006E7BC3 /* UIImage+Resizing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resizing.m"; sourceTree = "<group>"; };
+		D7A621F514858FC7006E7BC3 /* TapDetectingImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TapDetectingImageView.h; sourceTree = "<group>"; };
+		D7A621F614858FC8006E7BC3 /* TapDetectingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingImageView.m; sourceTree = "<group>"; };
 		D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitPlannerRootViewController_iPhone.h; sourceTree = "<group>"; };
 		D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitPlannerRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitPlannerRootViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -377,6 +392,7 @@
 		D77E0E2F13BCCE3E00A738D8 /* Results */ = {
 			isa = PBXGroup;
 			children = (
+				D7A621E7148575D4006E7BC3 /* ScreenshotBrowser */,
 				D77E0E3013BCD38600A738D8 /* MapBrowserViewController_iPhone.h */,
 				D77E0E3113BCD38600A738D8 /* MapBrowserViewController_iPhone.m */,
 				D77E0E3213BCD38600A738D8 /* MapBrowserViewController_iPhone.xib */,
@@ -468,6 +484,20 @@
 			path = Images;
 			sourceTree = "<group>";
 		};
+		D7A621E7148575D4006E7BC3 /* ScreenshotBrowser */ = {
+			isa = PBXGroup;
+			children = (
+				D7A621F514858FC7006E7BC3 /* TapDetectingImageView.h */,
+				D7A621F614858FC8006E7BC3 /* TapDetectingImageView.m */,
+				D7A621EC1485784F006E7BC3 /* ScreenshotBrowser.h */,
+				D7A621ED1485784F006E7BC3 /* ScreenshotBrowser.m */,
+				D7A621EF1485786F006E7BC3 /* ScreenshotBrowser.xib */,
+				D7A621E91485760D006E7BC3 /* ThumbImageView.h */,
+				D7A621EA1485760D006E7BC3 /* ThumbImageView.m */,
+			);
+			name = ScreenshotBrowser;
+			sourceTree = "<group>";
+		};
 		D7BB0D6D13BB9A0B0062C2A9 = {
 			isa = PBXGroup;
 			children = (
@@ -550,6 +580,8 @@
 		D7BB0DAD13BB9CC30062C2A9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D7A621F214857BC5006E7BC3 /* UIImage+Resizing.h */,
+				D7A621F314857BC5006E7BC3 /* UIImage+Resizing.m */,
 				D7DFB85C142A6E7600258875 /* Toast+UIView.m */,
 				D7DFB85A142A6E6F00258875 /* Toast+UIView.h */,
 				D7972E27140C000700454BE3 /* NSString+URLEncoding.m */,
@@ -812,6 +844,7 @@
 				D7922F0D146B1712000D7344 /* NativeEarth.sqlite in Resources */,
 				D7922F12146B20F5000D7344 /* ScreenShotTest.xib in Resources */,
 				D78E16DB1472CC9D00ED49E4 /* GreetingViewController_iPhone.xib in Resources */,
+				D7A621F01485786F006E7BC3 /* ScreenshotBrowser.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +910,10 @@
 				D7D86AFB14718ECC0009837F /* Greeting.m in Sources */,
 				D78E16DA1472CC9D00ED49E4 /* GreetingViewController_iPhone.m in Sources */,
 				D7827763147AD51B00BD749F /* Utility+CLLocation.m in Sources */,
+				D7A621EB1485760D006E7BC3 /* ThumbImageView.m in Sources */,
+				D7A621EE14857850006E7BC3 /* ScreenshotBrowser.m in Sources */,
+				D7A621F414857BC7006E7BC3 /* UIImage+Resizing.m in Sources */,
+				D7A621F714858FC9006E7BC3 /* TapDetectingImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1043,6 +1080,7 @@
 			children = (
 				D7D86AEB14718B610009837F /* NativeEarth 2.xcdatamodel */,
 				D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */,
+				D7A621F114857AFE006E7BC3 /* NativeEarth 3.xcdatamodel */,
 			);
 			currentVersion = D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */;
 			path = NativeEarth.xcdatamodeld;
