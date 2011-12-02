@@ -49,7 +49,8 @@
 
 #import "ScreenshotBrowser.h"
 #import "Map.h"
-
+#import "Land.h"
+#import "NativeEarthAppDelegate_iPhone.h"
 #define ZOOM_VIEW_TAG 100
 #define ZOOM_STEP 1.5
 
@@ -78,7 +79,18 @@
 
 
 @implementation ScreenshotBrowser
-@synthesize maps;
+@synthesize maps,currentMap;
+-(void)viewDidLoad{
+    UIBarButtonItem * deleteButton= [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Delete", @"Delete")  style:UIBarButtonSystemItemTrash target:self action:@selector(deleteImage:)];
+    
+    deleteButton.enabled=YES;
+    
+    self.navigationItem.rightBarButtonItem = deleteButton;
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    [appDelegate.landGetter SaveData];
+}
 - (void)loadView {
     [super loadView];
     
@@ -89,9 +101,11 @@
     [[self view] addSubview:imageScrollView];
     
     [self pickMap:[self.maps objectAtIndex:0]];
+    
 }
 
 - (void)dealloc {
+    [currentMap release];
     [maps release];
     [imageScrollView release];
     [slideUpView release];
@@ -292,7 +306,6 @@
         
     // first remove previous image view, if any
     [[imageScrollView viewWithTag:ZOOM_VIEW_TAG] removeFromSuperview];
-        
     UIImage *image = map.Image;
     TapDetectingImageView *zoomView = [[TapDetectingImageView alloc] initWithImage:image];
     [zoomView setDelegate:self];
@@ -306,6 +319,7 @@
     [imageScrollView setMinimumZoomScale:minScale];
     [imageScrollView setZoomScale:minScale];
     [imageScrollView setContentOffset:CGPointZero];
+    self.currentMap= map;
 }
 
 
@@ -355,7 +369,7 @@
         // now place all the thumb views as subviews of the scroll view 
         // and in the course of doing so calculate the content width
         float xPosition = THUMB_H_PADDING;
-        for (Map *map in [self maps]) {
+        for (Map *map in self.maps) {
             UIImage *thumbImage = map.Thumb;
             if (thumbImage) {
                 ThumbImageView *thumbView = [[ThumbImageView alloc] initWithImage:thumbImage];
@@ -375,6 +389,25 @@
     }    
 }
 
+-(void)deleteImage:(id)sender{
+    
+    UIAlertView * alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Do you want to delete the map?",@"Do you want to delete the map?") message:NSLocalizedString(@"",@"") delegate:self cancelButtonTitle:NSLocalizedString(@"No",@"No") otherButtonTitles: NSLocalizedString(@"Yes",@"Yes"),nil];
+    [alert show];
+    [alert release];
+}
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    
+    if (buttonIndex == 1)//YES
+    {
+          Land * land = self.currentMap.Land;
+        [land removeMapObject:self.currentMap];
+        //int index= [self.maps indexOfObject:currentMap];
+        [self.maps removeObject:currentMap];
+//thumbview should be reloaded here
+       // [self pickMap:[maps objectAtIndex:0]];
+    }
+}
 
 
 @end

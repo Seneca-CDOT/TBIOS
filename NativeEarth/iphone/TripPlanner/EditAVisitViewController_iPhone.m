@@ -375,11 +375,11 @@ typedef enum {titleCellTag} textFieldCellTags;
         self.visitFromDate=date;
     }else self.visitToDate=date;
 }
-
+//work here(same date does not work yet)
 -(BOOL)validateDates{
     BOOL isValid=YES;
-    NSDate *fromDate ;
-    NSDate *toDate ;
+    NSDate *fromDate=nil ;
+    NSDate *toDate =nil;
     if(self.visitFromDate!=NSLocalizedString(@"no date selected yet",@"no date selected yet"))
         fromDate = [self.dateFormatter dateFromString:self.visitFromDate];
     if(self.visitToDate!=NSLocalizedString(@"no date selected yet",@"no date selected yet"))
@@ -391,7 +391,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     
     if (toDate!=nil ) {
         if (fromDate==nil) {
-            isValid =NO;
+           // isValid =NO;
         }else{
             if([fromDate compare:toDate]==NSOrderedDescending)
                 isValid=NO;

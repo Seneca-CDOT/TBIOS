@@ -377,7 +377,7 @@ typedef enum{
 -(void)NavigateToSSBrowser{
     ScreenshotBrowser *nextVC=[[ScreenshotBrowser alloc] initWithNibName:@"ScreenshotBrowser" bundle:nil];
     NSArray * maps = [self.selectedLand.Maps allObjects];
-    nextVC.maps= maps;
+    nextVC.maps=[NSMutableArray arrayWithArray: maps];
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }

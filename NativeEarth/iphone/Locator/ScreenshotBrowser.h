@@ -48,7 +48,7 @@
  */
 #import "ThumbImageView.h"
 #import "TapDetectingImageView.h"
-@interface ScreenshotBrowser : UIViewController <UIScrollViewDelegate,TapDetectingImageViewDelegate, ThumbImageViewDelegate> {
+@interface ScreenshotBrowser : UIViewController <UIScrollViewDelegate,TapDetectingImageViewDelegate, ThumbImageViewDelegate,UIAlertViewDelegate> {
     UIScrollView *imageScrollView;
     UIScrollView *thumbScrollView;
     UIView       *slideUpView; // Contains thumbScrollView and a label giving credit for the images.
@@ -57,8 +57,9 @@
     
     NSTimer *autoscrollTimer;  // Timer used for auto-scrolling.
     float autoscrollDistance;  // Distance to scroll the thumb view when auto-scroll timer fires.
+    
 }
-@property(nonatomic,retain)  NSArray * maps;
-
+@property(nonatomic,retain)  NSMutableArray * maps;
+@property(nonatomic,retain) Map* currentMap;
 @end
 
