@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
+#import "EditAVisitViewController_iPhone.h"
 #import "PlannedVisit.h"
 #import "Constants.h"
-@interface ViewAVisitViewController_iPhone : BaseTableViewController <UITableViewDataSource,UITableViewDelegate>{
+@interface ViewAVisitViewController_iPhone : BaseTableViewController <UITableViewDataSource,UITableViewDelegate,EditAVisitViewControllerDelegate_iPhone>{
     
     PlannedVisit * visit;
       NSDateFormatter *dateFormatter; 

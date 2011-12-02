@@ -10,6 +10,7 @@
 #import "EditAVisitViewController_iPhone.h"
 #import "Constants.h"
 #import "NativeEarthAppDelegate_iPhone.h"
+#import "ViewAVisitViewController_iPhone.h"
 //typedef enum {SectionFirstNationName, SectionDate, SectionTitle, SectionNotes,SectionCount} SectionType;
 typedef enum {SectionTitle,  SectionDate, SectionFirstNationName, SectionNotes,SectionCount} SectionType;
 typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
@@ -18,6 +19,9 @@ typedef enum {noteCellTag} textViewCellTags;
 typedef enum {titleCellTag} textFieldCellTags;
 
 @implementation EditAVisitViewController_iPhone
+@synthesize delegate;
+@synthesize saveBtn;
+@synthesize presentationType;
 @synthesize dateFormatter;
 @synthesize toolBar;
 @synthesize infoTableView;
@@ -28,9 +32,11 @@ typedef enum {titleCellTag} textFieldCellTags;
 @synthesize shiftForKeyboard;
 @synthesize trashButton;
 @synthesize visit;
-@synthesize visitFistNations,visitFromDate,visitNotes,visitTitle,visitToDate;
+@synthesize visitFromDate,visitNotes,visitTitle,visitToDate;
+@synthesize visitFistNations;
 - (void)dealloc
 {
+    [self.saveBtn release];
     [self.visit release];
     [self.trashButton release];
     [self.changeButton release];
@@ -61,54 +67,68 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if (self.presentationType==presentationTypeModal) {
+          CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    [self.infoTableView setFrame:rect];  
+    }
+    self.visitFistNations = [NSMutableArray arrayWithArray:[self.visit.Lands allObjects]];
     self.infoTableView.editing = YES;
     self.infoTableView.allowsSelectionDuringEditing=YES;
     [self.infoTableView setScrollEnabled:YES];
     self.infoTableView.delegate = self;
     appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
- 
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-
     [self.view addSubview:self.toolBar];
     self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
-    // self.visitFistNations = self.visit.Lands;
-
+    
     self.visitTitle =(self.visit.Title .length>0)?[NSMutableString stringWithString: self.visit.Title]:[NSMutableString stringWithString: @""];
     self.visitNotes = (self.visit.Notes.length>0 )?[NSMutableString stringWithString:self.visit.Notes]:[NSMutableString stringWithString: @""];
     
     if (![self.dateFormatter stringFromDate:visit.FromDate].length >0) {
-        self.visitFromDate=@"no date selected yet";//[NSMutableString stringWithString: @""];
+        self.visitFromDate=NSLocalizedString( @"no date selected yet",@"no date selected yet");//[NSMutableString stringWithString: @""];
     }else{
         self.visitFromDate= [self.dateFormatter stringFromDate:visit.FromDate];
     }
     
     if (![self.dateFormatter stringFromDate:visit.ToDate].length >0) {
-        self.visitToDate=@"no date selected yet";//[NSMutableString stringWithString: @""];
+        self.visitToDate=NSLocalizedString( @"no date selected yet",@"no date selected yet");//[NSMutableString stringWithString: @""];
     }else{
         self.visitToDate=[self.dateFormatter stringFromDate:visit.ToDate];
     }
-
+    self.saveBtn= [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", @"Save") style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
+    if (self.presentationType==presentationTypeModal) {
+        [self.navigationItem setRightBarButtonItem:self.saveBtn animated:YES];
+        [self.navigationItem setLeftBarButtonItem:self.cancelButton animated:YES];
+    }
 
 }
 
 
 -(void)viewWillDisappear:(BOOL)animated{
-    
-   self.visit.Title = visitTitle;
-    if (self.visitFromDate != NSLocalizedString(@"No date selected yet",@"No date selected yet")) {
-   self.visit.FromDate = [self.dateFormatter dateFromString: visitFromDate];
-    }
-     if (self.visitToDate != NSLocalizedString(@"No date selected yet",@"No date selected yet")) {
-    self.visit.ToDate = [self.dateFormatter dateFromString: visitToDate];
+    [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES]; 
+    [self.navigationItem setHidesBackButton:NO animated:YES];
+
+    if(self.presentationType==presentationTypeNavigate){
+    self.visit.Title = self.visitTitle;
+   
+    if (self.visitFromDate != NSLocalizedString(@"no date selected yet",@"no date selected yet")) {
+            self.visit.FromDate = [self.dateFormatter dateFromString: visitFromDate];
+    }else{
+            self.visit.FromDate = nil;
+        }
+
+    if (self.visitToDate != NSLocalizedString(@"no date selected yet",@"no date selected yet")) {
+            self.visit.ToDate = [self.dateFormatter dateFromString: visitToDate];
+     }else{
+         self.visit.ToDate =nil;
      }
+ 
     self.visit.Notes = visitNotes;
     
+    [self.visit addLands:[NSSet setWithArray:self.visitFistNations]];
     [appDelegate.landGetter SaveData];
-
+    }
     [super viewWillDisappear:animated];
 }
 
@@ -143,7 +163,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     if (section == SectionDate) {
         return  3;
     }else if (section == SectionFirstNationName){
-        return  1+ [self.visit.Lands count];
+        return  1+ [self.visitFistNations count];
     }
     return 2;
   
@@ -222,7 +242,7 @@ typedef enum {titleCellTag} textFieldCellTags;
         if (indexPath.row == HeaderRow) {
             cell.textLabel.text = NSLocalizedString(@"First Nation Lands:", @"First Nation Lands:") ;
         }else {
-            cell.detailTextLabel.text =((Land *)[[visit.Lands allObjects] objectAtIndex:indexPath.row -1]).LandName;
+            cell.detailTextLabel.text =((Land *)[self.visitFistNations objectAtIndex:indexPath.row -1]).LandName;
         } 
         cell.userInteractionEnabled = YES;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -242,6 +262,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     }else if(indexPath.section == SectionDate){
         if(indexPath.row == HeaderRow){
             cell.textLabel.text = NSLocalizedString(@"Dates:", @"Dates:");
+             cell.userInteractionEnabled = NO;
         }
         else if (indexPath.row == DetailRow1) {
               cell.textLabel.text = NSLocalizedString(@"From:", @"From:");
@@ -294,7 +315,13 @@ typedef enum {titleCellTag} textFieldCellTags;
             if (indexPath.row ==HeaderRow){
                 [self AddLand];
             }else {
-                [self.visit removeLandsObject:(Land*)[[self.visit.Lands allObjects] objectAtIndex:indexPath.row-1]];
+                [self.visitFistNations removeObject:(Land*)[self.visitFistNations  objectAtIndex:indexPath.row-1]];
+                [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
+                [self.navigationItem setHidesBackButton:NO animated:YES];
+                if (self.presentationType==presentationTypeModal) {
+                    [self.navigationItem setRightBarButtonItem:self.saveBtn animated:YES]; 
+                    [self.navigationItem setLeftBarButtonItem:self.cancelButton animated:YES];
+                }
                 [self.infoTableView reloadData];
                  }
             break;
@@ -302,8 +329,6 @@ typedef enum {titleCellTag} textFieldCellTags;
             break;
     }
 
-    
-    
 }
     
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -325,7 +350,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     if(indexPath.section == SectionDate && indexPath.row != HeaderRow){
         UITableViewCell *targetCell = [tableView cellForRowAtIndexPath:indexPath];
-        if (targetCell.detailTextLabel.text.length>0 && targetCell.detailTextLabel.text !=NSLocalizedString(@"No date selected yet",@"No date selected yet")) {
+        if (targetCell.detailTextLabel.text.length>0 && [targetCell.detailTextLabel.text compare: NSLocalizedString(@"no date selected yet",@"no date selected yet" )] !=NSOrderedSame) {
         self.pickerView.date = [self.dateFormatter dateFromString:targetCell.detailTextLabel.text];
         } else self.pickerView.date = [NSDate date];
         [self.infoTableView setScrollEnabled:NO];
@@ -351,23 +376,91 @@ typedef enum {titleCellTag} textFieldCellTags;
     }else self.visitToDate=date;
 }
 
--(IBAction)doneAction:(id)sender{
-    // remove the "Done" button in the nav bar
-	self.navigationItem.rightBarButtonItem = nil; 
-    self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-    [self SetBackControls];  
-    [self.infoTableView setScrollEnabled:YES];
+-(BOOL)validateDates{
+    BOOL isValid=YES;
+    NSDate *fromDate ;
+    NSDate *toDate ;
+    if(self.visitFromDate!=NSLocalizedString(@"no date selected yet",@"no date selected yet"))
+        fromDate = [self.dateFormatter dateFromString:self.visitFromDate];
+    if(self.visitToDate!=NSLocalizedString(@"no date selected yet",@"no date selected yet"))
+        toDate = [self.dateFormatter dateFromString:self.visitToDate];  
+    
+    if (fromDate != nil && [fromDate compare:[NSDate date]]==NSOrderedAscending) {
+        isValid=NO;
+    }       
+    
+    if (toDate!=nil ) {
+        if (fromDate==nil) {
+            isValid =NO;
+        }else{
+            if([fromDate compare:toDate]==NSOrderedDescending)
+                isValid=NO;
+        }
+        
+        if ([toDate compare:[NSDate date]]==NSOrderedAscending)
+            isValid = NO;
+    }
+    
+    return isValid;
 }
 
--(IBAction)Cancel:(id)sender {
-    [self.infoTableView reloadData];
-    self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
-    //remove the "Done" button in the nav bar
-	self.navigationItem.rightBarButtonItem = nil; 
-    
-    [self SetBackControls];
-    self.shiftForKeyboard= 0;
+-(IBAction)doneAction:(id)sender{
+    BOOL go=YES;
+    NSIndexPath *indexPath = [self.infoTableView indexPathForSelectedRow];
+    if(indexPath.section==SectionDate)
+        if (([self.visitFromDate compare:[self.dateFormatter stringFromDate: self.visit.FromDate]]!=NSOrderedSame) ||([self.visitToDate compare:[self.dateFormatter stringFromDate:self.visit.ToDate]]!=NSOrderedSame )) {
+            go=  [self validateDates];
+        }
+    if (go) {
+   
+    // remove the "Done" button in the nav bar
+   [self.navigationItem setRightBarButtonItem:nil animated:YES];
+   [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
+    [self.navigationItem setHidesBackButton:NO animated:YES];
+    [self SetBackControls];  
     [self.infoTableView setScrollEnabled:YES];
+    
+    if (self.presentationType==presentationTypeModal) {
+               [self.navigationItem setRightBarButtonItem:self.saveBtn animated:YES];
+                [self.navigationItem setLeftBarButtonItem:self.cancelButton animated:YES];
+    }
+    
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Invalid Date Selection",@"Invalid Date Selection") message:NSLocalizedString(@"Dates cannot be set to past, and From cannot be after to.",@"Dates cannot be set to past, and From cannot be after to.") delegate:self cancelButtonTitle:NSLocalizedString(@"OK",@"OK") otherButtonTitles: nil];
+        [alert show];
+        [alert release];
+
+    }
+}
+
+
+-(void)saveAction:(id)sender{
+    self.visit.Title = self.visitTitle;
+    
+    if (self.visitFromDate != NSLocalizedString(@"no date selected yet",@"no date selected yet")) {
+        self.visit.FromDate = [self.dateFormatter dateFromString: visitFromDate];
+    }else{
+        self.visit.FromDate = nil;
+    }
+    
+    if (self.visitToDate != NSLocalizedString(@"no date selected yet",@"no date selected yet")) {
+        self.visit.ToDate = [self.dateFormatter dateFromString: visitToDate];
+    }else{
+        self.visit.ToDate =nil;
+    }
+    
+    self.visit.Notes = visitNotes;
+    
+    NSSet *tempSet = self.visit.Lands ;
+    [self.visit removeLands:tempSet];
+    [self.visit addLands:[NSSet setWithArray:self.visitFistNations]];
+    
+    [appDelegate.landGetter SaveData];
+    [((ViewAVisitViewController_iPhone *)self.delegate).tableView reloadData];
+    [self.delegate EditAVisitViewControllerDidSave:self];
+}
+-(IBAction)Cancel:(id)sender {
+[self.delegate EditAVisitViewControllerDidSave:self];
 }
 
 #pragma mark - Controls manipulation
@@ -458,13 +551,15 @@ typedef enum {titleCellTag} textFieldCellTags;
         [UIView commitAnimations];
 
     }
+    
 }
 
 -(void) ShiftUpDatePicker{
-    //[self.navigationItem setHidesBackButton:YES animated:YES]; 
+  
     
-    self.navigationItem.rightBarButtonItem = self.doneButton;
-    self.navigationItem.leftBarButtonItem = self.cancelButton;
+    [self.navigationItem setRightBarButtonItem:self.doneButton animated:YES];
+    [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
+   [self.navigationItem setHidesBackButton:YES animated:YES]; 
     
     [self.view.window addSubview: self.pickerView];
     
@@ -514,12 +609,12 @@ typedef enum {titleCellTag} textFieldCellTags;
             //CGRect viewFrame = self.view.frame;
             CGRect viewFrame = self.infoTableView.frame;
            
-               if ([visit.Lands count] >= 1) {
+               if ([self.visitFistNations count] >= 1) {
                    if(indexpath.section !=1){
-                   ExtraHeight =  ([visit.Lands count]-1 )* kRegularCellRowHeight ;
+                   ExtraHeight =  ([self.visitFistNations count]-1 )* kRegularCellRowHeight ;
                    }
                    else{
-                       ExtraHeight =  ([visit.Lands count]-1)* kRegularCellRowHeight ;
+                       ExtraHeight =  ([self.visitFistNations count]-1)* kRegularCellRowHeight ;
                    }
                } else ExtraHeight = -1 *kRegularCellRowHeight;
           
@@ -589,7 +684,9 @@ typedef enum {titleCellTag} textFieldCellTags;
     [self ShiftDownDatePicker];
     [self.infoTableView setScrollEnabled:NO];
     [self SetEnabledDateCells:NO];
-    self.navigationItem.leftBarButtonItem = self.cancelButton;  
+    [self.navigationItem setRightBarButtonItem:nil animated:YES];
+    [self.navigationItem setLeftBarButtonItem:nil animated:YES];
+    [self.navigationItem setHidesBackButton:YES animated:YES];
     NSIndexPath *titleCellIndexPath = [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionTitle];
     [self ShiftViewForCellAtIndexPath:titleCellIndexPath];
 }
@@ -601,7 +698,11 @@ typedef enum {titleCellTag} textFieldCellTags;
         self.visitTitle = tfc.textField.text;
     }
    [self.navigationItem setHidesBackButton:NO animated:YES];
-     self.navigationItem.leftBarButtonItem = self.navigationItem.backBarButtonItem;
+   [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
+        if (self.presentationType==presentationTypeModal) {
+            [self.navigationItem setRightBarButtonItem:self.saveBtn animated:YES];
+            [self.navigationItem setLeftBarButtonItem:self.cancelButton animated:YES];
+    }
     [self SetBackControls]; 
     
    
@@ -612,9 +713,10 @@ typedef enum {titleCellTag} textFieldCellTags;
 -(void)TextViewCellEditStarted:(TextViewCell *)tvc{
     [self ShiftDownDatePicker];
     [self SetEnabledDateCells:NO];
-   [self SetEnabledTitleCell:NO];
-    self.navigationItem.rightBarButtonItem = self.doneButton;
-  self.navigationItem.leftBarButtonItem  = self.cancelButton;
+    [self SetEnabledTitleCell:NO];
+    [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
+    [self.navigationItem setRightBarButtonItem:self.doneButton animated:YES];
+    [self.navigationItem setHidesBackButton:YES animated:YES];
    NSIndexPath *noteCellIndexPath = [NSIndexPath indexPathForRow:DetailRow1 inSection:SectionNotes];
   [self ShiftViewForCellAtIndexPath:noteCellIndexPath];
 }
@@ -675,9 +777,18 @@ typedef enum {titleCellTag} textFieldCellTags;
 #pragma  mark - BrowseViewController_iPhoneDelegate methods
 -(void) BrowseViewControllerDidSelectFirstNation:(LandShort *)nation{
     Land * newLand = [appDelegate.landGetter getLandWithLandId:[nation.landId intValue]];
-    [self.visit addLandsObject:newLand];
+    [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
+    [self.navigationItem setHidesBackButton:NO animated:YES];
+    if (self.presentationType==presentationTypeModal) {
+        [self.navigationItem setRightBarButtonItem:self.saveBtn animated:YES];
+        [self.navigationItem setLeftBarButtonItem:self.cancelButton animated:YES];
+    }
+    [self.visitFistNations addObject:newLand];
     [self.infoTableView reloadData];
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
+
+#pragma mark - AlertView delegate method
+
 
 @end

@@ -14,7 +14,9 @@
 #import "PlannedVisit.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 
-@interface EditAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate, UIActionSheetDelegate, BrowseViewController_iPhoneDelegate,TextFieldCellDelegate> {
+typedef enum {presentationTypeModal,presentationTypeNavigate}PresentationType;
+@protocol EditAVisitViewControllerDelegate_iPhone ;
+@interface EditAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, BrowseViewController_iPhoneDelegate,TextFieldCellDelegate> {
     
     NSDateFormatter *dateFormatter; 
     UIDatePicker *pickerView;
@@ -29,20 +31,20 @@
     NSMutableString *visitNotes;
     NSMutableString *visitFromDate;
     NSMutableString * visitToDate;
-    NSArray * visitFistNations;
+    NSMutableArray * visitFistNations;
     NativeEarthAppDelegate_iPhone *appDelegate;
+   
 
 }
+@property(nonatomic) PresentationType presentationType;
 @property (nonatomic, retain) PlannedVisit * visit;
-
 @property (nonatomic, retain) NSString * visitTitle;
 @property (nonatomic, retain) NSString *visitNotes;
 @property (nonatomic, retain) NSString *visitFromDate;
 @property (nonatomic, retain) NSString * visitToDate;
-@property (nonatomic, retain) NSArray * visitFistNations;
+@property (nonatomic, retain) NSMutableArray * visitFistNations;
 @property (nonatomic, retain) NSDateFormatter *dateFormatter; 
-// Number of pixels to shift the view up or down
-@property CGFloat shiftForKeyboard;
+@property CGFloat shiftForKeyboard;// Number of pixels to shift the view up or down
 @property (nonatomic,retain) IBOutlet UIToolbar * toolBar;
 @property (nonatomic,retain) IBOutlet UITableView * infoTableView;
 @property (nonatomic, retain) IBOutlet UIDatePicker *pickerView; 
@@ -50,6 +52,10 @@
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *cancelButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *trashButton;
 @property (nonatomic, retain) UIButton *changeButton;
+@property(nonatomic,retain) id<EditAVisitViewControllerDelegate_iPhone> delegate;
+@property(nonatomic,retain) UIBarButtonItem*  saveBtn;
+
+
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 
@@ -66,4 +72,10 @@
 -(void) SetEnabledFirstNationEdit:(BOOL) enabled;
 -(void) ShiftViewForCellAtIndexPath : (NSIndexPath *) indexpath;
 -(void) ShiftBackView;
+-(BOOL)validateDates;
+@end
+@protocol EditAVisitViewControllerDelegate_iPhone 
+
+-(void) EditAVisitViewControllerDidSave:(EditAVisitViewController_iPhone*) controller; 
+
 @end

@@ -158,7 +158,7 @@
     // will add visit object too.
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:self.managedObjectContext];
     nextVC.visit = [[PlannedVisit alloc]initWithEntity:entity insertIntoManagedObjectContext:nextVC.managedObjectContext];
-    
+    nextVC.presentationType = presentationTypeNavigate;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }

@@ -9,7 +9,7 @@
 #import "ViewAVisitViewController_iPhone.h"
 #import "Land.h"
 #import "LocationInfoViewController_iPhone.h"
-#import "EditAVisitViewController_iPhone.h"
+
 typedef enum {SectionTitle,  SectionDate, SectionFirstNationName, SectionNotes,SectionCount} SectionType;
 
 typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
@@ -63,6 +63,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
 	[self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+    
 }
 
 - (void)viewDidUnload
@@ -75,12 +76,12 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-     
+    [self.navigationItem setHidesBackButton:NO animated:NO];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-   [self.tableView reloadData];
+  // [self.tableView reloadData];
     [super viewDidAppear:animated];
    
 
@@ -140,6 +141,8 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
          cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:RegularCellIdentifier] autorelease];
         }   
     } 
+    cell.textLabel.text=nil;
+    cell.detailTextLabel.text=nil;
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     // Configure the cell...
@@ -213,7 +216,9 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     int rv = kRegularCellRowHeight;
     if (indexPath.section==SectionNotes && indexPath.row == DetailRow1) {
         NSMutableString *text = [[NSMutableString alloc] init];
-        text=[NSMutableString stringWithString: visit.Notes];
+        
+        if(visit.Notes!=nil)text=[NSMutableString stringWithString: visit.Notes];
+        else text =[NSMutableString stringWithString:@""];
         if (text.length !=0) {
 		CGSize s = [text sizeWithFont:[UIFont systemFontOfSize:15] 
 					   constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
@@ -282,6 +287,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
         NSArray * lands = (NSArray*)[visit.Lands allObjects];
         nextVC.allLands = lands;
         nextVC.selectedLand= [lands objectAtIndex:indexPath.row -1];  
+        
         [self.navigationController pushViewController:nextVC animated:YES];
         nextVC.showOrigin=NO;
         [nextVC release];
@@ -291,9 +297,22 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 -(void)EditButtonAction:(id) sender{
     EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] init];
     nextVC.visit = self.visit;
-    nextVC.title=NSLocalizedString(@"Edit Visit",@"Edit Visit");
     
-    [self.navigationController pushViewController:nextVC animated:YES];
+    nextVC.title=NSLocalizedString(@"Edit Visit",@"Edit Visit");
+    nextVC.presentationType = presentationTypeModal;
+    nextVC.hidesBottomBarWhenPushed=NO;
+    nextVC.modalTransitionStyle=UIModalTransitionStyleCrossDissolve;
+    nextVC.modalPresentationStyle=UIModalPresentationFullScreen;
+    nextVC.delegate=self;
+    UINavigationController *cntrol = [[UINavigationController alloc] initWithRootViewController:nextVC];
+    cntrol.navigationBar.barStyle=UIBarStyleBlack;
+    [self.navigationController presentModalViewController:cntrol animated:YES];
     [nextVC release];
+    [cntrol release];
 }
+
+-(void) EditAVisitViewControllerDidSave:(EditAVisitViewController_iPhone*) controller{
+    [controller dismissModalViewControllerAnimated:YES];
+}
+
 @end
