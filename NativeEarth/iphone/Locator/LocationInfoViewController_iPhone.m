@@ -68,7 +68,7 @@ typedef enum{
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
-       
+    self.title = self.selectedLand.LandName; 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0, 4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
     self.tableView.dataSource = self;
@@ -88,6 +88,7 @@ typedef enum{
 
 
 - (void)viewWillAppear:(BOOL)animated {
+    [self.navigationItem setHidesBackButton:NO animated:NO];
     [super viewWillAppear:animated];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 	[self.tableView reloadData];
