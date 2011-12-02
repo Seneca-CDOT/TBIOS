@@ -689,8 +689,10 @@ managedObjectContext=managedObjectContext_;
 
 -(NSError *)SaveData{
     NSError * error;
-    if(![self.managedObjectContext save:&error]) return error;
-    else return nil;
+    if(![self.managedObjectContext save:&error]) 
+        return error;
+    else 
+        return nil;
     
 }
 -(NSError*)DeleteVisit:(PlannedVisit*) visit{
