@@ -22,5 +22,5 @@
 @property (nonatomic, retain) NSArray* nearbyLands;
 @property (nonatomic) CLLocationCoordinate2D  originLocation;
 @property (nonatomic,retain) NSString * originTitle;
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath ;
 @end

@@ -305,7 +305,7 @@ typedef enum{
 
 
 -(void) NavigateToGreetings{
-    GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]init];
+    GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]initWithNibName:@"GreetingViewController_iPhone" bundle:nil];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
 //nextVC.language = 
     nextVC.greetings = [(NSMutableSet *)((Land *)selectedLand).Greetings allObjects];
