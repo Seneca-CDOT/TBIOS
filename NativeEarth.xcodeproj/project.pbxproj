@@ -145,9 +145,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldCell_iPhone.h; path = ../Locator/TextFieldCell_iPhone.h; sourceTree = "<group>"; };
-		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextFieldCell_iPhone.m; path = ../Locator/TextFieldCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldCell_iPhone.xib; path = ../Locator/TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
+		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldCell_iPhone.h; path = iphone/Locator/TextFieldCell_iPhone.h; sourceTree = "<group>"; };
+		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextFieldCell_iPhone.m; path = iphone/Locator/TextFieldCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldCell_iPhone.xib; path = iphone/Locator/TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
 		D71CA1C213F2CF530016C3CB /* LandShortArray.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandShortArray.h; sourceTree = "<group>"; };
 		D71CA1C313F2CF530016C3CB /* LandShortArray.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandShortArray.m; sourceTree = "<group>"; };
 		D71CA1C613F2F12A0016C3CB /* LandGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandGetter.h; sourceTree = "<group>"; };
@@ -190,10 +190,10 @@
 		D78D04B213E1D92100C04A5E /* WSGreeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSGreeting.m; sourceTree = "<group>"; };
 		D78D04B413E1DB6900C04A5E /* WSContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSContent.h; sourceTree = "<group>"; };
 		D78D04B513E1DB6A00C04A5E /* WSContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSContent.m; sourceTree = "<group>"; };
-		D78D04B713E1F78400C04A5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../../Constants.h; sourceTree = "<group>"; };
-		D78DA271148C420E0022572A /* GreetingCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreetingCell_iPhone.h; sourceTree = "<group>"; };
-		D78DA272148C420E0022572A /* GreetingCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GreetingCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D78DA273148C420E0022572A /* GreetingCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingCell_iPhone.xib; sourceTree = "<group>"; };
+		D78D04B713E1F78400C04A5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
+		D78DA271148C420E0022572A /* GreetingCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreetingCell_iPhone.h; path = iphone/Locator/GreetingCell_iPhone.h; sourceTree = "<group>"; };
+		D78DA272148C420E0022572A /* GreetingCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GreetingCell_iPhone.m; path = iphone/Locator/GreetingCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D78DA273148C420E0022572A /* GreetingCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GreetingCell_iPhone.xib; path = iphone/Locator/GreetingCell_iPhone.xib; sourceTree = "<group>"; };
 		D78DA297148C4B210022572A /* arrowForwardPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowForwardPlay.png; sourceTree = "<group>"; };
 		D78DA299148C5B490022572A /* NativeEarth 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 4.xcdatamodel"; sourceTree = "<group>"; };
 		D78DA29A148C5B890022572A /* Greeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Greeting.h; sourceTree = "<group>"; };
@@ -301,9 +301,9 @@
 		D7BB0DF913BBA23E0062C2A9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = iphone/fr.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
 		D7BB0DFB13BBA3DC0062C2A9 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		D7BB0DFC13BBA3E40062C2A9 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
-		D7BC54CE13C7A21500542880 /* TextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextViewCell.h; sourceTree = "<group>"; };
-		D7BC54CF13C7A21500542880 /* TextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = TextViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D7BC54D113C7A7E000542880 /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TextViewCell.xib; sourceTree = "<group>"; };
+		D7BC54CE13C7A21500542880 /* TextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextViewCell.h; path = iphone/TripPlanner/TextViewCell.h; sourceTree = "<group>"; };
+		D7BC54CF13C7A21500542880 /* TextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextViewCell.m; path = iphone/TripPlanner/TextViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D7BC54D113C7A7E000542880 /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextViewCell.xib; path = iphone/TripPlanner/TextViewCell.xib; sourceTree = "<group>"; };
 		D7BC54DB13C7BABD00542880 /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteButton.png; path = Images/whiteButton.png; sourceTree = "<group>"; };
 		D7BC54DD13C7BAC300542880 /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueButton.png; path = Images/blueButton.png; sourceTree = "<group>"; };
 		D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewAVisitViewController_iPhone.h; sourceTree = "<group>"; };
@@ -405,13 +405,9 @@
 				D77E0E6113BCFAAB00A738D8 /* ImageBrowser_iPhone.h */,
 				D77E0E6213BCFAAD00A738D8 /* ImageBrowser_iPhone.m */,
 				D77E0E6313BCFAB000A738D8 /* ImageBrowser_iPhone.xib */,
-				D78D04B713E1F78400C04A5E /* Constants.h */,
 				D78E16D71472CC9C00ED49E4 /* GreetingViewController_iPhone.h */,
 				D78E16D81472CC9C00ED49E4 /* GreetingViewController_iPhone.m */,
 				D78E16D91472CC9C00ED49E4 /* GreetingViewController_iPhone.xib */,
-				D78DA271148C420E0022572A /* GreetingCell_iPhone.h */,
-				D78DA272148C420E0022572A /* GreetingCell_iPhone.m */,
-				D78DA273148C420E0022572A /* GreetingCell_iPhone.xib */,
 			);
 			name = Results;
 			path = iphone/Locator;
@@ -487,6 +483,22 @@
 				D794FAC913C361FF00BCE651 /* 6.png */,
 			);
 			path = Images;
+			sourceTree = "<group>";
+		};
+		D7A535B4148D49AA005F8CC5 /* CustomCells */ = {
+			isa = PBXGroup;
+			children = (
+				D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */,
+				D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */,
+				D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */,
+				D7BC54CE13C7A21500542880 /* TextViewCell.h */,
+				D7BC54CF13C7A21500542880 /* TextViewCell.m */,
+				D7BC54D113C7A7E000542880 /* TextViewCell.xib */,
+				D78DA271148C420E0022572A /* GreetingCell_iPhone.h */,
+				D78DA272148C420E0022572A /* GreetingCell_iPhone.m */,
+				D78DA273148C420E0022572A /* GreetingCell_iPhone.xib */,
+			);
+			name = CustomCells;
 			sourceTree = "<group>";
 		};
 		D7A621E7148575D4006E7BC3 /* ScreenshotBrowser */ = {
@@ -584,6 +596,7 @@
 		D7BB0DAD13BB9CC30062C2A9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D78D04B713E1F78400C04A5E /* Constants.h */,
 				D7A621F214857BC5006E7BC3 /* UIImage+Resizing.h */,
 				D7A621F314857BC5006E7BC3 /* UIImage+Resizing.m */,
 				D7DFB85C142A6E7600258875 /* Toast+UIView.m */,
@@ -670,6 +683,7 @@
 		D7BB0DE713BB9F530062C2A9 /* iPhone */ = {
 			isa = PBXGroup;
 			children = (
+				D7A535B4148D49AA005F8CC5 /* CustomCells */,
 				D7BB0DF613BBA22A0062C2A9 /* MainWindow_iPhone.xib */,
 				D7BB0DF313BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m */,
 				D7BB0DF413BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.h */,
@@ -678,7 +692,6 @@
 				D77E0E2213BCCB2A00A738D8 /* Browse */,
 				D7BB0DEE13BBA0440062C2A9 /* Locator */,
 				D7BB0DEC13BBA0290062C2A9 /* VisitPlanner */,
-				D7BB0DED13BBA0330062C2A9 /* Settings */,
 			);
 			name = iPhone;
 			sourceTree = "<group>";
@@ -686,12 +699,6 @@
 		D7BB0DEC13BBA0290062C2A9 /* VisitPlanner */ = {
 			isa = PBXGroup;
 			children = (
-				D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */,
-				D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */,
-				D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */,
-				D7BC54CE13C7A21500542880 /* TextViewCell.h */,
-				D7BC54CF13C7A21500542880 /* TextViewCell.m */,
-				D7BC54D113C7A7E000542880 /* TextViewCell.xib */,
 				D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */,
 				D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */,
 				D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */,
@@ -703,14 +710,6 @@
 			);
 			name = VisitPlanner;
 			path = iphone/TripPlanner;
-			sourceTree = "<group>";
-		};
-		D7BB0DED13BBA0330062C2A9 /* Settings */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Settings;
-			path = iphone/Settings;
 			sourceTree = "<group>";
 		};
 		D7BB0DEE13BBA0440062C2A9 /* Locator */ = {
