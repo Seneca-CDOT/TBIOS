@@ -192,7 +192,7 @@
 		D78D04B213E1D92100C04A5E /* WSGreeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSGreeting.m; sourceTree = "<group>"; };
 		D78D04B413E1DB6900C04A5E /* WSContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSContent.h; sourceTree = "<group>"; };
 		D78D04B513E1DB6A00C04A5E /* WSContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSContent.m; sourceTree = "<group>"; };
-		D78D04B713E1F78400C04A5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		D78D04B713E1F78400C04A5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../../Constants.h; sourceTree = "<group>"; };
 		D78DA271148C420E0022572A /* GreetingCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreetingCell_iPhone.h; sourceTree = "<group>"; };
 		D78DA272148C420E0022572A /* GreetingCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = GreetingCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D78DA273148C420E0022572A /* GreetingCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingCell_iPhone.xib; sourceTree = "<group>"; };
@@ -413,6 +413,7 @@
 				D77E0E6113BCFAAB00A738D8 /* ImageBrowser_iPhone.h */,
 				D77E0E6213BCFAAD00A738D8 /* ImageBrowser_iPhone.m */,
 				D77E0E6313BCFAB000A738D8 /* ImageBrowser_iPhone.xib */,
+				D78D04B713E1F78400C04A5E /* Constants.h */,
 				D78E16D71472CC9C00ED49E4 /* GreetingViewController_iPhone.h */,
 				D78E16D81472CC9C00ED49E4 /* GreetingViewController_iPhone.m */,
 				D78E16D91472CC9C00ED49E4 /* GreetingViewController_iPhone.xib */,
@@ -559,7 +560,6 @@
 		D7BB0D8413BB9A0C0062C2A9 /* NativeEarth */ = {
 			isa = PBXGroup;
 			children = (
-				D78D04B713E1F78400C04A5E /* Constants.h */,
 				D78D04A913E1D6D300C04A5E /* WSModel */,
 				D7BB0DC413BB9CF40062C2A9 /* MapAnnotation */,
 				D7BB0DC013BB9CEA0062C2A9 /* Model */,
