@@ -51,7 +51,7 @@
 							<object class="IBUILabel" id="985148694">
 								<reference key="NSNextResponder" ref="57896761"/>
 								<int key="NSvFlags">292</int>
-								<string key="NSFrame">{{20, 20}, {182, 21}}</string>
+								<string key="NSFrame">{{10, 20}, {182, 21}}</string>
 								<reference key="NSSuperview" ref="57896761"/>
 								<reference key="NSWindow"/>
 								<reference key="NSNextKeyView" ref="456090109"/>
@@ -61,6 +61,11 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText"/>
+								<object class="NSFont" key="IBUIFont" id="980120433">
+									<string key="NSName">Helvetica-Bold</string>
+									<double key="NSSize">15</double>
+									<int key="NSfFlags">16</int>
+								</object>
 								<object class="NSColor" key="IBUITextColor" id="173235989">
 									<int key="NSColorSpace">1</int>
 									<bytes key="NSRGB">MCAwIDAAA</bytes>
@@ -82,6 +87,11 @@
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<string key="IBUIText"/>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">15</double>
+									<int key="NSfFlags">16</int>
+								</object>
 								<reference key="IBUITextColor" ref="173235989"/>
 								<nil key="IBUIHighlightedColor"/>
 								<int key="IBUIBaselineAdjustment">1</int>
@@ -98,11 +108,7 @@
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
 								<int key="IBUIContentVerticalAlignment">0</int>
-								<object class="NSFont" key="IBUIFont">
-									<string key="NSName">Helvetica-Bold</string>
-									<double key="NSSize">15</double>
-									<int key="NSfFlags">16</int>
-								</object>
+								<reference key="IBUIFont" ref="980120433"/>
 								<object class="NSColor" key="IBUIHighlightedTitleColor">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
@@ -214,8 +220,8 @@
 						<object class="NSMutableArray" key="children">
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<reference ref="456090109"/>
-							<reference ref="985148694"/>
 							<reference ref="190796499"/>
+							<reference ref="985148694"/>
 						</object>
 						<reference key="parent" ref="0"/>
 						<string key="objectName">Table View CellGreeting_ID</string>
