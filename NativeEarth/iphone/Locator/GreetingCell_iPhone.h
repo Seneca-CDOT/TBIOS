@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 // cell identifier for this custom cell
-NSString * kCellGreeting_ID =@"CellGreeting_ID";
+extern NSString * kCellGreeting_ID ;
 
 @interface GreetingCell_iPhone : UITableViewCell {
+ UILabel* lblPronounciation;
+ UILabel* lblPhrase;
+ UIButton* btnPlay; 
     
 }
 @property(nonatomic,retain) IBOutlet UILabel* lblPhrase;

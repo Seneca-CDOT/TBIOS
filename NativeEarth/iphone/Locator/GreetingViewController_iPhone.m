@@ -7,12 +7,13 @@
 //
 
 #import "GreetingViewController_iPhone.h"
-
+#import "GreetingCell_iPhone.h"
 
 @implementation GreetingViewController_iPhone
 @synthesize language, greetings;
 @synthesize  appSoundPlayer;
-@synthesize btnLanguage;
+typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
+
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -24,7 +25,7 @@
 
 - (void)dealloc
 {
-    [self.btnLanguage release];
+    
     [self.appSoundPlayer release];
     [self.greetings release];
     [self.language release];
@@ -44,65 +45,108 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
    locale = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
-    // Do any additional setup after loading the view from its nib.
-    
-    NSString * btnLanguageTitle = [NSString stringWithFormat:@"  %@: %@" , NSLocalizedString(@"Language", @"Language"),self.language];
-        
-    [btnLanguage setTitle:btnLanguageTitle forState:UIControlStateNormal];
-    [btnLanguage setTitle:btnLanguageTitle forState:UIControlStateHighlighted];
-    [btnLanguage setTitle:btnLanguageTitle forState:UIControlStateDisabled];
-    [btnLanguage setTitle:btnLanguageTitle forState:UIControlStateSelected];
-    
 
-    ////
-    for (Greeting * greeting in self.greetings) {
-        //Create Phrase lable
-        
-        UILabel * phraseLable = [[UILabel alloc] init];
-        [phraseLable setText:greeting.Phrase];
-        
-        
-        //Create Pronounciation Lable
-        
-        
-        //Create Play Button
-        
-        
-        
-        
-        //Add them to view (position them properly)
-        
-        
-        
-        NSString *btnTitle = [NSString stringWithFormat:@"  %@: ", greeting.Phrase];
-        UIButton * btn =[UIButton buttonWithType:UIButtonTypeCustom];
-        [btn  setTitle:btnTitle forState:UIControlStateNormal];
-        [btn  setTitle:btnTitle forState:UIControlStateHighlighted];
-        [btn  setTitle:btnTitle forState:UIControlStateDisabled];
-        [btn  setTitle:btnTitle forState:UIControlStateSelected];
-        
-        
-   }
-
- 
     
 }
 
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-    self.btnLanguage=nil;
-}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
 }
+
+
+#pragma  mark - Tableview datasource and delegate methods
+
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    
+    return sectionCount;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{ 
+    int rv=0;
+    if (section == sectionLanguage) {
+        rv=1;
+    }else if(section==sectionGreeting)
+    {
+        rv=[self.greetings count];
+    }
+    return rv;
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewCell *cell;
+    GreetingCell_iPhone * greetingCell;
+    if (indexPath.section==sectionLanguage) {
+    
+    static NSString *CellIdentifier = @"Cell";
+    
+    cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
+    
+    if (cell == nil) {
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+        }
+    
+    [self configureCell:cell atIndexPath:indexPath];
+  
+    }
+    else if(indexPath.section== sectionGreeting){
+         greetingCell= (GreetingCell_iPhone*)[tableView dequeueReusableCellWithIdentifier:kCellGreeting_ID];
+        if (greetingCell==nil) {
+            greetingCell = [[GreetingCell_iPhone createNewGretingCellFromNib] autorelease];
+            [self configureCell:greetingCell atIndexPath:indexPath];
+            cell=greetingCell;
+        }
+    }
+        
+    return cell; 
+    
+}
+
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.section ==sectionLanguage) {
+        cell.userInteractionEnabled=NO;
+        cell.textLabel.text = NSLocalizedString(@"Language:",@"Language:");
+        cell.detailTextLabel.numberOfLines=0;
+        cell.detailTextLabel.text=self.language;
+        
+    }else if(indexPath.section== sectionLanguage){
+        int index=indexPath.row;
+        if ( [locale compare:@"fr"]==0)  {
+            ((GreetingCell_iPhone*)cell).lblPhrase.text=((Greeting*)[self.greetings objectAtIndex:index]).PhraseFrench;
+            ((GreetingCell_iPhone*)cell).lblPronounciation.text=((Greeting*)[self.greetings objectAtIndex:index]).PronounciationFrench;
+        }else {
+            ((GreetingCell_iPhone*)cell).lblPhrase.text=((Greeting*)[self.greetings objectAtIndex:index]).PhraseEnglish;
+            ((GreetingCell_iPhone*)cell).lblPronounciation.text=((Greeting*)[self.greetings objectAtIndex:index]).PronounciationEnglish;
+        }
+        
+        
+    }
+}
+
+
+#pragma mark - Table view delegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+   
+            
+    
+    
+}
+
+
+
+
 
 #pragma mark - Soundplayer Methods
 - (void) playContent:(Content *)content {

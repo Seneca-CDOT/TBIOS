@@ -20,7 +20,7 @@ typedef enum{ Next, Previous} TransitionDirection;
     UIImageView * imageView;
      NSInteger currentImageIndex;
      NSInteger nextImageIndex;
-    NSString *language;
+    NSString *locale;
     NSArray * managedImages;
 }
 @property(nonatomic, retain) NSArray * managedImages;

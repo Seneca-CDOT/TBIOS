@@ -8,9 +8,12 @@
 
 #import "GreetingCell_iPhone.h"
 
+NSString * kCellGreeting_ID = @"CellGreeting_ID";
 
 @implementation GreetingCell_iPhone
-@synthesize lblPhrase,lblPronounciation,btnPlay;
+@synthesize lblPhrase;
+@synthesize  lblPronounciation;
+@synthesize  btnPlay;
 
 + (GreetingCell_iPhone*) createNewGretingCellFromNib{
     NSArray* nibContents = [[NSBundle mainBundle] 

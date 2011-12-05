@@ -48,7 +48,7 @@
 
 - (void)viewDidLoad
 {
-    language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
+    locale = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
@@ -59,7 +59,7 @@
     [self.containerView addSubview:view2];
     transitioning=NO;
     Content * content = (Content *)[managedImages objectAtIndex:currentImageIndex];
-    if ( [language compare:@"fr"]==0) {
+    if ( [locale compare:@"fr"]==0) {
             [self.lableTitle setText: content.TitleFrench];
     }else{
         [self.lableTitle setText:content.TitleEnglish];
@@ -166,7 +166,7 @@
 -(void)animationDidStop:(CAAnimation *)theAnimation finished:(BOOL)flag
 {
     Content * content = (Content *)[managedImages objectAtIndex:currentImageIndex];
-    if ([language compare:@"fr"]==0) {
+    if ([locale compare:@"fr"]==0) {
         [self.lableTitle setText: content.TitleFrench];
     }else{
          [self.lableTitle setText: content.TitleEnglish];

@@ -12,14 +12,14 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "Greeting.h"
 #import "Content.h"
-@interface GreetingViewController_iPhone : BaseViewController {
+@interface GreetingViewController_iPhone : BaseViewController<UITableViewDataSource,UITableViewDelegate> {
     NSString             *locale;
 
 }
 @property (nonatomic, retain)      NSArray              *greetings;
 @property (nonatomic, retain)      NSString             *language;
 @property (nonatomic, retain)      AVAudioPlayer        *appSoundPlayer;
-@property (nonatomic, retain)      IBOutlet UIButton    *btnLanguage;
--(void) playSound:(id) sender;
 
+-(void) playSound:(id) sender;
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath ;
 @end
