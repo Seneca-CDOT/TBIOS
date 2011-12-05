@@ -12,7 +12,8 @@
 @implementation WSGreeting
 
 @synthesize  Language;
-@synthesize  Phrase;
+@synthesize  PhraseEnglish;
+@synthesize PhraseFrench;
 @synthesize  PronounciationEnglish;
 @synthesize PronounciationFrench;
 @synthesize  Content;
@@ -21,7 +22,8 @@
 
 -(void)dealloc{
     [self.Language release];
-    [self.Phrase release];
+    [self.PhraseEnglish release];
+    [self.PhraseFrench release];
     [self.PronounciationEnglish release];
     [self.PronounciationFrench release];
     [self.Content release];
@@ -33,7 +35,8 @@
     self=[super init];
     if (self) {
         self.Language = [greetingDict valueForKey:@"Language"];
-        self.Phrase = [greetingDict valueForKey:@"Phrase"];
+        self.PhraseEnglish = [greetingDict valueForKey:@"PhraseEnglish"];
+        self.PhraseFrench=[greetingDict valueForKey:@"PhraseFrench"];
         self.PronounciationEnglish= [greetingDict valueForKey:@"PronounciationEnglish"];
         self.PronounciationFrench= [greetingDict valueForKey:@"PronounciationFrench"];
         
@@ -48,7 +51,8 @@
     Greeting * managedGreeting = [[Greeting alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
 
     managedGreeting.Language=self.Language;
-    managedGreeting.Phrase=self.Phrase;
+    managedGreeting.PhraseEnglish=self.PhraseEnglish;
+    managedGreeting.PhraseFrench = self.PhraseFrench;
     managedGreeting.PronounciationEnglish=self.PronounciationEnglish;
     managedGreeting.PronounciationFrench=self.PronounciationFrench;
  

@@ -18,7 +18,8 @@
 
 @property (nonatomic, retain) NSString * ActorName;
 
-@property (nonatomic, retain) NSString * Phrase;
+@property (nonatomic, retain) NSString * PhraseEnglish;
+@property (nonatomic, retain) NSString * PhraseFrench;
 @property (nonatomic, retain) NSString * PronounciationEnglish;
 @property (nonatomic, retain) NSString * PronounciationFrench;
 

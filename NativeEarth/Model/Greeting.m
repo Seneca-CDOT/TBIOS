@@ -1,8 +1,8 @@
 //
-//  Greetings.m
+//  Greeting.m
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-11-14.
+//  Created by Ladan Zahir on 11-12-04.
 //  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
 //
 
@@ -12,13 +12,14 @@
 
 
 @implementation Greeting
-@dynamic PronounciationFrench;
-@dynamic Phrase;
+@dynamic PhraseEnglish;
 @dynamic Language;
 @dynamic PronounciationEnglish;
+@dynamic PronounciationFrench;
 @dynamic Type;
-@dynamic Content;
+@dynamic PhraseFrench;
 @dynamic Land;
+@dynamic Content;
 
 
 
