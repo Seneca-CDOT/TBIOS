@@ -95,6 +95,7 @@
     [super loadView];
     
     imageScrollView = [[UIScrollView alloc] initWithFrame:[[self view] bounds]];
+   
     [imageScrollView setBackgroundColor:[UIColor blackColor]];
     [imageScrollView setDelegate:self];
     [imageScrollView setBouncesZoom:YES];
@@ -315,9 +316,9 @@
     [zoomView release];
         
     // choose minimum scale so image width fits screen
-    float minScale  = [imageScrollView frame].size.width  / [zoomView frame].size.width;
-    [imageScrollView setMinimumZoomScale:minScale];
-    [imageScrollView setZoomScale:minScale];
+  //  float minScale  = [imageScrollView frame].size.width  / [zoomView frame].size.width;
+ //   [imageScrollView setMinimumZoomScale:minScale];
+  //  [imageScrollView setZoomScale:minScale];
     [imageScrollView setContentOffset:CGPointZero];
     self.currentMap= map;
 }
@@ -400,12 +401,29 @@
     
     if (buttonIndex == 1)//YES
     {
+        if (thumbViewShowing) {
+            [self toggleThumbView];
+        }
           Land * land = self.currentMap.Land;
         [land removeMapObject:self.currentMap];
-        //int index= [self.maps indexOfObject:currentMap];
+        int index= [self.maps indexOfObject:currentMap];
         [self.maps removeObject:currentMap];
+        
 //thumbview should be reloaded here
-       // [self pickMap:[maps objectAtIndex:0]];
+        thumbScrollView=nil;
+        slideUpView = nil;
+        
+        if ([self.maps count]>0) {
+   
+            if (index<[self.maps count]-1) {
+             [self pickMap:[maps objectAtIndex:index]];
+            }else {
+                     [self pickMap:[maps objectAtIndex:index-1]];
+            }
+        }else{
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
     }
 }
 
