@@ -81,9 +81,9 @@ typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section==sectionLanguage) {
-        return kRegularCellRowHeight;
-    }else return kGreetingCellRowHeight;
+    if (indexPath.section==sectionGreeting) {
+        return kGreetingCellRowHeight;
+    }else return kRegularCellRowHeight+15;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -121,7 +121,7 @@ typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
     cell.selectionStyle =UITableViewCellEditingStyleNone;
     if (indexPath.section ==sectionLanguage) {
           cell.userInteractionEnabled=NO;
-        cell.textLabel.text = NSLocalizedString(@"Language:",@"Language:");
+        cell.textLabel.text = NSLocalizedString(@"Language",@"Language");
         cell.detailTextLabel.numberOfLines=0;
         cell.detailTextLabel.text=self.language;
         
