@@ -25,6 +25,5 @@
 -(void) NavigateToImageGallery;
 -(void) NavigateToGazetter;
 -(void) NavigateToMap;
--(void) NavigateToScreenshot;
--(void) NavigateToSSBrowser;
+-(void) NavigateToScreenshotBrowser;
 @end

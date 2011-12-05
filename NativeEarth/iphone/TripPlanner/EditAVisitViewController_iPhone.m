@@ -237,7 +237,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-	        
+	       cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ; 
     if (indexPath.section == SectionFirstNationName) {
         if (indexPath.row == HeaderRow) {
             cell.textLabel.text = NSLocalizedString(@"First Nation Lands:", @"First Nation Lands:") ;

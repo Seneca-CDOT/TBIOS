@@ -23,7 +23,6 @@ typedef enum{
     rowTitleGreetings,
     rowTitleMap,
     rowTitleScreenshots,
-    rowTitleSSBrowser, 
     rowTitleImage,
     rowTitleGazetter,
 
@@ -119,6 +118,7 @@ typedef enum{
 #pragma mark - TableView Data Source and Delegate Methods
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	switch (indexPath.row) {
         case rowTitleName:
             cell.textLabel.text=selectedLand.LandName;
@@ -154,21 +154,7 @@ typedef enum{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
             break;
-        case rowTitleScreenshots:
-            cell.textLabel.text=NSLocalizedString(@"Saved Maps",@"Saved Maps");
-            if ([self.selectedLand.Maps count] != 0){
-                cell.userInteractionEnabled = YES; 
-                cell.textLabel.alpha = 1;
-                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            }
-            else{
-                cell.userInteractionEnabled=NO;
-                 cell.textLabel.alpha = 0.5;
-                cell.accessoryType = UITableViewCellAccessoryNone;
-            }
-         
-
-            break;
+                
         case rowTitleImage:
             cell.textLabel.text=NSLocalizedString(@"IMage Gallery",@"Image Gallery");
             if (([((Land *)selectedLand).Images count] >0)) {
@@ -187,8 +173,8 @@ typedef enum{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
             break;
-        case rowTitleSSBrowser:
-            cell.textLabel.text=NSLocalizedString(@"SSBrowser",@"SSBrowser");
+        case rowTitleScreenshots:
+            cell.textLabel.text=NSLocalizedString(@"Saved Maps",@"Saved Maps");
             if ([self.selectedLand.Maps count] != 0){
                 cell.userInteractionEnabled = YES; 
                 cell.textLabel.alpha = 1; 
@@ -266,16 +252,13 @@ typedef enum{
             [self NavigateToMap];
             break;
         case rowTitleScreenshots:
-            [self NavigateToScreenshot];
+            [self NavigateToScreenshotBrowser];
             break;
         case rowTitleImage:
             [self NavigateToImageGallery];
             break;
         case rowTitleGazetter:
             [self NavigateToGazetter];
-            break;
-        case rowTitleSSBrowser:
-            [self NavigateToSSBrowser];
             break;
         default:
             break;
@@ -374,7 +357,7 @@ typedef enum{
       [nextVC release];
 
 }
--(void)NavigateToSSBrowser{
+-(void)NavigateToScreenshotBrowser{
     ScreenshotBrowser *nextVC=[[ScreenshotBrowser alloc] initWithNibName:@"ScreenshotBrowser" bundle:nil];
     NSArray * maps = [self.selectedLand.Maps allObjects];
     nextVC.maps=[NSMutableArray arrayWithArray: maps];

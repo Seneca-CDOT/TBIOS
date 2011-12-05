@@ -117,7 +117,7 @@
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
-    
+    cell.selectionStyle= UITableViewCellSelectionStyleGray;
     cell.textLabel.text = ((PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row]).Title;
     if([cell.textLabel.text length]==0)cell.textLabel.text=NSLocalizedString(@"New Visit", @"New Visit");
     cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;

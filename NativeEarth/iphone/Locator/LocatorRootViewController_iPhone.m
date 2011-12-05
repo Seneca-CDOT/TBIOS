@@ -92,6 +92,7 @@
 #pragma mark - TableView Data Source and Delegate Methods
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
+    cell.selectionStyle=UITableViewCellSelectionStyleGray;
 	switch (indexPath.section) {
         case 0:
             cell.textLabel.text=NSLocalizedString(@"Current Location", @"Current Location"); 

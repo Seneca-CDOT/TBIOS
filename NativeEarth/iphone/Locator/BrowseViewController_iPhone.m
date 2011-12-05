@@ -168,7 +168,7 @@
     
     
     cell.textLabel.text = nation.landName;
-	
+	cell.selectionStyle=UITableViewCellSelectionStyleGray;
     return cell;
 }
 

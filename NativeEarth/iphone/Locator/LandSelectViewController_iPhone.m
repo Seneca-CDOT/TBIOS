@@ -130,7 +130,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section==0) {
-        return NSLocalizedString(@"You are inside:", @"You are inside:");
+        return NSLocalizedString(@"You are Inside:", @"You are Inside:");
     }else if(section==1){
         return NSLocalizedString(@"Nearby Lands:", @"Nearby Lands:");
     }
@@ -151,7 +151,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    
+    cell.selectionStyle= UITableViewCellSelectionStyleGray;
     if (indexPath.section ==0) {
         if ([self.landArray count]>0) {
             Land * land = (Land *)[(NSMutableDictionary *)[self.landArray objectAtIndex:indexPath.row] valueForKey:@"Land"];

@@ -136,7 +136,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     
     if (cell == nil) {
         if(indexPath.section== SectionDate &&(indexPath.row== DetailRow1 || indexPath.row == DetailRow2)){
-         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:DateCellIdentifier] autorelease];
+         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:DateCellIdentifier] autorelease];
         }else{
          cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:RegularCellIdentifier] autorelease];
         }   
@@ -161,7 +161,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ;
             cell.detailTextLabel.text =((Land *)[[visit.Lands allObjects] objectAtIndex:indexPath.row -1]).LandName;
             cell.userInteractionEnabled = YES;
-            cell.selectionStyle = UITableViewCellSelectionStyleBlue;
+            cell.selectionStyle = UITableViewCellSelectionStyleGray;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         } 
     }else if(indexPath.section == SectionTitle){
@@ -181,18 +181,29 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
             
         }
         else if (indexPath.row == DetailRow1) {
-            cell.textLabel.font = [UIFont systemFontOfSize:15] ;
-           // cell.textLabel.text =  NSLocalizedString(@"From:", @"From:");
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:15] ;
             cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ;
-            cell.detailTextLabel.text= [NSString stringWithFormat:@"From: %@",[self.dateFormatter stringFromDate:visit.FromDate]];
-            //cell.textLabel.textAlignment= UITextAlignmentRight;
+            cell.textLabel.text=NSLocalizedString(@"From:", @"From");
+            if (![self.dateFormatter stringFromDate:visit.FromDate].length >0) {
+                 cell.detailTextLabel.text=NSLocalizedString( @"no date selected yet",@"no date selected yet");
+            }else{
+                
+            cell.detailTextLabel.text= [self.dateFormatter stringFromDate:visit.FromDate];
+            }
+            cell.detailTextLabel.textColor=[UIColor grayColor];
             
         } else if (indexPath.row ==DetailRow2){
-            cell.textLabel.font = [UIFont systemFontOfSize:15] ;
+            cell.textLabel.font = [UIFont boldSystemFontOfSize:15] ;
+            cell.textLabel.text=NSLocalizedString(@"To:", @"To");
             cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ;
-            //cell.detailTextLabel.textColor=[UIColor blueColor];
-           // cell.textLabel.text = NSLocalizedString(@"To:", @"To:");
-            cell.detailTextLabel.text=[NSString stringWithFormat:@"To: %@",[self.dateFormatter stringFromDate:visit.ToDate]];
+             cell.detailTextLabel.textColor=[UIColor grayColor];
+             
+            if (![self.dateFormatter stringFromDate:visit.ToDate].length >0) {
+                cell.detailTextLabel.text=NSLocalizedString( @"no date selected yet",@"no date selected yet");
+            }else{
+                
+            cell.detailTextLabel.text=[self.dateFormatter stringFromDate:visit.ToDate];
+            }
             
         }
         
@@ -247,35 +258,6 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 }
 
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
-    else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
 
 #pragma mark - Table view delegate
 
