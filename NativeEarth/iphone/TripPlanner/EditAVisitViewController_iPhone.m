@@ -390,9 +390,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     }       
     
     if (toDate!=nil ) {
-        if (fromDate==nil) {
-           // isValid =NO;
-        }else{
+        if (fromDate!=nil) {
             if([fromDate compare:toDate]==NSOrderedDescending)
                 isValid=NO;
         }
@@ -783,8 +781,10 @@ typedef enum {titleCellTag} textFieldCellTags;
         [self.navigationItem setRightBarButtonItem:self.saveBtn animated:YES];
         [self.navigationItem setLeftBarButtonItem:self.cancelButton animated:YES];
     }
+    if(![self.visitFistNations containsObject:newLand]){
     [self.visitFistNations addObject:newLand];
     [self.infoTableView reloadData];
+    }
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
