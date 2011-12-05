@@ -15,7 +15,6 @@
 #import "WSLand.h"
 #import "Constants.h"
 #import "Toast+UIView.h"
-#import "ScreenShotTest.h"
 #import "ScreenshotBrowser.h"
 typedef enum{
     rowTitleName,
@@ -322,13 +321,7 @@ typedef enum{
     }
 }
 
--(void) NavigateToScreenshot{
-    ScreenShotTest * nextVC = [[ScreenShotTest alloc]initWithNibName:@"ScreenShotTest" bundle:nil];
-    NSArray * maps = [self.selectedLand.Maps allObjects];
-    nextVC.map=[maps objectAtIndex:0];
-    [self.navigationController pushViewController:nextVC animated:YES];
-    [nextVC release];
-}
+
 -(void) NavigateToImageGallery{
     if (self.remoteHostStatus != NotReachable) {
     ImageBrowser_iPhone * nextVC = [[ImageBrowser_iPhone alloc]initWithNibName:@"ImageBrowser_iPhone" bundle:nil];

@@ -501,6 +501,25 @@
 			name = CustomCells;
 			sourceTree = "<group>";
 		};
+		D7A535B5148D4A6C005F8CC5 /* TextFiles */ = {
+			isa = PBXGroup;
+			children = (
+				D7967CB813E98A8C00E597B4 /* FirstNationList */,
+				D78B5C93142D269D0009776B /* InitialLands.txt */,
+				D794189D13FEFC910001CAA9 /* Land1.txt */,
+				D79418A013FEFC9A0001CAA9 /* Land2.txt */,
+				D79418A213FEFCA10001CAA9 /* Land3.txt */,
+				D79418A413FEFCB20001CAA9 /* Land4.txt */,
+				D79418A513FEFCB20001CAA9 /* Land5.txt */,
+				D79418A613FEFCB30001CAA9 /* Land6.txt */,
+				D79418A713FEFCB40001CAA9 /* Land7.txt */,
+				D79418A813FEFCB70001CAA9 /* Land8.txt */,
+				D79418A913FEFCBB0001CAA9 /* Land9.txt */,
+				D75F6A1C13E88622001E6509 /* Land0.txt */,
+			);
+			name = TextFiles;
+			sourceTree = "<group>";
+		};
 		D7A621E7148575D4006E7BC3 /* ScreenshotBrowser */ = {
 			isa = PBXGroup;
 			children = (
@@ -518,18 +537,7 @@
 		D7BB0D6D13BB9A0B0062C2A9 = {
 			isa = PBXGroup;
 			children = (
-				D7967CB813E98A8C00E597B4 /* FirstNationList */,
-				D78B5C93142D269D0009776B /* InitialLands.txt */,
-				D794189D13FEFC910001CAA9 /* Land1.txt */,
-				D79418A013FEFC9A0001CAA9 /* Land2.txt */,
-				D79418A213FEFCA10001CAA9 /* Land3.txt */,
-				D79418A413FEFCB20001CAA9 /* Land4.txt */,
-				D79418A513FEFCB20001CAA9 /* Land5.txt */,
-				D79418A613FEFCB30001CAA9 /* Land6.txt */,
-				D79418A713FEFCB40001CAA9 /* Land7.txt */,
-				D79418A813FEFCB70001CAA9 /* Land8.txt */,
-				D79418A913FEFCBB0001CAA9 /* Land9.txt */,
-				D75F6A1C13E88622001E6509 /* Land0.txt */,
+				D7A535B5148D4A6C005F8CC5 /* TextFiles */,
 				D7BB0D8413BB9A0C0062C2A9 /* NativeEarth */,
 				D7BB0D7B13BB9A0C0062C2A9 /* Frameworks */,
 				D7BB0D7913BB9A0B0062C2A9 /* Products */,

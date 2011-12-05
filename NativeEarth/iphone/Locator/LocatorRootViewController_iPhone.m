@@ -11,7 +11,6 @@
 #import "LandSelectViewController_iPhone.h"
 #import "BrowseViewController_iPhone.h"
 #import "MapLookUpViewController_iPhone.h"
-//#import "GeoPoliticalLookupViewController_iPhone.h"
 #import "LocationInfoViewController_iPhone.h"
 
 @implementation LocatorRootViewController_iPhone
