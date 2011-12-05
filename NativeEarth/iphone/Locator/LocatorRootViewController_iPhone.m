@@ -71,11 +71,16 @@
 	[self.tableView reloadData];
 }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
+    [self.locationDetector.locationManager stopUpdatingLocation];
+}
 - (void)viewDidUnload
-{
+{ 
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
+   
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
