@@ -74,12 +74,12 @@
 							<bool key="EncodedWithXMLCoder">YES</bool>
 							<object class="IBUIBarButtonItem" id="661856279">
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="402726750"/>
 								<int key="IBUISystemItemIdentifier">15</int>
 							</object>
 							<object class="IBUIBarButtonItem" id="741010617">
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
+								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="402726750"/>
 								<int key="IBUISystemItemIdentifier">5</int>
 							</object>
@@ -89,7 +89,6 @@
 									<string key="NSResourceName">02-redo.png</string>
 								</object>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<int key="IBUIStyle">1</int>
 								<reference key="IBUIToolbar" ref="402726750"/>
 							</object>
 						</object>
