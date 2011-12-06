@@ -68,6 +68,7 @@
 		D7972E29140C000700454BE3 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E27140C000700454BE3 /* NSString+URLEncoding.m */; };
 		D7972E4D140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */; };
 		D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */; };
+		D7A4FFF3148E7CF30077C56C /* 37-suitcase.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4FFF2148E7CF30077C56C /* 37-suitcase.png */; };
 		D7A621EB1485760D006E7BC3 /* ThumbImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621EA1485760D006E7BC3 /* ThumbImageView.m */; };
 		D7A621EE14857850006E7BC3 /* ScreenshotBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621ED1485784F006E7BC3 /* ScreenshotBrowser.m */; };
 		D7A621F01485786F006E7BC3 /* ScreenshotBrowser.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A621EF1485786F006E7BC3 /* ScreenshotBrowser.xib */; };
@@ -229,6 +230,7 @@
 		D7972E4A140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeopoliticalSearchViewController_iPhone.h; sourceTree = "<group>"; };
 		D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeopoliticalSearchViewController_iPhone.m; sourceTree = "<group>"; };
 		D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeopoliticalSearchViewController_iPhone.xib; sourceTree = "<group>"; };
+		D7A4FFF2148E7CF30077C56C /* 37-suitcase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "37-suitcase.png"; sourceTree = "<group>"; };
 		D7A621E91485760D006E7BC3 /* ThumbImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbImageView.h; sourceTree = "<group>"; };
 		D7A621EA1485760D006E7BC3 /* ThumbImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbImageView.m; sourceTree = "<group>"; };
 		D7A621EC1485784F006E7BC3 /* ScreenshotBrowser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScreenshotBrowser.h; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 		D786015313C656FB007EA5B0 /* icons */ = {
 			isa = PBXGroup;
 			children = (
+				D7A4FFF2148E7CF30077C56C /* 37-suitcase.png */,
 				D78DA297148C4B210022572A /* arrowForwardPlay.png */,
 				D7922ED914686B0E000D7344 /* list.png */,
 				D7DA7B0813D72442009EEC0A /* Pin.png */,
@@ -857,6 +860,7 @@
 				D7A621F01485786F006E7BC3 /* ScreenshotBrowser.xib in Resources */,
 				D78DA275148C420F0022572A /* GreetingCell_iPhone.xib in Resources */,
 				D78DA298148C4B210022572A /* arrowForwardPlay.png in Resources */,
+				D7A4FFF3148E7CF30077C56C /* 37-suitcase.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
