@@ -72,7 +72,11 @@ typedef enum{
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+   // UIBarButtonItem * btnTrip = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:<#(NSString *)#>] style:<#(UIBarButtonItemStyle)#> target:<#(id)#> action:<#(SEL)#>]
+    
+    
     self.view = self.tableView;
+    
     
 }
 
