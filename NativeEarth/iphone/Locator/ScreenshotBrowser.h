@@ -52,7 +52,7 @@
     UIScrollView *imageScrollView;
     UIScrollView *thumbScrollView;
     UIView       *slideUpView; // Contains thumbScrollView and a label giving credit for the images.
-
+    UIView *messageView;
     BOOL thumbViewShowing;
     
     NSTimer *autoscrollTimer;  // Timer used for auto-scrolling.

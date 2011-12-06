@@ -67,31 +67,26 @@ typedef enum{forSavedMaps,forImages} usageType;
 - (void)pickMap:(Map *)map;
 - (void)createThumbScrollViewIfNecessary;
 - (void)createSlideUpViewIfNecessary;
+-(void) removeMessageLableFromScreen;
+-(void) addMessageLableToScreen;
 @end
-
-@interface ScreenshotBrowser (AutoscrollingMethods)
-- (void)maybeAutoscrollForThumb:(ThumbImageView *)thumb;
-- (void)autoscrollTimerFired:(NSTimer *)timer;
-- (void)legalizeAutoscrollDistance;
-- (float)autoscrollDistanceForProximityToEdge:(float)proximity;
-@end
-
-
 
 
 @implementation ScreenshotBrowser
 @synthesize maps,currentMap;
 -(void)viewDidLoad{
-    UIBarButtonItem * deleteButton= [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Delete", @"Delete")  style:UIBarButtonSystemItemTrash target:self action:@selector(deleteImage:)];
+    UIBarButtonItem * deleteButton= [[UIBarButtonItem alloc]initWithTitle:NSLocalizedString(@"Delete", @"Delete")  style:UIBarButtonItemStylePlain target:self action:@selector(deleteImage:)];
     
     deleteButton.enabled=YES;
     
     self.navigationItem.rightBarButtonItem = deleteButton;
 }
+
 -(void)viewWillDisappear:(BOOL)animated{
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     [appDelegate.landGetter SaveData];
 }
+
 - (void)loadView {
     [super loadView];
     
@@ -103,7 +98,7 @@ typedef enum{forSavedMaps,forImages} usageType;
     [[self view] addSubview:imageScrollView];
     
     [self pickMap:[self.maps objectAtIndex:0]];
-    
+    [self addMessageLableToScreen];
 }
 
 - (void)dealloc {
@@ -111,28 +106,11 @@ typedef enum{forSavedMaps,forImages} usageType;
     [maps release];
     [imageScrollView release];
     [slideUpView release];
+    [messageView release];
     [thumbScrollView release];
     [super dealloc];
 }
 
-#pragma mark UIScrollViewDelegate methods
-
-- (UIView *)viewForZoomingInScrollView:(UIScrollView *)scrollView {
-    UIView *view = nil;
-    if (scrollView == imageScrollView) {
-        view = [imageScrollView viewWithTag:ZOOM_VIEW_TAG];
-    }
-    return view;
-}
-
-/************************************** NOTE **************************************/
-/* The following delegate method works around a known bug in zoomToRect:animated: */
-/* In the next release after 3.0 this workaround will no longer be necessary      */
-/**********************************************************************************/
-- (void)scrollViewDidEndZooming:(UIScrollView *)scrollView withView:(UIView *)view atScale:(float)scale {
-    [scrollView setZoomScale:scale+0.01 animated:NO];
-    [scrollView setZoomScale:scale animated:NO];
-}
 
 #pragma mark TapDetectingImageViewDelegate methods
 
@@ -152,137 +130,11 @@ typedef enum{forSavedMaps,forImages} usageType;
     [thumbScrollView bringSubviewToFront:tiv];
 }
 
-- (void)thumbImageViewMoved:(ThumbImageView *)draggingThumb {
-    
-    // check if we've moved close enough to an edge to autoscroll, or far enough away to stop autoscrolling
-    [self maybeAutoscrollForThumb:draggingThumb];
-        
-    /* The rest of this method handles the reordering of thumbnails in the thumbScrollView. See  */
-    /* ThumbImageView.h and ThumbImageView.m for more information about how this works.          */
-    
-    // we'll reorder only if the thumb is overlapping the scroll view
-    if (CGRectIntersectsRect([draggingThumb frame], [thumbScrollView bounds])) {        
-
-        BOOL draggingRight = [draggingThumb frame].origin.x > [draggingThumb home].origin.x ? YES : NO;
-        
-        /* we're going to shift over all the thumbs who live between the home of the moving thumb */
-        /* and the current touch location. A thumb counts as living in this area if the midpoint  */
-        /* of its home is contained in the area.                                                  */
-        NSMutableArray *thumbsToShift = [[NSMutableArray alloc] init];
-        
-        // get the touch location in the coordinate system of the scroll view
-        CGPoint touchLocation = [draggingThumb convertPoint:[draggingThumb touchLocation] toView:thumbScrollView];
-
-        // calculate minimum and maximum boundaries of the affected area
-        float minX = draggingRight ? CGRectGetMaxX([draggingThumb home]) : touchLocation.x;
-        float maxX = draggingRight ? touchLocation.x : CGRectGetMinX([draggingThumb home]);
-        
-        // iterate through thumbnails and see which ones need to move over
-        for (ThumbImageView *thumb in [thumbScrollView subviews]) {
-
-            // skip the thumb being dragged
-            if (thumb == draggingThumb) continue;
-
-            // skip non-thumb subviews of the scroll view (such as the scroll indicators)
-            if (! [thumb isMemberOfClass:[ThumbImageView class]]) continue;
-
-            float thumbMidpoint = CGRectGetMidX([thumb home]);
-            if (thumbMidpoint >= minX && thumbMidpoint <= maxX) {
-                [thumbsToShift addObject:thumb];
-            }
-        }
-        
-        // shift over the other thumbs to make room for the dragging thumb. (if we're dragging right, they shift to the left)
-        float otherThumbShift = ([draggingThumb home].size.width + THUMB_H_PADDING) * (draggingRight ? -1 : 1);
-
-        // as we shift over the other thumbs, we'll calculate how much the dragging thumb's home is going to move
-        float draggingThumbShift = 0.0;
-        
-        // send each of the shifting thumbs to its new home
-        for (ThumbImageView *otherThumb in thumbsToShift) {
-            CGRect home = [otherThumb home];
-            home.origin.x += otherThumbShift;
-            [otherThumb setHome:home];
-            [otherThumb goHome];
-            draggingThumbShift += ([otherThumb frame].size.width + THUMB_H_PADDING) * (draggingRight ? 1 : -1);
-        }
-        
-        [thumbsToShift release];
-        
-        // change the home of the dragging thumb, but don't send it there because it's still being dragged
-        CGRect home = [draggingThumb home];
-        home.origin.x += draggingThumbShift;
-        [draggingThumb setHome:home];
-    }
-}
 
 - (void)thumbImageViewStoppedTracking:(ThumbImageView *)tiv {
     // if the user lets go of the thumb image view, stop autoscrolling
     [autoscrollTimer invalidate];
     autoscrollTimer = nil;
-}
-
-#pragma mark Autoscrolling methods
-
-- (void)maybeAutoscrollForThumb:(ThumbImageView *)thumb {
-
-    autoscrollDistance = 0;
-    
-    // only autoscroll if the thumb is overlapping the thumbScrollView
-    if (CGRectIntersectsRect([thumb frame], [thumbScrollView bounds])) {
-        
-        CGPoint touchLocation = [thumb convertPoint:[thumb touchLocation] toView:thumbScrollView];
-        float distanceFromLeftEdge  = touchLocation.x - CGRectGetMinX([thumbScrollView bounds]);
-        float distanceFromRightEdge = CGRectGetMaxX([thumbScrollView bounds]) - touchLocation.x;
-        
-        if (distanceFromLeftEdge < AUTOSCROLL_THRESHOLD) {
-            autoscrollDistance = [self autoscrollDistanceForProximityToEdge:distanceFromLeftEdge] * -1; // if scrolling left, distance is negative
-        } else if (distanceFromRightEdge < AUTOSCROLL_THRESHOLD) {
-            autoscrollDistance = [self autoscrollDistanceForProximityToEdge:distanceFromRightEdge];
-        }        
-    }
-    
-    // if no autoscrolling, stop and clear timer
-    if (autoscrollDistance == 0) {
-        [autoscrollTimer invalidate];
-        autoscrollTimer = nil;
-    } 
-    
-    // otherwise create and start timer (if we don't already have a timer going)
-    else if (autoscrollTimer == nil) {
-        autoscrollTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0 / 60.0)
-                                                           target:self 
-                                                         selector:@selector(autoscrollTimerFired:) 
-                                                         userInfo:thumb 
-                                                          repeats:YES];
-    } 
-}
-
-- (float)autoscrollDistanceForProximityToEdge:(float)proximity {
-    // the scroll distance grows as the proximity to the edge decreases, so that moving the thumb
-    // further over results in faster scrolling.
-    return ceilf((AUTOSCROLL_THRESHOLD - proximity) / 5.0);
-}
-
-- (void)legalizeAutoscrollDistance {
-    // makes sure the autoscroll distance won't result in scrolling past the content of the scroll view
-    float minimumLegalDistance = [thumbScrollView contentOffset].x * -1;
-    float maximumLegalDistance = [thumbScrollView contentSize].width - ([thumbScrollView frame].size.width + [thumbScrollView contentOffset].x);
-    autoscrollDistance = MAX(autoscrollDistance, minimumLegalDistance);
-    autoscrollDistance = MIN(autoscrollDistance, maximumLegalDistance);
-}
-
-- (void)autoscrollTimerFired:(NSTimer*)timer {
-    [self legalizeAutoscrollDistance];
-    
-    // autoscroll by changing content offset
-    CGPoint contentOffset = [thumbScrollView contentOffset];
-    contentOffset.x += autoscrollDistance;
-    [thumbScrollView setContentOffset:contentOffset];
-    
-    // adjust thumb position so it appears to stay still
-    ThumbImageView *thumb = (ThumbImageView *)[timer userInfo];
-    [thumb moveByOffset:CGPointMake(autoscrollDistance, 0)];
 }
 
 #pragma mark View handling methods
@@ -291,9 +143,12 @@ typedef enum{forSavedMaps,forImages} usageType;
     [self createSlideUpViewIfNecessary]; // no-op if slideUpView has already been created
     CGRect frame = [slideUpView frame];
     if (thumbViewShowing) {
-        frame.origin.y += frame.size.height;
+        [self addMessageLableToScreen];
+       
+        frame.origin.y += (frame.size.height);
     } else {
-        frame.origin.y -= frame.size.height;
+         [self removeMessageLableFromScreen];
+        frame.origin.y -= (frame.size.height);
     }
     
     [UIView beginAnimations:nil context:nil];
@@ -349,6 +204,7 @@ typedef enum{forSavedMaps,forImages} usageType;
         // add subviews to container view
         [slideUpView addSubview:thumbScrollView];
         [slideUpView addSubview:creditLabel];
+       // [slideUpView addSubview:messageLabel];
         [creditLabel release];        
     }    
 }
@@ -359,7 +215,7 @@ typedef enum{forSavedMaps,forImages} usageType;
         
         float scrollViewHeight = THUMB_HEIGHT + THUMB_V_PADDING;
         float scrollViewWidth  = [[self view] bounds].size.width;
-        thumbScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, scrollViewWidth, scrollViewHeight)];
+        thumbScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0,0, scrollViewWidth, scrollViewHeight)];
         [thumbScrollView setCanCancelContentTouches:NO];
         [thumbScrollView setClipsToBounds:NO];
         
@@ -392,9 +248,9 @@ typedef enum{forSavedMaps,forImages} usageType;
     [alert show];
     [alert release];
 }
+
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    
     if (buttonIndex == 1)//YES
     {
         if (thumbViewShowing) {
@@ -405,10 +261,10 @@ typedef enum{forSavedMaps,forImages} usageType;
         int index= [self.maps indexOfObject:currentMap];
         [self.maps removeObject:currentMap];
         
-//thumbview should be reloaded here
+        //thumbview should be reloaded here
         thumbScrollView=nil;
         slideUpView = nil;
-        
+        //decide what image to bring to front:
         if ([self.maps count]>0) {
    
             if (index<[self.maps count]-1) {
@@ -424,6 +280,61 @@ typedef enum{forSavedMaps,forImages} usageType;
         
     }
 }
+#pragma mark MessageView methods
 
+-(void) addMessageLableToScreen{
+    if (messageView==nil) {
+        
+    CGRect bounds= [self.view bounds];
+    UILabel *messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, bounds.size.width, 20)];
+    [messageLabel setBackgroundColor:[UIColor clearColor]];
+    [messageLabel setTextColor:[UIColor whiteColor]];
+    [messageLabel setFont:[UIFont fontWithName:@"AmericanTypewriter" size:14]];
+    [messageLabel setText:NSLocalizedString(@"Tap on screen to bring up the browser.", @"Tap on screen to bring up the browser.")];
+    [messageLabel setTextAlignment:UITextAlignmentCenter];        
+    
+    // create container view that will hold scroll view and label
+    CGRect frame = CGRectMake(0, 44, bounds.size.width, 20);
+    messageView = [[UIView alloc] initWithFrame:frame];
+    [messageView setBackgroundColor:[UIColor blackColor]];
+    [messageView setOpaque:NO];
+    [messageView setAlpha:0.55];
+    [[self view] addSubview:messageView];
+    
+    // add subviews to container view
+    
+    [messageView addSubview:messageLabel];
+    
+    [messageLabel release];     
+    } else
+    {
+        CGRect frame = [messageView frame];
+        
+        frame.origin.y += 20;
+               
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        [messageView setFrame:frame];
+        [UIView commitAnimations];
+        
+    }
+
+}
+
+-(void) removeMessageLableFromScreen{
+    if (messageView!=nil) {
+        
+        CGRect frame = [messageView frame];
+        
+        frame.origin.y -= 20;
+        
+        [UIView beginAnimations:nil context:nil];
+        [UIView setAnimationDuration:0.3];
+        [messageView setFrame:frame];
+        [UIView commitAnimations];
+        
+
+    }
+}
 
 @end

@@ -128,14 +128,14 @@ float distanceBetweenPoints(CGPoint a, CGPoint b);
     [UIView commitAnimations];
 }
     
-- (void)moveByOffset:(CGPoint)offset {
-    CGRect frame = [self frame];
-    frame.origin.x += offset.x;
-    frame.origin.y += offset.y;
-    [self setFrame:frame];
-    if ([delegate respondsToSelector:@selector(thumbImageViewMoved:)])
-        [delegate thumbImageViewMoved:self];
-}    
+//- (void)moveByOffset:(CGPoint)offset {
+//    CGRect frame = [self frame];
+//    frame.origin.x += offset.x;
+//    frame.origin.y += offset.y;
+//    [self setFrame:frame];
+//    if ([delegate respondsToSelector:@selector(thumbImageViewMoved:)])
+//        [delegate thumbImageViewMoved:self];
+//}    
 
 @end
 

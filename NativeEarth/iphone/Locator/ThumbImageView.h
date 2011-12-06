@@ -71,7 +71,7 @@
 
 
 - (void)goHome;  // animates return to home location
-- (void)moveByOffset:(CGPoint)offset; // change frame lo
+//- (void)moveByOffset:(CGPoint)offset; // change frame lo
 
 @end
 
@@ -82,7 +82,7 @@
 @optional
 - (void)thumbImageViewWasTapped:(ThumbImageView *)tiv;
 - (void)thumbImageViewStartedTracking:(ThumbImageView *)tiv;
-- (void)thumbImageViewMoved:(ThumbImageView *)tiv;
+//- (void)thumbImageViewMoved:(ThumbImageView *)tiv;
 - (void)thumbImageViewStoppedTracking:(ThumbImageView *)tiv;
 
 @end
