@@ -22,7 +22,7 @@
 @property (nonatomic)         BOOL showOrigin;
 //NavigationMethods
 -(void) NavigateToGreetings;
--(void) NavigateToImageGallery;
+//-(void) NavigateToImageGallery;
 -(void) NavigateToGazetter;
 -(void) NavigateToMap;
 -(void) NavigateToScreenshotBrowser;

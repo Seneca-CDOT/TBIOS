@@ -117,7 +117,7 @@ typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
-    
+
     cell.selectionStyle =UITableViewCellEditingStyleNone;
     if (indexPath.section ==sectionLanguage) {
           cell.userInteractionEnabled=NO;

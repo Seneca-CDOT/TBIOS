@@ -22,7 +22,7 @@ typedef enum{
     rowTitleGreetings,
     rowTitleMap,
     rowTitleScreenshots,
-    rowTitleImage,
+  //  rowTitleImage,
     rowTitleGazetter,
 
     rowCount
@@ -157,19 +157,19 @@ typedef enum{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
             break;
-                
-        case rowTitleImage:
-            cell.textLabel.text=NSLocalizedString(@"IMage Gallery",@"Image Gallery");
-            if (([((Land *)selectedLand).Images count] >0)) {
-             cell.userInteractionEnabled = YES;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.textLabel.alpha = 1;
-            }else{
-                cell.userInteractionEnabled = NO;
-                cell.accessoryType = UITableViewCellAccessoryNone;
-                cell.textLabel.alpha = 0.5;
-            }
-            break;
+//                
+//        case rowTitleImage:
+//            cell.textLabel.text=NSLocalizedString(@"IMage Gallery",@"Image Gallery");
+//            if (([((Land *)selectedLand).Images count] >0)) {
+//             cell.userInteractionEnabled = YES;
+//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+//                cell.textLabel.alpha = 1;
+//            }else{
+//                cell.userInteractionEnabled = NO;
+//                cell.accessoryType = UITableViewCellAccessoryNone;
+//                cell.textLabel.alpha = 0.5;
+//            }
+//            break;
         case rowTitleGazetter:
             cell.textLabel.text=NSLocalizedString(@"Gazetter",@"Gazetter");
             cell.userInteractionEnabled = YES;
@@ -257,9 +257,9 @@ typedef enum{
         case rowTitleScreenshots:
             [self NavigateToScreenshotBrowser];
             break;
-        case rowTitleImage:
-            [self NavigateToImageGallery];
-            break;
+//        case rowTitleImage:
+//            [self NavigateToImageGallery];
+//            break;
         case rowTitleGazetter:
             [self NavigateToGazetter];
             break;
@@ -326,23 +326,23 @@ typedef enum{
 }
 
 
--(void) NavigateToImageGallery{
-    if (self.remoteHostStatus != NotReachable) {
-    ImageBrowser_iPhone * nextVC = [[ImageBrowser_iPhone alloc]initWithNibName:@"ImageBrowser_iPhone" bundle:nil];
-    nextVC.remoteHostStatus = self.remoteHostStatus;
-    nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-    nextVC.managedObjectContext= self.managedObjectContext;
-    nextVC.managedImages = [((Land *)selectedLand).Images allObjects];
-    nextVC.title= ((Land *)selectedLand).LandName;
-    
-    [self.navigationController pushViewController:nextVC animated:YES];
-      [nextVC release];
-    }else{
-        //alert
-    }
-
-   }
+//-(void) NavigateToImageGallery{
+//    if (self.remoteHostStatus != NotReachable) {
+//    ImageBrowser_iPhone * nextVC = [[ImageBrowser_iPhone alloc]initWithNibName:@"ImageBrowser_iPhone" bundle:nil];
+//    nextVC.remoteHostStatus = self.remoteHostStatus;
+//    nextVC.internetConnectionStatus = self.internetConnectionStatus;
+//    nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
+//    nextVC.managedObjectContext= self.managedObjectContext;
+//    nextVC.managedImages = [((Land *)selectedLand).Images allObjects];
+//    nextVC.title= ((Land *)selectedLand).LandName;
+//    
+//    [self.navigationController pushViewController:nextVC animated:YES];
+//      [nextVC release];
+//    }else{
+//        //alert
+//    }
+//
+//   }
 -(void) NavigateToGazetter{
     GazetterViewController_iPhone * nextVC = [[GazetterViewController_iPhone alloc]initWithNibName:@"GazetterViewController_iPhone" bundle:nil];
      nextVC.remoteHostStatus = self.remoteHostStatus;
