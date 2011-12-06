@@ -72,9 +72,9 @@ typedef enum{
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
-   // UIBarButtonItem * btnTrip = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:<#(NSString *)#>] style:<#(UIBarButtonItemStyle)#> target:<#(id)#> action:<#(SEL)#>]
+    UIBarButtonItem * btnTrip = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"suitcase.png"] style:UIBarButtonItemStylePlain target:self action:@selector(addToVisits:)];
     
-    
+    self.navigationItem.rightBarButtonItem = btnTrip;
     self.view = self.tableView;
     
     
@@ -377,6 +377,10 @@ typedef enum{
                 position:@"bottom"];  
     
         
+}
+
+-(void)addToVisits:(NSArray *) visits{
+    
 }
 
 @end

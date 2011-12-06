@@ -26,4 +26,5 @@
 -(void) NavigateToGazetter;
 -(void) NavigateToMap;
 -(void) NavigateToScreenshotBrowser;
+-(void)addToVisits:(NSArray *) visits;
 @end
