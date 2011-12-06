@@ -52,7 +52,7 @@
 #import "Land.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #define ZOOM_VIEW_TAG 100
-#define ZOOM_STEP 1.5
+
 
 #define THUMB_HEIGHT 150
 #define THUMB_V_PADDING 10
@@ -60,6 +60,7 @@
 #define CREDIT_LABEL_HEIGHT 20
 
 #define AUTOSCROLL_THRESHOLD 30
+typedef enum{forSavedMaps,forImages} usageType;
 
 @interface ScreenshotBrowser (ViewHandlingMethods)
 - (void)toggleThumbView;
@@ -314,11 +315,6 @@
     [imageScrollView addSubview:zoomView];
     [imageScrollView setContentSize:[zoomView frame].size];
     [zoomView release];
-        
-    // choose minimum scale so image width fits screen
-  //  float minScale  = [imageScrollView frame].size.width  / [zoomView frame].size.width;
- //   [imageScrollView setMinimumZoomScale:minScale];
-  //  [imageScrollView setZoomScale:minScale];
     [imageScrollView setContentOffset:CGPointZero];
     self.currentMap= map;
 }
@@ -417,8 +413,10 @@
    
             if (index<[self.maps count]-1) {
              [self pickMap:[maps objectAtIndex:index]];
-            }else {
-                     [self pickMap:[maps objectAtIndex:index-1]];
+            }else if(index==[self.maps count]-1){
+                     [self pickMap:[maps objectAtIndex:index]];
+            }else{
+                [self pickMap:[maps objectAtIndex:index-1]];
             }
         }else{
             [self.navigationController popViewControllerAnimated:YES];
