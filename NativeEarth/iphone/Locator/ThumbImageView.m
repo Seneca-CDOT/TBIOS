@@ -75,26 +75,27 @@ float distanceBetweenPoints(CGPoint a, CGPoint b);
         [delegate thumbImageViewStartedTracking:self];
 }
 
-- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
-    // we want to establish a minimum distance that the touch has to move before it counts as dragging,
-    // so that the slight movement involved in a tap doesn't cause the frame to move.
-    
-    CGPoint newTouchLocation = [[touches anyObject] locationInView:self];
-    
-    // if we're already dragging, move our frame
-    if (dragging) {
-        float deltaX = newTouchLocation.x - touchLocation.x;
-        float deltaY = newTouchLocation.y - touchLocation.y;
-        [self moveByOffset:CGPointMake(deltaX, deltaY)];
-    }
-    
-    // if we're not dragging yet, check if we've moved far enough from the initial point to start
-    else if (distanceBetweenPoints(touchLocation, newTouchLocation) > DRAG_THRESHOLD) {
-        touchLocation = newTouchLocation;
-        dragging = YES;
-    }
-}
-
+//commented out so that imageviews cannot be moved(dragged)
+//- (void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event {
+//    // we want to establish a minimum distance that the touch has to move before it counts as dragging,
+//    // so that the slight movement involved in a tap doesn't cause the frame to move.
+//    
+//    CGPoint newTouchLocation = [[touches anyObject] locationInView:self];
+//    
+//    // if we're already dragging, move our frame
+//    if (dragging) {
+//        float deltaX = newTouchLocation.x - touchLocation.x;
+//        float deltaY = newTouchLocation.y - touchLocation.y;
+//        [self moveByOffset:CGPointMake(deltaX, deltaY)];
+//    }
+//    
+//    // if we're not dragging yet, check if we've moved far enough from the initial point to start
+//    else if (distanceBetweenPoints(touchLocation, newTouchLocation) > DRAG_THRESHOLD) {
+//        touchLocation = newTouchLocation;
+//        dragging = YES;
+//    }
+//}
+//
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event {
     if (dragging) {
         [self goHome];
