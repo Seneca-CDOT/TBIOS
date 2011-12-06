@@ -314,7 +314,7 @@
      r, which indicates P's position along AB, is computed by the dot product 
      of AC and AB divided by the square of the length of AB:
      
-     (1)     AB
+     (1)     AC dot AB
      r = ---------  
      ||AB||^2
      
