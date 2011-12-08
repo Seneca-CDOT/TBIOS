@@ -20,6 +20,8 @@
 		D7592E8713BBB2F700F1D28C /* LauncherViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7592E8513BBB2F700F1D28C /* LauncherViewController_iPhone.xib */; };
 		D7592EAF13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */; };
 		D75F6A1D13E88623001E6509 /* Land0.txt in Resources */ = {isa = PBXBuildFile; fileRef = D75F6A1C13E88622001E6509 /* Land0.txt */; };
+		D760FC1514914B9600D7A281 /* icon_case.png in Resources */ = {isa = PBXBuildFile; fileRef = D760FC1414914B9300D7A281 /* icon_case.png */; };
+		D760FC1714914BC100D7A281 /* icon_forum.png in Resources */ = {isa = PBXBuildFile; fileRef = D760FC1614914BC000D7A281 /* icon_forum.png */; };
 		D77E0E1013BCC34300A738D8 /* LocationInfoViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */; };
 		D77E0E1F13BCCADB00A738D8 /* GazetterViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E1D13BCCADB00A738D8 /* GazetterViewController_iPhone.m */; };
 		D77E0E2013BCCADB00A738D8 /* GazetterViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77E0E1E13BCCADB00A738D8 /* GazetterViewController_iPhone.xib */; };
@@ -114,8 +116,6 @@
 		D7BB0DFD13BBA3E40062C2A9 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DFC13BBA3E40062C2A9 /* BaseViewController.m */; };
 		D7BC54D013C7A21500542880 /* TextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BC54CF13C7A21500542880 /* TextViewCell.m */; };
 		D7BC54D213C7A7E000542880 /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BC54D113C7A7E000542880 /* TextViewCell.xib */; };
-		D7BC54DC13C7BABD00542880 /* whiteButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D7BC54DB13C7BABD00542880 /* whiteButton.png */; };
-		D7BC54DE13C7BAC300542880 /* blueButton.png in Resources */ = {isa = PBXBuildFile; fileRef = D7BC54DD13C7BAC300542880 /* blueButton.png */; };
 		D7C4B53E145F02280082F0FF /* ViewAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */; };
 		D7D86AEF14718EAB0009837F /* Content.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D86AEE14718EAB0009837F /* Content.m */; };
 		D7D86AF214718ECC0009837F /* Land.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D86AF114718ECC0009837F /* Land.m */; };
@@ -162,6 +162,8 @@
 		D7592EAD13BBC06A00F1D28C /* LocatorRootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocatorRootViewController_iPhone.h; sourceTree = "<group>"; };
 		D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocatorRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D75F6A1C13E88622001E6509 /* Land0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Land0.txt; path = ../../Sites/Land0.txt; sourceTree = "<group>"; };
+		D760FC1414914B9300D7A281 /* icon_case.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_case.png; sourceTree = "<group>"; };
+		D760FC1614914BC000D7A281 /* icon_forum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_forum.png; sourceTree = "<group>"; };
 		D77E0E0E13BCC34300A738D8 /* LocationInfoViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationInfoViewController_iPhone.h; sourceTree = "<group>"; };
 		D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LocationInfoViewController_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D77E0E1C13BCCADB00A738D8 /* GazetterViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GazetterViewController_iPhone.h; sourceTree = "<group>"; };
@@ -306,8 +308,6 @@
 		D7BC54CE13C7A21500542880 /* TextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextViewCell.h; path = iphone/TripPlanner/TextViewCell.h; sourceTree = "<group>"; };
 		D7BC54CF13C7A21500542880 /* TextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextViewCell.m; path = iphone/TripPlanner/TextViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7BC54D113C7A7E000542880 /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextViewCell.xib; path = iphone/TripPlanner/TextViewCell.xib; sourceTree = "<group>"; };
-		D7BC54DB13C7BABD00542880 /* whiteButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = whiteButton.png; path = Images/whiteButton.png; sourceTree = "<group>"; };
-		D7BC54DD13C7BAC300542880 /* blueButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = blueButton.png; path = Images/blueButton.png; sourceTree = "<group>"; };
 		D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewAVisitViewController_iPhone.h; sourceTree = "<group>"; };
 		D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewAVisitViewController_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7D86AEB14718B610009837F /* NativeEarth 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 2.xcdatamodel"; sourceTree = "<group>"; };
@@ -444,16 +444,16 @@
 				D7DA7B0C13D72442009EEC0A /* PinFloating.png */,
 				D7DA7B0D13D72442009EEC0A /* PinShadow.png */,
 				D7E85FAD13D4968800437CD7 /* 06-magnify.png */,
+				D760FC1414914B9300D7A281 /* icon_case.png */,
 				D7E85FAE13D4968800437CD7 /* icon_list.png */,
 				D7E85FAF13D4968800437CD7 /* icon_location.png */,
+				D760FC1614914BC000D7A281 /* icon_forum.png */,
 				D7E85FB013D4968800437CD7 /* icon_magnify.png */,
 				D7E85FB113D4968800437CD7 /* icon_play.png */,
 				D7E85FB213D4968800437CD7 /* icon_settings.png */,
 				D7E85FB313D4968800437CD7 /* icon_settings2.png */,
 				D7E85FB413D4968900437CD7 /* magnify.png */,
 				D786015C13C65D93007EA5B0 /* Spotlight.png */,
-				D7BC54DD13C7BAC300542880 /* blueButton.png */,
-				D7BC54DB13C7BABD00542880 /* whiteButton.png */,
 			);
 			name = icons;
 			sourceTree = "<group>";
@@ -818,8 +818,6 @@
 				D7A84F7313C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib in Resources */,
 				D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */,
 				D7BC54D213C7A7E000542880 /* TextViewCell.xib in Resources */,
-				D7BC54DC13C7BABD00542880 /* whiteButton.png in Resources */,
-				D7BC54DE13C7BAC300542880 /* blueButton.png in Resources */,
 				D7003C1913CDEF1800587CD0 /* TextFieldCell_iPhone.xib in Resources */,
 				D7E85FB513D4968900437CD7 /* 06-magnify.png in Resources */,
 				D7E85FB613D4968900437CD7 /* icon_list.png in Resources */,
@@ -861,6 +859,8 @@
 				D78DA275148C420F0022572A /* GreetingCell_iPhone.xib in Resources */,
 				D78DA298148C4B210022572A /* arrowForwardPlay.png in Resources */,
 				D7A4FFF3148E7CF30077C56C /* suitcase.png in Resources */,
+				D760FC1514914B9600D7A281 /* icon_case.png in Resources */,
+				D760FC1714914BC100D7A281 /* icon_forum.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
