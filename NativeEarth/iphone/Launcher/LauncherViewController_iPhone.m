@@ -107,9 +107,10 @@
 	[homeBtn release];
 
     UINavigationController *LocatorNavigationController = [[UINavigationController alloc] initWithRootViewController:locatorRootVC];
-
-    LocatorNavigationController.navigationBar.tintColor=[UIColor blackColor];
-    LocatorNavigationController.navigationBar.translucent=YES;
+   
+  //  LocatorNavigationController.navigationBar.tintColor=[UIColor blackColor];
+   // LocatorNavigationController.navigationBar.translucent=YES;
+    [LocatorNavigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
     [self presentModalViewController:LocatorNavigationController animated:YES];
 	[locatorRootVC release];
     [LocatorNavigationController  release];
