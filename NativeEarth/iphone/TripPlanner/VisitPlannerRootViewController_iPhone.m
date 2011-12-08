@@ -152,12 +152,8 @@
 
 -(void)AddNewVisit{
     EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
- 
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
-    nextVC.managedObjectContext = self.managedObjectContext;
-    // will add visit object too.
-    NSEntityDescription *entity= [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:self.managedObjectContext];
-    nextVC.visit = [[PlannedVisit alloc]initWithEntity:entity insertIntoManagedObjectContext:nextVC.managedObjectContext];
+    nextVC.visit = [appDelegate.landGetter getNewPlannedVisit];
     nextVC.presentationType = presentationTypeNavigate;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];

@@ -25,16 +25,17 @@ typedef enum{
     rowTitleScreenshots,
   //  rowTitleImage,
     rowTitleGazetter,
-
     rowCount
-    
 } rowTitle;
+
 @implementation LocationInfoViewController_iPhone
 @synthesize selectedLand;
 @synthesize allLands;
 @synthesize originLocation;
 @synthesize originTitle;
 @synthesize showOrigin;
+@synthesize shouldLetAddToVisit;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -66,6 +67,7 @@ typedef enum{
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
+    appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     self.title = self.selectedLand.LandName; 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0,4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
@@ -73,12 +75,13 @@ typedef enum{
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     
+    if (shouldLetAddToVisit) {    
     UIBarButtonItem * btnTrip =[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_case.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(ShowActionSheet)];
-    
-    //[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(addToVisits:)];
-
     self.navigationItem.rightBarButtonItem = btnTrip;
+    
     [btnTrip release];
+    }
+  
     self.view = self.tableView;
     
     
@@ -377,18 +380,16 @@ typedef enum{
         if (buttonIndex == 0)
         {
             
-//            [self SetBackControls];
-//            BrowseViewController_iPhone * nextVC = [[BrowseViewController_iPhone alloc]initWithNibName:@"BrowseViewController_iPhone" bundle:nil];
-//            nextVC.remoteHostStatus = self.remoteHostStatus;
-//            nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-//            nextVC.internetConnectionStatus = self.internetConnectionStatus;
-//            nextVC.managedObjectContext = self.managedObjectContext;
-//            nextVC.title= NSLocalizedString(@"Names", @"Names");
-//            nextVC.browseType = ForVisitPlanner;
-//            nextVC.delegate = self;
-//            
-//            [self.navigationController presentModalViewController:nextVC animated:YES];
-//            [nextVC release];
+            EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
+            
+            nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
+            
+            nextVC.visit  = [appDelegate.landGetter getNewPlannedVisit];
+            [nextVC.visit addLandsObject:self.selectedLand];
+            nextVC.presentationType = presentationTypeNavigate;
+            [self.navigationController pushViewController:nextVC animated:YES];
+            [nextVC release];
+            
             
         } else if (buttonIndex == 1){
             //[self SetBackControls];

@@ -202,9 +202,8 @@
       NSArray * lands = [NSArray arrayWithObject:selectedLand];
       nextVC.allLands = lands;
       
-      
       nextVC.title= selectedLand.LandName;
-      
+      nextVC.shouldLetAddToVisit=YES;
       [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
 

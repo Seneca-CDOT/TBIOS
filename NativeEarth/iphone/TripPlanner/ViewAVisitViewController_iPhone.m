@@ -46,7 +46,9 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    if (self.visit.Title==nil ||self.title==@"") {
+         self.title = NSLocalizedString(@"New Visit",@"New Visit");
+    }
     // Uncomment the following line to preserve selection between presentations.
     // self.clearsSelectionOnViewWillAppear = NO;
  
@@ -269,9 +271,10 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
         NSArray * lands = (NSArray*)[visit.Lands allObjects];
         nextVC.allLands = lands;
         nextVC.selectedLand= [lands objectAtIndex:indexPath.row -1];  
+       // nextVC.
+        nextVC.showOrigin=NO; 
         
         [self.navigationController pushViewController:nextVC animated:YES];
-        nextVC.showOrigin=NO;
         [nextVC release];
     }
 }

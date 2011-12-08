@@ -82,9 +82,9 @@ typedef enum {titleCellTag} textFieldCellTags;
 	[self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     
-    self.visitTitle =(self.visit.Title .length>0)?[NSMutableString stringWithString: self.visit.Title]:[NSMutableString stringWithString: @""];
-    self.visitNotes = (self.visit.Notes.length>0 )?[NSMutableString stringWithString:self.visit.Notes]:[NSMutableString stringWithString: @""];
-    
+    self.visitTitle =(self.visit.Title .length>0)?[NSMutableString stringWithString: self.visit.Title]:nil;
+    self.visitNotes =(self.visit.Notes.length>0 )?[NSMutableString stringWithString:self.visit.Notes]:nil;
+ 
     if (![self.dateFormatter stringFromDate:visit.FromDate].length >0) {
         self.visitFromDate=NSLocalizedString( @"no date selected yet",@"no date selected yet");//[NSMutableString stringWithString: @""];
     }else{

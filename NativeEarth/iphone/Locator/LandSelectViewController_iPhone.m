@@ -204,7 +204,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
             //ask for the land to be updates  
             NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
             [appDelegate.landGetter setLandToBeUpdatedById:[selectedLand.LandID intValue]];
-          
+            nextVC.shouldLetAddToVisit=YES;
             nextVC.selectedLand = selectedLand;
             nextVC.originLocation = self.originLocation;
             nextVC.originTitle = self.originTitle;
