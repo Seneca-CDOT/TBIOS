@@ -10,7 +10,7 @@
 #import "BaseTableViewController.h"
 #import "Land.h"
 
-@interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
+@interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate> {
     NSString *language;
     CLLocationCoordinate2D originLocation;
     NSString * originTitle;
@@ -26,5 +26,5 @@
 -(void) NavigateToGazetter;
 -(void) NavigateToMap;
 -(void) NavigateToScreenshotBrowser;
--(void)addToVisits:(NSArray *) visits;
+
 @end
