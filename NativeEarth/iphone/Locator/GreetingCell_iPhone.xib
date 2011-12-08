@@ -104,6 +104,7 @@
 								<string key="NSFrame">{{247, 20}, {53, 49}}</string>
 								<reference key="NSSuperview" ref="57896761"/>
 								<reference key="NSWindow"/>
+								<reference key="NSNextKeyView"/>
 								<bool key="IBUIOpaque">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
 								<int key="IBUIContentHorizontalAlignment">0</int>
@@ -121,11 +122,11 @@
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MC41AA</bytes>
 								</object>
-								<object class="NSCustomResource" key="IBUIDisabledImage" id="952793353">
+								<object class="NSCustomResource" key="IBUIDisabledImage" id="652953314">
 									<string key="NSClassName">NSImage</string>
 									<string key="NSResourceName">arrowForwardPlay.png</string>
 								</object>
-								<reference key="IBUINormalImage" ref="952793353"/>
+								<reference key="IBUINormalImage" ref="652953314"/>
 							</object>
 						</object>
 						<string key="NSFrameSize">{320, 84}</string>
@@ -266,7 +267,7 @@
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 					<string>com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-					<real value="2"/>
+					<real value="0.0"/>
 				</object>
 			</object>
 			<object class="NSMutableDictionary" key="unlocalizedProperties">
