@@ -369,6 +369,7 @@
 		D77E0E2113BCCB0A00A738D8 /* LocationInfo */ = {
 			isa = PBXGroup;
 			children = (
+				D77E0E2F13BCCE3E00A738D8 /* LocationDetails */,
 				D77E0E0E13BCC34300A738D8 /* LocationInfoViewController_iPhone.h */,
 				D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */,
 				D78D045913E046FA00C04A5E /* LandSelectViewController_iPhone.h */,
@@ -394,7 +395,7 @@
 			path = iphone/Locator;
 			sourceTree = "<group>";
 		};
-		D77E0E2F13BCCE3E00A738D8 /* Results */ = {
+		D77E0E2F13BCCE3E00A738D8 /* LocationDetails */ = {
 			isa = PBXGroup;
 			children = (
 				D7A621E7148575D4006E7BC3 /* ScreenshotBrowser */,
@@ -411,8 +412,7 @@
 				D78E16D81472CC9C00ED49E4 /* GreetingViewController_iPhone.m */,
 				D78E16D91472CC9C00ED49E4 /* GreetingViewController_iPhone.xib */,
 			);
-			name = Results;
-			path = iphone/Locator;
+			name = LocationDetails;
 			sourceTree = "<group>";
 		};
 		D786011E13C617CA007EA5B0 /* BaseViewControllers */ = {
@@ -698,9 +698,8 @@
 				D7BB0DF613BBA22A0062C2A9 /* MainWindow_iPhone.xib */,
 				D7BB0DF313BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m */,
 				D7BB0DF413BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.h */,
-				D77E0E2F13BCCE3E00A738D8 /* Results */,
-				D7BB0DEF13BBA0440062C2A9 /* Launcher */,
 				D77E0E2213BCCB2A00A738D8 /* Browse */,
+				D7BB0DEF13BBA0440062C2A9 /* Launcher */,
 				D7BB0DEE13BBA0440062C2A9 /* Locator */,
 				D7BB0DEC13BBA0290062C2A9 /* VisitPlanner */,
 			);
