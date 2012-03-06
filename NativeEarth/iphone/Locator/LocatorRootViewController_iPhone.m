@@ -227,7 +227,7 @@
     nextVC.originTitle = NSLocalizedString(@"You are here!", @"You are here!");
     nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
     nextVC.originLocation = currentlocation;
-    nextVC.showOrigin=NO;
+    nextVC.showOrigin=YES;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 
