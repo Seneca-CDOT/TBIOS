@@ -28,4 +28,12 @@
 @property (nonatomic, retain) NSData * ThankYou;
 @property (nonatomic, retain) NSSet* Nations;
 
+
+- (void)addNationsObject:(NSManagedObject *)value; 
+
+- (void)removeNationsObject:(NSManagedObject *)value;
+
+- (void)addNations:(NSSet *)value ;
+
+- (void)removeNations:(NSSet *)value;
 @end
