@@ -28,4 +28,29 @@
 @property (nonatomic, retain) NSSet* PlannedVisits;
 @property (nonatomic, retain) NSSet* Maps;
 
+
+- (void)addLandsObject:(Land *)value ;
+
+- (void)removeLandsObject:(Land *)value;
+
+- (void)addLands:(NSSet *)value ;
+
+- (void)removeLands:(NSSet *)value;
+
+- (void)addPlannedVisitsObject:(PlannedVisit *)value ;
+
+- (void)removePlannedVisitsObject:(PlannedVisit *)value ;
+
+- (void)addPlannedVisits:(NSSet *)value ;
+
+- (void)removePlannedVisits:(NSSet *)value ;
+
+- (void)addMapsObject:(Map *)value ;
+
+- (void)removeMapsObject:(Map *)value;
+
+- (void)addMaps:(NSSet *)value ;
+
+- (void)removeMaps:(NSSet *)value ;
+
 @end
