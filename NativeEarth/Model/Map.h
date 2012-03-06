@@ -2,20 +2,19 @@
 //  Map.h
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 11-11-14.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Created by Ladan Zahir on 12-03-06.
+//  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import <CoreData/CoreData.h>
 
-@class Land;
 
 @interface Map : NSManagedObject {
 @private
 }
 @property (nonatomic, retain) id Image;
-@property (nonatomic,retain) id Thumb;
-@property (nonatomic, retain) Land * Land;
+@property (nonatomic, retain) id Thumb;
+@property (nonatomic, retain) NSManagedObject * Nation;
 
 @end
