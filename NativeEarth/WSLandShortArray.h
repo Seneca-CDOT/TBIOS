@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 
-@interface LandShortDictionary : NSMutableDictionary <NSFetchedResultsControllerDelegate>{
+@interface WS
+LandShortDictionary : NSMutableDictionary <NSFetchedResultsControllerDelegate>{
     NSFetchedResultsController * fetchedResultsControllerShortLands_;
     NSManagedObjectContext * managedObjectContext_;
 }
