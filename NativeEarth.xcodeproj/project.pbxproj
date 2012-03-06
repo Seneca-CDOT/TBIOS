@@ -39,7 +39,6 @@
 		D78D045B13E046FB00C04A5E /* LandSelectViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D045A13E046FB00C04A5E /* LandSelectViewController_iPhone.m */; };
 		D78D04B013E1D72200C04A5E /* WSLand.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04AF13E1D72200C04A5E /* WSLand.m */; };
 		D78D04B313E1D92200C04A5E /* WSGreeting.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B213E1D92100C04A5E /* WSGreeting.m */; };
-		D78D04B613E1DB6D00C04A5E /* WSContent.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04B513E1DB6A00C04A5E /* WSContent.m */; };
 		D78DA274148C420F0022572A /* GreetingCell_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78DA272148C420E0022572A /* GreetingCell_iPhone.m */; };
 		D78DA275148C420F0022572A /* GreetingCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D78DA273148C420E0022572A /* GreetingCell_iPhone.xib */; };
 		D78DA298148C4B210022572A /* arrowForwardPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = D78DA297148C4B210022572A /* arrowForwardPlay.png */; };
@@ -94,7 +93,6 @@
 		D7BB0DBD13BB9CC30062C2A9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB513BB9CC30062C2A9 /* Reachability.m */; };
 		D7BB0DBE13BB9CC30062C2A9 /* ReverseGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */; };
 		D7BB0DBF13BB9CC30062C2A9 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB913BB9CC30062C2A9 /* Utility.m */; };
-		D7BB0DC313BB9CEA0062C2A9 /* LandShort.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DC213BB9CEA0062C2A9 /* LandShort.m */; };
 		D7BB0DCB13BB9CF40062C2A9 /* CalloutMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DC613BB9CF40062C2A9 /* CalloutMapAnnotationView.m */; };
 		D7BB0DCC13BB9CF40062C2A9 /* DistrictCenterAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DC813BB9CF40062C2A9 /* DistrictCenterAnnotation.m */; };
 		D7BB0DCD13BB9CF40062C2A9 /* DistrictCenterAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DCA13BB9CF40062C2A9 /* DistrictCenterAnnotationView.m */; };
@@ -121,6 +119,7 @@
 		D7D7ABA41506B19800BD3EBD /* Nation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABA31506B19800BD3EBD /* Nation.m */; };
 		D7D7ABA71506B19900BD3EBD /* Land.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABA61506B19900BD3EBD /* Land.m */; };
 		D7D7ABAA1506B19900BD3EBD /* PlannedVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABA91506B19900BD3EBD /* PlannedVisit.m */; };
+		D7D7ABB61506B44500BD3EBD /* WSLandShort.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABB51506B44500BD3EBD /* WSLandShort.m */; };
 		D7DA7B0513D72412009EEC0A /* DDAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DA7B0213D72412009EEC0A /* DDAnnotation.m */; };
 		D7DA7B0E13D72442009EEC0A /* Pin.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0813D72442009EEC0A /* Pin.png */; };
 		D7DA7B0F13D72442009EEC0A /* PinDown1.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0913D72442009EEC0A /* PinDown1.png */; };
@@ -191,8 +190,6 @@
 		D78D04AF13E1D72200C04A5E /* WSLand.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLand.m; sourceTree = "<group>"; };
 		D78D04B113E1D92000C04A5E /* WSGreeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSGreeting.h; sourceTree = "<group>"; };
 		D78D04B213E1D92100C04A5E /* WSGreeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSGreeting.m; sourceTree = "<group>"; };
-		D78D04B413E1DB6900C04A5E /* WSContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSContent.h; sourceTree = "<group>"; };
-		D78D04B513E1DB6A00C04A5E /* WSContent.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSContent.m; sourceTree = "<group>"; };
 		D78D04B713E1F78400C04A5E /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Constants.h; path = ../Constants.h; sourceTree = "<group>"; };
 		D78DA271148C420E0022572A /* GreetingCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GreetingCell_iPhone.h; path = iphone/Locator/GreetingCell_iPhone.h; sourceTree = "<group>"; };
 		D78DA272148C420E0022572A /* GreetingCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = GreetingCell_iPhone.m; path = iphone/Locator/GreetingCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
@@ -272,8 +269,6 @@
 		D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverseGeocoder.m; sourceTree = "<group>"; };
 		D7BB0DB813BB9CC30062C2A9 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
 		D7BB0DB913BB9CC30062C2A9 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Utility.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D7BB0DC113BB9CEA0062C2A9 /* LandShort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LandShort.h; path = Model/LandShort.h; sourceTree = "<group>"; };
-		D7BB0DC213BB9CEA0062C2A9 /* LandShort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LandShort.m; path = Model/LandShort.m; sourceTree = "<group>"; };
 		D7BB0DC513BB9CF40062C2A9 /* CalloutMapAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutMapAnnotationView.h; sourceTree = "<group>"; };
 		D7BB0DC613BB9CF40062C2A9 /* CalloutMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutMapAnnotationView.m; sourceTree = "<group>"; };
 		D7BB0DC713BB9CF40062C2A9 /* DistrictCenterAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistrictCenterAnnotation.h; sourceTree = "<group>"; };
@@ -319,6 +314,8 @@
 		D7D7ABA61506B19900BD3EBD /* Land.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Land.m; sourceTree = "<group>"; };
 		D7D7ABA81506B19900BD3EBD /* PlannedVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlannedVisit.h; sourceTree = "<group>"; };
 		D7D7ABA91506B19900BD3EBD /* PlannedVisit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlannedVisit.m; sourceTree = "<group>"; };
+		D7D7ABB41506B44500BD3EBD /* WSLandShort.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WSLandShort.h; sourceTree = "<group>"; };
+		D7D7ABB51506B44500BD3EBD /* WSLandShort.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WSLandShort.m; sourceTree = "<group>"; };
 		D7D86AEB14718B610009837F /* NativeEarth 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 2.xcdatamodel"; sourceTree = "<group>"; };
 		D7DA7B0113D72412009EEC0A /* DDAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAnnotation.h; sourceTree = "<group>"; };
 		D7DA7B0213D72412009EEC0A /* DDAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAnnotation.m; sourceTree = "<group>"; };
@@ -462,16 +459,14 @@
 		D78D04A913E1D6D300C04A5E /* WSModel */ = {
 			isa = PBXGroup;
 			children = (
-				D7BB0DC113BB9CEA0062C2A9 /* LandShort.h */,
-				D7BB0DC213BB9CEA0062C2A9 /* LandShort.m */,
+				D7D7ABB41506B44500BD3EBD /* WSLandShort.h */,
+				D7D7ABB51506B44500BD3EBD /* WSLandShort.m */,
 				D71CA1C213F2CF530016C3CB /* LandShortArray.h */,
 				D71CA1C313F2CF530016C3CB /* LandShortArray.m */,
 				D78D04AE13E1D72200C04A5E /* WSLand.h */,
 				D78D04AF13E1D72200C04A5E /* WSLand.m */,
 				D78D04B113E1D92000C04A5E /* WSGreeting.h */,
 				D78D04B213E1D92100C04A5E /* WSGreeting.m */,
-				D78D04B413E1DB6900C04A5E /* WSContent.h */,
-				D78D04B513E1DB6A00C04A5E /* WSContent.m */,
 			);
 			name = WSModel;
 			sourceTree = "<group>";
@@ -880,7 +875,6 @@
 				D7BB0DBD13BB9CC30062C2A9 /* Reachability.m in Sources */,
 				D7BB0DBE13BB9CC30062C2A9 /* ReverseGeocoder.m in Sources */,
 				D7BB0DBF13BB9CC30062C2A9 /* Utility.m in Sources */,
-				D7BB0DC313BB9CEA0062C2A9 /* LandShort.m in Sources */,
 				D7BB0DCB13BB9CF40062C2A9 /* CalloutMapAnnotationView.m in Sources */,
 				D7BB0DCC13BB9CF40062C2A9 /* DistrictCenterAnnotation.m in Sources */,
 				D7BB0DCD13BB9CF40062C2A9 /* DistrictCenterAnnotationView.m in Sources */,
@@ -909,7 +903,6 @@
 				D78D045B13E046FB00C04A5E /* LandSelectViewController_iPhone.m in Sources */,
 				D78D04B013E1D72200C04A5E /* WSLand.m in Sources */,
 				D78D04B313E1D92200C04A5E /* WSGreeting.m in Sources */,
-				D78D04B613E1DB6D00C04A5E /* WSContent.m in Sources */,
 				D71CA1C413F2CF550016C3CB /* LandShortArray.m in Sources */,
 				D71CA1C813F2F12C0016C3CB /* LandGetter.m in Sources */,
 				D7972E26140BFFFC00454BE3 /* Geocoder.m in Sources */,
@@ -930,6 +923,7 @@
 				D7D7ABA41506B19800BD3EBD /* Nation.m in Sources */,
 				D7D7ABA71506B19900BD3EBD /* Land.m in Sources */,
 				D7D7ABAA1506B19900BD3EBD /* PlannedVisit.m in Sources */,
+				D7D7ABB61506B44500BD3EBD /* WSLandShort.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
