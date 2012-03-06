@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "LandShort.h"
+#import "WSLandShort.h"
 
 
-@implementation LandShort
+@implementation WSLandShort
 
 @synthesize landName, landId, versionIdentifier;
 -(id) initWithDictionary:(NSDictionary *) dict{
