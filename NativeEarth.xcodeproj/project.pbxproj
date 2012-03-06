@@ -310,6 +310,7 @@
 		D7BC54D113C7A7E000542880 /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextViewCell.xib; path = iphone/TripPlanner/TextViewCell.xib; sourceTree = "<group>"; };
 		D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewAVisitViewController_iPhone.h; sourceTree = "<group>"; };
 		D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewAVisitViewController_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		D7D7AB8915054CEF00BD3EBD /* NativeEarth 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 5.xcdatamodel"; sourceTree = "<group>"; };
 		D7D86AEB14718B610009837F /* NativeEarth 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 2.xcdatamodel"; sourceTree = "<group>"; };
 		D7D86AED14718EAB0009837F /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content.h; sourceTree = "<group>"; };
 		D7D86AEE14718EAB0009837F /* Content.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Content.m; sourceTree = "<group>"; };
@@ -1095,6 +1096,7 @@
 			children = (
 				D7D86AEB14718B610009837F /* NativeEarth 2.xcdatamodel */,
 				D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */,
+				D7D7AB8915054CEF00BD3EBD /* NativeEarth 5.xcdatamodel */,
 				D78DA299148C5B490022572A /* NativeEarth 4.xcdatamodel */,
 				D7A621F114857AFE006E7BC3 /* NativeEarth 3.xcdatamodel */,
 			);
