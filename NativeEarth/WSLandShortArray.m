@@ -6,10 +6,10 @@
 //  Copyright 2011 __MyCompanyName__. All rights reserved.
 //
 
-#import "LandShortArray.h"
-#import "LandShort.h"
+#import "WSLandShortArray.h"
+#import "WSLandShort.h"
 
-@implementation LandShortDictionary
+@implementation WSLandShortDictionary
 #pragma Mark -
 #pragma Mark Properties 
 @synthesize fetchedResultsControllerShortLands=fetchedResultsControllerShortLands_, managedObjectContext=managedObjectContext_;
