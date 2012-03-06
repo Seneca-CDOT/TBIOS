@@ -294,7 +294,7 @@ typedef enum{forSavedMaps,forImages} usageType;
     [messageLabel setTextAlignment:UITextAlignmentCenter];        
     
     // create container view that will hold scroll view and label
-    CGRect frame = CGRectMake(0, 44, bounds.size.width, 20);
+    CGRect frame = CGRectMake(0, 0, bounds.size.width, 20);
     messageView = [[UIView alloc] initWithFrame:frame];
     [messageView setBackgroundColor:[UIColor blackColor]];
     [messageView setOpaque:NO];
