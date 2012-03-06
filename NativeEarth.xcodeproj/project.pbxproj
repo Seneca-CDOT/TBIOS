@@ -43,7 +43,6 @@
 		D78DA274148C420F0022572A /* GreetingCell_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78DA272148C420E0022572A /* GreetingCell_iPhone.m */; };
 		D78DA275148C420F0022572A /* GreetingCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D78DA273148C420E0022572A /* GreetingCell_iPhone.xib */; };
 		D78DA298148C4B210022572A /* arrowForwardPlay.png in Resources */ = {isa = PBXBuildFile; fileRef = D78DA297148C4B210022572A /* arrowForwardPlay.png */; };
-		D78DA29C148C5B890022572A /* Greeting.m in Sources */ = {isa = PBXBuildFile; fileRef = D78DA29B148C5B890022572A /* Greeting.m */; };
 		D78E16DA1472CC9D00ED49E4 /* GreetingViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78E16D81472CC9C00ED49E4 /* GreetingViewController_iPhone.m */; };
 		D78E16DB1472CC9D00ED49E4 /* GreetingViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D78E16D91472CC9C00ED49E4 /* GreetingViewController_iPhone.xib */; };
 		D7922ED814686135000D7344 /* turtle2.png in Resources */ = {isa = PBXBuildFile; fileRef = D7922ED714686135000D7344 /* turtle2.png */; };
@@ -117,10 +116,11 @@
 		D7BC54D013C7A21500542880 /* TextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BC54CF13C7A21500542880 /* TextViewCell.m */; };
 		D7BC54D213C7A7E000542880 /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BC54D113C7A7E000542880 /* TextViewCell.xib */; };
 		D7C4B53E145F02280082F0FF /* ViewAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */; };
-		D7D86AEF14718EAB0009837F /* Content.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D86AEE14718EAB0009837F /* Content.m */; };
-		D7D86AF214718ECC0009837F /* Land.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D86AF114718ECC0009837F /* Land.m */; };
-		D7D86AF514718ECC0009837F /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D86AF414718ECC0009837F /* Map.m */; };
-		D7D86AF814718ECC0009837F /* PlannedVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D86AF714718ECC0009837F /* PlannedVisit.m */; };
+		D7D7AB9E1506B19800BD3EBD /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7AB9D1506B19800BD3EBD /* Map.m */; };
+		D7D7ABA11506B19800BD3EBD /* Greeting.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABA01506B19800BD3EBD /* Greeting.m */; };
+		D7D7ABA41506B19800BD3EBD /* Nation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABA31506B19800BD3EBD /* Nation.m */; };
+		D7D7ABA71506B19900BD3EBD /* Land.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABA61506B19900BD3EBD /* Land.m */; };
+		D7D7ABAA1506B19900BD3EBD /* PlannedVisit.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABA91506B19900BD3EBD /* PlannedVisit.m */; };
 		D7DA7B0513D72412009EEC0A /* DDAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DA7B0213D72412009EEC0A /* DDAnnotation.m */; };
 		D7DA7B0E13D72442009EEC0A /* Pin.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0813D72442009EEC0A /* Pin.png */; };
 		D7DA7B0F13D72442009EEC0A /* PinDown1.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0913D72442009EEC0A /* PinDown1.png */; };
@@ -199,8 +199,6 @@
 		D78DA273148C420E0022572A /* GreetingCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GreetingCell_iPhone.xib; path = iphone/Locator/GreetingCell_iPhone.xib; sourceTree = "<group>"; };
 		D78DA297148C4B210022572A /* arrowForwardPlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = arrowForwardPlay.png; sourceTree = "<group>"; };
 		D78DA299148C5B490022572A /* NativeEarth 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 4.xcdatamodel"; sourceTree = "<group>"; };
-		D78DA29A148C5B890022572A /* Greeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Greeting.h; sourceTree = "<group>"; };
-		D78DA29B148C5B890022572A /* Greeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Greeting.m; sourceTree = "<group>"; };
 		D78E16D71472CC9C00ED49E4 /* GreetingViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GreetingViewController_iPhone.h; sourceTree = "<group>"; };
 		D78E16D81472CC9C00ED49E4 /* GreetingViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GreetingViewController_iPhone.m; sourceTree = "<group>"; };
 		D78E16D91472CC9C00ED49E4 /* GreetingViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GreetingViewController_iPhone.xib; sourceTree = "<group>"; };
@@ -311,15 +309,17 @@
 		D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewAVisitViewController_iPhone.h; sourceTree = "<group>"; };
 		D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewAVisitViewController_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7D7AB8915054CEF00BD3EBD /* NativeEarth 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 5.xcdatamodel"; sourceTree = "<group>"; };
+		D7D7AB9C1506B19800BD3EBD /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
+		D7D7AB9D1506B19800BD3EBD /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
+		D7D7AB9F1506B19800BD3EBD /* Greeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Greeting.h; sourceTree = "<group>"; };
+		D7D7ABA01506B19800BD3EBD /* Greeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Greeting.m; sourceTree = "<group>"; };
+		D7D7ABA21506B19800BD3EBD /* Nation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nation.h; sourceTree = "<group>"; };
+		D7D7ABA31506B19800BD3EBD /* Nation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nation.m; sourceTree = "<group>"; };
+		D7D7ABA51506B19900BD3EBD /* Land.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Land.h; sourceTree = "<group>"; };
+		D7D7ABA61506B19900BD3EBD /* Land.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Land.m; sourceTree = "<group>"; };
+		D7D7ABA81506B19900BD3EBD /* PlannedVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlannedVisit.h; sourceTree = "<group>"; };
+		D7D7ABA91506B19900BD3EBD /* PlannedVisit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlannedVisit.m; sourceTree = "<group>"; };
 		D7D86AEB14718B610009837F /* NativeEarth 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 2.xcdatamodel"; sourceTree = "<group>"; };
-		D7D86AED14718EAB0009837F /* Content.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Content.h; sourceTree = "<group>"; };
-		D7D86AEE14718EAB0009837F /* Content.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Content.m; sourceTree = "<group>"; };
-		D7D86AF014718ECC0009837F /* Land.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Land.h; sourceTree = "<group>"; };
-		D7D86AF114718ECC0009837F /* Land.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Land.m; sourceTree = "<group>"; };
-		D7D86AF314718ECC0009837F /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
-		D7D86AF414718ECC0009837F /* Map.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Map.m; sourceTree = "<group>"; };
-		D7D86AF614718ECC0009837F /* PlannedVisit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlannedVisit.h; sourceTree = "<group>"; };
-		D7D86AF714718ECC0009837F /* PlannedVisit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlannedVisit.m; sourceTree = "<group>"; };
 		D7DA7B0113D72412009EEC0A /* DDAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAnnotation.h; sourceTree = "<group>"; };
 		D7DA7B0213D72412009EEC0A /* DDAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAnnotation.m; sourceTree = "<group>"; };
 		D7DA7B0813D72442009EEC0A /* Pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Pin.png; sourceTree = "<group>"; };
@@ -644,16 +644,16 @@
 		D7BB0DC013BB9CEA0062C2A9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D78DA29A148C5B890022572A /* Greeting.h */,
-				D78DA29B148C5B890022572A /* Greeting.m */,
-				D7D86AF614718ECC0009837F /* PlannedVisit.h */,
-				D7D86AF714718ECC0009837F /* PlannedVisit.m */,
-				D7D86AF314718ECC0009837F /* Map.h */,
-				D7D86AF414718ECC0009837F /* Map.m */,
-				D7D86AF014718ECC0009837F /* Land.h */,
-				D7D86AF114718ECC0009837F /* Land.m */,
-				D7D86AED14718EAB0009837F /* Content.h */,
-				D7D86AEE14718EAB0009837F /* Content.m */,
+				D7D7ABA81506B19900BD3EBD /* PlannedVisit.h */,
+				D7D7ABA91506B19900BD3EBD /* PlannedVisit.m */,
+				D7D7ABA51506B19900BD3EBD /* Land.h */,
+				D7D7ABA61506B19900BD3EBD /* Land.m */,
+				D7D7ABA21506B19800BD3EBD /* Nation.h */,
+				D7D7ABA31506B19800BD3EBD /* Nation.m */,
+				D7D7AB9F1506B19800BD3EBD /* Greeting.h */,
+				D7D7ABA01506B19800BD3EBD /* Greeting.m */,
+				D7D7AB9C1506B19800BD3EBD /* Map.h */,
+				D7D7AB9D1506B19800BD3EBD /* Map.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -918,10 +918,6 @@
 				D7DFB85D142A6E7600258875 /* Toast+UIView.m in Sources */,
 				D7C4B53E145F02280082F0FF /* ViewAVisitViewController_iPhone.m in Sources */,
 				D7922F02146B0429000D7344 /* ImageToDataTransformer.m in Sources */,
-				D7D86AEF14718EAB0009837F /* Content.m in Sources */,
-				D7D86AF214718ECC0009837F /* Land.m in Sources */,
-				D7D86AF514718ECC0009837F /* Map.m in Sources */,
-				D7D86AF814718ECC0009837F /* PlannedVisit.m in Sources */,
 				D78E16DA1472CC9D00ED49E4 /* GreetingViewController_iPhone.m in Sources */,
 				D7827763147AD51B00BD749F /* Utility+CLLocation.m in Sources */,
 				D7A621EB1485760D006E7BC3 /* ThumbImageView.m in Sources */,
@@ -929,7 +925,11 @@
 				D7A621F414857BC7006E7BC3 /* UIImage+Resizing.m in Sources */,
 				D7A621F714858FC9006E7BC3 /* TapDetectingImageView.m in Sources */,
 				D78DA274148C420F0022572A /* GreetingCell_iPhone.m in Sources */,
-				D78DA29C148C5B890022572A /* Greeting.m in Sources */,
+				D7D7AB9E1506B19800BD3EBD /* Map.m in Sources */,
+				D7D7ABA11506B19800BD3EBD /* Greeting.m in Sources */,
+				D7D7ABA41506B19800BD3EBD /* Nation.m in Sources */,
+				D7D7ABA71506B19900BD3EBD /* Land.m in Sources */,
+				D7D7ABAA1506B19900BD3EBD /* PlannedVisit.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
