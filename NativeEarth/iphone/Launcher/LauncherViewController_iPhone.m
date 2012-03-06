@@ -110,7 +110,7 @@
    
   //  LocatorNavigationController.navigationBar.tintColor=[UIColor blackColor];
    // LocatorNavigationController.navigationBar.translucent=YES;
-    [LocatorNavigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    [LocatorNavigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [self presentModalViewController:LocatorNavigationController animated:YES];
 	[locatorRootVC release];
     [LocatorNavigationController  release];
@@ -131,9 +131,10 @@
     visitPlannerRootVC.remoteHostStatus= self.remoteHostStatus;
     visitPlannerRootVC.managedObjectContext = self.managedObjectContext;
      UINavigationController *VisitPlannerNavigationController = [[UINavigationController alloc] initWithRootViewController:visitPlannerRootVC];
+      [VisitPlannerNavigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
+    //VisitPlannerNavigationController.navigationBar.tintColor=[UIColor blackColor];
+    //VisitPlannerNavigationController.navigationBar.translucent=YES;
     
-    VisitPlannerNavigationController.navigationBar.tintColor=[UIColor blackColor];
-    VisitPlannerNavigationController.navigationBar.translucent=YES;
     [self presentModalViewController:VisitPlannerNavigationController animated:YES];
 	[visitPlannerRootVC release];
     [VisitPlannerNavigationController  release];
