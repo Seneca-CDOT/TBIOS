@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface LandShort : NSObject {
+@interface WSLandShort : NSObject {
     NSNumber * landId;
     NSString *landName;
     NSNumber *versionIdentifier;
