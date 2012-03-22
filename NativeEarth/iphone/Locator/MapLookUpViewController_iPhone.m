@@ -17,7 +17,7 @@
 @synthesize toolbar;
 @synthesize mapTypeControl;
 @synthesize SearchVC;
-@synthesize landArray;
+@synthesize nationArray;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -46,7 +46,7 @@
     [self.toolbar release];
     [self.redoButton release];
     [self.mapTypeControl release];
-    [self.landArray release];
+    [self.nationArray release];
     [super dealloc];
 }
 
@@ -92,10 +92,10 @@
         pinLatitude = annotation.coordinate.latitude;
         pinLongitude = annotation.coordinate.longitude;
        pinLocationTitle =NSLocalizedString(@"Your destination!",@"Your destination!");
-    self.landArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyLandsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
+    self.nationArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
         
-        if ([self.landArray count]>0) {
+        if ([self.nationArray count]>0) {
             annotation.title = NSLocalizedString(@"Select",@"Select");
             annotation.subtitle = nil;
             UIButton* rightButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
@@ -148,7 +148,7 @@
     draggablePinView.annotation = annotation;
     draggablePinView.draggable = YES;
     draggablePinView.canShowCallout = YES;
-    if ([self.landArray count]>0) {
+    if ([self.nationArray count]>0) {
         ((DDAnnotation*) annotation).title = NSLocalizedString(@"Select",@"Select");
         ((DDAnnotation*) annotation).subtitle = nil;
             draggablePinView.rightCalloutAccessoryView = rightButton;
@@ -177,7 +177,7 @@
         
     ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
     //[landArray removeAllObjects];
-    self.landArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyLandsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
+    self.nationArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
     }else{
         CLLocationCoordinate2D theCoordinate = [(DDAnnotation*)[self.mapView.annotations objectAtIndex:0] coordinate];
@@ -220,15 +220,14 @@
 
 -(void)showDetails: (id) sender{
     
-    if ([landArray count]>=1) {
-        LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
+    if ([nationArray count]>=1) {
+        NationSelectViewController_iPhone *nextVC = [[NationSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     
         nextVC.remoteHostStatus = self.remoteHostStatus;
         nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
         nextVC.internetConnectionStatus = self.internetConnectionStatus;
-        nextVC.managedObjectContext = self.managedObjectContext;
     
-        nextVC.landArray=[NSMutableArray arrayWithArray: landArray];//lands;
+        nextVC.nationArray=[NSMutableArray arrayWithArray: nationArray];//lands;
         
         nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
         CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);

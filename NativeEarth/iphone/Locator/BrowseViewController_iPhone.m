@@ -9,9 +9,8 @@
 #import "BrowseViewController_iPhone.h"
 #import "LocationInfoViewController_iPhone.h"
 #import "JSON.h"
-#import "LandShort.h"
-#import "LandShortArray.h"
-#import "LandGetter.h"
+#import "ShortNation.h"
+#import "Model.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "Toast+UIView.h"
 @implementation BrowseViewController_iPhone
@@ -51,11 +50,11 @@
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"NewList" object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedNation" object:nil];
     CGRect frame = CGRectMake(0, 0,  [self.searchBar frame].size.width, 44);
                     
     [self.searchBar setBounds:frame];
-    landIsSelected = NO;
+    nationIsSelected = NO;
     if (browseType== ForLocator) {
         [self.toolbar setHidden:YES];
         [self.resultsTableView removeFromSuperview];
@@ -65,7 +64,7 @@
     // self.clearsSelectionOnViewWillAppear = NO;
     
     // Do any additional setup after loading the view from its nib.
-    [self GetLandShortList];
+    [self GetShortNationList];
     
 }
 -(void) awakeFromNib{
@@ -86,8 +85,8 @@
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
    
-    landIsSelected = NO;
-    [self GetLandShortList];
+    nationIsSelected = NO;
+    [self GetShortNationList];
 }
 -(void)viewDidDisappear:(BOOL)animated{
      [self.searchDisplayController setActive:NO];
@@ -100,14 +99,14 @@
 
 
 #pragma mark - local data retrival opertion
--(void) GetLandShortList{
+-(void) GetShortNationList{
      NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     if (self.completeList!= nil) {
         [self.completeList removeAllObjects];
     }
-    self.completeList = [NSMutableArray arrayWithArray: appDelegate.landGetter.landShortList];
+    self.completeList = [NSMutableArray arrayWithArray: appDelegate.model.shortNationList];
     [self.completeList retain];
-    NSLog(@"initial completelist in browser:");
+    NSLog(@"initial complete list in browser:");
     NSLog(@"%@",[self.completeList description]);
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
     [self.resultsTableView reloadData];
@@ -115,15 +114,21 @@
 }
 
 
--(Land* )GetLandByLandID:(int) landID{
+-(Nation* )GetNationByNationNumber:(int) number{
    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-   Land * selectedLand = [appDelegate.landGetter getLandWithLandId:landID];
-    return selectedLand;
+   Nation * selectedNation = [appDelegate.model getNationWithNationNumber:number];
+    return selectedNation;
    }
 
 
 #pragma mark - TableView datasource and delegate
 
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    if([self.completeList count]>0)
+    return 1;
+    else return 0;
+}
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -156,59 +161,58 @@
     /*
 	 If the requesting table view is the search display controller's table view, configure the cell using the filtered content, otherwise use the main list.
 	 */
-   LandShort * nation ;
+   ShortNation * nation ;
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        nation = (LandShort*)[self.filteredList objectAtIndex:indexPath.row];
+        nation = (ShortNation*)[self.filteredList objectAtIndex:indexPath.row];
     }
 	else
 	{
-        nation = (LandShort*)[self.completeList objectAtIndex:indexPath.row];
+        nation = (ShortNation*)[self.completeList objectAtIndex:indexPath.row];
     }
     
     
-    cell.textLabel.text = nation.landName;
+    cell.textLabel.text = nation.OfficialName;
 	cell.selectionStyle=UITableViewCellSelectionStyleGray;
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    landIsSelected = YES;
+    nationIsSelected = YES;
     /*
 	 If the requesting table view is the search display controller's table view, configure the next view controller using the filtered content, otherwise use the main list.
 	 */
-	LandShort *landShort = nil;
+	ShortNation *shortNation = nil;
 	if (tableView == self.searchDisplayController.searchResultsTableView)
 	{
-        landShort = [self.filteredList objectAtIndex:indexPath.row];
+        shortNation = [self.filteredList objectAtIndex:indexPath.row];
     }
 	else
 	{
-        landShort = [self.completeList objectAtIndex:indexPath.row];
+        shortNation = [self.completeList objectAtIndex:indexPath.row];
     }
     
        
   if (browseType == ForLocator)  {
-      Land* selectedLand= [self GetLandByLandID:[landShort.landId  intValue]];
+      Nation* selectedNation= [self GetNationByNationNumber:[shortNation.Number  intValue]];
       LocationInfoViewController_iPhone *nextVC = [[LocationInfoViewController_iPhone alloc] init];
       
       nextVC.remoteHostStatus = self.remoteHostStatus;
       nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
       nextVC.internetConnectionStatus = self.internetConnectionStatus;
-      nextVC.managedObjectContext = self.managedObjectContext;
-      nextVC.selectedLand = selectedLand;
+      nextVC.selectedNation = selectedNation;
       
-      NSArray * lands = [NSArray arrayWithObject:selectedLand];
-      nextVC.allLands = lands;
+      NSArray * nations = [NSArray arrayWithObject:selectedNation];
+      nextVC.allNations = nations;
       
-      nextVC.title= selectedLand.LandName;
+      nextVC.title= selectedNation.OfficialName;
       nextVC.shouldLetAddToVisit=YES;
       [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
 
     }else {
-        [self.delegate BrowseViewControllerDidSelectFirstNation:landShort];
+        [self.delegate BrowseViewControllerDidSelectNation:shortNation];
         [self.navigationController popViewControllerAnimated:YES];
         
     }
@@ -229,9 +233,9 @@
 	/*
 	 Search the main list for products whose type matches the scope (if selected) and whose name matches searchText; add items that match to the filtered array.
 	 */
-	for (LandShort *nation in self.completeList)
+	for (ShortNation *nation in self.completeList)
 	{
-        NSComparisonResult result = [nation.landName  compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
+        NSComparisonResult result = [nation.OfficialName  compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
         if (result == NSOrderedSame)
         {
             [self.filteredList addObject:nation];
@@ -271,10 +275,10 @@
 - (void)updateUI:(NSNotification *)notif {
     if ([[notif name] isEqualToString:@"NewList"]){
         NSLog(@"New List Notification received in browser");
-         [self GetLandShortList];
+         [self GetShortNationList];
     }else if ([[notif name] isEqualToString:@"UpdatedLand"]){
-         NSLog(@"Updated land Notification received in browser");
-        [self GetLandShortList];
+         NSLog(@"Updated nation Notification received in browser");
+        [self GetShortNationList];
 
     }
     [self.view makeToast:NSLocalizedString(@"        Date Updated.         ", @"        Date Updated.         ")                 duration:2.0

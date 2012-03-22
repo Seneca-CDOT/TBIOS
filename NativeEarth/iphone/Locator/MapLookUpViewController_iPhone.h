@@ -11,7 +11,7 @@
 #import "BaseViewController.h"
 #import "NetworkDataGetter.h"
 #import "WSLand.h"
-#import "LandSelectViewController_iPhone.h"
+#import "NationSelectViewController_iPhone.h"
 #import "ReverseGeocoder.h"
 #import "GeopoliticalSearchViewController_iPhone.h"
 typedef enum {
@@ -27,7 +27,7 @@ typedef enum {
     CLLocationDegrees pinLatitude;
     CLLocationDegrees pinLongitude;
     NSString * pinLocationTitle;
-    NSMutableArray * landArray;
+    NSMutableArray * nationArray;
     GeopoliticalSearchViewController_iPhone *SearchVC;
     
 }
@@ -37,7 +37,7 @@ typedef enum {
 @property (nonatomic, retain) IBOutlet UIToolbar *toolbar;
 @property (nonatomic, retain) IBOutlet UISegmentedControl *mapTypeControl;
 @property(nonatomic, retain) GeopoliticalSearchViewController_iPhone *SearchVC;
-@property(nonatomic, retain) NSMutableArray * landArray;
+@property(nonatomic, retain) NSMutableArray * nationArray;
 
 -(IBAction)dropPin:(id) sender;
 -(void)flyToTheCoordinate:(CLLocationCoordinate2D)coordinate;

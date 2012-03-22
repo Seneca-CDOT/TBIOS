@@ -7,14 +7,13 @@
 //
 
 #import "GreetingCell_iPhone.h"
-#import "Content.h"
 NSString * kCellGreeting_ID = @"CellGreeting_ID";
 
 @implementation GreetingCell_iPhone
 @synthesize lblPhrase;
 @synthesize  lblPronounciation;
+@synthesize data;
 @synthesize  btnPlay;
-@synthesize greeting;
 @synthesize cellSoundPlayer;
 
 + (GreetingCell_iPhone*) createNewGretingCellFromNib{
@@ -35,41 +34,24 @@ NSString * kCellGreeting_ID = @"CellGreeting_ID";
 	return gCell; 
 }
 
--(void) setGreeting:(Greeting *)greetingValue
-{
-    locale = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
-    if (greetingValue != greeting)
-    {
-        [greetingValue retain];
-        [greeting release];
-        greeting = greetingValue;
-        if ( [locale compare:@"fr"]==0){
-           self.lblPhrase.text=greetingValue.PhraseFrench;
-            self.lblPronounciation.text=greetingValue.PronounciationFrench;
-        }else{
-            self.lblPhrase.text=greetingValue.PhraseEnglish;
-            self.lblPronounciation.text=greetingValue.PronounciationEnglish;
-         }
-    }
-}
 
 - (void)dealloc
 {
     [self.cellSoundPlayer release];
-    [self.greeting release];
     [self.lblPronounciation release];
     [self.lblPhrase release];
+    [self.data release];
     [self.btnPlay release];
     [super dealloc];
 }
 
 -(IBAction)playSound:(id)sender{
-    Content * content =self.greeting.Content;
-    NSString * urlString  = [NSString stringWithFormat:@"%@%@%@", content.DataLocation ,@".",content.MIMEType];
-    
-    NSURL * URL = [NSURL URLWithString:urlString];
-    NSData * data = [NSData dataWithContentsOfURL:URL];
-    
+
+//    NSString * urlString  = [NSString stringWithFormat:@"%@%@%@", greeting.DataLocation ,@".",greeting.MIMEType];
+//    
+//    NSURL * URL = [NSURL URLWithString:urlString];
+//    NSData * data = [NSData dataWithContentsOfURL:URL];
+//    
     
     
     NSError *error = nil;

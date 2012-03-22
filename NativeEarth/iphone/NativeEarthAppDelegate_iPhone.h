@@ -10,12 +10,12 @@
 #import "NativeEarthAppDelegate.h"
 #import "LauncherViewController_iPhone.h"
 #import "NetworkDataGetter.h"
-#import "LandGetter.h"
+#import "Model.h"
 @interface NativeEarthAppDelegate_iPhone :NativeEarthAppDelegate {
  
 
 }
-@property (nonatomic , retain) LandGetter * landGetter;
+@property (nonatomic , retain) Model * model;
 @property (nonatomic, retain) NSMutableArray *  updateArray ;
 @property (nonatomic, retain) IBOutlet LauncherViewController_iPhone * viewController;
 

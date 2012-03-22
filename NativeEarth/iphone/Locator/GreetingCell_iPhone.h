@@ -19,11 +19,12 @@ extern NSString * kCellGreeting_ID ;
  UILabel* lblPronounciation;
  UILabel* lblPhrase;
  UIButton* btnPlay; 
+    NSData* data;
     
 }
-@property(nonatomic,retain) Greeting* greeting;
 @property(nonatomic,retain) IBOutlet UILabel* lblPhrase;
 @property(nonatomic,retain) IBOutlet UILabel* lblPronounciation;
+@property(nonatomic,retain) NSData*  data;
 @property(nonatomic,retain) IBOutlet UIButton* btnPlay;
 @property (nonatomic, retain)      AVAudioPlayer        *cellSoundPlayer;
 + (GreetingCell_iPhone*) createNewGretingCellFromNib;

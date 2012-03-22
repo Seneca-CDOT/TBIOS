@@ -8,13 +8,13 @@
 
 #import "NativeEarthAppDelegate_iPhone.h"
 
-#import "LandGetter.h"
+#import "Model.h"
 
 
 
 @implementation NativeEarthAppDelegate_iPhone
 
-@synthesize viewController,updateArray,landGetter;
+@synthesize viewController,updateArray,model;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -26,8 +26,7 @@
     self.viewController.internetConnectionStatus = self.internetConnectionStatus;
     self.viewController.wifiConnectionStatus = self.wifiConnectionStatus;
     self.viewController.remoteHostStatus = self.wifiConnectionStatus;
-    self.viewController.managedObjectContext = self.managedObjectContext;
-    self.landGetter = [[LandGetter alloc] initWithManagedObjectContext:self.managedObjectContext];
+    self.model = [[Model alloc] initWithManagedObjectContext:self.managedObjectContext];
 
     [self.window addSubview:self.viewController.view];
     [self.window makeKeyAndVisible];
@@ -36,7 +35,7 @@
 
 - (void)dealloc
 {
-    [landGetter release];
+    [model release];
     [updateArray release];
     
   //  [self.viewController release];

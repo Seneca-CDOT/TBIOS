@@ -9,14 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "NetworkDataGetter.h"
-#import "WSLand.h"
+#import "WSNation.h"
 
 
 typedef enum {
 	ForLocator= 0,
     ForVisitPlanner
 } BrowseType;
-@class LandShort;// has to be defined later.
+@class ShortNation;// has to be defined later.
 
 @protocol BrowseViewController_iPhoneDelegate;
 
@@ -29,7 +29,7 @@ typedef enum {
     UIToolbar * toolbar;
     UISearchBar *searchBar;
     UISearchDisplayController *searchDisplayController;
-    BOOL landIsSelected;
+    BOOL nationIsSelected;
     
     }
 @property (nonatomic) BrowseType browseType;
@@ -50,12 +50,12 @@ typedef enum {
 
 -(IBAction) CancelButtonAction:(id) sender;
 
--(void) GetLandShortList;
--(Land*) GetLandByLandID:(int) landID;
+-(void) GetShortNationList;
+-(Nation*) GetNationByNationNumber:(int) number;
 @end
 
 @protocol BrowseViewController_iPhoneDelegate
 
--(void) BrowseViewControllerDidSelectFirstNation:(LandShort *) nation;
+-(void) BrowseViewControllerDidSelectNation:(ShortNation *) nation;
 
 @end
