@@ -49,7 +49,7 @@
 
 #import "ScreenshotBrowser.h"
 #import "Map.h"
-#import "Land.h"
+#import "Nation.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #define ZOOM_VIEW_TAG 100
 
@@ -84,7 +84,7 @@ typedef enum{forSavedMaps,forImages} usageType;
 
 -(void)viewWillDisappear:(BOOL)animated{
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.landGetter SaveData];
+    [appDelegate.model SaveData];
 }
 
 - (void)loadView {
@@ -249,15 +249,16 @@ typedef enum{forSavedMaps,forImages} usageType;
     [alert release];
 }
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1)//YES
     {
         if (thumbViewShowing) {
             [self toggleThumbView];
         }
-          Land * land = self.currentMap.Land;
-        [land removeMapObject:self.currentMap];
+        [(Nation*)currentMap.Nation removeMapsObject:currentMap];  
+    
+   
+   // [currentMap.Nation :self.currentMap];
         int index= [self.maps indexOfObject:currentMap];
         [self.maps removeObject:currentMap];
         
