@@ -27,20 +27,22 @@
     NSURL *url = [NSURL URLWithString:serviceURL];
     
     // Create a request
-	NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
-    NSMutableURLRequest *foo = [[NSMutableURLRequest alloc] init];
-    [foo setHTTPMethod:@"POST"];
-    
+	//NSURLRequest *request = [[NSURLRequest alloc] initWithURL:url];
+    NSMutableURLRequest *mutableRequest = [[NSMutableURLRequest alloc] init];
+    [mutableRequest setHTTPMethod:@"GET"];
+    [mutableRequest setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [mutableRequest setURL:url];
+   
 	
 	// Create a connection
-	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:request delegate:self];
+	NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:mutableRequest delegate:self];
 	
     
 	// Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
 	
 	// Release the objects
-    [request release];
+    [mutableRequest release];
 	[connection release];
       
 }
