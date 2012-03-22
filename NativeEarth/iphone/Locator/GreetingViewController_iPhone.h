@@ -9,13 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "BaseViewController.h"
 #import "Greeting.h"
-#import "Content.h"
+
 @interface GreetingViewController_iPhone : BaseViewController<UITableViewDataSource,UITableViewDelegate> {
 
 }
-@property (nonatomic, retain)      NSArray              *greetings;
-@property (nonatomic, retain)      NSString             *language;
 
+@property (nonatomic, retain)      NSString             *language;
+@property(nonatomic,retain)Greeting *greeting;
 
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath ;

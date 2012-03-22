@@ -8,7 +8,7 @@
 
 #import "MapBrowserViewController_iPhone.h"
 #import "ReverseGeocoder.h"
-#import "LandShort.h"
+#import "ShortNation.h"
 #import "UIImage+Resizing.h"
 #import "DistrictCenterAnnotation.h"
 #import "DistrictCenterAnnotationView.h"
@@ -17,15 +17,16 @@
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "Toast+UIView.h"
 #import <QuartzCore/QuartzCore.h>
+#import "KMLParser.h"
 
 @implementation MapBrowserViewController_iPhone
 
 @synthesize     mapView;
-@synthesize lands;
+@synthesize     nations;
 @synthesize     originLocation;
 @synthesize     selectedAnnotationView = _selectedAnnotationView;
 @synthesize     calloutAnnotation = _calloutAnnotation;
-@synthesize originAnnotationTitle, selectedLandName,showOrigin;
+@synthesize originAnnotationTitle, selectedNationName,showOrigin;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -39,11 +40,11 @@
 
 - (void)dealloc 
 {
-    [self .lands release];
+    [self .nations release];
     [self.calloutAnnotation release];
     [self.selectedAnnotationView release];
     [self.originAnnotationTitle release];
-    [self.selectedLandName release];
+    [self.selectedNationName release];
     [self.mapView release];
     [super dealloc];
 }
@@ -65,7 +66,7 @@
     
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     
-    [self drawOverlaysOfArray:lands];
+    [self drawOverlaysOfArray:nations];
 }
 
 
@@ -86,37 +87,41 @@
 
 
 #pragma mark - Drawing
--(void)drawOverlaysOfArray:(NSArray*)landsArray{
+-(void)drawOverlaysOfArray:(NSArray*)nationsArray{
     //clear the map first
     [mapView removeOverlays:mapView.overlays];
     [mapView removeAnnotations:mapView.annotations];
-    if(landsArray !=nil ){
-    NSMutableArray * polygons = [[NSMutableArray alloc]init];
-    NSMutableArray *annotations =[[NSMutableArray alloc]init];
+    if(nationsArray !=nil ){
+ //   NSMutableArray * polygons = [[NSMutableArray alloc]init];
+ //   NSMutableArray *annotations =[[NSMutableArray alloc]init];
         
-   for (Land * land in landsArray) {
-
-      NSString * coordinateString = land.Coordinates;
-     
-       NSUInteger length=0;
-       CLLocationCoordinate2D * CoordinateArray = parseCoordinatesStringAsCLLocationCoordinate2D(coordinateString, &length);
- 
-        MKPolygon *poly = [MKPolygon polygonWithCoordinates:CoordinateArray count:length interiorPolygons:nil];
-       [polygons addObject:poly];
-       //annotation:
-       NSString *centerCoordinatesString = land.CenterPoint; 
-       NSUInteger len=0;
-       CLLocationCoordinate2D * centreCoordinates =parseCoordinatesStringAsCLLocationCoordinate2D(centerCoordinatesString, &len);
-       if (len>0) {
-           DistrictCenterAnnotation * annotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:centreCoordinates[0].latitude andLongitude:centreCoordinates[0].longitude]autorelease];
-           
-           annotation.title = land.LandName;
-           [annotations addObject:annotation];
-       } 
-    }
-	[mapView addOverlays:(NSArray*)polygons];   
-    [mapView addAnnotations:annotations];
+        for (Nation * nation in nationsArray) {
+     for (Land * land in nation.Lands) {
+        KMLParser * kml = [KMLParser parseKMAWithData:[land.Kml dataUsingEncoding: NSASCIIStringEncoding]];    
+        NSArray * overlays = [kml overlays];
     
+//      NSString * coordinateString = land.Coordinates;
+//      NSUInteger length=0;
+//      CLLocationCoordinate2D * CoordinateArray = parseCoordinatesStringAsCLLocationCoordinate2D(coordinateString, &length);
+ 
+//        MKPolygon *poly = [MKPolygon polygonWithCoordinates:CoordinateArray count:length interiorPolygons:nil];
+//       [polygons addObject:poly];
+//       //annotation:
+//       NSString *centerCoordinatesString = land.CenterPoint; 
+//       NSUInteger len=0;
+//       CLLocationCoordinate2D * centreCoordinates =parseCoordinatesStringAsCLLocationCoordinate2D(centerCoordinatesString, &len);
+//       if (len>0) {
+//           DistrictCenterAnnotation * annotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:centreCoordinates[0].latitude andLongitude:centreCoordinates[0].longitude]autorelease];
+//           
+//           annotation.title = land.LandName;
+//           [annotations addObject:annotation];
+//         }  
+         [mapView addOverlays:overlays];
+      }//end on inner for loop
+    }//end of outer for loop
+        //[mapView addOverlays:(NSArray*)polygons];   
+        //[mapView addAnnotations:annotations];
+       
         //Add Annotation for originLocation: 
         
      if (showOrigin==YES) {
@@ -125,10 +130,10 @@
         [mapView addAnnotation:originAnnotation]; 
       }
      for (DistrictCenterAnnotation * annot in mapView.annotations) {       
-            if (annot.title == self.originAnnotationTitle || annot.title== self.selectedLandName) {
+            if (annot.title == self.originAnnotationTitle || annot.title== self.selectedNationName) {
                 [mapView selectAnnotation:annot animated:FALSE];
             }
-     }
+      }
         
     [self flyToPin:nil];
 
@@ -219,14 +224,14 @@
 -(IBAction)takeScreenShot :(id) sender{
     UIImage * image = [self GetMapviewImage];//[self screenshot];
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    Map * map =[appDelegate.landGetter getNewMap];
+    Map * map =[appDelegate.model getNewMap];
     map.Image= image;
     CGSize thumbSize = CGSizeMake(image.size.width/3, image.size.height/3);
     map.Thumb=[image scaleToSize:thumbSize];
-    for (Land* land in self.lands) {
-        if(land.LandName == selectedLandName){
-            [land addMapObject:map];
-            [appDelegate.landGetter SaveData];
+    for (Nation* nation in self.nations) {
+        if(nation.OfficialName == selectedNationName){
+            [nation addMapsObject:map];
+            [appDelegate.model SaveData];
         }
    }
     

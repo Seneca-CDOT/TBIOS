@@ -8,7 +8,7 @@
 
 #import "LocatorRootViewController_iPhone.h"
 #import "Reachability.h"
-#import "LandSelectViewController_iPhone.h"
+#import "NationSelectViewController_iPhone.h"
 #import "BrowseViewController_iPhone.h"
 #import "MapLookUpViewController_iPhone.h"
 #import "LocationInfoViewController_iPhone.h"
@@ -16,8 +16,8 @@
 @implementation LocatorRootViewController_iPhone
 @synthesize locationDetector;
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
+#pragma mark - View lifecycle
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil{
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
         // Custom initialization
@@ -25,27 +25,21 @@
     return self;
 }
 
-- (void)dealloc
-{
+- (void)dealloc{
     [locationDetector release];
     [super dealloc];
 }
 
-- (void)didReceiveMemoryWarning
-{
+- (void)didReceiveMemoryWarning{
     // Releases the view if it doesn't have a superview.
     [super didReceiveMemoryWarning];
     
     // Release any cached data, images, etc that aren't in use.
 }
 
-#pragma mark - View lifecycle
-
-
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 
-- (void)viewDidLoad
-{
+- (void)viewDidLoad{
     [super viewDidLoad];
     
     //add observer for updateArray notification
@@ -61,8 +55,6 @@
     
     self.view = self.tableView;
     
-
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -74,8 +66,8 @@
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
     [self.locationDetector.locationManager stopUpdatingLocation];
 }
-- (void)viewDidUnload
-{ 
+
+- (void)viewDidUnload{ 
     [super viewDidUnload];
     // Release any retained subviews of the main view.
     // e.g. self.myOutlet = nil;
@@ -128,6 +120,7 @@
         return NSLocalizedString(@"Select a method of browsing:", @"Select a method of browsing:");
     else return  nil;
 }
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -143,14 +136,10 @@
     return cell;
 }
 
-
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // The table view should not be re-orderable.
     return NO;
 }
-
-
-
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -169,16 +158,13 @@
     }
 }
 
-
-
-#pragma mark -
-#pragma mark Navigation Methods
-- (void) goHome {
+#pragma mark - Navigation Methods
+-(void)goHome {
 	[self dismissModalViewControllerAnimated:YES];
 }
 
 -(void)GoToCurrentLocation{        
-        self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally WithManagedObjectContext: self.managedObjectContext];
+        self.locationDetector =[[LocationDetector alloc]initWithRetrieveOption:Locally];
 
     self.locationDetector.delegate = self;
  [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
@@ -192,7 +178,6 @@
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.managedObjectContext = self.managedObjectContext;
     nextVC.title= NSLocalizedString(@"Names", @"Names");
     nextVC.browseType = ForLocator;
     
@@ -207,31 +192,31 @@
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.managedObjectContext = self.managedObjectContext;
     nextVC.title= NSLocalizedString(@"The First Nation", @"The First Nation");
     
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 
 }
+
 #pragma  mark - LocationDetectorDelegate
--(void) LandUpdate:(NSArray *)lands{
+-(void) NationUpdate:(NSArray *)nations{
     
-    LandSelectViewController_iPhone *nextVC = [[LandSelectViewController_iPhone alloc]initWithStyle:UITableViewStylePlain];
+    NationSelectViewController_iPhone *nextVC = [[NationSelectViewController_iPhone alloc]initWithStyle:UITableViewStylePlain];
     
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.managedObjectContext = self.managedObjectContext;
-    nextVC.landArray=[NSMutableArray arrayWithArray: lands];
+    nextVC.nationArray=[NSMutableArray arrayWithArray: nations];
     nextVC.originTitle = NSLocalizedString(@"You are here!", @"You are here!");
-    nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
+    nextVC.title= NSLocalizedString(@"Select a nation", @"Select a nation");
     nextVC.originLocation = currentlocation;
     nextVC.showOrigin=YES;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 
 }
+
 -(void) LocationError:(NSError *)error{
     NSLog(@"%@",[error description]);
 }
@@ -242,23 +227,21 @@
 }
 
 #pragma  mark - converter
--(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray{
+-(NSArray *)GetWSNationsFromDictArray:(NSArray *) dictArray{
   
-    NSMutableArray * wSLands = [[NSMutableArray alloc]init];
+    NSMutableArray * wSNations = [[NSMutableArray alloc]init];
     for (NSDictionary* dict in dictArray) {
-        [wSLands addObject:[self GetWSLandForDict:dict]];
+        [wSNations addObject:[self GetWSNationForDict:dict]];
     }
-    return wSLands;
+    return wSNations;
 }
 
--(WSLand *)GetWSLandForDict:(NSDictionary *)dict{
-    return  [[WSLand alloc] initWithDictionary:dict];
+-(WSNation *)GetWSNationForDict:(NSDictionary *)dict{
+    return  [[WSNation alloc] initWithDictionary:dict];
 }
 
-#pragma mark - notification observer method
-
-- (void) receiveUpdateArrayNotification:(NSNotification *) notification
-{
+#pragma mark - notification observer methods
+- (void) receiveUpdateArrayNotification:(NSNotification *) notification{
     if ([[notification name] isEqualToString:@"UpdateArrayNotification"]){
        // NSArray * updatesArray = (NSArray*)notification;
        // set the local veriable;

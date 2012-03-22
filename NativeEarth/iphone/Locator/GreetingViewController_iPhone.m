@@ -11,10 +11,10 @@
 #import "Constants.h"
 
 @implementation GreetingViewController_iPhone
-@synthesize language, greetings;
+@synthesize language, greeting;
 
 typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
-
+typedef enum {rowHello,rowWelcome,rowThankYou,rowCount}rowType;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -28,7 +28,7 @@ typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
 {
     
    
-    [self.greetings release];
+    [self.greeting release];
     [self.language release];
     [super dealloc];
 }
@@ -75,7 +75,7 @@ typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
         rv=1;
     }else if(section==sectionGreeting)
     {
-        rv=[self.greetings count];
+        rv=3;
     }
     return rv;
 }
@@ -104,6 +104,7 @@ typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
   
     }
     else if(indexPath.section== sectionGreeting){
+        
          greetingCell= (GreetingCell_iPhone*)[tableView dequeueReusableCellWithIdentifier:kCellGreeting_ID];
         if (greetingCell==nil) {
             greetingCell = [GreetingCell_iPhone createNewGretingCellFromNib];
@@ -127,20 +128,40 @@ typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
         
     }else if(indexPath.section== sectionGreeting){
         cell.userInteractionEnabled=YES;
-        int index=indexPath.row;
-        [((GreetingCell_iPhone*)cell) setGreeting:(Greeting*)[self.greetings objectAtIndex:index]];
-         if (self.remoteHostStatus!=NotReachable) {
-             cell.userInteractionEnabled=NO;
-         }
+        switch (indexPath.row) {
+            case rowHello:
+                cell.textLabel.text=NSLocalizedString(@"Hello:",@"Hello:");
+                cell.detailTextLabel.text=greeting.HelloPronounciation;
+                ((GreetingCell_iPhone *)cell).data = greeting.Hello;
+                break;
+            case rowWelcome:
+                cell.textLabel.text=NSLocalizedString(@"Welcome:",@"Welcome:");
+                cell.detailTextLabel.text=greeting.WelcomePronounciation;
+                ((GreetingCell_iPhone *)cell).data = greeting.Welcome;
+
+                break;
+            case rowThankYou:
+                cell.textLabel.text=NSLocalizedString(@"Thank You:",@"Thank You:");
+                cell.detailTextLabel.text=greeting.ThankYouPronounciation;
+                ((GreetingCell_iPhone *)cell).data = greeting.ThankYou;
+
+                break;
+            default:
+                break;
+//        int index=indexPath.row;
+//        [((GreetingCell_iPhone*)cell) setGreeting:(Greeting*)[self.greeting objectAtIndex:index]];
+//         if (self.remoteHostStatus!=NotReachable) {
+//             cell.userInteractionEnabled=NO;
+//         }
     }
 }
-
+}
 
 #pragma mark - Table view delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    //
 }
 
 -(void) updateStatusesWithReachability:(Reachability *)curReach{

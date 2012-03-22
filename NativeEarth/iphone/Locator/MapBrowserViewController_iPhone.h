@@ -14,11 +14,11 @@
 
 #import "DistrictCenterAnnotation.h"
 #import "Land.h"
-
+#import "Nation.h"
 @interface MapBrowserViewController_iPhone:BaseViewController <MKMapViewDelegate> 
 {
     MKMapView                   *mapView;
-    NSArray                     *lands;
+    NSArray                     *nations;
     UINavigationController      *searchListNavigationController;
     
     DistrictCenterAnnotation    * _calloutAnnotation;
@@ -27,22 +27,22 @@
     NSString * language;
     CLLocationCoordinate2D originLocation;
     NSString * originAnnotationTitle;
-    NSString * selectedLandName;
+    NSString * selectedNationName;
 }
 
 
 //@property (nonatomic,retain)            LocationDetector          *locationDetector;
 @property (nonatomic,retain)            IBOutlet   MKMapView      *mapView;
-@property (nonatomic, retain)           NSArray                   *lands;
+@property (nonatomic, retain)           NSArray                   *nations;
 @property (nonatomic, retain)           MKAnnotationView          *selectedAnnotationView;
 @property (nonatomic, retain)           DistrictCenterAnnotation  *calloutAnnotation;
 @property(nonatomic)                    CLLocationCoordinate2D     originLocation;
 @property(nonatomic,retain)             NSString                   *originAnnotationTitle;
-@property(nonatomic,retain)             NSString                   *selectedLandName;
+@property(nonatomic,retain)             NSString                   *selectedNationName;
 @property(nonatomic)                    BOOL                        showOrigin;
 -(IBAction)flyToPin:(id) sender;
 
--(void)  drawOverlaysOfArray: (NSArray*)landsArray;
+-(void)  drawOverlaysOfArray: (NSArray*)nationsArray;
 -(UIImage*) screenshot;
 -(UIImage *)GetMapviewImage;
 -(IBAction)takeScreenShot :(id) sender;

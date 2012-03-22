@@ -9,8 +9,6 @@
 #import "LocationInfoViewController_iPhone.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "GreetingViewController_iPhone.h"
-#import "GazetterViewController_iPhone.h"
-#import "ImageBrowser_iPhone.h"
 #import "MapBrowserViewController_iPhone.h"
 #import "Constants.h"
 #import "Toast+UIView.h"
@@ -19,18 +17,15 @@
 #import "EditAVisitViewController_iPhone.h"
 typedef enum{
     rowTitleName,
-    rowTitleDescription,
     rowTitleGreetings,
     rowTitleMap,
     rowTitleScreenshots,
-  //  rowTitleImage,
-    rowTitleGazetter,
     rowCount
 } rowTitle;
 
 @implementation LocationInfoViewController_iPhone
-@synthesize selectedLand;
-@synthesize allLands;
+@synthesize selectedNation;
+@synthesize allNations;
 @synthesize originLocation;
 @synthesize originTitle;
 @synthesize showOrigin;
@@ -47,8 +42,8 @@ typedef enum{
 
 - (void)dealloc
 {
-    [self.selectedLand release];
-    [self.allLands release];
+    [self.selectedNation release];
+    [self.allNations release];
     [self.originTitle release];
     [super dealloc];
 }
@@ -66,10 +61,10 @@ typedef enum{
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedLand" object:nil];
-    appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedNation" object:nil];
+    //appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
-    self.title = self.selectedLand.LandName; 
+    self.title = self.selectedNation.OfficialName; 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0,4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
     self.tableView.dataSource = self;
@@ -117,24 +112,13 @@ typedef enum{
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
 	switch (indexPath.row) {
         case rowTitleName:
-            cell.textLabel.text=selectedLand.LandName;
+            cell.textLabel.text=selectedNation.OfficialName;
             //cell.detailTextLabel.text = 
             cell.userInteractionEnabled = NO;
             break;
-        case rowTitleDescription:
-            cell.detailTextLabel.numberOfLines=0;
-            if ([language compare:@"fr"]==0) {
-                cell.detailTextLabel.text = selectedLand.LandDescriptionFrench;
-            }else{
-                cell.detailTextLabel.text = selectedLand.LandDescriptionEnglish;  
-            }
-             cell.userInteractionEnabled =NO;
-            
-            
-            break;
         case rowTitleGreetings:
             cell.textLabel.text=NSLocalizedString(@"Greetings",@"Greetings");
-            if (((Land *)selectedLand).Greetings != nil) {
+            if (((Nation *)selectedNation).Greeting != nil) {
             cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
@@ -150,28 +134,10 @@ typedef enum{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
             break;
-//                
-//        case rowTitleImage:
-//            cell.textLabel.text=NSLocalizedString(@"IMage Gallery",@"Image Gallery");
-//            if (([((Land *)selectedLand).Images count] >0)) {
-//             cell.userInteractionEnabled = YES;
-//            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-//                cell.textLabel.alpha = 1;
-//            }else{
-//                cell.userInteractionEnabled = NO;
-//                cell.accessoryType = UITableViewCellAccessoryNone;
-//                cell.textLabel.alpha = 0.5;
-//            }
-//            break;
-        case rowTitleGazetter:
-            cell.textLabel.text=NSLocalizedString(@"Gazetter",@"Gazetter");
-            cell.userInteractionEnabled = YES;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.alpha = 1;
-            break;
+
         case rowTitleScreenshots:
             cell.textLabel.text=NSLocalizedString(@"Saved Maps",@"Saved Maps");
-            if ([self.selectedLand.Maps count] != 0){
+            if ([self.selectedNation.Maps count] != 0){
                 cell.userInteractionEnabled = YES; 
                 cell.textLabel.alpha = 1; 
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -199,7 +165,6 @@ typedef enum{
     return rowCount;
 }
 
-
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -224,23 +189,16 @@ typedef enum{
 }
 
 
-
-
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
     // The table view should not be re-orderable.
     return NO;
 }
 
 
-
-
-
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
         case rowTitleName:
           break;
-        case rowTitleDescription:
-           break;
         case rowTitleGreetings:
             [self NavigateToGreetings];
             break;
@@ -249,50 +207,44 @@ typedef enum{
             break;
         case rowTitleScreenshots:
             [self NavigateToScreenshotBrowser];
-            break;
-//        case rowTitleImage:
-//            [self NavigateToImageGallery];
-//            break;
-        case rowTitleGazetter:
-            [self NavigateToGazetter];
-            break;
+            break; 
         default:
             break;
     }
 }
 
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 1) {
-        NSString *description = @"[No Description]";
-        if ([language compare:@"fr"]==0) {
-                  if (selectedLand.LandDescriptionFrench != nil) description = selectedLand.LandDescriptionFrench;  
-        }else{
-            if (selectedLand.LandDescriptionEnglish != nil) description = selectedLand.LandDescriptionEnglish;  
-        }
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//    if (indexPath.row == 1) {
+//        NSString *description = @"[No Description]";
+//        if ([language compare:@"fr"]==0) {
+//                  if (selectedNation.LandDescriptionFrench != nil) description = selectedLand.LandDescriptionFrench;  
+//        }else{
+//            if (selectedLand.LandDescriptionEnglish != nil) description = selectedLand.LandDescriptionEnglish;  
+//        }
 
-        CGSize s = [description sizeWithFont:[UIFont systemFontOfSize:15] 
-                     constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
-                         lineBreakMode:UILineBreakModeWordWrap];
-        return s.height + 16; // Add padding
+//        CGSize s = [description sizeWithFont:[UIFont systemFontOfSize:15] 
+//                     constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
+//                         lineBreakMode:UILineBreakModeWordWrap];
+//        return s.height + 16; // Add padding
 
-    }
+//    }
        
     return kRegularCellRowHeight;
 }
 
 
+#pragma mark - navigation methods
 
 -(void) NavigateToGreetings{
     GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]initWithNibName:@"GreetingViewController_iPhone" bundle:nil];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
-    nextVC.language = ((Land *)selectedLand).Language;
-    nextVC.greetings = [(NSMutableSet *)((Land *)selectedLand).Greetings allObjects];
+  //  nextVC.language = ((Nation *)selectedNation).Language;
+    nextVC.greeting = selectedNation.Greeting;
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-    nextVC.managedObjectContext= self.managedObjectContext;
-    
+      
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }
@@ -304,10 +256,9 @@ typedef enum{
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-    nextVC.managedObjectContext= self.managedObjectContext;
-    nextVC.lands = self.allLands;
+    nextVC.nations = self.allNations;
     nextVC.showOrigin= self.showOrigin;
-    nextVC.selectedLandName = ((Land *)selectedLand).LandName;
+    nextVC.selectedNationName = ((Nation *)selectedNation).OfficialName;
     nextVC.originLocation= self.originLocation;
     nextVC.originAnnotationTitle= self.originTitle;
     nextVC.title=NSLocalizedString(@"Map",@"Map");
@@ -318,54 +269,26 @@ typedef enum{
     }
 }
 
-
-//-(void) NavigateToImageGallery{
-//    if (self.remoteHostStatus != NotReachable) {
-//    ImageBrowser_iPhone * nextVC = [[ImageBrowser_iPhone alloc]initWithNibName:@"ImageBrowser_iPhone" bundle:nil];
-//    nextVC.remoteHostStatus = self.remoteHostStatus;
-//    nextVC.internetConnectionStatus = self.internetConnectionStatus;
-//    nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-//    nextVC.managedObjectContext= self.managedObjectContext;
-//    nextVC.managedImages = [((Land *)selectedLand).Images allObjects];
-//    nextVC.title= ((Land *)selectedLand).LandName;
-//    
-//    [self.navigationController pushViewController:nextVC animated:YES];
-//      [nextVC release];
-//    }else{
-//        //alert
-//    }
-//
-//   }
--(void) NavigateToGazetter{
-    GazetterViewController_iPhone * nextVC = [[GazetterViewController_iPhone alloc]initWithNibName:@"GazetterViewController_iPhone" bundle:nil];
-     nextVC.remoteHostStatus = self.remoteHostStatus;
-     nextVC.internetConnectionStatus = self.internetConnectionStatus;
-     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-     nextVC.managedObjectContext= self.managedObjectContext;
-    nextVC.title=NSLocalizedString(@"Gazetter",@"Gazetter");
-    [self.navigationController pushViewController:nextVC animated:YES];
-      [nextVC release];
-
-}
 -(void)NavigateToScreenshotBrowser{
     ScreenshotBrowser *nextVC=[[ScreenshotBrowser alloc] initWithNibName:@"ScreenshotBrowser" bundle:nil];
-    NSArray * maps = [self.selectedLand.Maps allObjects];
+    NSArray * maps = [self.selectedNation.Maps allObjects];
     nextVC.maps=[NSMutableArray arrayWithArray: maps];
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }
 
+#pragma mark- update
 // Notification handler
 - (void)updateUI:(NSNotification *)notif {
-    if ([[notif name] isEqualToString:@"UpdatedLand"]){
-  Land* updatedLand = (Land*) [notif object];
-    self.selectedLand= updatedLand;
-    [self.selectedLand retain];
+    if ([[notif name] isEqualToString:@"UpdatedNation"]){
+  Nation* updatedNation = (Nation*) [notif object];
+    self.selectedNation= updatedNation;
+    [self.selectedNation retain];
    NSLog(@"Notification received in location info");
     [self.tableView reloadData];
     }
     
-    self.title = selectedLand.LandName;
+    self.title = selectedNation.OfficialName;
     [self.view makeToast:NSLocalizedString(@"        Date Updated.         ", @"        Date Updated.         ")                 duration:2.0
                 position:@"bottom"];  
     
@@ -373,8 +296,8 @@ typedef enum{
 }
 
 
-
-    - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+#pragma mark - actionsheet methods
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
     {
         // the user clicked one of the buttons
         if (buttonIndex == 0)
@@ -384,8 +307,8 @@ typedef enum{
             
             nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
             
-            nextVC.visit  = [appDelegate.landGetter getNewPlannedVisit];
-            [nextVC.visit addLandsObject:self.selectedLand];
+            nextVC.visit  = [appDelegate.model getNewPlannedVisit];
+            [nextVC.visit addNationsObject:self.selectedNation];
             nextVC.presentationType = presentationTypeNavigate;
             [self.navigationController pushViewController:nextVC animated:YES];
             [nextVC release];
@@ -399,7 +322,6 @@ typedef enum{
         }
     }
 
-
 -(void)ShowActionSheet{
     UIActionSheet *actionSheet = [[UIActionSheet alloc] 
                                   initWithTitle:NSLocalizedString(@"Plan a Visit:", @"Plan a Visit:")
@@ -411,7 +333,5 @@ typedef enum{
 	[actionSheet showInView:self.view]; 
 	[actionSheet release];
 }
-
-
 
 @end

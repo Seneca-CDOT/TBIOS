@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
 #import "LocationDetector.h"
-#import "WSLand.h"
+#import "WSNation.h"
 @interface LocatorRootViewController_iPhone : BaseTableViewController <UITableViewDataSource, UITableViewDelegate,LocationDetectorDelegate>{
     CLLocationCoordinate2D currentlocation;
 }
@@ -19,6 +19,6 @@
 //-(void)BrowseByGeopoliticalName;
 -(void)BrowseMap;
 
--(NSArray *)GetWSLandsFromDictArray:(NSArray *) dictArray;
--(WSLand *)GetWSLandForDict:(NSDictionary *)dict;
+-(NSArray *)GetWSNationsFromDictArray:(NSArray *) dictArray;
+-(WSNation *)GetWSNationForDict:(NSDictionary *)dict;
 @end
