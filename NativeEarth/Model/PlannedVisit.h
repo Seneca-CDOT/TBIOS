@@ -19,5 +19,8 @@
 @property (nonatomic, retain) NSString * Notes;
 @property (nonatomic, retain) NSDate * ToDate;
 @property (nonatomic, retain) NSSet* Nations;
-
+- (void)addNationsObject:(Nation *)value ;
+- (void)removeNationsObject:(Nation *)value ;
+- (void)addNations:(NSSet *)value;
+- (void)removeNations:(NSSet *)value ;
 @end

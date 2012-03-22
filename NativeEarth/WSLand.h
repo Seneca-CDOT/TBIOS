@@ -8,27 +8,27 @@
 
 #import <Foundation/Foundation.h>
 #import "Land.h"
-@class WSContent, WSGreetings;
+@class  WSGreetings;
 
 @interface WSLand : NSObject {
     
 }
-@property (nonatomic, retain) NSNumber * LandID;
-@property (nonatomic, retain) NSString * Language;
-@property (nonatomic, retain) NSString * LandName;
-@property (nonatomic, retain) NSString * LandDescriptionEnglish;
-@property (nonatomic, retain) NSString * LandDescriptionFrench;
-@property (nonatomic, retain) NSString * Shape;
-@property (nonatomic, retain) NSNumber * BoundaryN;
-@property (nonatomic, retain) NSNumber * BoundaryS;
-@property (nonatomic, retain) NSNumber * BoundaryE;
-@property (nonatomic, retain) NSNumber * BoundaryW;
-@property (nonatomic, retain) NSString * Coordinates;
-@property (nonatomic, retain) NSString * CenterPoint;
-@property (nonatomic, retain) NSNumber * VersionIdentifier;
+@property (nonatomic, retain) NSNumber * BoundaryNorth;
+@property (nonatomic, retain) NSNumber * BoundaryEast;
+@property (nonatomic, retain) NSNumber * BoundarySouth;
+@property (nonatomic, retain) NSNumber * RowVersion;
+@property (nonatomic, retain) NSNumber * BoundaryWest;
+@property (nonatomic, retain) NSString * Number;
+@property (nonatomic, retain) NSString * Province;
+@property (nonatomic, retain) NSString * LandName_ENG;
+@property (nonatomic, retain) NSString * LandName_FRA;
+@property (nonatomic, retain) NSString * Kml;
+@property (nonatomic, retain) NSString * Location;
+@property (nonatomic, retain) NSNumber * Hectars;
+@property (nonatomic, retain) NSNumber * CenterLat;
+@property (nonatomic, retain) NSNumber * CenterLong;
 
-@property (nonatomic, retain) NSMutableArray * Greetings;
-@property (nonatomic, retain) NSMutableArray * Images;
+
 
 -(id)initWithDictionary:(NSDictionary *)landDict;
 -(Land*)ToManagedLand:(NSManagedObjectContext *)context;

@@ -18,7 +18,8 @@
 @dynamic BoundaryWest;
 @dynamic Number;
 @dynamic Province;
-@dynamic Nu;
+@dynamic LandName_ENG;
+@dynamic LandName_FRA;
 @dynamic Kml;
 @dynamic Location;
 @dynamic Hectars;

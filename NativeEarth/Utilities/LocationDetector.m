@@ -14,7 +14,7 @@
 
 @implementation LocationDetector
 @synthesize locationManager;
-@synthesize  lands;
+@synthesize  nations;
 @synthesize delegate;
 
 -(id) init{
@@ -27,14 +27,13 @@
     }
     return self;
 }
--(id) initWithRetrieveOption:(RetrieveOption) option WithManagedObjectContext:(NSManagedObjectContext *) context{
-    managedObjectContext = context;
+-(id) initWithRetrieveOption:(RetrieveOption) option{
     retriveFlag = option;
     return [self init];
 }
 
 -(void) dealloc{
-    [lands release];
+    [nations release];
     [locationManager release];
     [super dealloc];
 }
@@ -53,9 +52,9 @@
         [self.locationManager stopUpdatingLocation];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if (retriveFlag == Network) {
-            [self getLandsFromWebServiceForLocation:newLocation];
+            [self getNationsFromWebServiceForLocation:newLocation];
         }else 
-            [self getLandsLocallyForLocation:newLocation];
+            [self getNationsLocallyForLocation:newLocation];
 
     }  
 }
@@ -69,21 +68,20 @@
 
 #pragma mark - CoreData
 
--(void)getLandsLocallyForLocation:(CLLocation *)location{
+-(void)getNationsLocallyForLocation:(CLLocation *)location{
     //must include language
     ReverseGeocoder * rgc = [[ReverseGeocoder alloc] init];
-    //  self.lands= [rgc FindLandForCoordinateWithLat:location.coordinate.latitude AndLng:location.coordinate.longitude];
-    //retrieve nearby lands
-    self.lands=[rgc FindNearbyLandsForCoordinateWithLat:location.coordinate.latitude andLng:location.coordinate.longitude];
+    //retrieve nearby nations
+    self.nations=[rgc FindNearbyNationsForCoordinateWithLat:location.coordinate.latitude andLng:location.coordinate.longitude];
   if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
-    [self.delegate LandUpdate:self.lands];
+    [self.delegate NationUpdate:self.nations];
   }
 
 
 }
 
 #pragma mark - Network Operations
--(void) getLandsFromWebServiceForLocation:(CLLocation *)location{
+-(void) getNationsFromWebServiceForLocation:(CLLocation *)location{
 	//Here: we have to pass the location to the webservice:
     
     NSString *url = @"http://localhost/~ladan/AlgonquinOverLap";
@@ -97,30 +95,30 @@
 }
 
 
-
--(BOOL) GetFileWithID:(NSString*)fileID AndFormat:(NSString *)format FromData:(NSData*) data
-{
-   
-    // save file in documents directory
-    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    NSString *documentsDirectory = [paths objectAtIndex:0];   
-
-    NSString *newFilePath = [documentsDirectory stringByAppendingFormat:@"%@.%@",fileID,format];
-
-   // NSFileManager *fileManager=[NSFileManager defaultManager];
-    NSError *error=[[[NSError alloc]init] autorelease];
-
-    BOOL response = [data writeToFile:newFilePath options:NSDataWritingFileProtectionNone error:&error];
-
-    return response;
-
-    }
+//not used
+//-(BOOL) GetFileWithID:(NSString*)fileID AndFormat:(NSString *)format FromData:(NSData*) data
+//{
+//   
+//    // save file in documents directory
+//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+//    NSString *documentsDirectory = [paths objectAtIndex:0];   
+//
+//    NSString *newFilePath = [documentsDirectory stringByAppendingFormat:@"%@.%@",fileID,format];
+//
+//   // NSFileManager *fileManager=[NSFileManager defaultManager];
+//    NSError *error=[[[NSError alloc]init] autorelease];
+//
+//    BOOL response = [data writeToFile:newFilePath options:NSDataWritingFileProtectionNone error:&error];
+//
+//    return response;
+//
+//    }
 
 #pragma mark - NetworkDataGetterDelegate
 -(void)DataUpdate:(id) object{
-   self.lands = (NSArray*) object;
+   self.nations = (NSArray*) object;
       if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
-    [self.delegate LandUpdate:self.lands];
+    [self.delegate NationUpdate:self.nations];
       }
 }
 -(void)DataError:(NSError*) error{

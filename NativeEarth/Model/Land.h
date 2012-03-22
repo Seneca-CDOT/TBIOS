@@ -21,10 +21,11 @@
 @property (nonatomic, retain) NSNumber * BoundaryWest;
 @property (nonatomic, retain) NSString * Number;
 @property (nonatomic, retain) NSString * Province;
-@property (nonatomic, retain) NSString * Nu;
+@property (nonatomic, retain) NSString * LandName_ENG;
+@property (nonatomic, retain) NSString * LandName_FRA;
 @property (nonatomic, retain) NSString * Kml;
 @property (nonatomic, retain) NSString * Location;
-@property (nonatomic, retain) NSDecimalNumber * Hectars;
+@property (nonatomic, retain) NSNumber * Hectars;
 @property (nonatomic, retain) NSNumber * CenterLat;
 @property (nonatomic, retain) NSNumber * CenterLong;
 @property (nonatomic, retain) Nation * Nation;

@@ -18,8 +18,8 @@
     NSManagedObjectContext * managedObjectContext;
 }
 -(id) initWithContext:(NSManagedObjectContext*) context;
--(void) createDataFromKML;
--(void) createDataFromWebServive;
--(PlannedVisit *)CreateASampleVisit;
+//-(void) createDataFromKML;
+-(void) createDataFromWebService;
+
 
 @end

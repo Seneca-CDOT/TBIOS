@@ -7,56 +7,83 @@
 //
 
 #import "WSGreeting.h"
-#import "WSContent.h"
+
 
 @implementation WSGreeting
 
-@synthesize  Language;
-@synthesize  PhraseEnglish;
-@synthesize PhraseFrench;
-@synthesize  PronounciationEnglish;
-@synthesize PronounciationFrench;
-@synthesize  Content;
-@synthesize ActorName;
+@synthesize  HelloPronounciation;
+@synthesize  RowVersion;
+@synthesize GreetingID;
+@synthesize  ThankYouPronounciation;
+@synthesize WelcomePronounciation;
+@synthesize  ActorName;
+@synthesize RecordedOn;
+@synthesize HelloMIMEType;
+@synthesize WelcomeMIMEType;
+@synthesize ThankYouMIMEType;
+@synthesize Hello;
+@synthesize Welcome;
+@synthesize ThankYou;
+
 
 
 -(void)dealloc{
-    [self.Language release];
-    [self.PhraseEnglish release];
-    [self.PhraseFrench release];
-    [self.PronounciationEnglish release];
-    [self.PronounciationFrench release];
-    [self.Content release];
+    [self.HelloPronounciation release];
+    [self.RowVersion release];
+    [self.GreetingID release];
+    [self.ThankYouPronounciation release];
+    [self.WelcomePronounciation release];
+    [self.ActorName release];
+    [self.RecordedOn release];
+    [self.HelloMIMEType release];
+    [self.WelcomeMIMEType release];
+    [self.ThankYouMIMEType release];
+    [self.Hello release];
+    [self.Welcome release];
+    [self.ThankYou release];
     [super dealloc];
 }
 
+//initiates the object with the data comming from the webservice
 
 -(id) initWithDictionary:(NSDictionary *) greetingDict{
     self=[super init];
     if (self) {
-        self.Language = [greetingDict valueForKey:@"Language"];
-        self.PhraseEnglish = [greetingDict valueForKey:@"PhraseEnglish"];
-        self.PhraseFrench=[greetingDict valueForKey:@"PhraseFrench"];
-        self.PronounciationEnglish= [greetingDict valueForKey:@"PronounciationEnglish"];
-        self.PronounciationFrench= [greetingDict valueForKey:@"PronounciationFrench"];
+        self.HelloPronounciation = [greetingDict valueForKey:@"HelloPronounciation"];
+        self.HelloMIMEType=[greetingDict valueForKey:@"HelloMIMEType"];
+        self.Hello=[greetingDict valueForKey:@"Hello"];
         
-        NSDictionary * contDict = [greetingDict valueForKey:@"Content"];
-        self.Content = [[WSContent alloc]initWithDictionary:contDict];
-           }
+        self.Welcome=[greetingDict valueForKey:@"Welcome"];
+        self.WelcomeMIMEType=[greetingDict valueForKey:@"WelcomeMIMEType"];
+        self.WelcomePronounciation=[greetingDict valueForKey:@"WelcomePronounciation"];
+        self.ThankYou=[greetingDict valueForKey:@"ThankYou"];
+        self.ThankYouMIMEType=[greetingDict valueForKey:@"ThankYouMIMEType"];
+        self.ThankYouPronounciation=[greetingDict valueForKey:@"ThankYouPronounciation"];  
+        
+        self.RowVersion=[greetingDict valueForKey:@"RowVersion"];
+        self.RecordedOn= [greetingDict valueForKey:@"RecordedOn"];
+        self.ActorName= [greetingDict valueForKey:@"ActorName"];
+        
+    } 
     return self;
+}    
 
-}
+//converts this object to a managed object.
 -(Greeting*) ToManagedGreeting:(NSManagedObjectContext*) context{
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"Greeting" inManagedObjectContext:context];
     Greeting * managedGreeting = [[Greeting alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
 
-    managedGreeting.Language=self.Language;
-    managedGreeting.PhraseEnglish=self.PhraseEnglish;
-    managedGreeting.PhraseFrench = self.PhraseFrench;
-    managedGreeting.PronounciationEnglish=self.PronounciationEnglish;
-    managedGreeting.PronounciationFrench=self.PronounciationFrench;
- 
-    managedGreeting.Content = [self.Content ToManagedContent:context];
+    managedGreeting.WelcomePronounciation=self.WelcomePronounciation;
+    managedGreeting.HelloPronounciation=self.HelloPronounciation;
+    managedGreeting.ThankYouPronounciation=self.ThankYouPronounciation;
+    managedGreeting.Welcome=self.Welcome;
+    managedGreeting.Hello=self.Hello;
+    managedGreeting.ThankYou=self.ThankYou;
+    managedGreeting.WelcomeMIMEType=self.WelcomeMIMEType;
+    managedGreeting.HelloMIMEType=self.HelloMIMEType;
+    managedGreeting.ThankYouMIMEType=self.ThankYouMIMEType;
+    managedGreeting.RecordedOn=self.RecordedOn;
+    managedGreeting.RowVersion=self.RowVersion;
     
     return managedGreeting;
 }

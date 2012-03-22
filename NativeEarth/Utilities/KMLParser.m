@@ -331,6 +331,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 + (KMLParser *)parseKMLAtURL:(NSURL *)url
 {
+    
     NSXMLParser *xml = [[NSXMLParser alloc] initWithContentsOfURL:url];
     KMLParser *parser = [[KMLParser alloc] init];
     [xml setDelegate:parser];
@@ -343,6 +344,14 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 {
     NSURL *url = [NSURL fileURLWithPath:path];
     return [KMLParser parseKMLAtURL:url];
+}
++(KMLParser *)parseKMAWithData:(NSData*)data{
+    NSXMLParser *xml = [[NSXMLParser alloc] initWithData:data];
+    KMLParser *parser = [[KMLParser alloc] init];
+    [xml setDelegate:parser];
+    [xml parse];
+    [parser _assignStyles];
+    return [parser autorelease];
 }
 
 // Return the list of KMLPlacemarks from the object graph that contain overlays

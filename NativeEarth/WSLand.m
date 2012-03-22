@@ -7,80 +7,66 @@
 //
 
 #import "WSLand.h"
-#import "WSContent.h"
+
 #import "WSGreeting.h"
 #import "Utility.h"
 @implementation WSLand
-@synthesize BoundaryW;
-@synthesize Language;
-@synthesize LandDescriptionEnglish, LandDescriptionFrench;
-@synthesize LandName;
-@synthesize BoundaryS;
-@synthesize Shape;
-@synthesize BoundaryN;
-@synthesize Coordinates;
-@synthesize CenterPoint;
-@synthesize BoundaryE;
-@synthesize LandID;
-@synthesize VersionIdentifier;
-@synthesize Greetings;
-@synthesize Images;
+@synthesize  BoundaryNorth;
+@synthesize BoundaryEast;
+@synthesize BoundarySouth;
+@synthesize RowVersion;
+@synthesize BoundaryWest;
+@synthesize Number;
+@synthesize Province;
+@synthesize LandName_ENG;
+@synthesize LandName_FRA;
+@synthesize Kml;
+@synthesize Location;
+@synthesize Hectars;
+@synthesize CenterLat;
+@synthesize CenterLong;
 
 
 -(void)dealloc{
-    
-    [self.BoundaryW release];
-    [self.Language release];
-    [self.LandDescriptionEnglish release];
-    [self.LandDescriptionFrench release];
-    [self.LandName release];
-    [self.BoundaryS release];
-    [self.Shape release];
-    [self.BoundaryN release];
-    [self.Coordinates release];
-    [self.CenterPoint release];
-    [self.BoundaryE release];
-    [self.LandID release];
-    [self.VersionIdentifier release];
-    [self.Greetings release];
-    [self.Images release];
-    
+    [self.BoundaryEast release];
+    [self.BoundarySouth release];
+    [self.BoundaryWest release];
+    [self.BoundaryNorth release];
+    [self.RowVersion release];
+    [self.Number release];
+    [self.Province release];
+    [self.LandName_ENG release];
+    [self.LandName_FRA release];
+    [self.Kml release];
+    [self.Location release];
+    [self.Hectars release];
+    [self.CenterLat release];
+    [self.CenterLong release];
+        
     [super dealloc];
 }
 
 -(id)initWithDictionary:(NSDictionary *)landDict{
     self= [super init];
     if (self) {
-        
-        self.LandName=[landDict valueForKey:@"LandName"];
-        self.Language=[landDict valueForKey:@"Language"];
-        self.LandID = [NSNumber numberWithInt:[[landDict valueForKey:@"LandID"]intValue]];
-        self.LandDescriptionEnglish = [landDict valueForKey:@"LandDescriptionEnglish"];
-        self.LandDescriptionFrench=[landDict valueForKey:@"LandDescriptionFrench"];
        
-        self.VersionIdentifier = [NSNumber numberWithInt:[[landDict valueForKey:@"VersionIdentifier"]intValue]];
-        self.Shape = [landDict valueForKey:@"Shape"];
-        self.CenterPoint = [landDict valueForKey:@"CenterPoint"];
-        self.Coordinates = [landDict valueForKey:@"Coordinates"];
-       // self.DateFrom = [landDict valueForKey:@"DateFrom"];
-        //self.DateTo = [landDict valueForKey:@"DateTo"];
-        self.BoundaryE= [NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryE"]doubleValue]];
-        self.BoundaryN=[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryN"]doubleValue]];
-        self.BoundaryS = [NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryS"]doubleValue]];
-        self.BoundaryW =[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryW"]doubleValue]];
+        self.BoundaryEast= [NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryEast"]doubleValue]];
+        self.BoundaryNorth=[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryNorth"]doubleValue]];
+        self.BoundarySouth = [NSNumber numberWithDouble:[[landDict valueForKey:@"BoundarySouth"]doubleValue]];
+        self.BoundaryWest =[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryWest"]doubleValue]];
+        self.RowVersion= [NSNumber numberWithInt:[[landDict valueForKey:@"RowVersion"]intValue]];
+        self.Number= [landDict valueForKey:@"Number"];
+        self.LandName_ENG=[landDict valueForKey:@"LandName_ENG"];
+        self.LandName_FRA=[landDict valueForKey:@"LandName_FRA"];
+        self.Province=[landDict valueForKey:@"Province"];
+        self.Kml = [landDict valueForKey:@"Kml"];
+        self.Location=[landDict valueForKey:@"Location"];
+        self.Hectars= [NSNumber numberWithDouble:[[landDict valueForKey:@"Hectars"]doubleValue]];
+        self.CenterLat =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLat"]doubleValue]];
+        self.CenterLong =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLong"]doubleValue]];
         
-        NSArray* greetings = [landDict valueForKey:@"Greetings"];
-        self.Greetings =[[NSMutableArray alloc] initWithCapacity:[greetings count]];
-        for (NSDictionary * dict in greetings) {
-            [self.Greetings addObject:[[WSGreeting alloc] initWithDictionary:dict]];
-        }
-        
-        NSArray *images = [landDict valueForKey:@"Images"];
-        self.Images = [[NSMutableArray alloc] initWithCapacity:[images count]];
-        for (NSDictionary * dict in images) {
-            [self.Images addObject:[[WSContent alloc] initWithDictionary:dict]];
-        }
-        
+       
+                
     }
     return self;
    
@@ -91,42 +77,23 @@
      NSEntityDescription *entity= [NSEntityDescription entityForName:@"Land" inManagedObjectContext:context];
     Land * managedLand = [[Land alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
     
-    managedLand.LandName= self.LandName;
-    managedLand.Language= self.Language;
-    managedLand.LandID= self.LandID;
-    managedLand.LandDescriptionEnglish=self.LandDescriptionEnglish;
-    managedLand.LandDescriptionFrench=self.LandDescriptionFrench;
-    managedLand.VersionIdentifier= self.VersionIdentifier;
-    managedLand.Shape= self.Shape;
-    managedLand.CenterPoint=self.CenterPoint;
-    managedLand.Coordinates=self.Coordinates;
+    managedLand.LandName_ENG= self.LandName_ENG;
+    managedLand.LandName_FRA=self.LandName_FRA;
+    managedLand.BoundaryEast= self.BoundaryEast;
+    managedLand.BoundaryNorth= self.BoundaryNorth;
+    managedLand.BoundarySouth=self.BoundarySouth;
+    managedLand.BoundaryWest=self.BoundaryWest;
+    managedLand.RowVersion= self.RowVersion;
+    managedLand.Number= self.Number;
+    managedLand.Province=self.Province;
+    managedLand.Kml=self.Kml;
+    managedLand.Location=self.Location;
+    managedLand.Hectars=self.Hectars;
+    managedLand.CenterLong=self.CenterLong;
+    managedLand.CenterLat=self.CenterLat;
    
-    
-    NSDictionary * rectInfo = [Utility findOuterRectInfoForPolygonWithCoordinatesString:self.Coordinates];
-    NSNumber* north = [rectInfo objectForKey:@"NORTH"];
-    NSNumber* south =[rectInfo objectForKey:@"SOUTH"];
-    NSNumber* east = [rectInfo objectForKey:@"EAST"];
-    NSNumber* west =[rectInfo objectForKey:@"WEST"];
+    return managedLand;
 
     
-    
-    managedLand.BoundaryE = east;
-    managedLand.BoundaryN=north;
-    managedLand.BoundaryS=south;
-    managedLand.BoundaryW=west;
-    
-    NSMutableSet * greetingSet = [[NSMutableSet alloc] init];
-    for (WSGreeting * greeting in self.Greetings) {
-        [greetingSet addObject:[greeting ToManagedGreeting:context]];
-    }
-    managedLand.Greetings= greetingSet;
-   
-    NSMutableSet * imageSet= [[NSMutableSet alloc] init];
-    for (WSContent* image in  self.Images) {
-        [imageSet addObject:[image ToManagedContent:context]];
-    }
-    managedLand.Images = imageSet;
-    
-    return managedLand;
-}
+  }
 @end

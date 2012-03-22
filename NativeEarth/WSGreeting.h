@@ -8,23 +8,25 @@
 
 #import <Foundation/Foundation.h>
 #import "Greeting.h"
-@class WSContent;
 
 
 @interface WSGreeting : NSObject {
     
 }
-@property(nonatomic, retain)NSString   * Language;
 
+@property (nonatomic, retain) NSString * HelloPronounciation;
+@property (nonatomic, retain) NSNumber * RowVersion;
+@property (nonatomic, retain) NSNumber * GreetingID;
+@property (nonatomic, retain) NSString * ThankYouPronounciation;
+@property (nonatomic, retain) NSString * WelcomePronounciation;
 @property (nonatomic, retain) NSString * ActorName;
-
-@property (nonatomic, retain) NSString * PhraseEnglish;
-@property (nonatomic, retain) NSString * PhraseFrench;
-@property (nonatomic, retain) NSString * PronounciationEnglish;
-@property (nonatomic, retain) NSString * PronounciationFrench;
-
-@property (nonatomic, retain) WSContent * Content;
-
+@property (nonatomic, retain) NSDate * RecordedOn;
+@property (nonatomic, retain) NSString * HelloMIMEType;
+@property (nonatomic, retain) NSString * WelcomeMIMEType;
+@property (nonatomic, retain) NSString * ThankYouMIMEType;
+@property (nonatomic, retain) NSData * Hello;
+@property (nonatomic, retain) NSData * Welcome;
+@property (nonatomic, retain) NSData * ThankYou;
 
 -(id) initWithDictionary:(NSDictionary *) greetingsDict;
 -(Greeting*) ToManagedGreeting:(NSManagedObjectContext*) context;

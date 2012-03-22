@@ -20,30 +20,29 @@ typedef enum {
 @required
 -(void)locationUpdate:(CLLocation *)location;
 -(void)LocationError:(NSError *)error;
--(void)LandUpdate:(NSArray *)lands;
+-(void)NationUpdate:(NSArray *)lands;
 @end
 
 @interface LocationDetector : NSObject<CLLocationManagerDelegate,NetworkDataGetterDelegate> {
   CLLocationManager *locationManager; 
   id delegate;
     RetrieveOption retriveFlag;
-    NSManagedObjectContext * managedObjectContext;
     NSString * language;
 }
 
 
 
 //Array of land Results
-@property (nonatomic, retain) NSArray *lands;
+@property (nonatomic, retain) NSArray *nations;
 // retrives data from webservice
 
 
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, assign) id delegate;
 
--(void)getLandsFromWebServiceForLocation:(CLLocation *)location;
--(void)getLandsLocallyForLocation:(CLLocation *)location;
--(id) initWithRetrieveOption:(RetrieveOption) option WithManagedObjectContext:(NSManagedObjectContext *) context ;
+-(void)getNationsFromWebServiceForLocation:(CLLocation *)location;
+-(void)getNationsLocallyForLocation:(CLLocation *)location;
+-(id) initWithRetrieveOption:(RetrieveOption) option;
 
 @end
 
