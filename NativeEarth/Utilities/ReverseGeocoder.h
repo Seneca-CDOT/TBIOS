@@ -18,10 +18,10 @@
 
 @property(nonatomic,retain)  MKMapView * mapView; 
           
-- (NSArray *) FindEstimatedMatchingLandsForCoordinateWithLat:(double)lat AndLng: (double) lng;
-- (NSArray *) FindLandForCoordinateWithLat:(double)lat AndLng:(double) lng; 
-- (NSArray *) FindNearbyLandsForCoordinateWithLat:(double)lat andLng:(double) lng;
-
+//- (NSArray *) FindEstimatedMatchingLandsForCoordinateWithLat:(double)lat AndLng: (double) lng;
+//- (NSArray *) FindLandForCoordinateWithLat:(double)lat AndLng:(double) lng; 
+//- (NSArray *) FindNearbyLandsForCoordinateWithLat:(double)lat andLng:(double) lng;
+-(NSArray *) FindNearbyNationsForCoordinateWithLat:(double)lat andLng:(double) lng;
 //helper methods
 - (BOOL)PointWithLatitude: (double) lat AndLongitude:(double)lng BelongsToPolygonWithCoordinates:(NSArray*) coordinates;
 - (BOOL)PointWithLatitude:(double)lat AndLongitude:(double)lng IsAVerticeOfPolygonWithCoordinates:(NSArray *)coordinates;
