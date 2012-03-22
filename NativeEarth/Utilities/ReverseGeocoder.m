@@ -19,53 +19,75 @@
 #pragma Mark -
 #pragma Mark Reverce Geocoder Public Methds
 
-- (NSArray *) FindEstimatedMatchingLandsForCoordinateWithLat:(double)lat AndLng: (double) lng{
-    
-    curLatitude =lat;//round(lat*100000)/100000;
-    curLongitude =lng;//round(lng*100000)/100000;
-    
-    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    NSArray * fetchedEstimatedMatchingLands= [appDelegate.landGetter getEstimatedMatchingLandsForLatitude:curLatitude andLongitude:curLongitude];
+//- (NSArray *) FindEstimatedMatchingLandsForCoordinateWithLat:(double)lat AndLng: (double) lng{
+//    
+//    curLatitude =lat;//round(lat*100000)/100000;
+//    curLongitude =lng;//round(lng*100000)/100000;
+//    
+//    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+//    NSArray * fetchedEstimatedMatchingLands= [appDelegate.model getEstimatedMatchingLandsForLatitude:curLatitude andLongitude:curLongitude];
+//
+//
+//    return fetchedEstimatedMatchingLands;
+//}
+//
 
-
-    return fetchedEstimatedMatchingLands;
-}
-
-- (NSArray *) FindNearbyLandsForCoordinateWithLat:(double)lat andLng:(double) lng{
+-(NSArray *) FindNearbyNationsForCoordinateWithLat:(double)lat andLng:(double) lng{
     curLatitude =lat;//=round(lat*100000)/100000;
     curLongitude =lng;//round(lng*100000)/100000;
-    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    NSArray * fetchedNearbyLands = [appDelegate.landGetter getNearbyLandsForLatitude:curLatitude andLongitude:curLongitude];
-    NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyLands count]];
-    for (Land * l in  fetchedNearbyLands) {
-        NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
-        CLLocationDistance distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:l.Coordinates]];
-        [dict setValue:l forKey:@"Land"];
-        [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
-    
-        [dictArray addObject:dict];
-        [dict release];
-   }
-    
-   // return fetchedNearbyLands;
-    return dictArray;
+       NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    NSArray * fetchedNearbyNations = [appDelegate.model getNearbyNationsForLatitude:curLatitude andLongitude:curLongitude];
+       NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyNations count]];
+        for (Nation * n in  fetchedNearbyNations) {
+            NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
+        //    CLLocationDistance distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:n.Coordinates]];
+            [dict setValue:n forKey:@"Nation"];
+    //        [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
+    //    
+            [dictArray addObject:dict];
+            [dict release];
+       }
+        
+    //   // return fetchedNearbyNations;
+        return dictArray;
+
 }
 
-- (NSArray *) FindLandForCoordinateWithLat:(double)lat AndLng:(double) lng{
-    
-    NSArray *nearByLands =[self FindEstimatedMatchingLandsForCoordinateWithLat:lat AndLng:lng];
-
-    NSMutableArray* lands= [[NSMutableArray alloc] init];
-    
-    for (Land  * land in nearByLands) {
-         NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:land.Coordinates];
-       
-        if([self PointWithLatitude: lat AndLongitude: lng BelongsToPolygonWithCoordinates:coordinates]){
-            [lands addObject:land];   
-        }
-    }// end of for loop
-    return lands;
-}
+//- (NSArray *) FindNearbyLandsForCoordinateWithLat:(double)lat andLng:(double) lng{
+//    curLatitude =lat;//=round(lat*100000)/100000;
+//    curLongitude =lng;//round(lng*100000)/100000;
+//    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+//    NSArray * fetchedNearbyLands = [appDelegate.model getNearbyNationsForLatitude:curLatitude andLongitude:curLongitude];
+//    NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyLands count]];
+//    for (Land * l in  fetchedNearbyLands) {
+//        NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
+//        CLLocationDistance distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:l.Coordinates]];
+//        [dict setValue:l forKey:@"Land"];
+//        [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
+//    
+//        [dictArray addObject:dict];
+//        [dict release];
+//   }
+//    
+//   // return fetchedNearbyLands;
+//    return dictArray;
+//}
+//
+//- (NSArray *) FindLandForCoordinateWithLat:(double)lat AndLng:(double) lng{
+//    
+//    NSArray *nearByLands =[self FindEstimatedMatchingLandsForCoordinateWithLat:lat AndLng:lng];
+//
+//    NSMutableArray* lands= [[NSMutableArray alloc] init];
+//    
+//    for (Land  * land in nearByLands) {
+//         NSArray *coordinates = [Utility parseCoordinatesStringAsCLLocation:land.Coordinates];
+//       
+//        if([self PointWithLatitude: lat AndLongitude: lng BelongsToPolygonWithCoordinates:coordinates]){
+//            [lands addObject:land];   
+//        }
+//    }// end of for loop
+//    return lands;
+//}
 
 #pragma Mark -
 #pragma Mark Geometrical Helper Methods
