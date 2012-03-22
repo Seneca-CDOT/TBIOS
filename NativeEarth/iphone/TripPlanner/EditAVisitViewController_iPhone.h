@@ -62,7 +62,7 @@ typedef enum {presentationTypeModal,presentationTypeNavigate}PresentationType;
 -(void)SetBackControls;
 - (IBAction)dateAction:(id)sender;	// when the user has changed the date picke values (m/d/y)
 - (IBAction)doneAction:(id)sender;
-- (void)AddLand;
+- (void)AddNation;
 
 -(IBAction)Cancel:(id)sender;
 -(void) ShiftDownDatePicker;

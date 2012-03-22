@@ -18,8 +18,6 @@
     Reachability* wifiReach;
 }
 
-//coredata 
-@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
 //Network
 
 @property NetworkStatus internetConnectionStatus;

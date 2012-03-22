@@ -119,7 +119,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     if (section == SectionDate) {
         return  3;
     }else if (section == SectionFirstNationName){
-        return  1+ [self.visit.Lands count];
+        return  1+ [self.visit.Nations count];
     }
     return 2;
 }
@@ -158,10 +158,10 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     if (indexPath.section == SectionFirstNationName) {
         if (indexPath.row == HeaderRow) {
                 cell.textLabel.font = [UIFont boldSystemFontOfSize:15] ;
-            cell.textLabel.text = NSLocalizedString(@"First Nation Lands:", @"First Nation Lands:") ;
+            cell.textLabel.text = NSLocalizedString(@"First Nations:", @"First Nations:") ;
         }else {
             cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ;
-            cell.detailTextLabel.text =((Land *)[[visit.Lands allObjects] objectAtIndex:indexPath.row -1]).LandName;
+            cell.detailTextLabel.text =((Nation *)[[visit.Nations allObjects] objectAtIndex:indexPath.row -1]).OfficialName;
             cell.userInteractionEnabled = YES;
             cell.selectionStyle = UITableViewCellSelectionStyleGray;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -268,10 +268,10 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     
     if (indexPath.section == SectionFirstNationName && indexPath.row>HeaderRow ) {
         LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
-        NSArray * lands = (NSArray*)[visit.Lands allObjects];
-        nextVC.allLands = lands;
-        nextVC.selectedLand= [lands objectAtIndex:indexPath.row -1];  
-       // nextVC.
+        NSArray * nations = (NSArray*)[visit.Nations allObjects];
+        nextVC.allNations = nations;
+        nextVC.selectedNation= [nations objectAtIndex:indexPath.row -1];  
+       
         nextVC.showOrigin=NO; 
         
         [self.navigationController pushViewController:nextVC animated:YES];

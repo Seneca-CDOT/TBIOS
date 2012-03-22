@@ -9,7 +9,7 @@
 #import "VisitPlannerRootViewController_iPhone.h"
 #import "EditAVisitViewController_iPhone.h"
 #import "ViewAVisitViewController_iPhone.h"
-#import "LandSelectViewController_iPhone.h"
+#import "NationSelectViewController_iPhone.h"
 #import "PlannedVisit.h"
 #import "Land.h"
 
@@ -51,7 +51,7 @@
         self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(AddNewVisit)];
     
   appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    self.plannedVisits= [NSMutableArray arrayWithArray:[appDelegate.landGetter getAllPlannedVisits]];
+    self.plannedVisits= [NSMutableArray arrayWithArray:[appDelegate.model getAllPlannedVisits]];
 }
 
 - (void)viewDidUnload
@@ -65,7 +65,7 @@
 {
 [super viewWillAppear:animated];
     [self.plannedVisits removeAllObjects];
-   self.plannedVisits= [NSMutableArray arrayWithArray:[appDelegate.landGetter getAllPlannedVisits]];
+   self.plannedVisits= [NSMutableArray arrayWithArray:[appDelegate.model getAllPlannedVisits]];
    [self.tableView reloadData];
 }
 
@@ -136,7 +136,7 @@
         PlannedVisit * visit = (PlannedVisit *)[self.plannedVisits objectAtIndex:indexPath.row];
         ViewAVisitViewController_iPhone * nextVC = [[ViewAVisitViewController_iPhone alloc] init];
         nextVC.title = visit.Title;
-        nextVC.managedObjectContext = self.managedObjectContext;
+       
         nextVC.visit = visit;
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release]; 
@@ -153,7 +153,7 @@
 -(void)AddNewVisit{
     EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
-    nextVC.visit = [appDelegate.landGetter getNewPlannedVisit];
+    nextVC.visit = [appDelegate.model getNewPlannedVisit];
     nextVC.presentationType = presentationTypeNavigate;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
@@ -177,14 +177,14 @@
         // Delete the managed object for the given index path
 				
 		// Save the context.
-		NSError *error= [appDelegate.landGetter DeleteVisit:[plannedVisits objectAtIndex:indexPath.row]];
+		NSError *error= [appDelegate.model DeleteVisit:[plannedVisits objectAtIndex:indexPath.row]];
 		if (error!=nil) {
 			// Handle the error... (and do it better in a production app)
 			NSLog(@"%@", [error description]);
 		}
     }
     [self.plannedVisits removeAllObjects];
-    self.plannedVisits=[NSMutableArray arrayWithArray:[appDelegate.landGetter getAllPlannedVisits]];
+    self.plannedVisits=[NSMutableArray arrayWithArray:[appDelegate.model getAllPlannedVisits]];
     [self.tableView reloadData];
 }
 

@@ -10,7 +10,7 @@
 
 @implementation BaseViewController
 
-@synthesize managedObjectContext;
+
 @synthesize internetConnectionStatus;
 @synthesize wifiConnectionStatus;
 @synthesize remoteHostStatus;
@@ -26,7 +26,7 @@
 
 - (void)dealloc
 {
-    [managedObjectContext release];
+
     [super dealloc];
 }
 

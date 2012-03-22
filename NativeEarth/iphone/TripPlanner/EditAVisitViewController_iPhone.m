@@ -71,7 +71,7 @@ typedef enum {titleCellTag} textFieldCellTags;
           CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self.infoTableView setFrame:rect];  
     }
-    self.visitFistNations = [NSMutableArray arrayWithArray:[self.visit.Lands allObjects]];
+    self.visitFistNations = [NSMutableArray arrayWithArray:[self.visit.Nations allObjects]];
     self.infoTableView.editing = YES;
     self.infoTableView.allowsSelectionDuringEditing=YES;
     [self.infoTableView setScrollEnabled:YES];
@@ -126,8 +126,8 @@ typedef enum {titleCellTag} textFieldCellTags;
  
     self.visit.Notes = visitNotes;
     
-    [self.visit addLands:[NSSet setWithArray:self.visitFistNations]];
-    [appDelegate.landGetter SaveData];
+    [self.visit addNations:[NSSet setWithArray:self.visitFistNations]];
+    [appDelegate.model SaveData];
     }
     [super viewWillDisappear:animated];
 }
@@ -240,9 +240,9 @@ typedef enum {titleCellTag} textFieldCellTags;
 	       cell.detailTextLabel.font = [UIFont systemFontOfSize:15] ; 
     if (indexPath.section == SectionFirstNationName) {
         if (indexPath.row == HeaderRow) {
-            cell.textLabel.text = NSLocalizedString(@"First Nation Lands:", @"First Nation Lands:") ;
+            cell.textLabel.text = NSLocalizedString(@"First Nations:", @"First Nations:") ;
         }else {
-            cell.detailTextLabel.text =((Land *)[self.visitFistNations objectAtIndex:indexPath.row -1]).LandName;
+            cell.detailTextLabel.text =((Nation *)[self.visitFistNations objectAtIndex:indexPath.row -1]).OfficialName;
         } 
         cell.userInteractionEnabled = YES;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -313,7 +313,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     switch (indexPath.section) {
         case SectionFirstNationName:
             if (indexPath.row ==HeaderRow){
-                [self AddLand];
+                [self AddNation];
             }else {
                 [self.visitFistNations removeObject:(Land*)[self.visitFistNations  objectAtIndex:indexPath.row-1]];
                 [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
@@ -449,11 +449,11 @@ typedef enum {titleCellTag} textFieldCellTags;
     
     self.visit.Notes = visitNotes;
     
-    NSSet *tempSet = self.visit.Lands ;
-    [self.visit removeLands:tempSet];
-    [self.visit addLands:[NSSet setWithArray:self.visitFistNations]];
+    NSSet *tempSet = self.visit.Nations ;
+    [self.visit removeNations:tempSet];
+    [self.visit addNations:[NSSet setWithArray:self.visitFistNations]];
     
-    [appDelegate.landGetter SaveData];
+    [appDelegate.model SaveData];
     [((ViewAVisitViewController_iPhone *)self.delegate).tableView reloadData];
     [self.delegate EditAVisitViewControllerDidSave:self];
 }
@@ -731,7 +731,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 
 
--(void)AddLand{
+-(void)AddNation{
     
     // open a dialog with two custom buttons
 	UIActionSheet *actionSheet = [[UIActionSheet alloc] 
@@ -756,7 +756,6 @@ typedef enum {titleCellTag} textFieldCellTags;
         nextVC.remoteHostStatus = self.remoteHostStatus;
         nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
         nextVC.internetConnectionStatus = self.internetConnectionStatus;
-        nextVC.managedObjectContext = self.managedObjectContext;
         nextVC.title= NSLocalizedString(@"Names", @"Names");
         nextVC.browseType = ForVisitPlanner;
         nextVC.delegate = self;
@@ -773,16 +772,16 @@ typedef enum {titleCellTag} textFieldCellTags;
 }
 
 #pragma  mark - BrowseViewController_iPhoneDelegate methods
--(void) BrowseViewControllerDidSelectFirstNation:(LandShort *)nation{
-    Land * newLand = [appDelegate.landGetter getLandWithLandId:[nation.landId intValue]];
+-(void) BrowseViewControllerDidSelectNation:(ShortNation *)nation{
+    Nation * newNation = [appDelegate.model getNationWithNationNumber:[nation.Number intValue]];
     [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
     if (self.presentationType==presentationTypeModal) {
         [self.navigationItem setRightBarButtonItem:self.saveBtn animated:YES];
         [self.navigationItem setLeftBarButtonItem:self.cancelButton animated:YES];
     }
-    if(![self.visitFistNations containsObject:newLand]){
-    [self.visitFistNations addObject:newLand];
+    if(![self.visitFistNations containsObject:newNation]){
+    [self.visitFistNations addObject:newNation];
     [self.infoTableView reloadData];
     }
     [self.navigationController dismissModalViewControllerAnimated:YES];
