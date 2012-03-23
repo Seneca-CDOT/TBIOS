@@ -15,10 +15,10 @@ extern NSString * kCellGreeting_ID ;
 
 @interface GreetingCell_iPhone : UITableViewCell {
     Greeting *greeting;
-     NSString             *locale;
- UILabel* lblPronounciation;
- UILabel* lblPhrase;
- UIButton* btnPlay; 
+    NSString             *locale;
+    UILabel* lblPronounciation;
+    UILabel* lblPhrase;
+    UIButton* btnPlay; 
     NSData* data;
     
 }
