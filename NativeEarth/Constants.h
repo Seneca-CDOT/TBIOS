@@ -16,5 +16,8 @@
 #define kGreetingCellRowHeight  84.0
 #define kTextFieldCellRowHeight  34.0
 #define kButtonTag			1		// for tagging our embedded controls for removal at cell recycle time
-
-
+//for model
+#define kSearchDistance 5 //km
+#define kSearchExpantionParameter 2 //km
+#define kSearchDistanceLimit 20 //km
+#define kSearchCountLimit 6
