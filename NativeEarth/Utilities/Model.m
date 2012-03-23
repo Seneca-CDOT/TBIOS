@@ -9,11 +9,8 @@
 
 #import "Model.h"
 #import "Utility+CLLocation.h"
+#import "Constants.h"
 
-#define kSearchDistance 5 //km
-#define kSearchExpantionParameter 2 //km
-#define kSearchDistanceLimit 20 //km
-#define kSearchCountLimit 6
 
 
 NSInteger firstNumSort(id str1, id str2, void *context) {
