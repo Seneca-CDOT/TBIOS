@@ -17,8 +17,7 @@
 @synthesize viewController,updateArray,model;
 
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
     [super application: application didFinishLaunchingWithOptions:launchOptions];
     // Status bar
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
@@ -26,15 +25,14 @@
     self.viewController.internetConnectionStatus = self.internetConnectionStatus;
     self.viewController.wifiConnectionStatus = self.wifiConnectionStatus;
     self.viewController.remoteHostStatus = self.wifiConnectionStatus;
-    self.model = [[Model alloc] initWithManagedObjectContext:self.managedObjectContext];
+    self.model = [[Model alloc] init];
 
     [self.window addSubview:self.viewController.view];
     [self.window makeKeyAndVisible];
     return  YES;
 }
 
-- (void)dealloc
-{
+- (void)dealloc{
     [model release];
     [updateArray release];
     
@@ -46,8 +44,7 @@
 	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
 	[self updateStatusesWithReachability: curReach];
 }
-- (void) updateStatusesWithReachability: (Reachability*) curReach
-{
+- (void) updateStatusesWithReachability: (Reachability*) curReach{
     if(curReach == hostReach)
 	{
         self.remoteHostStatus = [curReach currentReachabilityStatus];
@@ -67,6 +64,11 @@
 	}
 	
         
+}
+- (void)applicationWillTerminate:(UIApplication *)application
+{
+    // Saves changes in the application's managed object context before the application terminates.
+    [self.model SaveData];
 }
 
 

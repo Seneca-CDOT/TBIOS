@@ -45,14 +45,17 @@
    //NSFetchedResultsController * frcLandsForCoordinate_;
    //NSFetchedResultsController * frcNearByLands_;
     NSFetchedResultsController * frcPlannedVisits_;
-    NSManagedObjectContext * managedObjectContext_;
+    NSManagedObjectContext * __managedObjectContext;
     int nationNumber;
     int toBeUpdatedNationNumber;
     BOOL nationNumberUpdateFlag;
     double searchDistanceKM;
    
 }
-@property (nonatomic, retain) NSManagedObjectContext* managedObjectContext;
+
+@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain) NSFetchedResultsController * frcNation;
 @property (nonatomic, retain) NSFetchedResultsController * frcShortNations;
 @property (nonatomic, retain) NSFetchedResultsController * frcNearByNations;
@@ -67,7 +70,6 @@
 @property NetworkStatus remoteHostStatus;
 
 -(void) updateStatusesWithReachability: (Reachability*) curReach;
--(id) initWithManagedObjectContext:(NSManagedObjectContext* ) context;
 -(Nation *)getNationWithNationNumber:(int)number;
 -(Nation *)getNationLocallyWithNationNumber:(int)number;
 -(void) getShortNationsFromWebService;
@@ -85,4 +87,5 @@
 -(NSError*)DeleteVisit:(PlannedVisit*) visit;
 -(PlannedVisit *)getNewPlannedVisit;
 -(Map *)getNewMap;
+- (NSURL *)applicationDocumentsDirectory;
 @end
