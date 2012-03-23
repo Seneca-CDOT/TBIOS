@@ -21,3 +21,5 @@
 #define kSearchExpantionParameter 2 //km
 #define kSearchDistanceLimit 20 //km
 #define kSearchCountLimit 6
+
+// to set the host name see reachability.h
