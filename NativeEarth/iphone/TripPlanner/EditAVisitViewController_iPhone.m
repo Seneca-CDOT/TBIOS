@@ -733,17 +733,6 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 -(void)AddNation{
     
-    // open a dialog with two custom buttons
-//	UIActionSheet *actionSheet = [[UIActionSheet alloc] 
-//                                  initWithTitle:NSLocalizedString(@"Browse By:", @"Browse By:")
-//                                   delegate:self 
-//                                  cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel") 
-//                                  destructiveButtonTitle:nil
-//                                  otherButtonTitles: NSLocalizedString(@"Names",@"Names"), NSLocalizedString(@"Map",@"Map"), nil];
-//	actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-//	[actionSheet showInView:self.view]; // show from our table view (pops up in the middle of the table)
-//	[actionSheet release];
-    
     [self SetBackControls];
     BrowseViewController_iPhone * nextVC = [[BrowseViewController_iPhone alloc]initWithNibName:@"BrowseViewController_iPhone" bundle:nil];
     nextVC.remoteHostStatus = self.remoteHostStatus;
@@ -758,31 +747,6 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 }
 
-#pragma mark - ActionSheet delegate methods
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-	// the user clicked one of the buttons
-	if (buttonIndex == 0)
-	{
-        [self SetBackControls];
-        BrowseViewController_iPhone * nextVC = [[BrowseViewController_iPhone alloc]initWithNibName:@"BrowseViewController_iPhone" bundle:nil];
-        nextVC.remoteHostStatus = self.remoteHostStatus;
-        nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
-        nextVC.internetConnectionStatus = self.internetConnectionStatus;
-        nextVC.title= NSLocalizedString(@"Names", @"Names");
-        nextVC.browseType = ForVisitPlanner;
-        nextVC.delegate = self;
-        
-        [self.navigationController presentModalViewController:nextVC animated:YES];
-        [nextVC release];
-    
-    } else if (buttonIndex == 1){
-        [self SetBackControls];
-    }else
-	{
-        [self SetBackControls];
-	}
-}
 
 #pragma  mark - BrowseViewController_iPhoneDelegate methods
 -(void) BrowseViewControllerDidSelectNation:(ShortNation *)nation{
