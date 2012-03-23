@@ -16,7 +16,7 @@
 
 typedef enum {presentationTypeModal,presentationTypeNavigate}PresentationType;
 @protocol EditAVisitViewControllerDelegate_iPhone ;
-@interface EditAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate, UIActionSheetDelegate, UIAlertViewDelegate, BrowseViewController_iPhoneDelegate,TextFieldCellDelegate> {
+@interface EditAVisitViewController_iPhone : BaseViewController<UITableViewDataSource, UITableViewDelegate,TextViewCellDelegate,  UIAlertViewDelegate, BrowseViewController_iPhoneDelegate,TextFieldCellDelegate> {
     
     NSDateFormatter *dateFormatter; 
     UIDatePicker *pickerView;
