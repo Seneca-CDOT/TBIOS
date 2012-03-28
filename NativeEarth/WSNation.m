@@ -52,7 +52,7 @@
     if (self) {
         
         self.Number=[NSNumber numberWithInt:[[nationDict valueForKey:@"Number"]intValue]];  
-        self.RowVersion = [NSNumber numberWithInt:[[nationDict valueForKey:@"RowVersion"]intValue]];
+        self.RowVersion = [NSNumber numberWithInt:[[nationDict valueForKey:@"rowrersion"]intValue]];
         self.OfficialName = [nationDict valueForKey:@"OfficialName"];
         
         if([nationDict valueForKey:@"Address"] !=[NSNull null])self.Address = [nationDict valueForKey:@"Address"];
@@ -66,8 +66,8 @@
 
         if(centerLatitute !=[NSNull null] ) self.CenterLat= [NSNumber numberWithDouble:[centerLatitute doubleValue]];
         if(centerLongitute!=[NSNull null]) self.CenterLong=[NSNumber numberWithDouble:[[nationDict valueForKey:@"CenterLong"]doubleValue]];
-        if([nationDict valueForKey:@"Lands"] !=[NSNull null]){
-        NSArray* lands = [nationDict valueForKey:@"Lands"];
+        if([nationDict valueForKey:@"tbLands"] !=[NSNull null]){
+        NSArray* lands = [nationDict valueForKey:@"tbLands"];
         self.Lands =[[NSMutableArray alloc] initWithCapacity:[lands count]];
         for (NSDictionary * dict in lands) {
             [self.Lands addObject:[[WSLand alloc] initWithDictionary:dict]];

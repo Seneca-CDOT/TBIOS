@@ -46,7 +46,9 @@
    //NSFetchedResultsController * frcNearByLands_;
     NSFetchedResultsController * frcPlannedVisits_;
     NSManagedObjectContext * __managedObjectContext;
+ 
     int nationNumber;
+    Nation *referringNation;
     int toBeUpdatedNationNumber;
     BOOL nationNumberUpdateFlag;
     double searchDistanceKM;
@@ -59,6 +61,7 @@
 @property (nonatomic, retain) NSFetchedResultsController * frcNation;
 @property (nonatomic, retain) NSFetchedResultsController * frcShortNations;
 @property (nonatomic, retain) NSFetchedResultsController * frcNearByNations;
+
 //@property (nonatomic, retain) NSFetchedResultsController * frcLandsForCoordinate;
 //@property (nonatomic, retain) NSFetchedResultsController * frcNearByLands;
 
@@ -88,4 +91,5 @@
 -(PlannedVisit *)getNewPlannedVisit;
 -(Map *)getNewMap;
 - (NSURL *)applicationDocumentsDirectory;
+
 @end

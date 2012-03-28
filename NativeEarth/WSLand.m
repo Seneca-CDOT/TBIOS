@@ -58,8 +58,11 @@
         self.Number= [landDict valueForKey:@"Number"];
         self.LandName_ENG=[landDict valueForKey:@"LandName_ENG"];
         self.LandName_FRA=[landDict valueForKey:@"LandName_FRA"];
-        self.Province=[landDict valueForKey:@"Province"];
-        self.Kml = [landDict valueForKey:@"Kml"];
+        if ([landDict valueForKey:@"Province"] !=[NSNull null]) {
+             self.Province=[landDict valueForKey:@"Province"];
+        }
+      
+        self.Kml = [landDict valueForKey:@"KML"];
         self.Location=[landDict valueForKey:@"Location"];
         self.Hectars= [NSNumber numberWithDouble:[[landDict valueForKey:@"Hectars"]doubleValue]];
         self.CenterLat =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLat"]doubleValue]];

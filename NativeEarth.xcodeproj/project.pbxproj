@@ -27,6 +27,7 @@
 		D77FB61013BBA8660088DA60 /* LauncherViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FB60E13BBA8660088DA60 /* LauncherViewController_iPhone.xib */; };
 		D7827763147AD51B00BD749F /* Utility+CLLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7827762147AD51900BD749F /* Utility+CLLocation.m */; };
 		D783B42613BCBD4300A5C05F /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D783B42513BCBD4200A5C05F /* BaseTableViewController.m */; };
+		D784AB7715213654002FC873 /* LandsViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D784AB7615213653002FC873 /* LandsViewController_iPhone.m */; };
 		D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D786015C13C65D93007EA5B0 /* Spotlight.png */; };
 		D789BF7513D0B58600C1C9E8 /* NetworkDataGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */; };
 		D78D045B13E046FB00C04A5E /* NationSelectViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D045A13E046FB00C04A5E /* NationSelectViewController_iPhone.m */; };
@@ -126,8 +127,8 @@
 		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldCell_iPhone.h; path = iphone/Locator/TextFieldCell_iPhone.h; sourceTree = "<group>"; };
 		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextFieldCell_iPhone.m; path = iphone/Locator/TextFieldCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldCell_iPhone.xib; path = iphone/Locator/TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
-		D71CA1C613F2F12A0016C3CB /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Model.h; sourceTree = "<group>"; };
-		D71CA1C713F2F12B0016C3CB /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Model.m; sourceTree = "<group>"; wrapsLines = 0; };
+		D71CA1C613F2F12A0016C3CB /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../Utilities/Model.h; sourceTree = "<group>"; };
+		D71CA1C713F2F12B0016C3CB /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Model.m; path = ../Utilities/Model.m; sourceTree = "<group>"; wrapsLines = 0; };
 		D72157F513C264AE00AF9AD0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D723152913C221C500DF3DF8 /* BrowseViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BrowseViewController_iPhone.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D723152A13C221C500DF3DF8 /* BrowseViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseViewController_iPhone.m; sourceTree = "<group>"; };
@@ -149,6 +150,8 @@
 		D7827762147AD51900BD749F /* Utility+CLLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Utility+CLLocation.m"; sourceTree = "<group>"; };
 		D783B42413BCBD4200A5C05F /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		D783B42513BCBD4200A5C05F /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
+		D784AB7515213651002FC873 /* LandsViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandsViewController_iPhone.h; sourceTree = "<group>"; };
+		D784AB7615213653002FC873 /* LandsViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandsViewController_iPhone.m; sourceTree = "<group>"; };
 		D786015C13C65D93007EA5B0 /* Spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spotlight.png; sourceTree = "<group>"; };
 		D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDataGetter.h; sourceTree = "<group>"; };
 		D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkDataGetter.m; sourceTree = "<group>"; };
@@ -357,6 +360,8 @@
 				D78E16D71472CC9C00ED49E4 /* GreetingViewController_iPhone.h */,
 				D78E16D81472CC9C00ED49E4 /* GreetingViewController_iPhone.m */,
 				D78E16D91472CC9C00ED49E4 /* GreetingViewController_iPhone.xib */,
+				D784AB7515213651002FC873 /* LandsViewController_iPhone.h */,
+				D784AB7615213653002FC873 /* LandsViewController_iPhone.m */,
 			);
 			name = LocationDetails;
 			sourceTree = "<group>";
@@ -540,8 +545,6 @@
 				D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */,
 				D7922F00146B0424000D7344 /* ImageToDataTransformer.h */,
 				D7922F01146B0426000D7344 /* ImageToDataTransformer.m */,
-				D71CA1C613F2F12A0016C3CB /* Model.h */,
-				D71CA1C713F2F12B0016C3CB /* Model.m */,
 				D7BB0DB613BB9CC30062C2A9 /* ReverseGeocoder.h */,
 				D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */,
 				D7827761147AD51800BD749F /* Utility+CLLocation.h */,
@@ -563,6 +566,8 @@
 				D7D7ABA01506B19800BD3EBD /* Greeting.m */,
 				D7D7AB9C1506B19800BD3EBD /* Map.h */,
 				D7D7AB9D1506B19800BD3EBD /* Map.m */,
+				D71CA1C613F2F12A0016C3CB /* Model.h */,
+				D71CA1C713F2F12B0016C3CB /* Model.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -816,6 +821,7 @@
 				D7D7ABAA1506B19900BD3EBD /* PlannedVisit.m in Sources */,
 				D7D7ABB61506B44500BD3EBD /* ShortNation.m in Sources */,
 				D7D7ABB91506C51800BD3EBD /* WSNation.m in Sources */,
+				D784AB7715213654002FC873 /* LandsViewController_iPhone.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

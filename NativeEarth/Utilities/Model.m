@@ -119,6 +119,8 @@ frcPlannedVisits= frcPlannedVisits_;
     return frcNation_;
 }
 
+
+
 //fetched result controler for the list of short nation objects (name , number and rowversion only)
 -(NSFetchedResultsController *) frcShortNations {
     if(frcShortNations_ !=nil){
@@ -264,6 +266,7 @@ frcPlannedVisits= frcPlannedVisits_;
 //    
 //}
 //
+
 
 //returns the list of plannedVisit managed objects
 - (NSFetchedResultsController *)frcPlannedVisits {
@@ -513,6 +516,7 @@ frcPlannedVisits= frcPlannedVisits_;
     return  aVisit;
     
 }
+#pragma mark -Land
 
 
 #pragma mark - Map
@@ -538,7 +542,7 @@ frcPlannedVisits= frcPlannedVisits_;
 -(void) getNationFromWebServiceWithNationNumber:(NSNumber *)number{
     //pass landID and language here:
     NSLog(@"getting Nation %d from web service\n", [number intValue]);
-    NSString *url = [NSString stringWithFormat:@"%@/nation/%d",kHostName,[number intValue]];
+    NSString *url = [NSString stringWithFormat:@"%@/nation/%d/alldata",kHostName,[number intValue]];
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
     dataGetter.delegate = self;
     
@@ -646,7 +650,7 @@ frcPlannedVisits= frcPlannedVisits_;
 //            toBeUpdatedLandID=0;
 //            landIDUpdateFlag=YES;
 //        }
-        //check if the land is already there and should be deleted first:
+        //check if the nation is already there and should be deleted first:
         Nation * exsistingNation= [self getNationLocallyWithNationNumber:[newNation.Number intValue]];
         if(exsistingNation!= nil){
             NSLog(@"Updating Nation %d",[newNation.Number intValue]);
@@ -836,6 +840,4 @@ frcPlannedVisits= frcPlannedVisits_;
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
-
-
 @end
