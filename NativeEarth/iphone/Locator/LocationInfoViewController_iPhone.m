@@ -10,13 +10,18 @@
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "GreetingViewController_iPhone.h"
 #import "MapBrowserViewController_iPhone.h"
+#import "MapBrowserViewController_iPhone.h"
 #import "Constants.h"
 #import "Toast+UIView.h"
 #import "ScreenshotBrowser.h"
 #import "PlannedVisit.h"
 #import "EditAVisitViewController_iPhone.h"
+#import "LandsViewController_iPhone.h"
+
+
 typedef enum{
     rowTitleName,
+    rowTitleLands,
     rowTitleGreetings,
     rowTitleMap,
     rowTitleScreenshots,
@@ -116,6 +121,19 @@ typedef enum{
             //cell.detailTextLabel.text = 
             cell.userInteractionEnabled = NO;
             break;
+      case  rowTitleLands:
+            
+            cell.textLabel.text=NSLocalizedString(@"Lands",@"Lands");
+            if ([((Nation*)selectedNation).Lands count]>0) {
+                cell.userInteractionEnabled = YES;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                cell.textLabel.alpha = 1;
+            }else{
+                cell.userInteractionEnabled = NO;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.textLabel.alpha = 0.5;
+            }
+            break;
         case rowTitleGreetings:
             cell.textLabel.text=NSLocalizedString(@"Greetings",@"Greetings");
             if (((Nation *)selectedNation).Greeting != nil) {
@@ -197,8 +215,11 @@ typedef enum{
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.row) {
-        case rowTitleName:
+        case rowTitleName: 
           break;
+        case rowTitleLands:
+            [self NavigateToLands];
+            break;
         case rowTitleGreetings:
             [self NavigateToGreetings];
             break;
@@ -249,6 +270,21 @@ typedef enum{
     [nextVC release];
 }
 
+-(void)NavigateToLands{
+
+    LandsViewController_iPhone * nextVC =[[LandsViewController_iPhone alloc] initWithStyle:UITableViewStylePlain];
+   NSArray * lands = [self.selectedNation.Lands allObjects];
+    nextVC.landList = [NSMutableArray arrayWithArray:lands];
+   // [lands release];
+    nextVC.remoteHostStatus = self.remoteHostStatus;
+    nextVC.internetConnectionStatus = self.internetConnectionStatus;
+    nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
+    nextVC.referringNation = self.selectedNation;
+    [self.navigationController pushViewController:nextVC animated:YES];
+    [nextVC release];
+    
+}
+
 -(void) NavigateToMap{
     if (self.remoteHostStatus != NotReachable) {
         
@@ -258,6 +294,7 @@ typedef enum{
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
     nextVC.nations = self.allNations;
     nextVC.showOrigin= self.showOrigin;
+    nextVC.isBrowsingNation=YES;
     nextVC.selectedNationName = ((Nation *)selectedNation).OfficialName;
     nextVC.originLocation= self.originLocation;
     nextVC.originAnnotationTitle= self.originTitle;

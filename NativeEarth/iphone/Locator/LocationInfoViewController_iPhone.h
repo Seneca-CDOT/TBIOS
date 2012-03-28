@@ -28,5 +28,5 @@
 //-(void) NavigateToImageGallery;
 -(void) NavigateToMap;
 -(void) NavigateToScreenshotBrowser;
-
+-(void) NavigateToLands;
 @end

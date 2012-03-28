@@ -27,6 +27,8 @@
 @synthesize     selectedAnnotationView = _selectedAnnotationView;
 @synthesize     calloutAnnotation = _calloutAnnotation;
 @synthesize originAnnotationTitle, selectedNationName,showOrigin;
+@synthesize referringLand;
+@synthesize isBrowsingNation;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -41,6 +43,7 @@
 - (void)dealloc 
 {
     [self .nations release];
+    [self.referringLand release];
     [self.calloutAnnotation release];
     [self.selectedAnnotationView release];
     [self.originAnnotationTitle release];
@@ -91,57 +94,50 @@
     //clear the map first
     [mapView removeOverlays:mapView.overlays];
     [mapView removeAnnotations:mapView.annotations];
+    if (self.isBrowsingNation) {
     if(nationsArray !=nil ){
- //   NSMutableArray * polygons = [[NSMutableArray alloc]init];
- //   NSMutableArray *annotations =[[NSMutableArray alloc]init];
-        
+      //NSMutableArray * polygons = [[NSMutableArray alloc]init];
+        NSMutableArray *annotations =[[NSMutableArray alloc]init];
         for (Nation * nation in nationsArray) {
-     for (Land * land in nation.Lands) {
-        KMLParser * kml = [KMLParser parseKMAWithData:[land.Kml dataUsingEncoding: NSASCIIStringEncoding]];    
-        NSArray * overlays = [kml overlays];
-    
-//      NSString * coordinateString = land.Coordinates;
-//      NSUInteger length=0;
-//      CLLocationCoordinate2D * CoordinateArray = parseCoordinatesStringAsCLLocationCoordinate2D(coordinateString, &length);
- 
-//        MKPolygon *poly = [MKPolygon polygonWithCoordinates:CoordinateArray count:length interiorPolygons:nil];
-//       [polygons addObject:poly];
-//       //annotation:
-//       NSString *centerCoordinatesString = land.CenterPoint; 
-//       NSUInteger len=0;
-//       CLLocationCoordinate2D * centreCoordinates =parseCoordinatesStringAsCLLocationCoordinate2D(centerCoordinatesString, &len);
-//       if (len>0) {
-//           DistrictCenterAnnotation * annotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:centreCoordinates[0].latitude andLongitude:centreCoordinates[0].longitude]autorelease];
-//           
-//           annotation.title = land.LandName;
-//           [annotations addObject:annotation];
-//         }  
-         [mapView addOverlays:overlays];
-      }//end on inner for loop
-    }//end of outer for loop
-        //[mapView addOverlays:(NSArray*)polygons];   
-        //[mapView addAnnotations:annotations];
-       
+            NSArray * lands = [nation.Lands allObjects];
+            for (Land * land in lands) {
+                NSLog(@"%@",land.Kml);
+                NSData * kmlData = [land.Kml dataUsingEncoding: NSASCIIStringEncoding];
+                KMLParser * kml = [KMLParser parseKMLWithData:kmlData];    
+                NSArray * overlays = [kml overlays];
+               [mapView addOverlays:overlays];
+            }//end on inner for loop
+            //annotation:
+            DistrictCenterAnnotation * annotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:[nation.CenterLat doubleValue] andLongitude:[nation.CenterLong doubleValue]]autorelease];
+            annotation.title = nation.OfficialName;
+            [annotations addObject:annotation];      
+        }//end of outer for loop
+      //[mapView addOverlays:(NSArray*)polygons];   
+        [mapView addAnnotations:annotations];
         //Add Annotation for originLocation: 
-        
-     if (showOrigin==YES) {
+        if (showOrigin==YES) {
         DistrictCenterAnnotation * originAnnotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:originLocation.latitude andLongitude:originLocation.longitude] autorelease];
         originAnnotation.title = self.originAnnotationTitle;
         [mapView addAnnotation:originAnnotation]; 
-      }
-     for (DistrictCenterAnnotation * annot in mapView.annotations) {       
+        }
+        for (DistrictCenterAnnotation * annot in mapView.annotations) {       
             if (annot.title == self.originAnnotationTitle || annot.title== self.selectedNationName) {
                 [mapView selectAnnotation:annot animated:FALSE];
             }
-      }
-        
+        }
     [self flyToPin:nil];
-
     }
-
+    }else{
+        
+         NSData * kmlData = [referringLand.Kml dataUsingEncoding: NSASCIIStringEncoding];
+        KMLParser * kml = [KMLParser parseKMLWithData:kmlData];    
+        NSArray * overlays = [kml overlays];
+        [mapView addOverlays:overlays];
+         [self flyToPin:nil];
+    }
+    
 }
 -(IBAction)flyToPin:(id) sender{
-    
     // Walk the list of overlays and annotations and create a MKMapRect that
     // bounds all of them and store it into flyTo.
     MKMapRect flyTo = MKMapRectNull;
@@ -152,7 +148,6 @@
             flyTo = MKMapRectUnion(flyTo, [overlay boundingMapRect]);
         }
     }
-    
     
     ///
     for (id <MKAnnotation> annotation in mapView.annotations) {
@@ -166,15 +161,10 @@
     }
 
     ///
-     
-    
-    
         MKCoordinateRegion region = MKCoordinateRegionForMapRect(flyTo);
-        
         MKCoordinateRegion savedRegion = [mapView regionThatFits:region];
         [self.mapView setRegion:savedRegion animated:YES];
-
-    
+ 
 }
 
 #pragma  mark - Map View Delegate

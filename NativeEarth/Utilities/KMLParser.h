@@ -76,7 +76,7 @@
 
 + (KMLParser *)parseKMLAtURL:(NSURL *)url;
 + (KMLParser *)parseKMLAtPath:(NSString *)path;
-+ (KMLParser *)parseKMAWithData:(NSData*)data;
++ (KMLParser *)parseKMLWithData:(NSData*)data;
 @property (nonatomic, readonly) NSArray *overlays;
 @property (nonatomic, readonly) NSArray *points;
 
