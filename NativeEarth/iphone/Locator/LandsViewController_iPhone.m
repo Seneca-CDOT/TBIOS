@@ -34,12 +34,13 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+     locale = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     [super viewWillAppear:animated];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    locale = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
+  //  locale = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     [super viewDidAppear:animated];
 }
 
