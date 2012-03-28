@@ -28,6 +28,8 @@
     CLLocationCoordinate2D originLocation;
     NSString * originAnnotationTitle;
     NSString * selectedNationName;
+    BOOL isBrowsingNation;//NO if a single land of a nation is being browsed.
+    Land * referringLand;
 }
 
 
@@ -40,6 +42,9 @@
 @property(nonatomic,retain)             NSString                   *originAnnotationTitle;
 @property(nonatomic,retain)             NSString                   *selectedNationName;
 @property(nonatomic)                    BOOL                        showOrigin;
+@property (nonatomic, retain ) Land * referringLand;
+@property (nonatomic) BOOL isBrowsingNation;
+
 -(IBAction)flyToPin:(id) sender;
 
 -(void)  drawOverlaysOfArray: (NSArray*)nationsArray;
