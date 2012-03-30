@@ -106,8 +106,8 @@
     }
     self.completeList = [NSMutableArray arrayWithArray: appDelegate.model.shortNationList];
     [self.completeList retain];
-    NSLog(@"initial complete list in browser:");
-    NSLog(@"%@",[self.completeList description]);
+ //   NSLog(@"initial complete list in browser:");
+ //   NSLog(@"%@",[self.completeList description]);
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
     [self.resultsTableView reloadData];
 	self.resultsTableView.scrollEnabled = YES;
