@@ -1,24 +1,24 @@
 /*
-     File: KMLParser.m 
+ File: KMLParser.m 
  Abstract: 
  Implements a limited KML parser.
  The following KML types are supported:
-         Style,
-         LineString,
-         Point,
-         Polygon,
-         Placemark.
-      All other types are ignored
-  
-  Version: 1.1 
-  
+ Style,
+ LineString,
+ Point,
+ Polygon,
+ Placemark.
+ All other types are ignored
+ 
+ Version: 1.1 
+ 
  Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple 
  Inc. ("Apple") in consideration of your agreement to the following 
  terms, and your use, installation, modification or redistribution of 
  this Apple software constitutes acceptance of these terms.  If you do 
  not agree with these terms, please do not use, install, modify or 
  redistribute this Apple software. 
-  
+ 
  In consideration of your agreement to abide by the following terms, and 
  subject to these terms, Apple grants you a personal, non-exclusive 
  license, under Apple's copyrights in this original Apple software (the 
@@ -34,13 +34,13 @@
  implied, are granted by Apple herein, including but not limited to any 
  patent rights that may be infringed by your derivative works or by other 
  works in which the Apple Software may be incorporated. 
-  
+ 
  The Apple Software is provided by Apple on an "AS IS" basis.  APPLE 
  MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION 
  THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS 
  FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND 
  OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS. 
-  
+ 
  IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL 
  OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF 
  SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS 
@@ -49,36 +49,35 @@
  AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE), 
  STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE 
  POSSIBILITY OF SUCH DAMAGE. 
-  
+ 
  Copyright (C) 2010 Apple Inc. All Rights Reserved. 
-  
+ 
  */
 
 #import "KMLParser.h"
-
-// KMLElement and subclasses declared here implement a class hierarchy for
-// storing a KML document structure.  The actual KML file is parsed with a SAX
-// parser and only the relevant document structure is retained in the object
-// graph produced by the parser.  Data parsed is also transformed into
-// appropriate UIKit and MapKit classes as necessary.
-
-// Abstract KMLElement type.  Handles storing an element identifier (id="...")
-// as well as a buffer for accumulating character data parsed from the xml.
-// In general, subclasses should have beginElement and endElement classes for
-// keeping track of parsing state.  The parser will call beginElement when
-// an interesting element is encountered, then all character data found in the
-// element will be stored into accum, and then when endElement is called accum
-// will be parsed according to the conventions for that particular element type
-// in order to save the data from the element.  Finally, clearString will be
-// called to reset the character data accumulator.
+/*
+ // KMLElement and subclasses declared here implement a class hierarchy for
+ // storing a KML document structure.  The actual KML file is parsed with a SAX
+ // parser and only the relevant document structure is retained in the object
+ // graph produced by the parser.  Data parsed is also transformed into
+ // appropriate UIKit and MapKit classes as necessary.
+ 
+ // Abstract KMLElement type.  Handles storing an element identifier (id="...")
+ // as well as a buffer for accumulating character data parsed from the xml.
+ // In general, subclasses should have beginElement and endElement classes for
+ // keeping track of parsing state.  The parser will call beginElement when
+ // an interesting element is encountered, then all character data found in the
+ // element will be stored into accum, and then when endElement is called accum
+ // will be parsed according to the conventions for that particular element type
+ // in order to save the data from the element.  Finally, clearString will be
+ // called to reset the character data accumulator.
+ */
 
 @interface KMLElement : NSObject {
     NSString *identifier;
     NSMutableString *accum;
 }
-
 - (id)initWithIdentifier:(NSString *)ident;
-
 @property (nonatomic, readonly) NSString *identifier;
 
 // Returns YES if we're currently parsing an element that has character
@@ -175,31 +174,50 @@
         int inLinearRing:1;
     } polyFlags;
 }
-
 - (void)beginOuterBoundary;
 - (void)endOuterBoundary;
-
 - (void)beginInnerBoundary;
 - (void)endInnerBoundary;
-
 - (void)beginLinearRing;
 - (void)endLinearRing;
--(NSString* )getOuterRingStr ;
 @end
 
 @interface KMLLineString : KMLGeometry {
     CLLocationCoordinate2D *points;
     NSUInteger length;
 }
-
 @property (nonatomic, readonly) CLLocationCoordinate2D *points;
 @property (nonatomic, readonly) NSUInteger length;
-
 @end
+
+@interface KMLMultiGeometry : KMLElement {
+    NSString *name;
+    NSMutableArray * geometryArray;
+    KMLGeometry *geometry;
+    NSMutableArray * mkShapes;
+    struct {
+        int inGeometry:1;
+    } flags;
+    NSMutableArray * overlayViews;
+    NSMutableArray * annotationViews;
+}
+@property (nonatomic,readonly) NSMutableArray* geometryArray;
+@property (nonatomic,readonly) NSMutableArray * overlays;
+@property (nonatomic,readonly) NSMutableArray * points;
+@property (nonatomic,readonly) NSMutableArray * overlayViews;
+@property (nonatomic,readonly) NSMutableArray * annotationViews;
+@property (nonatomic,retain) NSString *name;
+- (void)beginGeometryOfType:(NSString *)type withIdentifier:(NSString *)ident;
+- (void)endGeometry;
+-(void)beginCoordinates;
+-(void)endCoordinates;
+@end
+
 
 @interface KMLPlacemark : KMLElement {
     KMLStyle *style;
     KMLGeometry *geometry;
+    KMLMultiGeometry *multiGeometry;
     
     NSString *name;
     NSString *placemarkDescription;
@@ -215,11 +233,23 @@
         int inName:1;
         int inDescription:1;
         int inStyle:1;
+        int inMultyGeometry:1;
         int inGeometry:1;
         int inStyleUrl:1;
     } flags;
 }
 
+
+// Corresponds to the title property on MKAnnotation
+@property (nonatomic, readonly) NSString *name; 
+// Corresponds to the subtitle property on MKAnnotation
+@property (nonatomic, readonly) NSString *placemarkDescription;
+
+@property (nonatomic, readonly) KMLGeometry *geometry;
+@property (nonatomic, readonly) KMLPolygon *polygon;
+@property (nonatomic, readonly) KMLMultiGeometry *multiGeometry;
+@property (nonatomic, retain) KMLStyle *style;
+@property (nonatomic, readonly) NSString *styleUrl;
 - (void)beginName;
 - (void)endName;
 
@@ -232,19 +262,24 @@
 - (void)beginGeometryOfType:(NSString *)type withIdentifier:(NSString *)ident;
 - (void)endGeometry;
 
+- (void)beginMultiGeometryWithIdentifier:(NSString *)ident;
+- (void)endMultiGeometry;
+
 - (void)beginStyleUrl;
 - (void)endStyleUrl;
 
-// Corresponds to the title property on MKAnnotation
-@property (nonatomic, readonly) NSString *name; 
-// Corresponds to the subtitle property on MKAnnotation
-@property (nonatomic, readonly) NSString *placemarkDescription;
+-(void)beginCoordinates;
+-(void)endCoordinates;
 
-@property (nonatomic, readonly) KMLGeometry *geometry;
-@property (nonatomic, readonly) KMLPolygon *polygon;
+-(void)beginOuterBoundary;
+-(void)endOuterBoundary;
 
-@property (nonatomic, retain) KMLStyle *style;
-@property (nonatomic, readonly) NSString *styleUrl;
+-(void)beginInnerBoundary;
+-(void)endInnerBoundary;
+
+-(void)beginLinearRing;
+-(void) endLinearRing;
+
 
 - (id <MKOverlay>)overlay;
 - (id <MKAnnotation>)point;
@@ -293,6 +328,8 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 @end
 
+
+
 @implementation KMLParser
 
 - (id)init
@@ -331,7 +368,6 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 + (KMLParser *)parseKMLAtURL:(NSURL *)url
 {
-    
     NSXMLParser *xml = [[NSXMLParser alloc] initWithContentsOfURL:url];
     KMLParser *parser = [[KMLParser alloc] init];
     [xml setDelegate:parser];
@@ -345,6 +381,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     NSURL *url = [NSURL fileURLWithPath:path];
     return [KMLParser parseKMLAtURL:url];
 }
+
 +(KMLParser *)parseKMLWithData:(NSData*)data{
     NSXMLParser *xml = [[NSXMLParser alloc] initWithData:data];
     KMLParser *parser = [[KMLParser alloc] init];
@@ -363,28 +400,15 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
         id <MKOverlay> overlay = [placemark overlay];
         if (overlay)
             [overlays addObject:overlay];
+        if (placemark.multiGeometry) {
+            NSMutableArray * multiOverlays = [placemark.multiGeometry overlays];
+            if (multiOverlays) {
+                [overlays addObjectsFromArray:multiOverlays];
+            }
+        }
     }
     return [overlays autorelease];
 }
-
-//ladan
-
--(NSArray *)OuterCoordsStringArray
-{
-    NSMutableArray *coords = [[NSMutableArray alloc] init];
-    for (KMLPlacemark *placemark in _placemarks) {
-        
-        id <MKOverlay> overlay = [placemark overlay];
-        if (overlay){
-            NSString * coordsString = [[placemark polygon] getOuterRingStr];
-            [coords  addObject:coordsString];
-        }
-    }
-    return [coords  autorelease];
-    
-    
-}
-
 
 // Return the list of KMLPlacemarks from the object graph that are simply
 // MKPointAnnotations and are not MKOverlays.
@@ -395,6 +419,12 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
         id <MKAnnotation> point = [placemark point];
         if (point)
             [points addObject:point];
+        if (placemark.multiGeometry) {
+            NSMutableArray * multiPoints = [placemark.multiGeometry points];
+            if (multiPoints) {
+                [points addObjectsFromArray:multiPoints];
+            }
+        }
     }
     return [points autorelease];
 }
@@ -426,9 +456,9 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 #define ELTYPE(typeName) (NSOrderedSame == [elementName caseInsensitiveCompare:@#typeName])
 
 - (void)parser:(NSXMLParser *)parser didStartElement:(NSString *)elementName
-                                        namespaceURI:(NSString *)namespaceURI
-                                       qualifiedName:(NSString *)qName
-                                          attributes:(NSDictionary *)attributeDict
+  namespaceURI:(NSString *)namespaceURI
+ qualifiedName:(NSString *)qName
+    attributes:(NSDictionary *)attributeDict
 {
     NSString *ident = [attributeDict objectForKey:@"id"];
     
@@ -463,27 +493,30 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
         [_placemark beginDescription];
     } else if (ELTYPE(styleUrl)) {
         [_placemark beginStyleUrl];
+    } else if (ELTYPE(multiGeometry)){
+        [_placemark beginMultiGeometryWithIdentifier:ident];
     } else if (ELTYPE(Polygon) || ELTYPE(Point) || ELTYPE(LineString)) {
+        
         [_placemark beginGeometryOfType:elementName withIdentifier:ident];
     }
     // Geometry sub-elements
     else if (ELTYPE(coordinates)) {
-        [_placemark.geometry beginCoordinates];
+        [_placemark beginCoordinates];
     } 
     // Polygon sub-elements
     else if (ELTYPE(outerBoundaryIs)) {
-        [_placemark.polygon beginOuterBoundary];
+        [_placemark beginOuterBoundary];
     } else if (ELTYPE(innerBoundaryIs)) {
-        [_placemark.polygon beginInnerBoundary];
+        [_placemark beginInnerBoundary];
     } else if (ELTYPE(LinearRing)) {
-        [_placemark.polygon beginLinearRing];
+        [_placemark beginLinearRing];
     }
     
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName
-                                      namespaceURI:(NSString *)namespaceURI
-                                     qualifiedName:(NSString *)qName
+  namespaceURI:(NSString *)namespaceURI
+ qualifiedName:(NSString *)qName
 {
     KMLStyle *style = [_placemark style] ? [_placemark style] : _style;
     
@@ -491,7 +524,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     if (ELTYPE(Style)) {
         if (_placemark) {
             [_placemark endStyle];
-           //•• style = _style;
+            //•• style = _style;
         } else if (_style) {
             [_styles setObject:_style forKey:_style.identifier];
             [_style release];
@@ -523,27 +556,35 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
         [_placemark endDescription];
     } else if (ELTYPE(styleUrl)) {
         [_placemark endStyleUrl];
+    } else if (ELTYPE(multiGeometry)){
+        [_placemark endMultiGeometry];
     } else if (ELTYPE(Polygon) || ELTYPE(Point) || ELTYPE(LineString)) {
         [_placemark endGeometry];
     }
     // Geometry sub-elements
     else if (ELTYPE(coordinates)) {
-        [_placemark.geometry endCoordinates];
+        [_placemark endCoordinates];
     } 
     // Polygon sub-elements
     else if (ELTYPE(outerBoundaryIs)) {
-        [_placemark.polygon endOuterBoundary];
+        [_placemark endOuterBoundary];
     } else if (ELTYPE(innerBoundaryIs)) {
-        [_placemark.polygon endInnerBoundary];
+        [_placemark endInnerBoundary];
     } else if (ELTYPE(LinearRing)) {
-        [_placemark.polygon endLinearRing];
+        [_placemark endLinearRing];
     }
     
 }
 
 - (void)parser:(NSXMLParser *)parser foundCharacters:(NSString *)string
 {
-    KMLElement *element = _placemark ? (KMLElement *)_placemark : (KMLElement *)_style;
+    
+    KMLElement *element ;
+    if (_placemark) 
+        element=(KMLElement *)_placemark ;
+    else
+        element= (KMLElement *)_style;
+    
     [element addString:string];
 }
 
@@ -816,6 +857,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     // Now parse the outer ring.
     CLLocationCoordinate2D *coords = NULL;
     NSUInteger coordsLen = 0;
+    
     strToCoords(outerRing, &coords, &coordsLen);
     
     // Build a polygon using both the outer coordinates and the list (if applicable)
@@ -834,10 +876,6 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     return [polyView autorelease];
 }
 
--(NSString* )getOuterRingStr {
-    NSString * rv= outerRing;
-    return  rv;
-}
 @end
 
 @implementation KMLLineString
@@ -878,9 +916,182 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 @end
 
+@implementation KMLMultiGeometry
+@synthesize geometryArray,name;
+
+- (void)dealloc
+{
+    [overlayViews release];
+    [annotationViews release];
+    [name release];
+    [super dealloc];
+}
+
+-(id)initWithIdentifier:(NSString *)ident{
+    if(self=[super initWithIdentifier:ident]){
+        geometryArray =[[NSMutableArray alloc] init];
+        return self;
+    }
+    return nil;
+    
+}
+- (BOOL)canAddString
+{
+    return NO;
+}
+- (void)addString:(NSString *)str
+{
+    if (flags.inGeometry)
+        [geometry addString:str];
+    else
+        [super addString:str];
+}
+
+- (void)beginGeometryOfType:(NSString *)elementName withIdentifier:(NSString *)ident
+{
+    flags.inGeometry = YES;
+    if (ELTYPE(Point))
+        geometry = [[[KMLPoint alloc] initWithIdentifier:ident] retain];
+    else if (ELTYPE(Polygon))
+        geometry = [[[KMLPolygon alloc] initWithIdentifier:ident] retain];
+    else if (ELTYPE(LineString))
+        geometry = [[[KMLLineString alloc] initWithIdentifier:ident] retain];
+}
+- (void)endGeometry
+{
+    [geometryArray addObject:geometry];
+    flags.inGeometry = NO;
+}
+-(void)beginCoordinates{
+    [(KMLPolygon *)geometry beginCoordinates];
+}
+-(void)endCoordinates{
+    [(KMLPolygon *)geometry endCoordinates];
+}
+
+-(void)beginOuterBoundary{
+    [(KMLPolygon*) geometry beginOuterBoundary];
+}
+
+-(void)endOuterBoundary{
+    [(KMLPolygon*) geometry endOuterBoundary];
+}
+-(void)beginInnerBoundary{
+    [(KMLPolygon*) geometry beginInnerBoundary];
+}
+-(void)endInnerBoundary{
+    [(KMLPolygon*) geometry endInnerBoundary];
+}
+
+-(void)beginLinearRing{
+    [(KMLPolygon*) geometry beginLinearRing];
+}
+-(void) endLinearRing{
+    [(KMLPolygon*) geometry endLinearRing];
+}
+
+- (NSMutableArray *)geometryArray
+{
+    return geometryArray;
+}
+- (NSMutableArray *)polygons
+{
+    NSMutableArray * polygonArray=[[NSMutableArray alloc] initWithCapacity:[geometryArray count]];
+    for (KMLGeometry * g in geometryArray) {
+        if ([g isKindOfClass:[KMLPolygon class]]) {
+            [polygonArray addObject:g];
+        }
+    }
+    return ([polygonArray count] >0 )? polygonArray : nil;
+}
+
+//- (void)_createShape
+//{
+//    if (!mkShapes) {
+//        for (KMLGeometry* g in geometryArray) {
+//        MKShape* mkShape = [[geometry mapkitShape] retain];
+//        mkShape.title = name;
+//            [mkShapes addObject:mkShape];
+//        }
+//       
+//        // Skip setting the subtitle for now because they're frequently
+//        // too verbose for viewing on in a callout in most kml files.
+//        //        mkShape.subtitle = placemarkDescription;
+//    }
+//}
+//
+
+- (NSMutableArray *)overlays
+{
+    NSMutableArray * overlayArray = [[NSMutableArray alloc] initWithCapacity:[mkShapes count]];
+    for (KMLGeometry  * geo  in geometryArray) {
+        MKShape * mkShape = [geo mapkitShape];
+        mkShape.title = name;
+        if ([mkShape conformsToProtocol:@protocol(MKOverlay)]) {
+            [overlayArray addObject:(id <MKOverlay>)mkShape];
+        }
+        
+    }
+    return ([overlayArray count] >0 )? overlayArray : nil;
+}
+
+- (NSMutableArray *)points
+{
+    // Make sure to check if this is an MKPointAnnotation.  MKOverlays also
+    // conform to MKAnnotation, so it isn't sufficient to just check to
+    // conformance to MKAnnotation.
+    NSMutableArray * pointArray = [[NSMutableArray alloc] initWithCapacity:[mkShapes count]];
+    for (KMLGeometry  * geo  in geometryArray) {
+        MKShape * mkShape = [geometry mapkitShape];
+        mkShape.title = name;
+        if ([mkShape isKindOfClass:[MKPointAnnotation class]])
+            [pointArray addObject:(id <MKAnnotation>)mkShapes];
+    }
+    return ([pointArray count] >0 )? pointArray : nil;
+}
+
+- (NSMutableArray *)overlayViews
+{
+    if (!overlayViews) {
+        NSMutableArray * overlayViewArray = [[NSMutableArray alloc]init];
+        
+        for (KMLGeometry * geo  in geometryArray) {
+            MKShape * mkShape = [geo mapkitShape];
+            mkShape.title = name;
+            if ([mkShape conformsToProtocol:@protocol(MKOverlay)]){ 
+                MKOverlayView *  overlayView = [[geometry createOverlayView:mkShape] retain];
+                [overlayViewArray addObject:overlayView];
+            }
+        }
+        return ([overlayViewArray count] >0 )? overlayViewArray : nil;
+    }
+    
+    return  overlayViews;
+}
+
+- (NSMutableArray *)annotationViews {
+    if (!annotationViews) {
+        NSMutableArray *  annotations = self.points;  
+        NSMutableArray * annotationViewArray = [[NSMutableArray alloc]initWithCapacity:[annotations count]];
+        
+        for (id <MKAnnotation> annotation in annotations) {
+            MKPinAnnotationView *pin =
+            [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+            pin.canShowCallout = YES;
+            pin.animatesDrop = YES;
+            [annotationViewArray addObject:pin];
+        }
+        return ([annotationViewArray count] >0 )? annotationViewArray : nil;
+    }
+    return annotationViews;
+}
+
+
+@end
+
 @implementation KMLPlacemark
 
-@synthesize style, styleUrl, geometry, name, placemarkDescription;
+@synthesize style, styleUrl, geometry, multiGeometry ,name, placemarkDescription;
 
 - (void)dealloc
 {
@@ -905,9 +1116,12 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     if (flags.inStyle)
         [style addString:str];
     else if (flags.inGeometry)
-        [geometry addString:str];
-    else
-        [super addString:str];
+        if (flags.inMultyGeometry) {
+            [multiGeometry addString:str];
+        }else
+            [geometry addString:str];
+        else
+            [super addString:str];
 }
 
 - (void)beginName
@@ -960,16 +1174,95 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 - (void)beginGeometryOfType:(NSString *)elementName withIdentifier:(NSString *)ident
 {
     flags.inGeometry = YES;
-    if (ELTYPE(Point))
-        geometry = [[KMLPoint alloc] initWithIdentifier:ident];
-    else if (ELTYPE(Polygon))
-        geometry = [[KMLPolygon alloc] initWithIdentifier:ident];
-    else if (ELTYPE(LineString))
-        geometry = [[KMLLineString alloc] initWithIdentifier:ident];
+    if (!flags.inMultyGeometry) {
+        
+        if (ELTYPE(Point))
+            geometry = [[KMLPoint alloc] initWithIdentifier:ident];
+        else if (ELTYPE(Polygon))
+            geometry = [[KMLPolygon alloc] initWithIdentifier:ident];
+        else if (ELTYPE(LineString))
+            geometry = [[KMLLineString alloc] initWithIdentifier:ident];
+        
+    }
+    else {
+        [multiGeometry beginGeometryOfType:elementName withIdentifier:ident];
+    }
 }
 - (void)endGeometry
 {
     flags.inGeometry = NO;
+    if (flags.inMultyGeometry) {
+        [multiGeometry endGeometry];
+    }
+}
+
+- (void)beginMultiGeometryWithIdentifier:(NSString *)ident{
+    flags.inMultyGeometry = YES;
+    multiGeometry =[[KMLMultiGeometry alloc] initWithIdentifier:ident];
+}
+- (void)endMultiGeometry{
+    flags.inMultyGeometry = NO;
+}
+
+-(void)beginCoordinates{
+    if (flags.inMultyGeometry) {
+        [multiGeometry beginCoordinates];
+    }else{
+        [geometry beginCoordinates];
+    }
+}
+-(void)endCoordinates{
+    if (flags.inMultyGeometry) {
+        [multiGeometry endCoordinates];
+    }else{
+        [geometry endCoordinates];
+    }
+}
+
+-(void)beginOuterBoundary{
+    if (flags.inMultyGeometry) {
+        [multiGeometry beginOuterBoundary];
+    }else{
+        [self.polygon beginOuterBoundary];
+    }
+}
+
+-(void)endOuterBoundary{
+    if (flags.inMultyGeometry) {
+        [multiGeometry endOuterBoundary];
+    }else{
+        [self.polygon endOuterBoundary];
+    }
+}
+-(void)beginInnerBoundary{
+    if (flags.inMultyGeometry) {
+        [multiGeometry beginInnerBoundary];
+    }else{
+        [self.polygon beginInnerBoundary];
+    }
+}
+
+-(void)endInnerBoundary{
+    if (flags.inMultyGeometry){ 
+        [multiGeometry beginInnerBoundary];
+    }else{
+        [self.polygon endInnerBoundary];
+    }
+}
+
+-(void)beginLinearRing{
+    if (flags.inMultyGeometry){ 
+        [multiGeometry beginLinearRing];
+    }else{
+        [self.polygon beginLinearRing];
+    }
+}
+-(void) endLinearRing{
+    if (flags.inMultyGeometry){ 
+        [multiGeometry endLinearRing];
+    }else{
+        [self.polygon endLinearRing];
+    }
 }
 
 - (KMLGeometry *)geometry
@@ -989,7 +1282,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
         mkShape.title = name;
         // Skip setting the subtitle for now because they're frequently
         // too verbose for viewing on in a callout in most kml files.
-//        mkShape.subtitle = placemarkDescription;
+        //        mkShape.subtitle = placemarkDescription;
     }
 }
 
@@ -1021,7 +1314,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     if (!overlayView) {
         id <MKOverlay> overlay = [self overlay];
         if (overlay) {
-            overlayView = [[geometry createOverlayView:overlay] retain];
+            overlayView = [[geometry createOverlayView:(MKShape*)overlay] retain];
             [style applyToOverlayPathView:overlayView];
         }
     }
@@ -1035,7 +1328,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
         id <MKAnnotation> annotation = [self point];
         if (annotation) {
             MKPinAnnotationView *pin =
-                [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
+            [[MKPinAnnotationView alloc] initWithAnnotation:annotation reuseIdentifier:nil];
             pin.canShowCallout = YES;
             pin.animatesDrop = YES;
             annotationView = pin;

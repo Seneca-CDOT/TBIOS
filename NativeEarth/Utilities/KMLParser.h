@@ -82,5 +82,5 @@
 
 - (MKAnnotationView *)viewForAnnotation:(id <MKAnnotation>)point;
 - (MKOverlayView *)viewForOverlay:(id <MKOverlay>)overlay;
-- (NSArray *)OuterCoordsStringArray;
+
 @end
