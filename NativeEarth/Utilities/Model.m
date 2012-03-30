@@ -48,8 +48,8 @@ frcPlannedVisits= frcPlannedVisits_;
     // method "reachabilityChanged" will be called. 
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
     self.shortNationList = [[NSMutableArray arrayWithArray:[self getShortNationArray] ] retain];
-    NSLog(@"initial nation list:\n");
-    NSLog(@"%@",[self.shortNationList description]);
+ //   NSLog(@"initial nation list:\n");
+ //   NSLog(@"%@",[self.shortNationList description]);
     
     hostReach = [[Reachability reachabilityWithHostName: kHostName] retain];
     [hostReach startNotifier];
