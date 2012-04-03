@@ -9,7 +9,7 @@
 #import "WSNation.h"
 #import "Land.h"
 #import "WSLand.h"
-#import "greeting.h"
+#import "Greeting.h"
 #import "WSGreeting.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 @implementation WSNation
@@ -110,9 +110,9 @@
   Greeting * existingGreeting=  [appDelegate.model getGreetingWithGreetingId:[self.greeting.GreetingID intValue]];
     
     if (existingGreeting) {
-        managedNation.Greeting = existingGreeting; 
+        managedNation.greeting = existingGreeting; 
     }else{
-        managedNation.Greeting=[self.greeting ToManagedGreeting:context];
+        managedNation.greeting=[self.greeting ToManagedGreeting:context];
     }
     
     

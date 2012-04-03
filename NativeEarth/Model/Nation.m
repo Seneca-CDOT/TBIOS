@@ -7,7 +7,7 @@
 //
 
 #import "Nation.h"
-#import "greeting.h"
+#import "Greeting.h"
 #import "Land.h"
 #import "Map.h"
 #import "PlannedVisit.h"
@@ -24,7 +24,7 @@
 @dynamic CenterLat;
 @dynamic CenterLong;
 @dynamic Lands;
-@dynamic Greeting;
+@dynamic greeting;
 @dynamic PlannedVisits;
 @dynamic Maps;
 

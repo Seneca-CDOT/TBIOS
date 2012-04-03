@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "greeting.h"
+#import "Greeting.h"
 
 
 @interface WSGreeting : NSObject {

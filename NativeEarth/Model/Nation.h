@@ -24,7 +24,7 @@
 @property (nonatomic, retain) NSNumber * CenterLat;
 @property (nonatomic, retain) NSNumber * CenterLong;
 @property (nonatomic, retain) NSSet* Lands;
-@property (nonatomic, retain) Greeting * Greeting;
+@property (nonatomic, retain) Greeting * greeting;
 @property (nonatomic, retain) NSSet* PlannedVisits;
 @property (nonatomic, retain) NSSet* Maps;
 

@@ -757,12 +757,12 @@ frcGreeting=frcGreeting_;
     mNation.Phone = newManagedNation.Phone;
     mNation.PostCode= newManagedNation.PostCode;
     
-    if (mNation.Greeting) {
+    if (mNation.greeting) {
         //
     }
-    mNation.Greeting= nil;
+    mNation.greeting= nil;
   
-    mNation.Greeting= newManagedNation.Greeting;
+    mNation.greeting= newManagedNation.greeting;
     [self.managedObjectContext deleteObject:newManagedNation];
     
     NSError * error;
