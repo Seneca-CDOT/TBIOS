@@ -7,16 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Greeting.h"
+#import "greeting.h"
 
 
 @interface WSGreeting : NSObject {
     
 }
-
+@property (nonatomic, retain) NSNumber * GreetingID;
 @property (nonatomic, retain) NSString * HelloPronounciation;
 @property (nonatomic, retain) NSNumber * RowVersion;
-@property (nonatomic, retain) NSNumber * GreetingID;
 @property (nonatomic, retain) NSString * ThankYouPronounciation;
 @property (nonatomic, retain) NSString * WelcomePronounciation;
 @property (nonatomic, retain) NSString * ActorName;

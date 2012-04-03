@@ -9,7 +9,9 @@
 #import "WSNation.h"
 #import "Land.h"
 #import "WSLand.h"
-
+#import "greeting.h"
+#import "WSGreeting.h"
+#import "NativeEarthAppDelegate_iPhone.h"
 @implementation WSNation
 
 @synthesize Number;
@@ -22,7 +24,7 @@
 @synthesize CenterLat;
 @synthesize CenterLong;
 @synthesize Lands;
-@synthesize Greeting;
+@synthesize greeting;
 @synthesize PlannedVisits;
 @synthesize Maps;
 
@@ -39,7 +41,7 @@
     [self.CenterLat release];
     [self.CenterLong release];
     [self.Lands release];
-    [self.Greeting release];
+    [self.greeting release];
     [self.PlannedVisits release];
     [self.Maps release];
     
@@ -72,7 +74,11 @@
         for (NSDictionary * dict in lands) {
             [self.Lands addObject:[[WSLand alloc] initWithDictionary:dict]];
         }
-        
+            NSDictionary * greetingDict =[nationDict valueForKey:@"tbGreeting"];
+        if (greetingDict != [NSNull null] ) {
+            self.greeting =[[WSGreeting alloc] initWithDictionary:greetingDict];
+        }
+            
         }
        
     }
@@ -99,6 +105,16 @@
         [landSet addObject:[land ToManagedLand:context]];
     }
     managedNation.Lands = landSet;
+    
+    NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+  Greeting * existingGreeting=  [appDelegate.model getGreetingWithGreetingId:[self.greeting.GreetingID intValue]];
+    
+    if (existingGreeting) {
+        managedNation.Greeting = existingGreeting; 
+    }else{
+        managedNation.Greeting=[self.greeting ToManagedGreeting:context];
+    }
+    
     
     return managedNation;
 

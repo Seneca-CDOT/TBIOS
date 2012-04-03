@@ -49,19 +49,28 @@
 -(id) initWithDictionary:(NSDictionary *) greetingDict{
     self=[super init];
     if (self) {
+      
+      self.Hello = [NSData dataWithBytes:[greetingDict valueForKey:@"Hello" ]  length: sizeof([greetingDict valueForKey:@"Hello" ])];
         self.HelloPronounciation = [greetingDict valueForKey:@"HelloPronounciation"];
         self.HelloMIMEType=[greetingDict valueForKey:@"HelloMIMEType"];
-        self.Hello=[greetingDict valueForKey:@"Hello"];
-        
-        self.Welcome=[greetingDict valueForKey:@"Welcome"];
+      
+        self.Welcome=[NSData dataWithBytes:[greetingDict valueForKey:@"Welcome" ]  length: sizeof([greetingDict valueForKey:@"Welcome" ])];
         self.WelcomeMIMEType=[greetingDict valueForKey:@"WelcomeMIMEType"];
         self.WelcomePronounciation=[greetingDict valueForKey:@"WelcomePronounciation"];
-        self.ThankYou=[greetingDict valueForKey:@"ThankYou"];
+        
+        self.ThankYou=[NSData dataWithBytes:[greetingDict valueForKey:@"ThankYou" ]  length: sizeof([greetingDict valueForKey:@"ThankYou" ])];
         self.ThankYouMIMEType=[greetingDict valueForKey:@"ThankYouMIMEType"];
         self.ThankYouPronounciation=[greetingDict valueForKey:@"ThankYouPronounciation"];  
         
         self.RowVersion=[greetingDict valueForKey:@"RowVersion"];
-        self.RecordedOn= [greetingDict valueForKey:@"RecordedOn"];
+        
+        [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
+        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
+        [dateFormatter setDateFormat:@"yyy-MM-dd HH:mm:ss ZZZ"];
+        
+        self.RecordedOn= [dateFormatter dateFromString:[greetingDict valueForKey:@"RecordedOn"]];
+
         self.ActorName= [greetingDict valueForKey:@"ActorName"];
         
     } 
@@ -82,7 +91,7 @@
     managedGreeting.WelcomeMIMEType=self.WelcomeMIMEType;
     managedGreeting.HelloMIMEType=self.HelloMIMEType;
     managedGreeting.ThankYouMIMEType=self.ThankYouMIMEType;
-    managedGreeting.RecordedOn=self.RecordedOn;
+    managedGreeting.RecordedOn= self.RecordedOn;
     managedGreeting.RowVersion=self.RowVersion;
     
     return managedGreeting;

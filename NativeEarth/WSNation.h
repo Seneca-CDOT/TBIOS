@@ -25,7 +25,7 @@
 @property (nonatomic, retain) NSNumber * CenterLat;
 @property (nonatomic, retain) NSNumber * CenterLong;
 @property (nonatomic, retain) NSMutableArray* Lands;
-@property (nonatomic, retain) WSGreeting * Greeting;
+@property (nonatomic, retain) WSGreeting * greeting;
 @property (nonatomic, retain) NSMutableArray* PlannedVisits;
 @property (nonatomic, retain) NSMutableArray* Maps;
 
