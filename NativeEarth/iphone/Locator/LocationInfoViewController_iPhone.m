@@ -126,7 +126,7 @@ typedef enum{
       case  rowTitleLands:
             
             cell.textLabel.text=NSLocalizedString(@"Lands",@"Lands");
-            if ([((Nation*)selectedNation).Lands count]>0) {
+            if ([selectedNation.Lands count]>0) {
                 cell.userInteractionEnabled = YES;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
                 cell.textLabel.alpha = 1;
@@ -138,7 +138,7 @@ typedef enum{
             break;
         case rowTitleGreetings:
             cell.textLabel.text=NSLocalizedString(@"Greetings",@"Greetings");
-            if (((Nation *)selectedNation).Greeting != nil) {
+            if (selectedNation.greeting!= nil) {
             cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
@@ -264,7 +264,7 @@ typedef enum{
     GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]initWithNibName:@"GreetingViewController_iPhone" bundle:nil];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
   //  nextVC.language = ((Nation *)selectedNation).Language;
-    nextVC.greeting = selectedNation.Greeting;
+    nextVC.greeting = (Greeting*)selectedNation.greeting;
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
@@ -298,7 +298,7 @@ typedef enum{
     nextVC.nations = self.allNations;
     nextVC.showOrigin= self.showOrigin;
     nextVC.isBrowsingNation=YES;
-    nextVC.selectedNationName = ((Nation *)selectedNation).OfficialName;
+    nextVC.selectedNationName = selectedNation.OfficialName;
     nextVC.originLocation= self.originLocation;
     nextVC.originAnnotationTitle= self.originTitle;
     nextVC.title=NSLocalizedString(@"Map",@"Map");

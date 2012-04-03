@@ -11,7 +11,8 @@
 #import "Constants.h"
 
 @implementation GreetingViewController_iPhone
-@synthesize language, greeting;
+@synthesize language;
+@synthesize  greeting;
 
 typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
 typedef enum {rowHello,rowWelcome,rowThankYou,rowCount}rowType;
@@ -120,6 +121,9 @@ typedef enum {rowHello,rowWelcome,rowThankYou,rowCount}rowType;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
 
     cell.selectionStyle =UITableViewCellEditingStyleNone;
+    cell.textLabel.font= [UIFont boldSystemFontOfSize:15] ;
+    cell.detailTextLabel.font= [UIFont systemFontOfSize:15] ;
+
     if (indexPath.section ==sectionLanguage) {
           cell.userInteractionEnabled=NO;
         cell.textLabel.text = NSLocalizedString(@"Language",@"Language");
@@ -130,19 +134,19 @@ typedef enum {rowHello,rowWelcome,rowThankYou,rowCount}rowType;
         cell.userInteractionEnabled=YES;
         switch (indexPath.row) {
             case rowHello:
-                cell.textLabel.text=NSLocalizedString(@"Hello:",@"Hello:");
-                cell.detailTextLabel.text=greeting.HelloPronounciation;
+               ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Hello:",@"Hello:");
+                ((GreetingCell_iPhone*) cell).lblPronounciation.text=self.greeting.HelloPronounciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.Hello;
                 break;
             case rowWelcome:
-                cell.textLabel.text=NSLocalizedString(@"Welcome:",@"Welcome:");
-                cell.detailTextLabel.text=greeting.WelcomePronounciation;
+                ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Welcome:",@"Welcome:");
+                ((GreetingCell_iPhone*) cell).lblPronounciation.text=greeting.WelcomePronounciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.Welcome;
 
                 break;
             case rowThankYou:
-                cell.textLabel.text=NSLocalizedString(@"Thank You:",@"Thank You:");
-                cell.detailTextLabel.text=greeting.ThankYouPronounciation;
+                ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Thank You:",@"Thank You:");
+                ((GreetingCell_iPhone*) cell).lblPronounciation.text=greeting.ThankYouPronounciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.ThankYou;
 
                 break;

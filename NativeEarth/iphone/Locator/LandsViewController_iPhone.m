@@ -98,7 +98,9 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.selectionStyle= UITableViewCellSelectionStyleGray;
-    
+    cell.textLabel.font= [UIFont boldSystemFontOfSize:15] ;
+    cell.detailTextLabel.font= [UIFont systemFontOfSize:15] ;
+
         if ([self.landList count]>0) {
             Land  * land = [self.landList objectAtIndex:indexPath.row] ;
             // NSNumber * distance = [(NSNumber *)[landArray objectAtIndex:indexPath.section] valueForKey:@"Distance"];
