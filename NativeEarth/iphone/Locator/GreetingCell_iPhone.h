@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "greeting.h"
+#import "Greeting.h"
 #import <AVFoundation/AVFoundation.h>
 #import <AudioToolbox/AudioToolbox.h>
 // cell identifier for this custom cell
