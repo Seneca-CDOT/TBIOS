@@ -101,7 +101,6 @@
         for (Nation * nation in nationsArray) {
             NSArray * lands = [nation.Lands allObjects];
             for (Land * land in lands) {
-                NSLog(@"%@",land.Kml);
                 NSData * kmlData = [land.Kml dataUsingEncoding: NSUTF8StringEncoding];
                 KMLParser * kml = [KMLParser parseKMLWithData:kmlData];    
                 NSArray * overlays = [kml overlays];
@@ -128,7 +127,6 @@
     [self flyToPin:nil];
     }
     }else{
-        NSLog(@"%@:%@",referringLand.LandName_ENG,referringLand.Kml);
          NSData * kmlData = [referringLand.Kml dataUsingEncoding: NSUTF8StringEncoding];
         KMLParser * kml = [KMLParser parseKMLWithData:kmlData];    
         NSArray * overlays = [kml overlays];
