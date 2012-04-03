@@ -7,7 +7,7 @@
 //
 
 #import "Nation.h"
-#import "Greeting.h"
+#import "greeting.h"
 #import "Land.h"
 #import "Map.h"
 #import "PlannedVisit.h"
