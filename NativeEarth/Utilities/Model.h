@@ -42,12 +42,14 @@
     NSFetchedResultsController *frcNation_;
     NSFetchedResultsController * frcShortNations_;
     NSFetchedResultsController * frcNearByNations_;
+    NSFetchedResultsController *frcGreeting_;
    //NSFetchedResultsController * frcLandsForCoordinate_;
    //NSFetchedResultsController * frcNearByLands_;
     NSFetchedResultsController * frcPlannedVisits_;
     NSManagedObjectContext * __managedObjectContext;
  
     int nationNumber;
+    int greetingId;
     Nation *referringNation;
     int toBeUpdatedNationNumber;
     BOOL nationNumberUpdateFlag;
@@ -61,6 +63,7 @@
 @property (nonatomic, retain) NSFetchedResultsController * frcNation;
 @property (nonatomic, retain) NSFetchedResultsController * frcShortNations;
 @property (nonatomic, retain) NSFetchedResultsController * frcNearByNations;
+@property (nonatomic, retain) NSFetchedResultsController *frcGreeting;
 
 //@property (nonatomic, retain) NSFetchedResultsController * frcLandsForCoordinate;
 //@property (nonatomic, retain) NSFetchedResultsController * frcNearByLands;
@@ -89,6 +92,7 @@
 -(NSError *)SaveData;
 -(NSError*)DeleteVisit:(PlannedVisit*) visit;
 -(PlannedVisit *)getNewPlannedVisit;
+-(Greeting *)getGreetingWithGreetingId:(int)gId;
 -(Map *)getNewMap;
 - (NSURL *)applicationDocumentsDirectory;
 

@@ -29,7 +29,8 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 @synthesize frcNation=frcNation_,
 frcNearByNations=frcNearByNations_,
 frcShortNations=frcShortNations_, 
-frcPlannedVisits= frcPlannedVisits_;
+frcPlannedVisits= frcPlannedVisits_,
+frcGreeting=frcGreeting_;
 
 @synthesize managedObjectContext=__managedObjectContext;
 @synthesize managedObjectModel=__managedObjectModel;
@@ -75,6 +76,7 @@ frcPlannedVisits= frcPlannedVisits_;
     [self.frcShortNations release];
     [self.frcPlannedVisits release];
     [self.frcNearByNations release];
+    [self.frcGreeting release];
     [__managedObjectContext release];
     [__managedObjectModel release];
     [__persistentStoreCoordinator release];
@@ -117,6 +119,40 @@ frcPlannedVisits= frcPlannedVisits_;
     
     
     return frcNation_;
+}
+
+-(NSFetchedResultsController *) frcGreeting{
+    if(frcGreeting_ !=nil){
+        return  frcGreeting_;
+    }
+    
+    NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Greeting" inManagedObjectContext:self.managedObjectContext];
+    
+    [fetchedRequest setEntity:entity];
+    // set sort key 
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"GreetingID" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    
+    [fetchedRequest setSortDescriptors:sortDescriptors];
+
+    
+    // set predicate
+    NSPredicate *predicate =[NSPredicate predicateWithFormat:@"GreetingID= %d", greetingId];
+    [fetchedRequest setPredicate:predicate];
+    
+    //create fetchedResultsController
+    [NSFetchedResultsController deleteCacheWithName:@"Greeting"];
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Greeting"];
+    aFetchedResultsController.delegate = self;
+    self.frcGreeting= aFetchedResultsController;
+    
+    [aFetchedResultsController release];
+    [fetchedRequest release];
+    
+    
+    return frcGreeting_;
 }
 
 
@@ -495,6 +531,24 @@ frcPlannedVisits= frcPlannedVisits_;
         
     }
     return  dict;
+}
+#pragma mark - Greeting
+//gets the greeting object by id
+-(Greeting *)getGreetingWithGreetingId:(int)gId{
+    
+    frcGreeting_=nil;
+    greetingId = gId;
+    NSError *error;
+    if(![[self frcGreeting]performFetch:&error]){
+        //handle Error
+    }
+    
+    NSArray * results = [self.frcGreeting fetchedObjects];
+    if([results count]>0)
+        return [results objectAtIndex:0];
+    else
+        return nil;
+   
 }
 
 #pragma mark - Planned Visits
