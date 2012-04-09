@@ -10,11 +10,11 @@
 
 
 @implementation Greeting
-@dynamic HelloPronounciation;
+@dynamic HelloPronunciation;
 @dynamic RowVersion;
 @dynamic GreetingID;
-@dynamic ThankYouPronounciation;
-@dynamic WelcomePronounciation;
+@dynamic ThankYouPronunciation;
+@dynamic WelcomePronunciation;
 @dynamic ActorName;
 @dynamic RecordedOn;
 @dynamic HelloMIMEType;

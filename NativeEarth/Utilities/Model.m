@@ -213,7 +213,7 @@ frcGreeting=frcGreeting_;
     [fetchedRequest release];
     
     
-    return frcNation_;
+    return frcShortNations_;
 }
 
 // tends to get matching lands but includes the lands that could circle around the coordinate
@@ -504,7 +504,7 @@ frcGreeting=frcGreeting_;
 
 //gets the array of ShortNationObjects locally
 -(NSArray*)getShortNationArray{
-    frcNation_=nil;
+    frcShortNations_=nil;
     NSError* error;
     if(![[self frcShortNations]performFetch:&error]){
         //handle error
@@ -650,9 +650,11 @@ frcGreeting=frcGreeting_;
             
             if(nationExistLocally && nationExistRemothly){
                 ShortNation *sn = (ShortNation*)[localShortNationDict valueForKey:[NSString stringWithFormat:@"%d",i]];
-                NSNumber  * localVersion=sn.RowVersion;
-                NSNumber * remotVersion=[[networkDict valueForKey:[NSString stringWithFormat:@"%d",i]] valueForKey:@"VersionIdentifier"];
-                if ([remotVersion intValue]!=[localVersion intValue]) {
+                NSData  * localVersion=sn.RowVersion;
+                int rvLen= sizeof([networkDict valueForKey:@"rowversion" ]) * [[networkDict valueForKey:@"rowversion" ] count]; 
+               NSData * remotVersion= [NSData dataWithBytes:[networkDict valueForKey:@"rowversion" ]  length: rvLen];
+
+                if (![remotVersion isEqualToData: localVersion]) {
                     [updateArray addObject:[NSNumber numberWithInt:i]];
                 }
             }else if(nationExistLocally){ // it should be deleted

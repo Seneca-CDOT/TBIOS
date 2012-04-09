@@ -13,11 +13,11 @@
 @interface Greeting : NSManagedObject {
 @private
 }
-@property (nonatomic, retain) NSString * HelloPronounciation;
-@property (nonatomic, retain) NSNumber * RowVersion;
+@property (nonatomic, retain) NSString * HelloPronunciation;
+@property (nonatomic, retain) NSData * RowVersion;
 @property (nonatomic, retain) NSNumber * GreetingID;
-@property (nonatomic, retain) NSString * ThankYouPronounciation;
-@property (nonatomic, retain) NSString * WelcomePronounciation;
+@property (nonatomic, retain) NSString * ThankYouPronunciation;
+@property (nonatomic, retain) NSString * WelcomePronunciation;
 @property (nonatomic, retain) NSString * ActorName;
 @property (nonatomic, retain) NSDate * RecordedOn;
 @property (nonatomic, retain) NSString * HelloMIMEType;
