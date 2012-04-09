@@ -46,6 +46,7 @@
 		D7972E29140C000700454BE3 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E27140C000700454BE3 /* NSString+URLEncoding.m */; };
 		D7972E4D140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */; };
 		D7972E4E140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */; };
+		D797329B153339E7006834D8 /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = D797329A153339E7006834D8 /* MKMapView+ZoomLevel.m */; };
 		D7A4FFF3148E7CF30077C56C /* suitcase.png in Resources */ = {isa = PBXBuildFile; fileRef = D7A4FFF2148E7CF30077C56C /* suitcase.png */; };
 		D7A621EB1485760D006E7BC3 /* ThumbImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621EA1485760D006E7BC3 /* ThumbImageView.m */; };
 		D7A621EE14857850006E7BC3 /* ScreenshotBrowser.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621ED1485784F006E7BC3 /* ScreenshotBrowser.m */; };
@@ -182,6 +183,8 @@
 		D7972E4A140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeopoliticalSearchViewController_iPhone.h; sourceTree = "<group>"; };
 		D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeopoliticalSearchViewController_iPhone.m; sourceTree = "<group>"; };
 		D7972E4C140C15B000454BE3 /* GeopoliticalSearchViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GeopoliticalSearchViewController_iPhone.xib; sourceTree = "<group>"; };
+		D7973299153339E7006834D8 /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		D797329A153339E7006834D8 /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		D7A4FFF2148E7CF30077C56C /* suitcase.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = suitcase.png; sourceTree = "<group>"; };
 		D7A621E91485760D006E7BC3 /* ThumbImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThumbImageView.h; sourceTree = "<group>"; };
 		D7A621EA1485760D006E7BC3 /* ThumbImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThumbImageView.m; sourceTree = "<group>"; };
@@ -549,6 +552,8 @@
 				D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */,
 				D7827761147AD51800BD749F /* Utility+CLLocation.h */,
 				D7827762147AD51900BD749F /* Utility+CLLocation.m */,
+				D7973299153339E7006834D8 /* MKMapView+ZoomLevel.h */,
+				D797329A153339E7006834D8 /* MKMapView+ZoomLevel.m */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -822,6 +827,7 @@
 				D7D7ABB61506B44500BD3EBD /* ShortNation.m in Sources */,
 				D7D7ABB91506C51800BD3EBD /* WSNation.m in Sources */,
 				D784AB7715213654002FC873 /* LandsViewController_iPhone.m in Sources */,
+				D797329B153339E7006834D8 /* MKMapView+ZoomLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
