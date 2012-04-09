@@ -10,7 +10,6 @@
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "GreetingViewController_iPhone.h"
 #import "MapBrowserViewController_iPhone.h"
-#import "MapBrowserViewController_iPhone.h"
 #import "Constants.h"
 #import "Toast+UIView.h"
 #import "ScreenshotBrowser.h"
@@ -117,6 +116,7 @@ typedef enum{
     cell.selectionStyle = UITableViewCellSelectionStyleGray;
     cell.textLabel.font= [UIFont boldSystemFontOfSize:15] ;
     cell.detailTextLabel.font= [UIFont systemFontOfSize:15] ;
+    cell.detailTextLabel.numberOfLines=0;
 	switch (indexPath.row) {
         case rowTitleAddess:
             cell.textLabel.text= NSLocalizedString(@"Center Address:", @"Center Address:");
@@ -239,15 +239,9 @@ typedef enum{
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == rowTitleAddess) {
-        NSString *officialName = @"";
-//        if ([language compare:@"fr"]==0) {
-//                  if (selectedNation.LandDescriptionFrench != nil) description = selectedLand.LandDescriptionFrench;  
-//        }else{
-//            if (selectedLand.LandDescriptionEnglish != nil) description = selectedLand.LandDescriptionEnglish;  
-//        }
-        if (selectedNation.OfficialName != nil) officialName = selectedNation.OfficialName;  
-
-        CGSize s = [officialName sizeWithFont:[UIFont systemFontOfSize:15] 
+        NSString *address = @"";
+        if (selectedNation.Address != nil) address = selectedNation.Address;  
+        CGSize s = [address sizeWithFont:[UIFont systemFontOfSize:15] 
                      constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
                          lineBreakMode:UILineBreakModeWordWrap];
         return s.height + 16 +16; // Add padding
@@ -263,8 +257,7 @@ typedef enum{
 -(void) NavigateToGreetings{
     GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]initWithNibName:@"GreetingViewController_iPhone" bundle:nil];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
-  //  nextVC.language = ((Nation *)selectedNation).Language;
-    nextVC.greeting = (Greeting*)selectedNation.greeting;
+   ( (GreetingViewController_iPhone*)nextVC).greeting = (Greeting*)[selectedNation valueForKey:@"greeting"];
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;

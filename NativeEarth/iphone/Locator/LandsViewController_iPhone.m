@@ -100,7 +100,7 @@
     cell.selectionStyle= UITableViewCellSelectionStyleGray;
     cell.textLabel.font= [UIFont boldSystemFontOfSize:15] ;
     cell.detailTextLabel.font= [UIFont systemFontOfSize:15] ;
-
+    cell.textLabel.numberOfLines=0;
         if ([self.landList count]>0) {
             Land  * land = [self.landList objectAtIndex:indexPath.row] ;
             // NSNumber * distance = [(NSNumber *)[landArray objectAtIndex:indexPath.section] valueForKey:@"Distance"];
@@ -123,6 +123,24 @@
             cell.textLabel.alpha=0.5;
         }
        
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+   
+        NSString *landName = @"";
+         Land  * land = [self.landList objectAtIndex:indexPath.row] ;
+    if ([locale compare:@"fr"]==0) {
+       landName = land.LandName_FRA;
+    }else{
+        landName = land.LandName_ENG;
+    }
+
+        
+        CGSize s = [landName sizeWithFont:[UIFont systemFontOfSize:15] 
+                       constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
+                           lineBreakMode:UILineBreakModeWordWrap];
+        return s.height +16; // Add padding
+    
+   
 }
 
 

@@ -16,15 +16,17 @@ extern NSString * kCellGreeting_ID ;
 @interface GreetingCell_iPhone : UITableViewCell {
     Greeting *greeting;
     NSString             *locale;
-    UILabel* lblPronounciation;
+    UILabel* lblPronunciation;
     UILabel* lblPhrase;
+    NSString *greetingType;
     UIButton* btnPlay; 
     NSData* data;
     
 }
 @property(nonatomic,retain) IBOutlet UILabel* lblPhrase;
-@property(nonatomic,retain) IBOutlet UILabel* lblPronounciation;
+@property(nonatomic,retain) IBOutlet UILabel* lblPronunciation;
 @property(nonatomic,retain) NSData*  data;
+@property(nonatomic,retain) NSString * greetingType;
 @property(nonatomic,retain) IBOutlet UIButton* btnPlay;
 @property (nonatomic, retain)      AVAudioPlayer        *cellSoundPlayer;
 + (GreetingCell_iPhone*) createNewGretingCellFromNib;

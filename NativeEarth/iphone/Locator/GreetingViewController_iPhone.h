@@ -15,7 +15,7 @@
 }
 
 @property (nonatomic, retain)      NSString             *language;
-@property(nonatomic,retain)Greeting *greeting;
+@property(nonatomic,retain)         Greeting            *greeting;
 
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath ;

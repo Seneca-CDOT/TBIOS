@@ -7,13 +7,15 @@
 //
 
 #import "GreetingCell_iPhone.h"
+#import "Reachability.h"
 NSString * kCellGreeting_ID = @"CellGreeting_ID";
 
 @implementation GreetingCell_iPhone
 @synthesize lblPhrase;
-@synthesize  lblPronounciation;
+@synthesize  lblPronunciation;
 @synthesize data;
 @synthesize  btnPlay;
+@synthesize greetingType;
 @synthesize cellSoundPlayer;
 
 + (GreetingCell_iPhone*) createNewGretingCellFromNib{
@@ -38,34 +40,37 @@ NSString * kCellGreeting_ID = @"CellGreeting_ID";
 - (void)dealloc
 {
     [self.cellSoundPlayer release];
-    [self.lblPronounciation release];
+    [self.lblPronunciation release];
     [self.lblPhrase release];
     [self.data release];
     [self.btnPlay release];
+    [self.greetingType release];
     [super dealloc];
 }
 
 -(IBAction)playSound:(id)sender{
 
-//    NSString * urlString  = [NSString stringWithFormat:@"%@%@%@", greeting.DataLocation ,@".",greeting.MIMEType];
-//    
-//    NSURL * URL = [NSURL URLWithString:urlString];
-//    NSData * data = [NSData dataWithContentsOfURL:URL];
-//    
+    NSString * urlString  = [NSString stringWithFormat:@"%@/greeting/%d/%@",kHostName,1,self.greetingType];
+    
+    NSURL * URL = [NSURL URLWithString:urlString];
+    NSData * webdata = [NSData dataWithContentsOfURL:URL];
+   
     
     
     NSError *error = nil;
-    
+  
     // Instantiates the AVAudioPlayer object, initializing it with the sound
-    cellSoundPlayer= [[AVAudioPlayer alloc] initWithData:data error:&error];	
+    cellSoundPlayer= [[AVAudioPlayer alloc] initWithData:webdata error:&error];	
+      if (!error) {
+          // "Preparing to play" attaches to the audio hardware and ensures that playback
+          //		starts quickly when the user taps Play
+          [cellSoundPlayer prepareToPlay];
+          [cellSoundPlayer play];
+
+      }else{
+          NSLog(@"%@",[error description]);
+      }
     
-    
-    // "Preparing to play" attaches to the audio hardware and ensures that playback
-    //		starts quickly when the user taps Play
-    [cellSoundPlayer prepareToPlay];
-    //[appSoundPlayer setVolume: 1.0];
-    // [appSoundPlayer setDelegate: self];
-    [cellSoundPlayer play];
 
 }
 

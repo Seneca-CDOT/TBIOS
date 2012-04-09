@@ -14,6 +14,7 @@
 #import "DistrictCenterAnnotationView.h"
 #import "CalloutMapAnnotationView.h"
 #import "Map.h"
+#import "MKMapView+ZoomLevel.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "Toast+UIView.h"
 #import <QuartzCore/QuartzCore.h>
@@ -159,10 +160,15 @@
     }
 
     ///
+    if ([mapView.overlays count]==0 && [mapView.annotations count]==1) {
+        DistrictCenterAnnotation* annot = [mapView.annotations objectAtIndex:0];
+        [mapView setCenterCoordinate:annot.coordinate zoomLevel:8 animated:YES];
+    }else{
+    
         MKCoordinateRegion region = MKCoordinateRegionForMapRect(flyTo);
         MKCoordinateRegion savedRegion = [mapView regionThatFits:region];
         [self.mapView setRegion:savedRegion animated:YES];
- 
+    }
 }
 
 #pragma  mark - Map View Delegate

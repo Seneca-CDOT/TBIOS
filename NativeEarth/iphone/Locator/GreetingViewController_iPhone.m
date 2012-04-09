@@ -126,29 +126,31 @@ typedef enum {rowHello,rowWelcome,rowThankYou,rowCount}rowType;
 
     if (indexPath.section ==sectionLanguage) {
           cell.userInteractionEnabled=NO;
-        cell.textLabel.text = NSLocalizedString(@"Language",@"Language");
+        cell.textLabel.text = NSLocalizedString(@"Actor Name",@"Actor Name");
         cell.detailTextLabel.numberOfLines=0;
-        cell.detailTextLabel.text=self.language;
+        cell.detailTextLabel.text=greeting.ActorName;
         
     }else if(indexPath.section== sectionGreeting){
         cell.userInteractionEnabled=YES;
         switch (indexPath.row) {
             case rowHello:
+                NSLog(@"%@",self.greeting.HelloPronunciation);
                ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Hello:",@"Hello:");
-                ((GreetingCell_iPhone*) cell).lblPronounciation.text=self.greeting.HelloPronounciation;
+                ((GreetingCell_iPhone*) cell).lblPronunciation.text=self.greeting.HelloPronunciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.Hello;
+                ((GreetingCell_iPhone *)cell).greetingType=@"hello";
                 break;
             case rowWelcome:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Welcome:",@"Welcome:");
-                ((GreetingCell_iPhone*) cell).lblPronounciation.text=greeting.WelcomePronounciation;
+                ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.WelcomePronunciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.Welcome;
-
+                ((GreetingCell_iPhone *)cell).greetingType=@"welcome";
                 break;
             case rowThankYou:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Thank You:",@"Thank You:");
-                ((GreetingCell_iPhone*) cell).lblPronounciation.text=greeting.ThankYouPronounciation;
+                ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.ThankYouPronunciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.ThankYou;
-
+                ((GreetingCell_iPhone *)cell).greetingType=@"thankyou";
                 break;
             default:
                 break;
