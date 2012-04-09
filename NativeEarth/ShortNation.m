@@ -15,8 +15,17 @@
 -(id) initWithDictionary:(NSDictionary *) dict{
     [super init];
     self.Number = [NSNumber numberWithInt:[[dict valueForKey:@"Number"]intValue] ];
-    self.OfficialName = [dict valueForKey:@"OfficialName"];
-    self.RowVersion= [dict valueForKey:@"RowVersion" ];
+    self.OfficialName = [[dict valueForKey:@"OfficialName"] description];
+    id version = [dict valueForKey:@"rowversion" ] ;
+    if([version isKindOfClass:[NSData class]]){//for local object
+        self.RowVersion = (NSData*)version ;   
+     
+    }else{//for remote object
+       
+    int len = sizeof(version)*[version count]; 
+        self.RowVersion=  [NSData dataWithBytes:version  length:len ] ;
+      
+    }
     
     return self;
     }
