@@ -634,7 +634,8 @@ frcGreeting=frcGreeting_;
         for (NSDictionary *  dict in networkArray) {
             ShortNation *sn =[[ShortNation alloc] initWithDictionary:dict];
             [networkIDArray addObject:sn.Number];
-            [networkDict setValue:sn forKey:[NSString stringWithFormat:@"%d", sn.Number] ];
+            [networkDict setObject:sn forKey:[NSString stringWithFormat:@"%d", [sn.Number intValue]] ];
+          
         }
         networkIDArray=[NSMutableArray arrayWithArray:[networkIDArray sortedArrayUsingFunction: firstNumSort context:NULL ]];
          //get the largest network land id 
@@ -649,12 +650,17 @@ frcGreeting=frcGreeting_;
             BOOL nationExistRemothly =[networkIDArray containsObject:[NSNumber numberWithInt:i]];
             
             if(nationExistLocally && nationExistRemothly){
-                ShortNation *sn = (ShortNation*)[localShortNationDict valueForKey:[NSString stringWithFormat:@"%d",i]];
-                NSData  * localVersion=sn.RowVersion;
-                int rvLen= sizeof([networkDict valueForKey:@"rowversion" ]) * [[networkDict valueForKey:@"rowversion" ] count]; 
-               NSData * remotVersion= [NSData dataWithBytes:[networkDict valueForKey:@"rowversion" ]  length: rvLen];
+                //get local object rowversion
+                ShortNation *lsn = (ShortNation*)[localShortNationDict valueForKey:[NSString stringWithFormat:@"%d",i]];
+                NSData  * localVersion=  [NSData dataWithData:lsn.RowVersion ];
+                
+                //get remote onject rowversion
+                NSString * key = [NSString stringWithFormat:@"%d",i];
+                ShortNation * rsn = (ShortNation*)[networkDict objectForKey: key];
+              //  int rvLen= sizeof([n valueForKey:@"rowversion" ]) * [[rdict valueForKey:@"rowversion" ] count]; 
+                NSData * remotVersion= rsn.RowVersion ;//[NSData dataWithBytes:[rdict valueForKey:@"rowversion"] length: rvLen];
 
-                if (![remotVersion isEqualToData: localVersion]) {
+                if (![remotVersion isEqualToData: localVersion ]) {  // data must be the same here but it is not
                     [updateArray addObject:[NSNumber numberWithInt:i]];
                 }
             }else if(nationExistLocally){ // it should be deleted
@@ -751,7 +757,7 @@ frcGreeting=frcGreeting_;
     Nation * newManagedNation = [wsNation ToManagedNation:self.managedObjectContext];
     mNation.OfficialName =newManagedNation.OfficialName;
      mNation.Number =newManagedNation.Number;
-     mNation.RowVersion =newManagedNation.RowVersion;
+     mNation.rowversion =newManagedNation.rowversion;
      mNation.Address =newManagedNation.Address;
      mNation.CommunitySite =newManagedNation.CommunitySite  ;
      mNation.CenterLat =newManagedNation.CenterLat;

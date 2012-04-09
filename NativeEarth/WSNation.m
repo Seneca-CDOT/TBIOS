@@ -93,7 +93,7 @@
     
 
     managedNation.Number= self.Number;
-    managedNation.RowVersion= self.RowVersion;
+    managedNation.rowversion= self.RowVersion;
     managedNation.OfficialName= self.OfficialName;
     managedNation.Address= self.Address;
     managedNation.PostCode= self.PostCode;

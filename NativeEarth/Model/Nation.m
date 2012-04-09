@@ -15,7 +15,7 @@
 
 @implementation Nation
 @dynamic Number;
-@dynamic RowVersion;
+@dynamic rowversion;
 @dynamic OfficialName;
 @dynamic Address;
 @dynamic PostCode;
