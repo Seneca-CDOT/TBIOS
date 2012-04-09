@@ -11,11 +11,11 @@
 
 @implementation WSGreeting
 
-@synthesize  HelloPronounciation;
+@synthesize  HelloPronunciation;
 @synthesize  RowVersion;
 @synthesize GreetingID;
-@synthesize  ThankYouPronounciation;
-@synthesize WelcomePronounciation;
+@synthesize  ThankYouPronunciation;
+@synthesize WelcomePronunciation;
 @synthesize  ActorName;
 @synthesize RecordedOn;
 @synthesize HelloMIMEType;
@@ -28,11 +28,11 @@
 
 
 -(void)dealloc{
-    [self.HelloPronounciation release];
+    [self.HelloPronunciation release];
     [self.RowVersion release];
     [self.GreetingID release];
-    [self.ThankYouPronounciation release];
-    [self.WelcomePronounciation release];
+    [self.ThankYouPronunciation release];
+    [self.WelcomePronunciation release];
     [self.ActorName release];
     [self.RecordedOn release];
     [self.HelloMIMEType release];
@@ -49,20 +49,27 @@
 -(id) initWithDictionary:(NSDictionary *) greetingDict{
     self=[super init];
     if (self) {
-      
-      self.Hello = [NSData dataWithBytes:[greetingDict valueForKey:@"Hello" ]  length: sizeof([greetingDict valueForKey:@"Hello" ])];
-        self.HelloPronounciation = [greetingDict valueForKey:@"HelloPronounciation"];
-        self.HelloMIMEType=[greetingDict valueForKey:@"HelloMIMEType"];
-      
-        self.Welcome=[NSData dataWithBytes:[greetingDict valueForKey:@"Welcome" ]  length: sizeof([greetingDict valueForKey:@"Welcome" ])];
-        self.WelcomeMIMEType=[greetingDict valueForKey:@"WelcomeMIMEType"];
-        self.WelcomePronounciation=[greetingDict valueForKey:@"WelcomePronounciation"];
+        self.GreetingID= [NSNumber numberWithInt:[[greetingDict valueForKey:@"WelcomeMIMEType"] intValue]];
+        int hLen = sizeof([greetingDict valueForKey:@"Hello" ]) * [[greetingDict valueForKey:@"Hello" ] count]; 
+       self.Hello = [NSData dataWithBytes:[greetingDict valueForKey:@"Hello" ]  length:hLen ];
+        self.HelloPronunciation = [[greetingDict valueForKey:@"HelloPronunciation"] description];
+        self.HelloMIMEType=[[greetingDict valueForKey:@"HelloMIMEType"] description];
+        NSLog(@"%@,",self.HelloMIMEType);
+              NSLog(@"%@,",self.HelloPronunciation);
+        int wLen = sizeof([greetingDict valueForKey:@"Welcome" ]) * [[greetingDict valueForKey:@"Welcome" ] count]; 
+        self.Welcome=[NSData dataWithBytes:[greetingDict valueForKey:@"Welcome" ]  length: wLen];
+        self.WelcomeMIMEType=[[greetingDict valueForKey:@"WelcomeMIMEType"] description];
+        self.WelcomePronunciation=[[greetingDict valueForKey:@"WelcomePronunciation"] description];
         
-        self.ThankYou=[NSData dataWithBytes:[greetingDict valueForKey:@"ThankYou" ]  length: sizeof([greetingDict valueForKey:@"ThankYou" ])];
-        self.ThankYouMIMEType=[greetingDict valueForKey:@"ThankYouMIMEType"];
-        self.ThankYouPronounciation=[greetingDict valueForKey:@"ThankYouPronounciation"];  
         
-        self.RowVersion=[greetingDict valueForKey:@"RowVersion"];
+        int tLen = sizeof([greetingDict valueForKey:@"ThankYou" ]) * [[greetingDict valueForKey:@"ThankYou" ] count]; 
+        self.ThankYou=[NSData dataWithBytes:[greetingDict valueForKey:@"ThankYou" ]  length: tLen];
+        self.ThankYouMIMEType=[[greetingDict valueForKey:@"ThankYouMIMEType"] description];
+        self.ThankYouPronunciation=[[greetingDict valueForKey:@"ThankYouPronunciation"] description];  
+        self.ActorName= [[greetingDict valueForKey:@"ActorName"] description];
+         NSLog(@"%@,",self.ActorName);
+        int rvLen= sizeof([greetingDict valueForKey:@"rowversion" ]) * [[greetingDict valueForKey:@"rowversion" ] count]; 
+        self.RowVersion= [NSData dataWithBytes:[greetingDict valueForKey:@"rowversion" ]  length: rvLen];
         
         [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -71,7 +78,7 @@
         
         self.RecordedOn= [dateFormatter dateFromString:[greetingDict valueForKey:@"RecordedOn"]];
 
-        self.ActorName= [greetingDict valueForKey:@"ActorName"];
+
         
     } 
     return self;
@@ -82,9 +89,9 @@
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"Greeting" inManagedObjectContext:context];
     Greeting * managedGreeting = [[Greeting alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
 
-    managedGreeting.WelcomePronounciation=self.WelcomePronounciation;
-    managedGreeting.HelloPronounciation=self.HelloPronounciation;
-    managedGreeting.ThankYouPronounciation=self.ThankYouPronounciation;
+    managedGreeting.WelcomePronunciation=self.WelcomePronunciation;
+    managedGreeting.HelloPronunciation=self.HelloPronunciation;
+    managedGreeting.ThankYouPronunciation=self.ThankYouPronunciation;
     managedGreeting.Welcome=self.Welcome;
     managedGreeting.Hello=self.Hello;
     managedGreeting.ThankYou=self.ThankYou;
@@ -93,7 +100,8 @@
     managedGreeting.ThankYouMIMEType=self.ThankYouMIMEType;
     managedGreeting.RecordedOn= self.RecordedOn;
     managedGreeting.RowVersion=self.RowVersion;
-    
+    managedGreeting.ActorName=self.ActorName;
+    managedGreeting.GreetingID=self.GreetingID;
     return managedGreeting;
 }
 @end

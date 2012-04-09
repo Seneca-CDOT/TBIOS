@@ -54,7 +54,8 @@
         self.BoundaryNorth=[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryNorth"]doubleValue]];
         self.BoundarySouth = [NSNumber numberWithDouble:[[landDict valueForKey:@"BoundarySouth"]doubleValue]];
         self.BoundaryWest =[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryWest"]doubleValue]];
-        self.RowVersion= [NSNumber numberWithInt:[[landDict valueForKey:@"RowVersion"]intValue]];
+        int rvLen= sizeof([landDict valueForKey:@"rowversion" ]) * [[landDict valueForKey:@"rowversion" ] count]; 
+        self.RowVersion= [NSData dataWithBytes:[landDict valueForKey:@"rowversion" ]  length: rvLen];
         self.Number= [landDict valueForKey:@"Number"];
         self.LandName_ENG=[landDict valueForKey:@"LandName_ENG"];
         self.LandName_FRA=[landDict valueForKey:@"LandName_FRA"];

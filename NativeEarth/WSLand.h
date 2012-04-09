@@ -16,7 +16,7 @@
 @property (nonatomic, retain) NSNumber * BoundaryNorth;
 @property (nonatomic, retain) NSNumber * BoundaryEast;
 @property (nonatomic, retain) NSNumber * BoundarySouth;
-@property (nonatomic, retain) NSNumber * RowVersion;
+@property (nonatomic, retain) NSData * RowVersion;
 @property (nonatomic, retain) NSNumber * BoundaryWest;
 @property (nonatomic, retain) NSString * Number;
 @property (nonatomic, retain) NSString * Province;

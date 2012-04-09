@@ -16,7 +16,8 @@
     [super init];
     self.Number = [NSNumber numberWithInt:[[dict valueForKey:@"Number"]intValue] ];
     self.OfficialName = [dict valueForKey:@"OfficialName"];
-    self.RowVersion =[NSNumber numberWithInt:[[dict valueForKey:@"RowVersion"]intValue] ];
+    self.RowVersion= [dict valueForKey:@"RowVersion" ];
+    
     return self;
     }
 -(void)dealloc {

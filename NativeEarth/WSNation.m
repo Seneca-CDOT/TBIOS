@@ -54,7 +54,9 @@
     if (self) {
         
         self.Number=[NSNumber numberWithInt:[[nationDict valueForKey:@"Number"]intValue]];  
-        self.RowVersion = [NSNumber numberWithInt:[[nationDict valueForKey:@"rowrersion"]intValue]];
+        int rvLen= sizeof([nationDict valueForKey:@"rowversion" ]) * [[nationDict valueForKey:@"rowversion" ] count]; 
+        self.RowVersion= [NSData dataWithBytes:[nationDict valueForKey:@"rowversion" ]  length: rvLen];
+
         self.OfficialName = [nationDict valueForKey:@"OfficialName"];
         
         if([nationDict valueForKey:@"Address"] !=[NSNull null])self.Address = [nationDict valueForKey:@"Address"];
@@ -75,7 +77,7 @@
             [self.Lands addObject:[[WSLand alloc] initWithDictionary:dict]];
         }
             NSDictionary * greetingDict =[nationDict valueForKey:@"tbGreeting"];
-        if (greetingDict != [NSNull null] ) {
+        if (greetingDict != [NSNull null]) {
             self.greeting =[[WSGreeting alloc] initWithDictionary:greetingDict];
         }
             
