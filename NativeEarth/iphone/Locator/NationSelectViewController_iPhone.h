@@ -12,14 +12,15 @@
 
 @interface NationSelectViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
     NSString * language;
-    Nation * selectedNation;
+    NSMutableDictionary * selectedNationDict;
     CLLocationCoordinate2D originLocation;
     NSString * originTitle;
     
 }
 @property (nonatomic)    BOOL showOrigin;
-@property (nonatomic, retain) NSMutableArray* nationArray;
-@property (nonatomic, retain) NSArray* nearbyNations;
+@property (nonatomic, retain) NSMutableArray* nationDictArray;
+@property (nonatomic, retain) NSMutableDictionary *selectedNationDict;
+
 @property (nonatomic) CLLocationCoordinate2D  originLocation;
 @property (nonatomic,retain) NSString * originTitle;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath ;

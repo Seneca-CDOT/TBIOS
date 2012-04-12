@@ -40,9 +40,10 @@
        NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyNations count]];
         for (Nation * n in  fetchedNearbyNations) {
             NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
-        //    CLLocationDistance distance = [self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:n.Coordinates]];
+            CLLocationDistance distance =[appDelegate.model DistanceToNation:n];
+          //  CLLocationDistance distance = //[self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:n.Coordinates]];
             [dict setValue:n forKey:@"Nation"];
-    //        [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
+            [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
     //    
             [dictArray addObject:dict];
             [dict release];

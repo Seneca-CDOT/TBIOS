@@ -29,4 +29,5 @@
 -(void) NavigateToMap;
 -(void) NavigateToScreenshotBrowser;
 -(void) NavigateToLands;
+-(void) NavigateToAllMaps;
 @end

@@ -28,11 +28,13 @@ NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
 
 @implementation NationSelectViewController_iPhone
 
-@synthesize nationArray;
+@synthesize nationDictArray;
 @synthesize originLocation;
 @synthesize originTitle;
-@synthesize nearbyNations;
+
 @synthesize showOrigin;
+@synthesize selectedNationDict;
+
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -42,8 +44,7 @@ NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
 
 - (void)dealloc
 {
-    [self.nationArray release];
-    [self.nearbyNations release];
+    [self.nationDictArray release];
     [self.originTitle release];
     [super dealloc];
 }
@@ -61,20 +62,14 @@ NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //[self.selectedNation retain];
+  // [self.selectedNation retain];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedNation" object:nil];
 language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
-    NSMutableArray * tempArray = [[NSMutableArray alloc] initWithCapacity:[self.nationArray count]];
-    for (NSDictionary * nationDict  in self.nationArray) {
-        if([[nationDict valueForKey:@"Distance"] doubleValue]!=0.0 ){
-           [tempArray addObject:nationDict];
-        }
-    }
-    [self.nationArray removeObjectsInArray:tempArray];
-    self.nearbyNations = [[NSArray arrayWithArray:tempArray] sortedArrayUsingFunction:nationDictSort
-                                                                            context:nil];
-}
 
+  
+    [self.nationDictArray sortedArrayUsingFunction:nationDictSort context:nil];
+}
+                            
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -113,26 +108,16 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     
-    return 2;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    int rv=1;
-    int nationCount =[self.nationArray count];
-    int nearByCount =[self.nearbyNations count];
-    if (section==0 && nationCount>0) {
-        rv=nationCount;
-    }else if(section==1 && nearByCount>0){
-        rv=nearByCount;
-    }
-    return rv;
+        return [self.nationDictArray count];
 }
 -(NSString*) tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (section==0) {
-        return NSLocalizedString(@"You are Inside:", @"You are Inside:");
-    }else if(section==1){
-        return NSLocalizedString(@"Nearby Nations:", @"Nearby Nations:");
+      return NSLocalizedString(@"Nearby Nations:", @"Nearby Nations:");
     }
     return @"";
 }
@@ -152,27 +137,10 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.selectionStyle= UITableViewCellSelectionStyleGray;
-    if (indexPath.section ==0) {
-        if ([self.nationArray count]>0) {
-            Nation * nation = (Nation *)[(NSMutableDictionary *)[self.nationArray objectAtIndex:indexPath.row] valueForKey:@"Nation"];
-           // NSNumber * distance = [(NSNumber *)[landArray objectAtIndex:indexPath.section] valueForKey:@"Distance"];
-            // cell.textLabel.text =((Land *)[landArray objectAtIndex:indexPath.section]).LandName;
-            cell.textLabel.text = nation.OfficialName;
-            //cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %lf Km", [distance doubleValue]];
-            cell.userInteractionEnabled= YES;
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.alpha=1.0;
-        }
-        else{
-            cell.textLabel.text= NSLocalizedString(@"No first nation is detected in your location.", @"No first nation  is detected in your location." );
-            cell.userInteractionEnabled= NO;
-            cell.accessoryType = UITableViewCellAccessoryNone;
-            cell.textLabel.alpha=0.5;
-        }
-    }else if(indexPath.section==1){
-        if ([self.nearbyNations count]>0) {
-            Nation * nation = (Nation *)[(NSMutableDictionary *)[self.nearbyNations objectAtIndex:indexPath.row] valueForKey:@"Nation"];
-            NSNumber * distance = [(NSNumber *)[self.nearbyNations objectAtIndex:indexPath.row] valueForKey:@"Distance"];
+     if(indexPath.section==0){
+        if ([self.nationDictArray count]>0) {
+            Nation * nation = (Nation *)[(NSMutableDictionary *)[self.nationDictArray objectAtIndex:indexPath.row] valueForKey:@"Nation"];
+            NSNumber * distance = [(NSNumber *)[self.nationDictArray objectAtIndex:indexPath.row] valueForKey:@"Distance"];
             cell.textLabel.text = nation.OfficialName;
             cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %lf Km", [distance doubleValue]];
             cell.userInteractionEnabled= YES;
@@ -194,59 +162,29 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Navigation logic may go here. Create and push another view controller.
-    if (indexPath.section==0) {
-        if ([self.nationArray count]>0) {
-        
-            LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
-            // ...
-            // Pass the selected object to the new view controller.
-            selectedNation=(Nation *)[(NSMutableDictionary *)[self.nationArray objectAtIndex:indexPath.row] valueForKey:@"Nation"];   
-            //ask for the nation to be updates  
-            NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
-            [appDelegate.model setNationToBeUpdatedByNationNumber:[selectedNation.Number intValue]];
-            nextVC.shouldLetAddToVisit=YES;
-            nextVC.selectedNation = selectedNation;
-            nextVC.originLocation = self.originLocation;
-            nextVC.originTitle = self.originTitle;
-            NSMutableArray *allNations =[[NSMutableArray alloc]initWithCapacity:[self.nearbyNations count]+[nationArray count]];
-            for (NSMutableDictionary * dict in nationArray) {
-                Nation * nation = (Nation*)[dict valueForKey:@"Nation"];
-                [allNations addObject:nation];
-            }  
-            for (NSMutableDictionary * dict in self.nearbyNations) {
-                Nation * nation = (Nation*)[dict valueForKey:@"Nation"];
-                [allNations addObject:nation];
-            } 
-            nextVC.allNations = allNations;
-            nextVC.showOrigin= self.showOrigin;
-            [self.navigationController pushViewController:nextVC animated:YES];
-            [nextVC release];
-        }
-    } else if(indexPath.section==1){
-        if ([self.nearbyNations count]>0) {
+
+    if(indexPath.section==0){
+        if ([self.nationDictArray count]>0) {
             
             LocationInfoViewController_iPhone *nextVC= [[LocationInfoViewController_iPhone alloc] initWithNibName:nil bundle:nil];
             // ...
             // Pass the selected object to the new view controller.
-            selectedNation =(Nation *)[(NSMutableDictionary *)[self.nearbyNations objectAtIndex:indexPath.row] valueForKey:@"Nation"];
+            selectedNationDict =[self.nationDictArray objectAtIndex:indexPath.row] ;
+            Nation * nation = (Nation*)[selectedNationDict valueForKey:@"Nation"];
             //[landArray objectAtIndex:indexPath.section];    
             //ask for the land to be updates  
             NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
-            [appDelegate.model setNationToBeUpdatedByNationNumber:[selectedNation.Number intValue]];
+            [appDelegate.model setNationToBeUpdatedByNationNumber:[nation.Number intValue]];
             
-            nextVC.selectedNation= selectedNation;
+            nextVC.selectedNation= nation;
             nextVC.originLocation = self.originLocation;
             nextVC.originTitle = self.originTitle;
-            NSMutableArray *allNations =[[NSMutableArray alloc]initWithCapacity:[self.nearbyNations count]+[self.nationArray count]];
-            for (NSMutableDictionary * dict in self.nationArray) {
-                Nation * nation = (Nation*)[dict valueForKey:@"Nation"];
-                [allNations addObject:nation];
-            }  
-            for (NSMutableDictionary * dict in self.nearbyNations) {
-                Nation * nation = (Nation*)[dict valueForKey:@"Nation"];
-                [allNations addObject:nation];
-            } 
-            nextVC.allNations = allNations;
+            NSMutableArray * nationArray = [[NSMutableArray alloc] initWithCapacity:[self.nationDictArray count]];
+            for (NSDictionary * dict in nationDictArray) {
+                Nation * n = (Nation *)[dict valueForKey:@"Nation"];
+                [nationArray addObject:n];
+            }
+            nextVC.allNations = nationArray;
             nextVC.showOrigin =self.showOrigin;
             [self.navigationController pushViewController:nextVC animated:YES];
             [nextVC release];
@@ -261,12 +199,12 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 - (void)updateUI:(NSNotification *)notif {
     if ([[notif name] isEqualToString:@"UpdatedNation"]){
         Nation* updatedNation = (Nation*) [notif object];
-        int index=[self.nationArray indexOfObject:selectedNation];
-        [self.nationArray replaceObjectAtIndex:index withObject:updatedNation];
-        
-        
+        int index=  [self.nationDictArray  indexOfObjectIdenticalTo:selectedNationDict] ; 
+        [selectedNationDict setValue:updatedNation forKey:@"Nation"];
+        [self.nationDictArray replaceObjectAtIndex:index withObject:selectedNationDict];
         NSLog(@"Notification received in location info");
-        [self.tableView reloadData];
+       [self.tableView reloadData];
+    
     }
     
     //notify user

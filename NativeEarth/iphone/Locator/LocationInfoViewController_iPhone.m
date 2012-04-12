@@ -117,6 +117,8 @@ typedef enum{
     cell.textLabel.font= [UIFont boldSystemFontOfSize:15] ;
     cell.detailTextLabel.font= [UIFont systemFontOfSize:15] ;
     cell.detailTextLabel.numberOfLines=0;
+    if (indexPath.section==0) {
+        
 	switch (indexPath.row) {
         case rowTitleAddess:
             cell.textLabel.text= NSLocalizedString(@"Center Address:", @"Center Address:");
@@ -172,17 +174,30 @@ typedef enum{
         default:
             break;
     }
+    }else{
+        cell.textLabel.text=NSLocalizedString(@"View all nearby nations on the map",@"View all nearby nations on the map");
+        cell.userInteractionEnabled = YES;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.alpha = 1;
+    }
     cell.textLabel.alpha=1.0;
     
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    NSInteger rv =1;
+    if ([self.allNations count]>1) {
+        rv=2;
+    }
+    return rv;
 }
 
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {    
-    return rowCount;
+    if (section==0) {
+        return rowCount;
+    }
+    else return 1;
 }
 
 // Customize the appearance of table view cells.
@@ -202,10 +217,12 @@ typedef enum{
 
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	
+	if (section==0) {
     NSString * title = [[NSString alloc]init];
 	title = selectedNation.OfficialName;
 	return title;
+    }
+    else return @"";
 }
 
 
@@ -216,6 +233,7 @@ typedef enum{
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+  if (indexPath.section==0) {
     switch (indexPath.row) {
         case rowTitleAddess: 
           break;
@@ -233,12 +251,16 @@ typedef enum{
             break; 
         default:
             break;
-    }
+    } 
+  }else{
+      [self NavigateToAllMaps];
+  }
+    
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == rowTitleAddess) {
+    if (indexPath.section==0 && indexPath.row == rowTitleAddess) {
         NSString *address = @"";
         if (selectedNation.Address != nil) address = selectedNation.Address;  
         CGSize s = [address sizeWithFont:[UIFont systemFontOfSize:15] 
@@ -246,7 +268,9 @@ typedef enum{
                          lineBreakMode:UILineBreakModeWordWrap];
         return s.height + 16 +16; // Add padding
 
-   }
+    }else if(indexPath.section==1){
+        return kRegularCellRowHeight +16;
+    }
        
     return kRegularCellRowHeight;
 }
@@ -288,7 +312,8 @@ typedef enum{
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-    nextVC.nations = self.allNations;
+   // nextVC.nations = self.allNations;
+    nextVC.referringNation = self.selectedNation;
     nextVC.showOrigin= self.showOrigin;
     nextVC.isBrowsingNation=YES;
     nextVC.selectedNationName = selectedNation.OfficialName;
@@ -302,6 +327,28 @@ typedef enum{
     }
 }
 
+-(void) NavigateToAllMaps{
+    if (self.remoteHostStatus != NotReachable) {
+        
+        MapBrowserViewController_iPhone * nextVC = [[MapBrowserViewController_iPhone alloc] initWithNibName:@"MapBrowserViewController_iPhone" bundle:nil];
+        nextVC.remoteHostStatus = self.remoteHostStatus;
+        nextVC.internetConnectionStatus = self.internetConnectionStatus;
+        nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
+        nextVC.nations = self.allNations;
+        nextVC.referringNation = self.selectedNation;
+        nextVC.showOrigin= self.showOrigin;
+        nextVC.isBrowsingNation=YES;
+        nextVC.selectedNationName = selectedNation.OfficialName;
+        nextVC.originLocation= self.originLocation;
+        nextVC.originAnnotationTitle= self.originTitle;
+        nextVC.title=NSLocalizedString(@"All Nearby Nations",@"All Nearby Nations");
+        [self.navigationController pushViewController:nextVC animated:YES];
+        [nextVC release];
+    }else{
+        //alert
+    }
+
+}
 -(void)NavigateToScreenshotBrowser{
     ScreenshotBrowser *nextVC=[[ScreenshotBrowser alloc] initWithNibName:@"ScreenshotBrowser" bundle:nil];
     NSArray * maps = [self.selectedNation.Maps allObjects];

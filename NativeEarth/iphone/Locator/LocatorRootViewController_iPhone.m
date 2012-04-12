@@ -207,7 +207,7 @@
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.nationArray=[NSMutableArray arrayWithArray: nations];
+    nextVC.nationDictArray=[NSMutableArray arrayWithArray: nations];
     nextVC.originTitle = NSLocalizedString(@"You are here!", @"You are here!");
     nextVC.title= NSLocalizedString(@"Select a nation", @"Select a nation");
     nextVC.originLocation = currentlocation;

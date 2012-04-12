@@ -227,7 +227,7 @@
         nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
         nextVC.internetConnectionStatus = self.internetConnectionStatus;
     
-        nextVC.nationArray=[NSMutableArray arrayWithArray: nationArray];//lands;
+        nextVC.nationDictArray=[NSMutableArray arrayWithArray: nationArray];//lands;
         
         nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
         CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);

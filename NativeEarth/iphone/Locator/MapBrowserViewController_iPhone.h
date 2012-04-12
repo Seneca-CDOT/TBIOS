@@ -15,6 +15,7 @@
 #import "DistrictCenterAnnotation.h"
 #import "Land.h"
 #import "Nation.h"
+@class OverlayGroup;
 @interface MapBrowserViewController_iPhone:BaseViewController <MKMapViewDelegate> 
 {
     MKMapView                   *mapView;
@@ -30,6 +31,8 @@
     NSString * selectedNationName;
     BOOL isBrowsingNation;//NO if a single land of a nation is being browsed.
     Land * referringLand;
+    Nation * referringNation;
+    NSMutableArray * overlayGroups;
 }
 
 
@@ -38,13 +41,14 @@
 @property (nonatomic, retain)           NSArray                   *nations;
 @property (nonatomic, retain)           MKAnnotationView          *selectedAnnotationView;
 @property (nonatomic, retain)           DistrictCenterAnnotation  *calloutAnnotation;
-@property(nonatomic)                    CLLocationCoordinate2D     originLocation;
-@property(nonatomic,retain)             NSString                   *originAnnotationTitle;
-@property(nonatomic,retain)             NSString                   *selectedNationName;
-@property(nonatomic)                    BOOL                        showOrigin;
-@property (nonatomic, retain ) Land * referringLand;
-@property (nonatomic) BOOL isBrowsingNation;
-
+@property (nonatomic)                    CLLocationCoordinate2D     originLocation;
+@property (nonatomic,retain)             NSString                   *originAnnotationTitle;
+@property (nonatomic,retain)             NSString                   *selectedNationName;
+@property (nonatomic)                    BOOL                        showOrigin;
+@property (nonatomic, retain )          Land                        * referringLand;
+@property (nonatomic, retain )          Nation                      * referringNation;
+@property (nonatomic)                   BOOL                        isBrowsingNation;
+@property (nonatomic, retain)           UIColor                     * overlayFillColor;
 -(IBAction)flyToPin:(id) sender;
 
 -(void)  drawOverlaysOfArray: (NSArray*)nationsArray;
