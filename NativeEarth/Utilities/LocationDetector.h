@@ -20,7 +20,7 @@ typedef enum {
 @required
 -(void)locationUpdate:(CLLocation *)location;
 -(void)LocationError:(NSError *)error;
--(void)NationUpdate:(NSArray *)lands;
+-(void)NationUpdate:(NSArray *)nations;
 @end
 
 @interface LocationDetector : NSObject<CLLocationManagerDelegate,NetworkDataGetterDelegate> {

@@ -18,8 +18,8 @@
 #define kButtonTag			1		// for tagging our embedded controls for removal at cell recycle time
 //for model
 #define kSearchDistance 5 //km
-#define kSearchExpantionParameter 2 //km
-#define kSearchDistanceLimit 20 //km
-#define kSearchCountLimit 6
+#define kSearchExpantionParameter 5 //km
+#define kSearchDistanceLimit 100//km
+#define kSearchCountLimit 10
 
 // to set the host name see reachability.h

@@ -120,7 +120,40 @@ frcGreeting=frcGreeting_;
     
     return frcNation_;
 }
+-(NSFetchedResultsController *) frcNearByNations{
+    if(frcNearByNations_ !=nil){
+        return  frcNearByNations_;
+    }
+     NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Nation" inManagedObjectContext:self.managedObjectContext];
+    [fetchedRequest setEntity:entity];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"OfficialName" ascending:YES];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+     [fetchedRequest setSortDescriptors:sortDescriptors];
+    
+//    
+//    NSPredicate * predicate =[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+//        
+//        return ([self DistanceToNation:(Nation*)evaluatedObject] > kSearchDistance);
+//    }];
+//  
+//    
+//    [fetchedRequest setPredicate:predicate];
+    
+    //create fetchedResultsController
+    [NSFetchedResultsController deleteCacheWithName:@"NearByNations"];
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"NearByNations"];
+    aFetchedResultsController.delegate = self;
+    self.frcNearByNations= aFetchedResultsController;
+    
+    [aFetchedResultsController release];
+    [fetchedRequest release];
+    
+    
+    return frcNearByNations_;
 
+}
 -(NSFetchedResultsController *) frcGreeting{
     if(frcGreeting_ !=nil){
         return  frcGreeting_;
@@ -459,20 +492,36 @@ frcGreeting=frcGreeting_;
     NSError * error;
     if(![[self frcNearByNations]performFetch:&error]){
         //        //handle Error
+        NSLog(@"%@",[error description]);
     }
-     NSMutableArray * fetchedNearByNations = [NSMutableArray arrayWithArray:[self.frcNearByNations fetchedObjects]];
-        if ([fetchedNearByNations count]>=kSearchCountLimit || searchDistanceKM>kSearchDistanceLimit) {
+    NSMutableArray * allNations = [NSMutableArray arrayWithArray:[self.frcNearByNations fetchedObjects]];
+    
+    
+    NSPredicate * predicate =[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
+
+        return ([self DistanceToNation:(Nation*)evaluatedObject] <= searchDistanceKM);
+    }];
+
+    NSArray * nearByNations = [allNations filteredArrayUsingPredicate:predicate];
+   
+        if ([nearByNations count]>=kSearchCountLimit || searchDistanceKM>kSearchDistanceLimit) {
             latitude=0.0;
             longitude=0.0;
     
         }else {
             searchDistanceKM += kSearchExpantionParameter;
-          fetchedNearByNations= [NSMutableArray arrayWithArray:[self getNearbyNationsForLatitude:latitude andLongitude:longitude]];
+            [nearByNations release];
+          nearByNations= [NSMutableArray arrayWithArray:[self getNearbyNationsForLatitude:latitude andLongitude:longitude]];
         }
-        return fetchedNearByNations; 
+        return nearByNations; 
 
 }
-
+-(CLLocationDistance )DistanceToNation:(Nation*) nation{
+        CLLocation * currentLoc = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
+        CLLocation * centerLoc = [[CLLocation alloc]initWithLatitude:[nation.CenterLat doubleValue] longitude:[nation.CenterLong doubleValue]] ;
+    CLLocationDistance dist= [currentLoc distanceFromLocation:centerLoc]/1000;  
+        return dist;
+}
 //gets the managed Nation locally and sets it to be updated
 -(Nation *)getNationWithNationNumber:(int)number{
 
@@ -708,10 +757,6 @@ frcGreeting=frcGreeting_;
         //get the object
         BOOL updating =NO;
         WSNation * newNation = [[WSNation alloc] initWithDictionary:(NSDictionary*)object];
-//        if (toBeUpdatedLandID>0 && landIDUpdateFlag ==NO) {
-//            toBeUpdatedLandID=0;
-//            landIDUpdateFlag=YES;
-//        }
         //check if the nation is already there and should be deleted first:
         Nation * exsistingNation= [self getNationLocallyWithNationNumber:[newNation.Number intValue]];
         if(exsistingNation!= nil){
@@ -764,7 +809,7 @@ frcGreeting=frcGreeting_;
      mNation.CenterLong =newManagedNation.CenterLong;
     mNation.Phone = newManagedNation.Phone;
     mNation.PostCode= newManagedNation.PostCode;
-    
+
     if (mNation.greeting) {
         //
     }
@@ -774,7 +819,6 @@ frcGreeting=frcGreeting_;
     [self.managedObjectContext deleteObject:newManagedNation];
     
     NSError * error;
-   // if(![self.managedObjectContext save:&error]){
     if (!(error=[self SaveData])) {
    
         NSLog(@"%@",[error description]);

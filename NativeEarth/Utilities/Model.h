@@ -95,5 +95,5 @@
 -(Greeting *)getGreetingWithGreetingId:(int)gId;
 -(Map *)getNewMap;
 - (NSURL *)applicationDocumentsDirectory;
-
+-(CLLocationDistance )DistanceToNation:(Nation*) nation;
 @end
