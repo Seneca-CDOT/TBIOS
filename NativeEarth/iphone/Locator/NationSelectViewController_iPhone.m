@@ -14,15 +14,15 @@
 
 NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
    
-    double dist1=[[(NSMutableDictionary *)nationDict1 valueForKey:@"Distance"] doubleValue];
-    double dist2=[[(NSMutableDictionary *)nationDict2 valueForKey:@"Distance"] doubleValue];
-    
+    double dist1=[[(NSDictionary *)nationDict1 valueForKey:@"Distance"] doubleValue];
+    double dist2=[[(NSDictionary *)nationDict2 valueForKey:@"Distance"] doubleValue];
+    NSInteger rv= NSOrderedSame;
     if (dist1 < dist2)
-        return NSOrderedAscending;
+        rv= NSOrderedAscending;
     else if (dist1 > dist2)
-        return NSOrderedDescending;
+        rv= NSOrderedDescending;
     
-    return NSOrderedSame;
+   return rv;
 }
 
 
@@ -31,7 +31,6 @@ NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
 @synthesize nationDictArray;
 @synthesize originLocation;
 @synthesize originTitle;
-
 @synthesize showOrigin;
 @synthesize selectedNationDict;
 
@@ -62,13 +61,14 @@ NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-  // [self.selectedNation retain];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedNation" object:nil];
 language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
-
-  
-    [self.nationDictArray sortedArrayUsingFunction:nationDictSort context:nil];
+ self.nationDictArray =[NSMutableArray arrayWithArray:[self.nationDictArray sortedArrayUsingFunction:nationDictSort context:nil]];
 }
+
+
+
+
                             
 - (void)viewDidUnload
 {
@@ -80,6 +80,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+   
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -180,7 +181,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
             nextVC.originLocation = self.originLocation;
             nextVC.originTitle = self.originTitle;
             NSMutableArray * nationArray = [[NSMutableArray alloc] initWithCapacity:[self.nationDictArray count]];
-            for (NSDictionary * dict in nationDictArray) {
+            for (NSDictionary * dict in self.nationDictArray) {
                 Nation * n = (Nation *)[dict valueForKey:@"Nation"];
                 [nationArray addObject:n];
             }

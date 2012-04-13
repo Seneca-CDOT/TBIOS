@@ -13,6 +13,20 @@
 #import "MapLookUpViewController_iPhone.h"
 #import "LocationInfoViewController_iPhone.h"
 
+
+//NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
+//    
+//    double dist1=[[(NSDictionary *)nationDict1 valueForKey:@"Distance"] doubleValue];
+//    double dist2=[[(NSDictionary *)nationDict2 valueForKey:@"Distance"] doubleValue];
+//    NSInteger rv= NSOrderedSame;
+//    if (dist1 < dist2)
+//        rv= NSOrderedAscending;
+//    else if (dist1 > dist2)
+//        rv= NSOrderedDescending;
+//    
+//    return rv;
+//}
+
 @implementation LocatorRootViewController_iPhone
 @synthesize locationDetector;
 
@@ -207,8 +221,10 @@
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
-    nextVC.nationDictArray=[NSMutableArray arrayWithArray: nations];
-    nextVC.originTitle = NSLocalizedString(@"You are here!", @"You are here!");
+    
+    nextVC.nationDictArray= [NSMutableArray arrayWithArray: nations];
+                             
+   nextVC.originTitle = NSLocalizedString(@"You are here!", @"You are here!");
     nextVC.title= NSLocalizedString(@"Select a nation", @"Select a nation");
     nextVC.originLocation = currentlocation;
     nextVC.showOrigin=YES;

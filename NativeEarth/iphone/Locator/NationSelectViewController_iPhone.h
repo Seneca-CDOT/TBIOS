@@ -11,7 +11,8 @@
 #import "Nation.h"
 
 @interface NationSelectViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
-    NSString * language;
+    NSString * language; 
+    NSMutableArray* nationDictArray;
     NSMutableDictionary * selectedNationDict;
     CLLocationCoordinate2D originLocation;
     NSString * originTitle;
