@@ -175,6 +175,7 @@
         nextVC.title=selectedLand.LandName_ENG;
         nextVC.referringLand = selectedLand;
         nextVC.referringNation=self.referringNation;
+        
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release];
     }else{
