@@ -20,10 +20,11 @@
 
 typedef enum{
     rowTitleAddess,
-    rowTitleLands,
     rowTitleGreetings,
+    rowTitleLands,
     rowTitleMap,
     rowTitleScreenshots,
+
     rowCount
 } rowTitle;
 
