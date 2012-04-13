@@ -221,7 +221,7 @@
 -(void)showDetails: (id) sender{
     
     if ([nationArray count]>=1) {
-        NationSelectViewController_iPhone *nextVC = [[NationSelectViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
+        NationSelectViewController_iPhone *nextVC = [[NationSelectViewController_iPhone alloc]initWithStyle:UITableViewStylePlain];
     
         nextVC.remoteHostStatus = self.remoteHostStatus;
         nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
