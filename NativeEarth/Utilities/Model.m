@@ -505,8 +505,8 @@ frcGreeting=frcGreeting_;
     NSArray * nearByNations = [allNations filteredArrayUsingPredicate:predicate];
    
         if ([nearByNations count]>=kSearchCountLimit || searchDistanceKM>kSearchDistanceLimit) {
-            latitude=0.0;
-            longitude=0.0;
+          //  latitude=0.0;
+           // longitude=0.0;
     
         }else {
             searchDistanceKM += kSearchExpantionParameter;
