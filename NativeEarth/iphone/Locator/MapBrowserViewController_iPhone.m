@@ -38,7 +38,7 @@
 }
 -(UIColor *)getRandomColor{
     float r = rand() % 360; 
-    return [UIColor colorWithHue:(r)/360 saturation:0.5f brightness:0.8f alpha:1.0f];
+    return [UIColor colorWithHue:(r)/360 saturation:0.5f brightness:0.8f alpha:0.5f];
 }
 @end
 @implementation MapBrowserViewController_iPhone
@@ -276,7 +276,7 @@
         MKPolygonView * view = [[[MKPolygonView alloc] initWithOverlay:overlay] autorelease];
         
         view.lineWidth = 2;
-        view.strokeColor =[[UIColor redColor] colorWithAlphaComponent:0.2];
+        view.strokeColor =[[UIColor redColor] colorWithAlphaComponent:0.3];
      
         for (OverlayGroup * ogroup in overlayGroups) {
             if ([ogroup.polygons containsObject:overlay]) {
