@@ -43,7 +43,7 @@
             CLLocationDistance distance =[appDelegate.model DistanceToNation:n];
           //  CLLocationDistance distance = //[self DistanceOfPointCWithCLat:lat AndCLng:lng FromPolygonWithCoordinates:[Utility parseCoordinatesStringAsCLLocation:n.Coordinates]];
             [dict setValue:n forKey:@"Nation"];
-            [dict setValue:[NSNumber numberWithDouble:distance] forKey:@"Distance"];
+            [dict setValue:[NSDecimalNumber numberWithDouble:distance ] forKey:@"Distance"];
     //    
             [dictArray addObject:dict];
             [dict release];
