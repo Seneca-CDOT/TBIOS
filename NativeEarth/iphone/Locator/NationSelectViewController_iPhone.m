@@ -176,7 +176,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
             //ask for the land to be updates  
             NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate]; 
             [appDelegate.model setNationToBeUpdatedByNationNumber:[nation.Number intValue]];
-            
+        
             nextVC.selectedNation= nation;
             nextVC.originLocation = self.originLocation;
             nextVC.originTitle = self.originTitle;
@@ -187,6 +187,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
             }
             nextVC.allNations = nationArray;
             nextVC.showOrigin =self.showOrigin;
+            nextVC.shouldLetAddToVisit=YES;
             [self.navigationController pushViewController:nextVC animated:YES];
             [nextVC release];
         }
