@@ -118,7 +118,7 @@
     
 }
 -(IBAction) planAVisitBtnAction:(id) sender{
-    VisitPlannerRootViewController_iPhone * visitPlannerRootVC = [[VisitPlannerRootViewController_iPhone alloc]initWithNibName:@"VisitPlannerRootViewController_iPhone" bundle:nil];
+    VisitPlannerRootViewController_iPhone * visitPlannerRootVC = [[VisitPlannerRootViewController_iPhone alloc]init];//initWithNibName:@"VisitPlannerRootViewController_iPhone" bundle:nil];
     
     visitPlannerRootVC.title = NSLocalizedString(@"Saved Visits",@"Saved Visits");
     UIBarButtonItem *homeBtn = [[UIBarButtonItem alloc]initWithBarButtonSystemItem:UIBarButtonSystemItemReply target:visitPlannerRootVC action:@selector(goHome)];
@@ -131,9 +131,8 @@
    
      UINavigationController *VisitPlannerNavigationController = [[UINavigationController alloc] initWithRootViewController:visitPlannerRootVC];
       [VisitPlannerNavigationController.navigationBar setBarStyle:UIBarStyleBlackTranslucent];
-    //VisitPlannerNavigationController.navigationBar.tintColor=[UIColor blackColor];
-    //VisitPlannerNavigationController.navigationBar.translucent=YES;
-    
+
+    [VisitPlannerNavigationController.navigationBar setBarStyle:UIBarStyleBlack];
     [self presentModalViewController:VisitPlannerNavigationController animated:YES];
 	[visitPlannerRootVC release];
     [VisitPlannerNavigationController  release];
