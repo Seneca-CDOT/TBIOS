@@ -54,7 +54,6 @@
 		D7A621F414857BC7006E7BC3 /* UIImage+Resizing.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621F314857BC5006E7BC3 /* UIImage+Resizing.m */; };
 		D7A621F714858FC9006E7BC3 /* TapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621F614858FC8006E7BC3 /* TapDetectingImageView.m */; };
 		D7A84F4B13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */; };
-		D7A84F4C13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */; };
 		D7A84F7213C4F04B0085E8C3 /* EditAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */; };
 		D7A84F7313C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */; };
 		D7BB0D7D13BB9A0C0062C2A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */; };
@@ -198,7 +197,6 @@
 		D7A621F614858FC8006E7BC3 /* TapDetectingImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TapDetectingImageView.m; sourceTree = "<group>"; };
 		D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VisitPlannerRootViewController_iPhone.h; sourceTree = "<group>"; };
 		D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitPlannerRootViewController_iPhone.m; sourceTree = "<group>"; };
-		D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VisitPlannerRootViewController_iPhone.xib; sourceTree = "<group>"; };
 		D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EditAVisitViewController_iPhone.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EditAVisitViewController_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAVisitViewController_iphone.xib; sourceTree = "<group>"; };
@@ -631,7 +629,6 @@
 			children = (
 				D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */,
 				D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */,
-				D7A84F4A13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib */,
 				D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */,
 				D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */,
 				D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */,
@@ -725,7 +722,6 @@
 				D723153013C223E600DF3DF8 /* BrowseViewController_iPhone.xib in Resources */,
 				D723153D13C2379D00DF3DF8 /* BrowseViewController_iPhone.xib in Resources */,
 				D72157CA13C2497A00AF9AD0 /* AboutViewController_iPhone.xib in Resources */,
-				D7A84F4C13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.xib in Resources */,
 				D7A84F7313C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib in Resources */,
 				D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */,
 				D7BC54D213C7A7E000542880 /* TextViewCell.xib in Resources */,
