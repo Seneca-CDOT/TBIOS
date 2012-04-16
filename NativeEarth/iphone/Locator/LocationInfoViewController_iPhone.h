@@ -10,8 +10,10 @@
 #import "BaseTableViewController.h"
 #import "Nation.h"
 #import "NativeEarthAppDelegate_iPhone.h"
+#import "EditAVisitViewController_iPhone.h"
 
-@interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate,UIActionSheetDelegate> {
+
+@interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate,EditAVisitViewControllerDelegate_iPhone> {
     NSString *language;
     CLLocationCoordinate2D originLocation;
     NSString * originTitle;
@@ -25,7 +27,6 @@
 @property (nonatomic) BOOL shouldLetAddToVisit;
 //NavigationMethods
 -(void) NavigateToGreetings;
-//-(void) NavigateToImageGallery;
 -(void) NavigateToMap;
 -(void) NavigateToScreenshotBrowser;
 -(void) NavigateToLands;
