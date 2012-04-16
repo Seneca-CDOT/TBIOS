@@ -343,7 +343,7 @@ frcGreeting=frcGreeting_;
     if (frcPlannedVisits_ != nil) {
         return frcPlannedVisits_;
     }
-    
+  
     /*
      Set up the fetched results controller.
 	 */
