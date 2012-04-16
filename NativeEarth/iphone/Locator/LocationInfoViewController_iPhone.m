@@ -390,7 +390,7 @@ typedef enum{
             
             nextVC.visit  = [appDelegate.model getNewPlannedVisit];
             [nextVC.visit addNationsObject:self.selectedNation];
-            nextVC.presentationType = presentationTypeNavigate;
+            nextVC.presentationType = presentationTypeModal;
             [self.navigationController pushViewController:nextVC animated:YES];
             [nextVC release];
             
