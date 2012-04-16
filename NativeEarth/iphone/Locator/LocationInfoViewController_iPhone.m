@@ -67,7 +67,7 @@ typedef enum{
 {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedNation" object:nil];
-    //appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     self.title = self.selectedNation.OfficialName; 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0,4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
@@ -76,7 +76,7 @@ typedef enum{
     self.tableView.delegate = self;
     
     if (shouldLetAddToVisit) {    
-    UIBarButtonItem * btnTrip =[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_case.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(ShowActionSheet)];
+    UIBarButtonItem * btnTrip =[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_case.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(AddVisit)];
     self.navigationItem.rightBarButtonItem = btnTrip;
     
     [btnTrip release];
@@ -176,7 +176,7 @@ typedef enum{
             break;
     }
     }else{
-        cell.textLabel.text=NSLocalizedString(@"View all nearby nations on the map",@"View all nearby nations on the map");
+        cell.textLabel.text=NSLocalizedString(@"View this nation with all the other nations on the map",@"View this nation with all the other nations on the map");
         cell.userInteractionEnabled = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.alpha = 1;
@@ -342,7 +342,7 @@ typedef enum{
         nextVC.selectedNationName = selectedNation.OfficialName;
         nextVC.originLocation= self.originLocation;
         nextVC.originAnnotationTitle= self.originTitle;
-        nextVC.title=NSLocalizedString(@"All Nearby Nations",@"All Nearby Nations");
+        nextVC.title=NSLocalizedString(@"All Detected Nations",@"All Detected Nations");
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release];
     }else{
@@ -377,42 +377,32 @@ typedef enum{
 }
 
 
-#pragma mark - actionsheet methods
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-    {
-        // the user clicked one of the buttons
-        if (buttonIndex == 0)
-        {
-            
-            EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
-            
-            nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
-            
-            nextVC.visit  = [appDelegate.model getNewPlannedVisit];
-            [nextVC.visit addNationsObject:self.selectedNation];
-            nextVC.presentationType = presentationTypeModal;
-            [self.navigationController pushViewController:nextVC animated:YES];
-            [nextVC release];
-            
-            
-        } else if (buttonIndex == 1){
-            //[self SetBackControls];
-        }else
-        {
-           // [self SetBackControls];
-        }
-    }
 
--(void)ShowActionSheet{
-    UIActionSheet *actionSheet = [[UIActionSheet alloc] 
-                                  initWithTitle:NSLocalizedString(@"Plan a Visit:", @"Plan a Visit:")
-                                  delegate:self 
-                                  cancelButtonTitle:NSLocalizedString(@"Cancel", @"Cancel") 
-                                  destructiveButtonTitle:nil
-                                  otherButtonTitles: NSLocalizedString(@"New Visit Plan",@"New Visit Plan"), NSLocalizedString(@"Existng Visit Plan",@"Existng Visit Plan"), nil];
-	actionSheet.actionSheetStyle = UIActionSheetStyleDefault;
-	[actionSheet showInView:self.view]; 
-	[actionSheet release];
+
+-(void)AddVisit{
+
+    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] init];
+    nextVC.isNew=YES;
+    PlannedVisit * visit = [appDelegate.model getNewPlannedVisit];
+    [visit addNationsObject:self.selectedNation];
+    nextVC.visit = visit;
+    [visit release];
+    
+    nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
+    
+    nextVC.presentationType = presentationTypeModal;
+    nextVC.hidesBottomBarWhenPushed=NO;
+    
+    nextVC.delegate=self;
+    UINavigationController *cntrol = [[UINavigationController alloc] initWithRootViewController:nextVC];
+    cntrol.navigationBar.barStyle=UIBarStyleBlack;
+    [self.navigationController presentModalViewController:cntrol animated:YES];
+    [nextVC release];
+    [cntrol release];
+
+}
+-(void) EditAVisitViewControllerDidSave:(EditAVisitViewController_iPhone*) controller{
+    [controller dismissModalViewControllerAnimated:YES];
 }
 
 @end
