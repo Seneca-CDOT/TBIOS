@@ -9,11 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "BaseTableViewController.h"
 #import "NativeEarthAppDelegate_iPhone.h"
-
+#import "EditAVisitViewController_iPhone.h"
 @interface VisitPlannerRootViewController_iPhone : BaseTableViewController {
     NSMutableArray * plannedVisits;
     NativeEarthAppDelegate_iPhone *appDelegate ;
+      NSDateFormatter *dateFormatter; 
 }
 @property(nonatomic,retain) NSMutableArray * plannedVisits;
+@property(nonatomic,retain) NSDateFormatter *dateFormatter;
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath;
 @end
