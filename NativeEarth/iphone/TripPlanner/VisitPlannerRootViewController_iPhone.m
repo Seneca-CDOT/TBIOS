@@ -7,7 +7,7 @@
 //
 
 #import "VisitPlannerRootViewController_iPhone.h"
-#import "EditAVisitViewController_iPhone.h"
+
 #import "ViewAVisitViewController_iPhone.h"
 #import "NationSelectViewController_iPhone.h"
 #import "PlannedVisit.h"
@@ -15,6 +15,7 @@
 
 @implementation VisitPlannerRootViewController_iPhone
 @synthesize plannedVisits;
+@synthesize dateFormatter;
 - (id)initWithStyle:(UITableViewStyle)style
 {
     self = [super initWithStyle:style];
@@ -52,6 +53,10 @@
     
   appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     self.plannedVisits= [NSMutableArray arrayWithArray:[appDelegate.model getAllPlannedVisits]];
+    self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+	[self.dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
+
 }
 
 - (void)viewDidUnload
@@ -108,7 +113,7 @@
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
+        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
     }
     
     // Configure the cell...
@@ -116,9 +121,15 @@
     return cell;
 }
 
-- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{
+- (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath{ 
+    PlannedVisit * visit =(PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row];
     cell.selectionStyle= UITableViewCellSelectionStyleGray;
-    cell.textLabel.text = ((PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row]).Title;
+    cell.textLabel.text = visit.Title;
+   
+    if(visit.FromDate!=nil){
+    cell.detailTextLabel.text=[NSString stringWithFormat:@"%@ - %@",[self.dateFormatter stringFromDate:visit.FromDate],[self.dateFormatter stringFromDate:visit.ToDate]];
+    }
+
     if([cell.textLabel.text length]==0)cell.textLabel.text=NSLocalizedString(@"New Visit", @"New Visit");
     cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
    
@@ -154,6 +165,7 @@
     EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     nextVC.visit = [appDelegate.model getNewPlannedVisit];
+     nextVC.isNew=YES;
     nextVC.presentationType = presentationTypeNavigate;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
@@ -187,6 +199,7 @@
     self.plannedVisits=[NSMutableArray arrayWithArray:[appDelegate.model getAllPlannedVisits]];
     [self.tableView reloadData];
 }
+
 
 
 @end
