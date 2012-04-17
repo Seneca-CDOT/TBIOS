@@ -18,57 +18,6 @@
     return self;
 }
 
-//-(void) createDataFromKML{
-//    NSString *kmlPath = [[NSBundle mainBundle] pathForResource:@"test" ofType:@"kml"];
-//    kml = [[KMLParser parseKMLAtPath:kmlPath] retain];
-//   
-//    NSArray* coordsArray = [kml OuterCoordsStringArray];
-//    NSArray *overlays = [kml overlays];
-//    
-//    NSEntityDescription *entity= [NSEntityDescription entityForName:@"Land" inManagedObjectContext:managedObjectContext];
-//    
-//          int i=0;   
-//    for (MKPolygon* polygon in overlays) {
-//        
-//        
-//        NSString * landName = polygon.title;
-//        NSString * landDescription = polygon.subtitle;
-//        NSString * landCoordinates =  [[coordsArray objectAtIndex:i] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//        
-//       
-//        NSDictionary * rectInfo = [Utility findOuterRectInfoForPolygonWithCoordinatesString:landCoordinates];
-//		NSNumber* north = [rectInfo objectForKey:@"NORTH"];
-//        NSNumber* south =[rectInfo objectForKey:@"SOUTH"];
-//        NSNumber* east = [rectInfo objectForKey:@"EAST"];
-//        NSNumber* west =[rectInfo objectForKey:@"WEST"];
-//        
-//        Land * land= [[NSManagedObject alloc] initWithEntity:entity insertIntoManagedObjectContext:managedObjectContext];
-//		
-//        // Configure it
-//        
-//        land.LandName = landName;
-//        land.LandDescriptionEnglish = landDescription;
-//        land.Coordinates = landCoordinates;
-//        land.BoundaryN = north;
-//        land.BoundaryS = south;
-//        land.BoundaryE = east;
-//        land.BoundaryW = west;
-//        land.Shape = @"Polygon";
-//        land.VersionIdentifier=[NSNumber numberWithInt: 1];
-//        
-//	    NSError *error;
-//		// Save it
-//		if (![managedObjectContext save:&error]) {
-//			NSLog(@"Context save error %@, %@", error, [error userInfo]);
-//			abort();
-//		}
-//       
-//        i++;
-//    }// end of for
-//    
-// 
-//}
-//
 -(void) createDataFromWebService{
     NSString * urlString = [NSString stringWithFormat:@"%@%@",kHostName,@"/Nations"];
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc] init];

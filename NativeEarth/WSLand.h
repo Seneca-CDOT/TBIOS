@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "Land.h"
+#import "Nation.h"
 @class  WSGreetings;
 
 @interface WSLand : NSObject {

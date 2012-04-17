@@ -65,8 +65,6 @@
 @property (nonatomic, retain) NSFetchedResultsController * frcNearByNations;
 @property (nonatomic, retain) NSFetchedResultsController *frcGreeting;
 
-//@property (nonatomic, retain) NSFetchedResultsController * frcLandsForCoordinate;
-//@property (nonatomic, retain) NSFetchedResultsController * frcNearByLands;
 
 @property (nonatomic, retain) NSFetchedResultsController * frcPlannedVisits;
 @property (nonatomic, retain) NSMutableArray* shortNationList;
@@ -83,14 +81,15 @@
 -(void) getNationFromWebServiceWithNationNumber:(NSNumber *)number;
 -(void) checkForNationUpdatesByNationNumber:(NSNumber *)number;
 -(NSMutableArray *)getShortNationArray;
-//-(NSArray*)getEstimatedMatchingLandsForLatitude:(double)lat andLongitude:(double)lng;
-//-(NSArray*)getNearbyLandsForLatitude:(double)lat andLongitude:(double)lng;
+
 - (NSArray*)getNearbyNationsForLatitude:(double)lat andLongitude:(double)lng;
 -(void) setNationToBeUpdatedByNationNumber:(int)number;
 -(NSArray *)getAllPlannedVisits;
 -(void) updateManagedNation: (Nation *) mNation WithWNation:(WSNation *)wsNation;
+-(void)updateManagedLand:(Land*) mLand withLand:(WSLand*)wsLand;
 -(NSError *)SaveData;
 -(NSError*)DeleteVisit:(PlannedVisit*) visit;
+-(void)removeCanceledVisit:(PlannedVisit*) visit;
 -(PlannedVisit *)getNewPlannedVisit;
 -(Greeting *)getGreetingWithGreetingId:(int)gId;
 -(Map *)getNewMap;

@@ -54,20 +54,22 @@
         self.BoundaryNorth=[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryNorth"]doubleValue]];
         self.BoundarySouth = [NSNumber numberWithDouble:[[landDict valueForKey:@"BoundarySouth"]doubleValue]];
         self.BoundaryWest =[NSNumber numberWithDouble:[[landDict valueForKey:@"BoundaryWest"]doubleValue]];
+        self.Hectars= [NSNumber numberWithDouble:[[landDict valueForKey:@"Hectars"]doubleValue]];
+        self.CenterLat =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLat"]doubleValue]];
+        self.CenterLong =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLong"]doubleValue]];
+        
         int rvLen= sizeof([landDict valueForKey:@"rowversion" ]) * [[landDict valueForKey:@"rowversion" ] count]; 
         self.RowVersion= [NSData dataWithBytes:[landDict valueForKey:@"rowversion" ]  length: rvLen];
         self.Number= [landDict valueForKey:@"Number"];
-        self.LandName_ENG=[landDict valueForKey:@"LandName_ENG"];
-        self.LandName_FRA=[landDict valueForKey:@"LandName_FRA"];
+        self.LandName_ENG=[[landDict valueForKey:@"LandName_ENG"] description];
+        self.LandName_FRA=[[landDict valueForKey:@"LandName_FRA"] description];
         if ([landDict valueForKey:@"Province"] !=[NSNull null]) {
              self.Province=[landDict valueForKey:@"Province"];
         }
       
         self.Kml = [landDict valueForKey:@"KML"];
         self.Location=[landDict valueForKey:@"Location"];
-        self.Hectars= [NSNumber numberWithDouble:[[landDict valueForKey:@"Hectars"]doubleValue]];
-        self.CenterLat =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLat"]doubleValue]];
-        self.CenterLong =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLong"]doubleValue]];
+        
         
        
                 
@@ -77,13 +79,13 @@
 }
 
 //it converts itself to a managed land inserted to the context and returns it.
--(Land*)ToManagedLand:(NSManagedObjectContext *)context{
+-(Land*)ToManagedLand:(NSManagedObjectContext *)context {
      NSEntityDescription *entity= [NSEntityDescription entityForName:@"Land" inManagedObjectContext:context];
     Land * managedLand = [[Land alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
     
     managedLand.LandName_ENG= self.LandName_ENG;
     managedLand.LandName_FRA=self.LandName_FRA;
-    managedLand.BoundaryEast= self.BoundaryEast;
+    managedLand.BoundaryEast= self.BoundaryEast ;
     managedLand.BoundaryNorth= self.BoundaryNorth;
     managedLand.BoundarySouth=self.BoundarySouth;
     managedLand.BoundaryWest=self.BoundaryWest;

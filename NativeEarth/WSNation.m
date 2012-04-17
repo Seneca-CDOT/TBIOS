@@ -102,19 +102,19 @@
     managedNation.CenterLat= self.CenterLat;
     managedNation.CenterLong= self.CenterLong;
     
-    NSMutableSet * landSet= [[NSMutableSet alloc] init];
+
     for (WSLand* land in  self.Lands) {
-        [landSet addObject:[land ToManagedLand:context]];
-    }
-    managedNation.Lands = landSet;
+        [managedNation addLandsObject:[land ToManagedLand:context ]];
+        }
+   
     
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
   Greeting * existingGreeting=  [appDelegate.model getGreetingWithGreetingId:[self.greeting.GreetingID intValue]];
     
     if (existingGreeting) {
-        managedNation.greeting = existingGreeting; 
+      [existingGreeting addNationsObject:managedNation]; 
     }else{
-        managedNation.greeting=[self.greeting ToManagedGreeting:context];
+        [[self.greeting ToManagedGreeting:context] addNationsObject:managedNation];
     }
     
     

@@ -727,8 +727,7 @@ frcGreeting=frcGreeting_;
             NSError * error;
             //if(![self.managedObjectContext save:&error]){
             if (!(error=[self SaveData])) {
-               
-            
+                NSLog(@"%@",[error description]);
             }else{
                 if  ([deleteArray count]>0) {
                     [self.shortNationList removeAllObjects];
@@ -797,40 +796,73 @@ frcGreeting=frcGreeting_;
 }
 
 -(void) updateManagedNation:(Nation *)mNation WithWNation:(WSNation *)wsNation{
-    Nation * newManagedNation = [wsNation ToManagedNation:self.managedObjectContext];
-    mNation.OfficialName =newManagedNation.OfficialName;
-     mNation.Number =newManagedNation.Number;
-     mNation.rowversion =newManagedNation.rowversion;
-     mNation.Address =newManagedNation.Address;
-     mNation.CommunitySite =newManagedNation.CommunitySite  ;
-     mNation.CenterLat =newManagedNation.CenterLat;
-     mNation.CenterLong =newManagedNation.CenterLong;
-    mNation.Phone = newManagedNation.Phone;
-    mNation.PostCode= newManagedNation.PostCode;
 
+    mNation.OfficialName =wsNation.OfficialName;
+    mNation.Number =wsNation.Number;
+    mNation.rowversion =wsNation.RowVersion;
+    mNation.Address =wsNation.Address;
+    mNation.CommunitySite =wsNation.CommunitySite;
+    mNation.CenterLat =wsNation.CenterLat;
+    mNation.CenterLong =wsNation.CenterLong;
+    mNation.Phone = wsNation.Phone;
+    mNation.PostCode=wsNation.PostCode; 
+    
+    //reload all lands
+    for (Land* land in [mNation.Lands allObjects]) {
+        [self.managedObjectContext deleteObject:land];
+    }
+    for (WSLand *wsland  in wsNation.Lands) {
+        [mNation addLandsObject:[wsland ToManagedLand:self.managedObjectContext]];
+    }
+       
+    
+    //not updating Greeting yet
     if (mNation.greeting) {
         //
     }
-    mNation.greeting= nil;
-  
-    mNation.greeting= newManagedNation.greeting;
-    [self.managedObjectContext deleteObject:newManagedNation];
     
+  
+    //mNation.greeting= newManagedNation.greeting;
+    
+
     NSError * error;
     if (!(error=[self SaveData])) {
    
-        NSLog(@"%@",[error description]);
+         NSLog(@"updated nation %d",[mNation.Number intValue]);
     } else{
-        NSLog(@"updated nation %d",[mNation.Number intValue]);
+       NSLog(@"%@",[error userInfo]);
     }      
 }
 
+//not used:
+-(void)updateManagedLand:(Land*) mLand withLand:(WSLand*)wsLand{
+
+    mLand.BoundaryNorth=wsLand.BoundaryNorth;
+    mLand.BoundaryEast=wsLand.BoundaryEast;
+    mLand.BoundarySouth=wsLand.BoundarySouth;
+    mLand.BoundaryWest=wsLand.BoundaryWest;
+    mLand.RowVersion=wsLand.RowVersion;
+    mLand.Number=wsLand.Number;
+    mLand.Province=wsLand.Province;
+    mLand.Location=wsLand.Location;
+    mLand.LandName_ENG=wsLand.LandName_ENG;
+    mLand.LandName_FRA=wsLand.LandName_FRA;
+    mLand.Kml=wsLand.Kml;
+    mLand.Hectars=wsLand.Hectars;
+    mLand.CenterLat=wsLand.CenterLat;
+    mLand.CenterLong=wsLand.CenterLong;
+    
+}
 
 -(NSError*)DeleteVisit:(PlannedVisit*) visit{
     NSError * error;
     [self.managedObjectContext deleteObject:visit];
     if(![self.managedObjectContext save:&error]) return error;
     else return nil;
+}
+
+-(void)removeCanceledVisit:(PlannedVisit*) visit{
+    [self.managedObjectContext deleteObject:visit];
 }
 
 -(NSError *)SaveData{
