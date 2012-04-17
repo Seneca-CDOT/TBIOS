@@ -68,7 +68,12 @@
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.
-    [self.model SaveData];
+    NSError *error;
+    if (error=[self.model SaveData])
+    {
+        NSLog(@"%@",[error description]);
+    }
+    
 }
 
 
