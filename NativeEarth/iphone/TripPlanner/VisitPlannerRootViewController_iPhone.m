@@ -125,11 +125,23 @@
     PlannedVisit * visit =(PlannedVisit *)[plannedVisits objectAtIndex:indexPath.row];
     cell.selectionStyle= UITableViewCellSelectionStyleGray;
     cell.textLabel.text = visit.Title;
-   
+    cell.detailTextLabel.text=@"";
+    NSString * dateString=@"";
     if(visit.FromDate!=nil){
-    cell.detailTextLabel.text=[NSString stringWithFormat:@"%@ - %@",[self.dateFormatter stringFromDate:visit.FromDate],[self.dateFormatter stringFromDate:visit.ToDate]];
+     dateString = [NSString stringWithFormat:@"%@",[self.dateFormatter stringFromDate:visit.FromDate]];
+    
     }
-
+    
+    if (visit.ToDate!=nil) {
+        dateString =[NSString stringWithFormat:@"%@ - %@" , dateString,[self.dateFormatter stringFromDate:visit.ToDate]];
+                     
+    }
+    if (visit.FromDate!=nil) {
+        cell.detailTextLabel.text=dateString;
+        
+    }
+   
+    
     if([cell.textLabel.text length]==0)cell.textLabel.text=NSLocalizedString(@"New Visit", @"New Visit");
     cell.accessoryType =UITableViewCellAccessoryDisclosureIndicator;
    
@@ -172,11 +184,6 @@
 }
 
 
-- (void)addAVisitViewController:(EditAVisitViewController_iPhone *)controller didFinishWithSave:(BOOL)save{
-    if (save==YES) {
-        [self.tableView reloadData];
-    }
-}
 
 // DELEGATE PROTOCOL METHOD
 // This method is called when the user asks to delete a row

@@ -34,8 +34,9 @@ typedef enum {presentationTypeModal,presentationTypeNavigate}PresentationType;
     NSMutableArray * visitFistNations;
     NativeEarthAppDelegate_iPhone *appDelegate;
    
-
+    BOOL isSelectingNations;
 }
+@property(nonatomic) BOOL isNew;
 @property(nonatomic) PresentationType presentationType;
 @property (nonatomic, retain) PlannedVisit * visit;
 @property (nonatomic, retain) NSString * visitTitle;

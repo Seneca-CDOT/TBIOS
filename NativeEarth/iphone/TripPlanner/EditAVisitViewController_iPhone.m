@@ -34,6 +34,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 @synthesize visit;
 @synthesize visitFromDate,visitNotes,visitTitle,visitToDate;
 @synthesize visitFistNations;
+@synthesize isNew;
 - (void)dealloc
 {
     [self.saveBtn release];
@@ -67,10 +68,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    if (self.presentationType==presentationTypeModal) {
-          CGRect rect = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
-    [self.infoTableView setFrame:rect];  
-    }
+
     self.visitFistNations = [NSMutableArray arrayWithArray:[self.visit.Nations allObjects]];
     self.infoTableView.editing = YES;
     self.infoTableView.allowsSelectionDuringEditing=YES;
@@ -106,6 +104,8 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 
 -(void)viewWillDisappear:(BOOL)animated{
+    if (!isSelectingNations) {
+        
     [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES]; 
     [self.navigationItem setHidesBackButton:NO animated:YES];
 
@@ -127,9 +127,17 @@ typedef enum {titleCellTag} textFieldCellTags;
     self.visit.Notes = visitNotes;
     
     [self.visit addNations:[NSSet setWithArray:self.visitFistNations]];
-    [appDelegate.model SaveData];
+   
+        NSError *error;
+        if (error=[appDelegate.model SaveData])
+        {
+            NSLog(@"%@",[error description]);
+        }
+    }
+    
     }
     [super viewWillDisappear:animated];
+    
 }
 
 - (void)viewDidUnload {
@@ -452,12 +460,18 @@ typedef enum {titleCellTag} textFieldCellTags;
     NSSet *tempSet = self.visit.Nations ;
     [self.visit removeNations:tempSet];
     [self.visit addNations:[NSSet setWithArray:self.visitFistNations]];
-    
-    [appDelegate.model SaveData];
+    NSError *error;
+    if (error=[appDelegate.model SaveData])
+    {
+        NSLog(@"%@",[error description]);
+    }
     [((ViewAVisitViewController_iPhone *)self.delegate).tableView reloadData];
     [self.delegate EditAVisitViewControllerDidSave:self];
 }
 -(IBAction)Cancel:(id)sender {
+    if (isNew) {
+       [appDelegate.model removeCanceledVisit:self.visit];
+    }
 [self.delegate EditAVisitViewControllerDidSave:self];
 }
 
@@ -732,7 +746,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 
 -(void)AddNation{
-    
+    isSelectingNations=YES;
     [self SetBackControls];
     BrowseViewController_iPhone * nextVC = [[BrowseViewController_iPhone alloc]initWithNibName:@"BrowseViewController_iPhone" bundle:nil];
     nextVC.remoteHostStatus = self.remoteHostStatus;

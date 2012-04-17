@@ -318,7 +318,12 @@
     CGSize thumbSize = CGSizeMake(image.size.width/3, image.size.height/3);
     map.Thumb=[image scaleToSize:thumbSize];
     [referringNation addMapsObject:map];
-    [appDelegate.model SaveData];
+   // [appDelegate.model SaveData];
+    NSError *error;
+    if (error=[appDelegate.model SaveData])
+    {
+        NSLog(@"%@",[error description]);
+    }
     
   [self.view makeToast:NSLocalizedString(@"        Map image is saved.         ", @"        Map image is saved.         ")                 duration:2.0  position:@"bottom"];
 }

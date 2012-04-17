@@ -84,7 +84,11 @@ typedef enum{forSavedMaps,forImages} usageType;
 
 -(void)viewWillDisappear:(BOOL)animated{
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    [appDelegate.model SaveData];
+    NSError *error;
+    if (error=[appDelegate.model SaveData])
+    {
+        NSLog(@"%@",[error description]);
+    }
 }
 
 - (void)loadView {
