@@ -815,8 +815,45 @@ frcGreeting=frcGreeting_;
        
     
     //not updating Greeting yet
-    if (mNation.greeting) {
-        //
+    if (mNation.greeting && wsNation.greeting) { // if both had greeting
+        if (mNation.greeting.GreetingID==wsNation.greeting.GreetingID) {//if both greetings are the same one (same id)
+            if (![mNation.greeting.RowVersion isEqualToString:wsNation.greeting.RowVersion] ) {
+                mNation.greeting.Hello=wsNation.greeting.Hello;
+                mNation.greeting.HelloMIMEType=wsNation.greeting.HelloMIMEType;
+                mNation.greeting.HelloPronunciation=wsNation.greeting.HelloPronunciation;
+                mNation.greeting.Welcome=wsNation.greeting.Welcome;
+                mNation.greeting.WelcomeMIMEType=wsNation.greeting.WelcomeMIMEType;
+                mNation.greeting.WelcomePronunciation=wsNation.greeting.WelcomePronunciation;
+                mNation.greeting.ThankYou=wsNation.greeting.ThankYou;
+                mNation.greeting.ThankYouMIMEType=wsNation.greeting.ThankYouMIMEType;
+                mNation.greeting.ThankYouPronunciation=wsNation.greeting.ThankYouPronunciation;
+                mNation.greeting.ActorName=wsNation.greeting.ActorName;
+                mNation.greeting.RecordedOn=wsNation.greeting.RecordedOn;
+                mNation.greeting.RowVersion=wsNation.greeting.RowVersion;
+            }
+        }else{//if the greeting id has changed
+        //First keep the old greeting somewhere
+            Greeting * tempGreeting = mNation.greeting;
+             //check if the new greeting exist locally:
+            Greeting * aGreeting = [self getGreetingWithGreetingId:[wsNation.greeting.GreetingID intValue]];
+            if (aGreeting) {//if yes
+                [mNation.greeting removeNationsObject:mNation];//break the relationship of old greeting with nation
+                [aGreeting addNationsObject:mNation];//then assign the new Greeting to the nation
+            }else{ //if No
+                [mNation.greeting removeNationsObject:mNation];//break the relationship of old greeting with nation
+                Greeting * newGreeting = [wsNation.greeting ToManagedGreeting:self.managedObjectContext];//create a new greeting 
+                [newGreeting addNationsObject:mNation]; //give it to nation
+            }
+            if ([tempGreeting.Nations count]==0) {// now check to see if the old greeting is in use anymore
+                [self.managedObjectContext deleteObject:tempGreeting];
+            }
+          
+        }
+        
+    }else if(wsNation.greeting){
+        [[wsNation.greeting ToManagedGreeting:self.managedObjectContext] addNationsObject:mNation];
+    }else if(mNation.greeting){
+        [mNation.greeting removeNationsObject:mNation];
     }
     
   
