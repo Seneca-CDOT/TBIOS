@@ -699,7 +699,7 @@ frcGreeting=frcGreeting_;
                 //get local object rowversion
                 ShortNation *lsn = (ShortNation*)[localShortNationDict valueForKey:[NSString stringWithFormat:@"%d",i]];
              //   NSData  * localVersion=  [NSData dataWithData:lsn.RowVersion ];
-                NSString *localVersion=@"1";//lsn.RowVersion;  
+                NSString *localVersion=lsn.RowVersion; //@"1";//change  this to @"1" if you want to see updates anyways
                 //get remote onject rowversion
                 NSString * key = [NSString stringWithFormat:@"%d",i];
                 ShortNation * rsn = (ShortNation*)[networkDict objectForKey: key];
