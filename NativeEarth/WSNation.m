@@ -54,9 +54,9 @@
     if (self) {
         
         self.Number=[NSNumber numberWithInt:[[nationDict valueForKey:@"Number"]intValue]];  
-        int rvLen= sizeof([nationDict valueForKey:@"rowversion" ]) * [[nationDict valueForKey:@"rowversion" ] count]; 
-        self.RowVersion= [NSData dataWithBytes:[nationDict valueForKey:@"rowversion" ]  length: rvLen];
-
+//        int rvLen= sizeof([nationDict valueForKey:@"rowversion" ]) * [[nationDict valueForKey:@"rowversion" ] count]; 
+//        self.RowVersion= [NSData dataWithBytes:[nationDict valueForKey:@"rowversion" ]  length: rvLen];
+        self.RowVersion=[[nationDict valueForKey:@"rowversion"]description];
         self.OfficialName = [nationDict valueForKey:@"OfficialName"];
         
         if([nationDict valueForKey:@"Address"] !=[NSNull null])self.Address = [nationDict valueForKey:@"Address"];

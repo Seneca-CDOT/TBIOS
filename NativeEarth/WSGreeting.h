@@ -14,7 +14,7 @@
     
 }
 @property (nonatomic, retain) NSNumber * GreetingID;
-@property (nonatomic, retain) NSData * RowVersion;
+@property (nonatomic, retain) NSString * RowVersion;
 
 @property (nonatomic, retain) NSString * HelloPronunciation;
 @property (nonatomic, retain) NSString * ThankYouPronunciation;

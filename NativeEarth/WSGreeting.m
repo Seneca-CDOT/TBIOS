@@ -68,8 +68,10 @@
         self.ThankYouPronunciation=[[greetingDict valueForKey:@"ThankYouPronunciation"] description];  
         self.ActorName= [[greetingDict valueForKey:@"ActorName"] description];
          NSLog(@"%@,",self.ActorName);
-        int rvLen= sizeof([greetingDict valueForKey:@"rowversion" ]) * [[greetingDict valueForKey:@"rowversion" ] count]; 
-        self.RowVersion= [NSData dataWithBytes:[greetingDict valueForKey:@"rowversion" ]  length: rvLen];
+//        int rvLen= sizeof([greetingDict valueForKey:@"rowversion" ]) * [[greetingDict valueForKey:@"rowversion" ] count]; 
+//        self.RowVersion= [NSData dataWithBytes:[greetingDict valueForKey:@"rowversion" ]  length: rvLen];
+        
+        self.RowVersion=[[greetingDict valueForKey:@"rowversion"]description];
         
         [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
         NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];

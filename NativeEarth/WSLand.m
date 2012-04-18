@@ -58,8 +58,10 @@
         self.CenterLat =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLat"]doubleValue]];
         self.CenterLong =[NSNumber numberWithDouble:[[landDict valueForKey:@"CenterLong"]doubleValue]];
         
-        int rvLen= sizeof([landDict valueForKey:@"rowversion" ]) * [[landDict valueForKey:@"rowversion" ] count]; 
-        self.RowVersion= [NSData dataWithBytes:[landDict valueForKey:@"rowversion" ]  length: rvLen];
+//        int rvLen= sizeof([landDict valueForKey:@"rowversion" ]) * [[landDict valueForKey:@"rowversion" ] count]; 
+//        self.RowVersion= [NSData dataWithBytes:[landDict valueForKey:@"rowversion" ]  length: rvLen];
+        
+        self.RowVersion=[[landDict valueForKey:@"rowversion"] description];
         self.Number= [landDict valueForKey:@"Number"];
         self.LandName_ENG=[[landDict valueForKey:@"LandName_ENG"] description];
         self.LandName_FRA=[[landDict valueForKey:@"LandName_FRA"] description];
@@ -69,9 +71,7 @@
       
         self.Kml = [landDict valueForKey:@"KML"];
         self.Location=[landDict valueForKey:@"Location"];
-        
-        
-       
+
                 
     }
     return self;

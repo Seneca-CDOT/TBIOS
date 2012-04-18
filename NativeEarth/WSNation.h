@@ -16,7 +16,7 @@
 
 
 @property (nonatomic, retain) NSNumber * Number;
-@property (nonatomic, retain) NSData * RowVersion;
+@property (nonatomic, retain) NSString * RowVersion;
 @property (nonatomic, retain) NSString * OfficialName;
 @property (nonatomic, retain) NSString * Address;
 @property (nonatomic, retain) NSString * PostCode;
