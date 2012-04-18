@@ -676,7 +676,6 @@ frcGreeting=frcGreeting_;
         //second get the network array:
         NSArray * networkArray = (NSArray* )object;
         NSMutableDictionary * networkDict=[[NSMutableDictionary alloc] initWithCapacity:[networkArray count]];
-    //    NSArray * networkIDArray =[[networkArray allKeys] sortedArrayUsingFunction: firstNumSort context:NULL ];
         NSMutableArray *networkIDArray=[[NSMutableArray alloc]init];
         for (NSDictionary *  dict in networkArray) {
             ShortNation *sn =[[ShortNation alloc] initWithDictionary:dict];
@@ -699,15 +698,14 @@ frcGreeting=frcGreeting_;
             if(nationExistLocally && nationExistRemothly){
                 //get local object rowversion
                 ShortNation *lsn = (ShortNation*)[localShortNationDict valueForKey:[NSString stringWithFormat:@"%d",i]];
-                NSData  * localVersion=  [NSData dataWithData:lsn.RowVersion ];
-                
+             //   NSData  * localVersion=  [NSData dataWithData:lsn.RowVersion ];
+                NSString *localVersion=lsn.RowVersion;  
                 //get remote onject rowversion
                 NSString * key = [NSString stringWithFormat:@"%d",i];
                 ShortNation * rsn = (ShortNation*)[networkDict objectForKey: key];
-              //  int rvLen= sizeof([n valueForKey:@"rowversion" ]) * [[rdict valueForKey:@"rowversion" ] count]; 
-                NSData * remotVersion= rsn.RowVersion ;//[NSData dataWithBytes:[rdict valueForKey:@"rowversion"] length: rvLen];
-
-                if (![remotVersion isEqualToData: localVersion ]) {  // data must be the same here but it is not
+            //    NSData * remotVersion= rsn.RowVersion ;
+                NSString * remoteVersion=rsn.RowVersion;
+                if (![remoteVersion isEqualToString: localVersion ]) {  // data must be the same here but it is not
                     [updateArray addObject:[NSNumber numberWithInt:i]];
                 }
             }else if(nationExistLocally){ // it should be deleted
@@ -725,7 +723,7 @@ frcGreeting=frcGreeting_;
             }
             
             NSError * error;
-            //if(![self.managedObjectContext save:&error]){
+            
             if (!(error=[self SaveData])) {
                 NSLog(@"%@",[error description]);
             }else{
@@ -758,7 +756,7 @@ frcGreeting=frcGreeting_;
         Nation * exsistingNation= [self getNationLocallyWithNationNumber:[newNation.Number intValue]];
         if(exsistingNation!= nil){
             NSLog(@"Updating Nation %d",[newNation.Number intValue]);
-            //[self.managedObjectContext deleteObject:exsistingNation];
+
              updating = YES;
             [self updateManagedNation:exsistingNation WithWNation:newNation];
                 
@@ -834,25 +832,7 @@ frcGreeting=frcGreeting_;
     }      
 }
 
-//not used:
--(void)updateManagedLand:(Land*) mLand withLand:(WSLand*)wsLand{
 
-    mLand.BoundaryNorth=wsLand.BoundaryNorth;
-    mLand.BoundaryEast=wsLand.BoundaryEast;
-    mLand.BoundarySouth=wsLand.BoundarySouth;
-    mLand.BoundaryWest=wsLand.BoundaryWest;
-    mLand.RowVersion=wsLand.RowVersion;
-    mLand.Number=wsLand.Number;
-    mLand.Province=wsLand.Province;
-    mLand.Location=wsLand.Location;
-    mLand.LandName_ENG=wsLand.LandName_ENG;
-    mLand.LandName_FRA=wsLand.LandName_FRA;
-    mLand.Kml=wsLand.Kml;
-    mLand.Hectars=wsLand.Hectars;
-    mLand.CenterLat=wsLand.CenterLat;
-    mLand.CenterLong=wsLand.CenterLong;
-    
-}
 
 -(NSError*)DeleteVisit:(PlannedVisit*) visit{
     NSError * error;

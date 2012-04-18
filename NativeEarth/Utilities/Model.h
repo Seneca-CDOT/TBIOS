@@ -86,7 +86,7 @@
 -(void) setNationToBeUpdatedByNationNumber:(int)number;
 -(NSArray *)getAllPlannedVisits;
 -(void) updateManagedNation: (Nation *) mNation WithWNation:(WSNation *)wsNation;
--(void)updateManagedLand:(Land*) mLand withLand:(WSLand*)wsLand;
+
 -(NSError *)SaveData;
 -(NSError*)DeleteVisit:(PlannedVisit*) visit;
 -(void)removeCanceledVisit:(PlannedVisit*) visit;
