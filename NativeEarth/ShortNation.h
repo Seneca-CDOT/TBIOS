@@ -12,11 +12,11 @@
 @interface ShortNation : NSObject {
     NSString *OfficialName;
     NSNumber  * Number;
-    NSData *RowVersion;
+    NSString *RowVersion;
 }
 
 @property (nonatomic, retain) NSString *OfficialName;
 @property (nonatomic,retain) NSNumber * Number;
-@property (nonatomic,retain) NSData * RowVersion;
+@property (nonatomic,retain) NSString * RowVersion;
 -(id) initWithDictionary:(NSDictionary *) dict;
 @end
