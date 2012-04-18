@@ -1,4 +1,4 @@
-//
+ //
 //  WSNation.m
 //  NativeEarth
 //
@@ -54,8 +54,7 @@
     if (self) {
         
         self.Number=[NSNumber numberWithInt:[[nationDict valueForKey:@"Number"]intValue]];  
-//        int rvLen= sizeof([nationDict valueForKey:@"rowversion" ]) * [[nationDict valueForKey:@"rowversion" ] count]; 
-//        self.RowVersion= [NSData dataWithBytes:[nationDict valueForKey:@"rowversion" ]  length: rvLen];
+      
         self.RowVersion=[[nationDict valueForKey:@"rowversion"]description];
         self.OfficialName = [nationDict valueForKey:@"OfficialName"];
         
@@ -71,15 +70,16 @@
         if(centerLatitute !=[NSNull null] ) self.CenterLat= [NSNumber numberWithDouble:[centerLatitute doubleValue]];
         if(centerLongitute!=[NSNull null]) self.CenterLong=[NSNumber numberWithDouble:[[nationDict valueForKey:@"CenterLong"]doubleValue]];
         if([nationDict valueForKey:@"tbLands"] !=[NSNull null]){
-        NSArray* lands = [nationDict valueForKey:@"tbLands"];
-        self.Lands =[[NSMutableArray alloc] initWithCapacity:[lands count]];
-        for (NSDictionary * dict in lands) {
+          NSArray* lands = [nationDict valueForKey:@"tbLands"];
+          self.Lands =[[NSMutableArray alloc] initWithCapacity:[lands count]];
+          for (NSDictionary * dict in lands) {
             [self.Lands addObject:[[WSLand alloc] initWithDictionary:dict]];
+          }
         }
-            NSDictionary * greetingDict =[nationDict valueForKey:@"tbGreeting"];
+       
+        NSDictionary * greetingDict =[nationDict valueForKey:@"tbGreeting"] ;
         if (greetingDict != [NSNull null]) {
             self.greeting =[[WSGreeting alloc] initWithDictionary:greetingDict];
-        }
             
         }
        
@@ -109,14 +109,19 @@
    
     
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-  Greeting * existingGreeting=  [appDelegate.model getGreetingWithGreetingId:[self.greeting.GreetingID intValue]];
     
-    if (existingGreeting) {
-      [existingGreeting addNationsObject:managedNation]; 
-    }else{
-        [[self.greeting ToManagedGreeting:context] addNationsObject:managedNation];
+    if (self.greeting) {
+        int i=0;
+        i=[self.greeting.GreetingID intValue];
+    
+        Greeting * existingGreeting=  [appDelegate.model getGreetingWithGreetingId:[self.greeting.GreetingID intValue]];
+    
+        if (existingGreeting) {
+            [existingGreeting addNationsObject:managedNation]; 
+        }else{
+            [[self.greeting ToManagedGreeting:context] addNationsObject:managedNation];
+        }
     }
-    
     
     return managedNation;
 

@@ -699,7 +699,7 @@ frcGreeting=frcGreeting_;
                 //get local object rowversion
                 ShortNation *lsn = (ShortNation*)[localShortNationDict valueForKey:[NSString stringWithFormat:@"%d",i]];
              //   NSData  * localVersion=  [NSData dataWithData:lsn.RowVersion ];
-                NSString *localVersion=lsn.RowVersion;  
+                NSString *localVersion=@"1";//lsn.RowVersion;  
                 //get remote onject rowversion
                 NSString * key = [NSString stringWithFormat:@"%d",i];
                 ShortNation * rsn = (ShortNation*)[networkDict objectForKey: key];
@@ -740,11 +740,12 @@ frcGreeting=frcGreeting_;
         //get objects to be addes
         if ([addArray count]>0) {
             
-            for (NSNumber * n in addArray){
+            for (NSNumber * n in addArray){ 
                [self getNationFromWebServiceWithNationNumber:n];
             }
             frcShortNations_ =nil;
             frcNation_ =nil;
+            frcGreeting_=nil;
         }
           
         updateCheckFinished=YES;
@@ -752,6 +753,7 @@ frcGreeting=frcGreeting_;
         //get the object
         BOOL updating =NO;
         WSNation * newNation = [[WSNation alloc] initWithDictionary:(NSDictionary*)object];
+        
         //check if the nation is already there and should be deleted first:
         Nation * exsistingNation= [self getNationLocallyWithNationNumber:[newNation.Number intValue]];
         if(exsistingNation!= nil){
@@ -767,10 +769,12 @@ frcGreeting=frcGreeting_;
             NSError * error;
 
             if (!(error=[self SaveData])) {
-            
-                NSLog(@"%@",[error description]);
+             NSLog(@"Added Nation %d",[newManagedNation.Number intValue]);
+                if (newManagedNation.greeting!=nil) {
+                    NSLog(@"Greeting ID:%d",[newManagedNation.greeting.GreetingID intValue]);
+                }
             } else{
-                NSLog(@"Added Nation %d",[newManagedNation.Number intValue]);
+                NSLog(@"%@",[error description]);
             }
         }
         if (updating==YES) {
@@ -815,7 +819,7 @@ frcGreeting=frcGreeting_;
        
     
     //not updating Greeting yet
-    if (mNation.greeting && wsNation.greeting) { // if both had greeting
+    if (mNation.greeting  && wsNation.greeting) { // if both had greeting
         if (mNation.greeting.GreetingID==wsNation.greeting.GreetingID) {//if both greetings are the same one (same id)
             if (![mNation.greeting.RowVersion isEqualToString:wsNation.greeting.RowVersion] ) {
                 mNation.greeting.Hello=wsNation.greeting.Hello;
