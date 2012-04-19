@@ -23,8 +23,8 @@ typedef enum{
     rowTitleGreetings,
     rowTitleLands,
     rowTitleMap,
+    rowTitleCommunitySite,
     rowTitleScreenshots,
-
     rowCount
 } rowTitle;
 
@@ -71,6 +71,13 @@ typedef enum{
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
     self.title = self.selectedNation.OfficialName; 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0,4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
+    
+    hasAddress=(self.selectedNation.Address ==nil) ?0:1;
+    hasComunitySite=(self.selectedNation.CommunitySite==nil)?0:1;
+    hasGreeting=(self.selectedNation.greeting==nil)?0:1;
+    
+    
+    
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -118,6 +125,9 @@ typedef enum{
     cell.textLabel.font= [UIFont boldSystemFontOfSize:15] ;
     cell.detailTextLabel.font= [UIFont systemFontOfSize:15] ;
     cell.detailTextLabel.numberOfLines=0;
+    cell.textLabel.alpha=1.0;
+    cell.hidden=NO;
+    [cell setAlpha:1.0];
     if (indexPath.section==0) {
         
 	switch (indexPath.row) {
@@ -132,11 +142,11 @@ typedef enum{
             if ([selectedNation.Lands count]>0) {
                 cell.userInteractionEnabled = YES;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-                cell.textLabel.alpha = 1;
             }else{
                 cell.userInteractionEnabled = NO;
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 cell.textLabel.alpha = 0.5;
+                
             }
             break;
         case rowTitleGreetings:
@@ -144,11 +154,11 @@ typedef enum{
             if (selectedNation.greeting!= nil) {
             cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            cell.textLabel.alpha = 1;
             }else{
                 cell.userInteractionEnabled = NO;
                 cell.accessoryType = UITableViewCellAccessoryNone;
                 cell.textLabel.alpha = 0.5;
+             
             }
             break;
         case rowTitleMap:
@@ -157,18 +167,30 @@ typedef enum{
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
             break;
-
+        case rowTitleCommunitySite:
+            if (self.selectedNation.CommunitySite!=nil) {
+            cell.textLabel.text=NSLocalizedString(@"Open Community Website in Safary",@"Open Comunity Website in Safary");
+            cell.userInteractionEnabled = YES;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.alpha = 1;
+            }else{
+                cell.textLabel.text=NSLocalizedString(@"No Community Website is Detected",@"No Comunity Website is Detected");
+                cell.userInteractionEnabled=NO;
+                cell.textLabel.alpha = 0.5;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            break;
         case rowTitleScreenshots:
             cell.textLabel.text=NSLocalizedString(@"Saved Maps",@"Saved Maps");
             if ([self.selectedNation.Maps count] != 0){
                 cell.userInteractionEnabled = YES; 
-                cell.textLabel.alpha = 1; 
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }
             else{
                 cell.userInteractionEnabled=NO;
                 cell.textLabel.alpha = 0.5;
                 cell.accessoryType = UITableViewCellAccessoryNone;
+              
             }
            
           
@@ -181,7 +203,7 @@ typedef enum{
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.alpha = 1;
     }
-    cell.textLabel.alpha=1.0;
+    
     
 }
 
@@ -247,6 +269,10 @@ typedef enum{
         case rowTitleMap:
             [self NavigateToMap];
             break;
+        case rowTitleCommunitySite:
+            [self OpenCommunitySite];
+           
+            break;    
         case rowTitleScreenshots:
             [self NavigateToScreenshotBrowser];
             break; 
@@ -350,6 +376,12 @@ typedef enum{
     }
 
 }
+
+-(void) OpenCommunitySite{
+ 
+     [[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.selectedNation.CommunitySite]];
+}
+
 -(void)NavigateToScreenshotBrowser{
     ScreenshotBrowser *nextVC=[[ScreenshotBrowser alloc] initWithNibName:@"ScreenshotBrowser" bundle:nil];
     NSArray * maps = [self.selectedNation.Maps allObjects];
