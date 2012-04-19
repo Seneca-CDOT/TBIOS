@@ -72,9 +72,9 @@ typedef enum{
     self.title = self.selectedNation.OfficialName; 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0,4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
     
-    hasAddress=(self.selectedNation.Address ==nil) ?0:1;
-    hasComunitySite=(self.selectedNation.CommunitySite==nil)?0:1;
-    hasGreeting=(self.selectedNation.greeting==nil)?0:1;
+   // hasAddress=(self.selectedNation.Address ==nil) ?0:1;
+   // hasComunitySite=(self.selectedNation.CommunitySite==nil)?0:1;
+  //  hasGreeting=(self.selectedNation.greeting==nil)?0:1;
     
     
     
