@@ -11,23 +11,13 @@
 
 @implementation ShortNation
 
-@synthesize OfficialName, Number, RowVersion;
+@synthesize OfficialName, Number, RowVersion,Province;
 -(id) initWithDictionary:(NSDictionary *) dict{
     [super init];
     self.Number = [NSNumber numberWithInt:[[dict valueForKey:@"Number"]intValue] ];
     self.OfficialName = [[dict valueForKey:@"OfficialName"] description];
     self.RowVersion =[[dict valueForKey:@"rowversion"] description];
-    
- //   id version = [dict valueForKey:@"rowversion" ] ;
-//    if([version isKindOfClass:[NSData class]]){//for local object
-//        self.RowVersion = (NSData*)version ;   
-//     
-//    }else{//for remote object
-//       
-//    int len = sizeof(version)*[version count]; 
-//        self.RowVersion=  [NSData dataWithBytes:version  length:len ] ;
-//      
-//    }
+    if([dict valueForKey:@"Province"] !=nil)   self.Province =[[dict valueForKey:@"Province"] description];
     
     return self;
     }
@@ -35,6 +25,7 @@
     [self.OfficialName release];
     [self.Number release];
     [self.RowVersion release];
+    [self.Province release];
     [super dealloc];
 }
 @end

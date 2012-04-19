@@ -207,40 +207,56 @@ frcGreeting=frcGreeting_;
     
     [fetchedRequest setSortDescriptors:sortDescriptors];
     
+    [fetchedRequest setResultType:NSDictionaryResultType];
+    
     // set expression
     
     // Create an expression for the key path.
     NSExpression *keyPathExpression1 = [NSExpression expressionForKeyPath:@"Number"];
-    // Create an expression description using the minExpression and returning a date.
     NSExpressionDescription *expressionDescription1 = [[NSExpressionDescription alloc] init];
     [expressionDescription1 setName:@"Number"];
     [expressionDescription1 setExpression:keyPathExpression1];
     [expressionDescription1 setExpressionResultType:NSInteger32AttributeType];
-    
+    [keyPathExpression1 release];
+    // Create an expression for the key path.
+    NSExpression *keyPathExpression2 = [NSExpression expressionForKeyPath:@"OfficialName"];
     NSExpressionDescription *expressionDescription2 = [[NSExpressionDescription alloc] init];
     [expressionDescription2 setName:@"OfficialName"];
-    [expressionDescription2 setExpression:keyPathExpression1];
-    [expressionDescription2 setExpressionResultType:NSInteger32AttributeType];
-    
-    
-    
+    [expressionDescription2 setExpression:keyPathExpression2];
+    [expressionDescription2 setExpressionResultType:NSStringAttributeType];
+    [keyPathExpression2 release];
+    // Create an expression for the key path.
+    NSExpression *keyPathExpression3 = [NSExpression expressionForKeyPath:@"rowversion"];
     NSExpressionDescription *expressionDescription3 = [[NSExpressionDescription alloc] init];
-    [expressionDescription3 setName:@"RowVersion"];
-    [expressionDescription3 setExpression:keyPathExpression1];
-    [expressionDescription3 setExpressionResultType:NSInteger32AttributeType];
+    [expressionDescription3 setName:@"rowversion"];
+    [expressionDescription3 setExpression:keyPathExpression3];
+    [expressionDescription3 setExpressionResultType:NSStringAttributeType];
+    [keyPathExpression3 release];
     
-    
+    // Create an expression for the key path.
+    NSExpression *keyPathExpression4 = [NSExpression expressionForKeyPath:@"Province"];
+    NSExpressionDescription *expressionDescription4 = [[NSExpressionDescription alloc] init];
+    [expressionDescription4 setName:@"Province"];
+    [expressionDescription4 setExpression:keyPathExpression4];
+    [expressionDescription4 setExpressionResultType:NSStringAttributeType];
+    [keyPathExpression4 release];
     
     // Set the request's properties to fetch just the property represented by the expressions.
-    [fetchedRequest setPropertiesToFetch:[NSArray arrayWithObjects:expressionDescription1,expressionDescription2,expressionDescription3, nil]];
+    [fetchedRequest setPropertiesToFetch:[NSArray arrayWithObjects:expressionDescription1,expressionDescription2,expressionDescription3,expressionDescription4, nil]];
     
     //create fetchedResultsController
-    [NSFetchedResultsController deleteCacheWithName:@"ShortLNationList"];
+    [NSFetchedResultsController deleteCacheWithName:@"ShortNationList"];
     
     NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"ShortNationList"];
     aFetchedResultsController.delegate = self;
     
     self.frcShortNations = aFetchedResultsController;
+    
+    [expressionDescription1 release];
+    [expressionDescription2 release];
+    [expressionDescription3 release];
+    [expressionDescription4 release];
+    
     
     [aFetchedResultsController release];
     [fetchedRequest release];
@@ -392,19 +408,17 @@ frcGreeting=frcGreeting_;
     if(curReach == hostReach)
 	{
         self.remoteHostStatus = [curReach currentReachabilityStatus];
-        //self.viewController.remoteHostStatus =self.remoteHostStatus;
     }
     
 	if(curReach == internetReach)
 	{	
 		
         self.internetConnectionStatus= [curReach currentReachabilityStatus];
-        // self.viewController.internetConnectionStatus =self.internetConnectionStatus;
+    
 	}
 	if(curReach == wifiReach)
 	{
         self.wifiConnectionStatus =[curReach currentReachabilityStatus];
-        // self.viewController.wifiConnectionStatus=self.wifiConnectionStatus;
 	}
     
     
@@ -420,8 +434,8 @@ frcGreeting=frcGreeting_;
         
             if (remoteHostStatus!=NotReachable) {
                 addArray  =[[NSMutableArray alloc] init];
-                deleteArray  =[[NSMutableArray alloc] init];
-                updateArray  =[[NSMutableArray alloc] init];
+                deleteArray  =[[NSMutableArray alloc] init] ;
+                updateArray  =[[NSMutableArray alloc] init] ;
             
                 [self getShortNationsFromWebService]; 
                 // change from here 
@@ -561,7 +575,7 @@ frcGreeting=frcGreeting_;
     for (NSDictionary * nation  in results) {
         ShortNation * shortNation = [[ShortNation alloc] initWithDictionary:nation];        
         [shortNationArray addObject:shortNation];
-        
+        [shortNation release];
     }
     return shortNationArray;
 }
@@ -699,7 +713,7 @@ frcGreeting=frcGreeting_;
                 //get local object rowversion
                 ShortNation *lsn = (ShortNation*)[localShortNationDict valueForKey:[NSString stringWithFormat:@"%d",i]];
              //   NSData  * localVersion=  [NSData dataWithData:lsn.RowVersion ];
-                NSString *localVersion=lsn.RowVersion; //@"1";//change  this to @"1" if you want to see updates anyways
+                NSString *localVersion=@"1";//lsn.RowVersion; //@"1";//change  this to @"1" if you want to see updates anyways
                 //get remote onject rowversion
                 NSString * key = [NSString stringWithFormat:@"%d",i];
                 ShortNation * rsn = (ShortNation*)[networkDict objectForKey: key];

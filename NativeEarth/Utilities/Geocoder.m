@@ -25,12 +25,9 @@
 	NSURLConnection *theConnection=[[[NSURLConnection alloc] initWithRequest:theRequest delegate:self] autorelease];
 	if (theConnection) 
 	{
-		receivedData=[[NSMutableData alloc] init];
+		receivedData=[[NSMutableData alloc] init] ;
 	} 
-	else 
-	{
-		
-	}
+	
 }
 
 -(void)dealloc

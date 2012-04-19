@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * RowVersion;
 @property (nonatomic, retain) NSString * OfficialName;
 @property (nonatomic, retain) NSString * Address;
+@property (nonatomic, retain) NSString * Province;
 @property (nonatomic, retain) NSString * PostCode;
 @property (nonatomic, retain) NSString * Phone;
 @property (nonatomic, retain) NSString * CommunitySite;

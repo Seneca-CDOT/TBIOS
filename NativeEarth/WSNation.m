@@ -27,6 +27,7 @@
 @synthesize greeting;
 @synthesize PlannedVisits;
 @synthesize Maps;
+@synthesize Province;
 
 
 -(void)dealloc{
@@ -44,7 +45,7 @@
     [self.greeting release];
     [self.PlannedVisits release];
     [self.Maps release];
-    
+    [self.Province release];
     [super dealloc];
 }
 
@@ -56,11 +57,13 @@
         self.Number=[NSNumber numberWithInt:[[nationDict valueForKey:@"Number"]intValue]];  
       
         self.RowVersion=[[nationDict valueForKey:@"rowversion"]description];
-        self.OfficialName = [nationDict valueForKey:@"OfficialName"];
-        
+       // self.OfficialName = [[nationDict valueForKey:@"OfficialName"] description];
+         if([nationDict valueForKey:@"OfficialName"] !=[NSNull null])self.OfficialName = [nationDict valueForKey:@"OfficialName"];
+        if([nationDict valueForKey:@"CommunitySite"] !=[NSNull null])self.CommunitySite = [nationDict valueForKey:@"CommunitySite"];
         if([nationDict valueForKey:@"Address"] !=[NSNull null])self.Address = [nationDict valueForKey:@"Address"];
+        if([nationDict valueForKey:@"Province"] !=[NSNull null])self.Province = [nationDict valueForKey:@"Province"];
+
         if([nationDict valueForKey:@"PostCode"] !=[NSNull null])self.PostCode=[nationDict valueForKey:@"PostCode"];
-       
         if([nationDict valueForKey:@"Phone"] !=[NSNull null]) self.Phone = [nationDict valueForKey:@"Phone"];
         if([nationDict valueForKey:@"CenterPoint"] !=[NSNull null]) self.CommunitySite = [nationDict valueForKey:@"CenterPoint"];
        
@@ -101,8 +104,7 @@
     managedNation.CommunitySite= self.CommunitySite;
     managedNation.CenterLat= self.CenterLat;
     managedNation.CenterLong= self.CenterLong;
-    
-
+    managedNation.Province=self.Province;
     for (WSLand* land in  self.Lands) {
         [managedNation addLandsObject:[land ToManagedLand:context ]];
         }

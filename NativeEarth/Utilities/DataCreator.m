@@ -31,7 +31,7 @@
     for (NSDictionary * nationDict  in nationArray) {
         WSNation *wsNation = [[WSNation alloc] initWithDictionary:nationDict];
         [wsNation ToManagedNation:managedObjectContext];
-        
+        [wsNation release];
         if(! [managedObjectContext save:&error]){
             NSLog(@"Context save error %@, %@", error, [error userInfo]);
 			abort();
