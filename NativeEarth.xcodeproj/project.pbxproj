@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		D7003C1613CDEEF000587CD0 /* TextFieldCell_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */; };
 		D7003C1913CDEF1800587CD0 /* TextFieldCell_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */; };
-		D7142CA9153F1B9D00B78CE5 /* Nation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7142CA8153F1B9C00B78CE5 /* Nation.m */; };
 		D71CA1C813F2F12C0016C3CB /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = D71CA1C713F2F12B0016C3CB /* Model.m */; };
 		D72157CA13C2497A00AF9AD0 /* AboutViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D72157C813C2497A00AF9AD0 /* AboutViewController_iPhone.xib */; };
 		D72157F613C264AE00AF9AD0 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D72157F513C264AE00AF9AD0 /* QuartzCore.framework */; };
@@ -21,6 +20,7 @@
 		D7592EAF13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */; };
 		D760FC1514914B9600D7A281 /* icon_case.png in Resources */ = {isa = PBXBuildFile; fileRef = D760FC1414914B9300D7A281 /* icon_case.png */; };
 		D760FC1714914BC100D7A281 /* icon_forum.png in Resources */ = {isa = PBXBuildFile; fileRef = D760FC1614914BC000D7A281 /* icon_forum.png */; };
+		D762915E1540A45D00AB2612 /* Nation.m in Sources */ = {isa = PBXBuildFile; fileRef = D762915D1540A45D00AB2612 /* Nation.m */; };
 		D77E0E1013BCC34300A738D8 /* LocationInfoViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */; };
 		D77E0E3313BCD38600A738D8 /* MapBrowserViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E3113BCD38600A738D8 /* MapBrowserViewController_iPhone.m */; };
 		D77E0E3413BCD38600A738D8 /* MapBrowserViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77E0E3213BCD38600A738D8 /* MapBrowserViewController_iPhone.xib */; };
@@ -127,8 +127,6 @@
 		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldCell_iPhone.h; path = iphone/Locator/TextFieldCell_iPhone.h; sourceTree = "<group>"; };
 		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextFieldCell_iPhone.m; path = iphone/Locator/TextFieldCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldCell_iPhone.xib; path = iphone/Locator/TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
-		D7142CA7153F1B9C00B78CE5 /* Nation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nation.h; sourceTree = "<group>"; };
-		D7142CA8153F1B9C00B78CE5 /* Nation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nation.m; sourceTree = "<group>"; };
 		D71CA1C613F2F12A0016C3CB /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = ../Utilities/Model.h; sourceTree = "<group>"; };
 		D71CA1C713F2F12B0016C3CB /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Model.m; path = ../Utilities/Model.m; sourceTree = "<group>"; wrapsLines = 0; };
 		D72157F513C264AE00AF9AD0 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -141,6 +139,8 @@
 		D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocatorRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D760FC1414914B9300D7A281 /* icon_case.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_case.png; sourceTree = "<group>"; };
 		D760FC1614914BC000D7A281 /* icon_forum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_forum.png; sourceTree = "<group>"; };
+		D762915C1540A45D00AB2612 /* Nation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nation.h; sourceTree = "<group>"; };
+		D762915D1540A45D00AB2612 /* Nation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nation.m; sourceTree = "<group>"; };
 		D77E0E0E13BCC34300A738D8 /* LocationInfoViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationInfoViewController_iPhone.h; sourceTree = "<group>"; };
 		D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = LocationInfoViewController_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D77E0E3013BCD38600A738D8 /* MapBrowserViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapBrowserViewController_iPhone.h; sourceTree = "<group>"; };
@@ -559,8 +559,8 @@
 		D7BB0DC013BB9CEA0062C2A9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				D7142CA7153F1B9C00B78CE5 /* Nation.h */,
-				D7142CA8153F1B9C00B78CE5 /* Nation.m */,
+				D762915C1540A45D00AB2612 /* Nation.h */,
+				D762915D1540A45D00AB2612 /* Nation.m */,
 				D7D7ABA81506B19900BD3EBD /* PlannedVisit.h */,
 				D7D7ABA91506B19900BD3EBD /* PlannedVisit.m */,
 				D7D7ABA51506B19900BD3EBD /* Land.h */,
@@ -823,7 +823,7 @@
 				D7D7ABB91506C51800BD3EBD /* WSNation.m in Sources */,
 				D784AB7715213654002FC873 /* LandsViewController_iPhone.m in Sources */,
 				D797329B153339E7006834D8 /* MKMapView+ZoomLevel.m in Sources */,
-				D7142CA9153F1B9D00B78CE5 /* Nation.m in Sources */,
+				D762915E1540A45D00AB2612 /* Nation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
