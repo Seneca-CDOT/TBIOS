@@ -2,30 +2,31 @@
 //  Greeting.m
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 12-03-06.
+//  Created by Ladan Zahir on 12-04-26.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
 #import "Greeting.h"
+#import "Nation.h"
 
 
 @implementation Greeting
-@dynamic HelloPronunciation;
-@dynamic RowVersion;
-@dynamic GreetingID;
-@dynamic ThankYouPronunciation;
-@dynamic WelcomePronunciation;
-@dynamic ActorName;
-@dynamic RecordedOn;
-@dynamic HelloMIMEType;
-@dynamic WelcomeMIMEType;
-@dynamic ThankYouMIMEType;
-@dynamic Hello;
-@dynamic Welcome;
 @dynamic ThankYou;
+@dynamic GreetingID;
+@dynamic GoodByePronunciation;
+@dynamic GoodBye;
+@dynamic ThankYouMIMEType;
+@dynamic ActorName;
+@dynamic HelloMIMEType;
+@dynamic Hello;
+@dynamic RowVersion;
+@dynamic HelloPronunciation;
+@dynamic ThankYouPronunciation;
+@dynamic GoodByeMIMEType;
+@dynamic RecordedOn;
 @dynamic Nations;
 
-- (void)addNationsObject:(NSManagedObject *)value {    
+- (void)addNationsObject:(Nation *)value {    
     NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
     [self willChangeValueForKey:@"Nations" withSetMutation:NSKeyValueUnionSetMutation usingObjects:changedObjects];
     [[self primitiveValueForKey:@"Nations"] addObject:value];
@@ -33,7 +34,7 @@
     [changedObjects release];
 }
 
-- (void)removeNationsObject:(NSManagedObject *)value {
+- (void)removeNationsObject:(Nation *)value {
     NSSet *changedObjects = [[NSSet alloc] initWithObjects:&value count:1];
     [self willChangeValueForKey:@"Nations" withSetMutation:NSKeyValueMinusSetMutation usingObjects:changedObjects];
     [[self primitiveValueForKey:@"Nations"] removeObject:value];

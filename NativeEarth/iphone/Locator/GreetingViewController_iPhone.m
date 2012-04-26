@@ -15,7 +15,7 @@
 @synthesize  greeting;
 
 typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
-typedef enum {rowHello,rowWelcome,rowThankYou,rowCount}rowType;
+typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
@@ -140,11 +140,11 @@ typedef enum {rowHello,rowWelcome,rowThankYou,rowCount}rowType;
                 ((GreetingCell_iPhone *)cell).data = greeting.Hello;
                 ((GreetingCell_iPhone *)cell).greetingType=@"hello";
                 break;
-            case rowWelcome:
-                ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Welcome:",@"Welcome:");
-                ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.WelcomePronunciation;
-                ((GreetingCell_iPhone *)cell).data = greeting.Welcome;
-                ((GreetingCell_iPhone *)cell).greetingType=@"welcome";
+            case rowGoodbye:
+                ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Goodbye:",@"Goodbye:");
+                ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.GoodByePronunciation;
+                ((GreetingCell_iPhone *)cell).data = greeting.GoodBye;
+                ((GreetingCell_iPhone *)cell).greetingType=@"goodbye";
                 break;
             case rowThankYou:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Thank You:",@"Thank You:");
@@ -173,7 +173,7 @@ typedef enum {rowHello,rowWelcome,rowThankYou,rowCount}rowType;
 -(void) updateStatusesWithReachability:(Reachability *)curReach{
   //  make cells disabled if no reachability
 //    for (UITableViewCell * cell in ) {
-//        <#statements#>
+//        
 //    }
 //         
 //         

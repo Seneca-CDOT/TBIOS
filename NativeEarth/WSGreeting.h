@@ -18,14 +18,14 @@
 
 @property (nonatomic, retain) NSString * HelloPronunciation;
 @property (nonatomic, retain) NSString * ThankYouPronunciation;
-@property (nonatomic, retain) NSString * WelcomePronunciation;
+@property (nonatomic, retain) NSString * GoodByePronunciation;
 @property (nonatomic, retain) NSString * ActorName;
 @property (nonatomic, retain) NSDate * RecordedOn;
 @property (nonatomic, retain) NSString * HelloMIMEType;
-@property (nonatomic, retain) NSString * WelcomeMIMEType;
+@property (nonatomic, retain) NSString * GoodByeMIMEType;
 @property (nonatomic, retain) NSString * ThankYouMIMEType;
 @property (nonatomic, retain) NSData * Hello;
-@property (nonatomic, retain) NSData * Welcome;
+@property (nonatomic, retain) NSData * GoodBye;
 @property (nonatomic, retain) NSData * ThankYou;
 
 -(id) initWithDictionary:(NSDictionary *) greetingsDict;

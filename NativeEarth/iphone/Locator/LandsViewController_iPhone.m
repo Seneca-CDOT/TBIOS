@@ -10,6 +10,7 @@
 #import "Nation.h"
 #import "Land.h"
 #import "MapBrowserViewController_iPhone.h"
+#import "Toast+UIView.h"
 
 @implementation LandsViewController_iPhone
 @synthesize landList;
@@ -179,7 +180,8 @@
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release];
     }else{
-        //alert
+        [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
+                    position:@"bottom"]; 
     }
 
 }

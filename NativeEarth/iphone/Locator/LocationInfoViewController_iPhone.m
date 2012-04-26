@@ -350,7 +350,8 @@ typedef enum{
     [self.navigationController pushViewController:nextVC animated:YES];
       [nextVC release];
     }else{
-        //alert
+        [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
+                    position:@"bottom"]; 
     }
 }
 
@@ -372,7 +373,8 @@ typedef enum{
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release];
     }else{
-        //alert
+        [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
+                    position:@"bottom"]; 
     }
 
 }

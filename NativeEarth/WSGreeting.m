@@ -15,14 +15,14 @@
 @synthesize  RowVersion;
 @synthesize GreetingID;
 @synthesize  ThankYouPronunciation;
-@synthesize WelcomePronunciation;
+@synthesize GoodByePronunciation;
 @synthesize  ActorName;
 @synthesize RecordedOn;
 @synthesize HelloMIMEType;
-@synthesize WelcomeMIMEType;
+@synthesize GoodByeMIMEType;
 @synthesize ThankYouMIMEType;
 @synthesize Hello;
-@synthesize Welcome;
+@synthesize GoodBye;
 @synthesize ThankYou;
 
 
@@ -32,14 +32,14 @@
     [self.RowVersion release];
     [self.GreetingID release];
     [self.ThankYouPronunciation release];
-    [self.WelcomePronunciation release];
+    [self.GoodByePronunciation release];
     [self.ActorName release];
     [self.RecordedOn release];
     [self.HelloMIMEType release];
-    [self.WelcomeMIMEType release];
+    [self.GoodByeMIMEType release];
     [self.ThankYouMIMEType release];
     [self.Hello release];
-    [self.Welcome release];
+    [self.GoodBye release];
     [self.ThankYou release];
     [super dealloc];
 }
@@ -61,10 +61,10 @@
         self.HelloMIMEType=[[greetingDict valueForKey:@"HelloMIMEType"] description];
 
         int wLen =0;
-        wLen=sizeof([greetingDict valueForKey:@"Welcome" ]) * [[greetingDict valueForKey:@"Welcome" ] count]; 
-        self.Welcome=[NSData dataWithBytes:[greetingDict valueForKey:@"Welcome" ]  length: wLen];
-        self.WelcomeMIMEType=[[greetingDict valueForKey:@"WelcomeMIMEType"] description];
-        self.WelcomePronunciation=[[greetingDict valueForKey:@"WelcomePronunciation"] description];
+        wLen=sizeof([greetingDict valueForKey:@"GoodBye" ]) * [[greetingDict valueForKey:@"GoodBye" ] count]; 
+        self.GoodBye=[NSData dataWithBytes:[greetingDict valueForKey:@"GoodBye" ]  length: wLen];
+        self.GoodByeMIMEType=[[greetingDict valueForKey:@"GoodByeMIMEType"] description];
+        self.GoodByePronunciation=[[greetingDict valueForKey:@"GoodByePronunciation"] description];
         
         
         int tLen =0;
@@ -98,13 +98,13 @@
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"Greeting" inManagedObjectContext:context];
     Greeting * managedGreeting = [[Greeting alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
 
-    managedGreeting.WelcomePronunciation=self.WelcomePronunciation;
+    managedGreeting.GoodByePronunciation=self.GoodByePronunciation;
     managedGreeting.HelloPronunciation=self.HelloPronunciation;
     managedGreeting.ThankYouPronunciation=self.ThankYouPronunciation;
-    managedGreeting.Welcome=self.Welcome;
+    managedGreeting.GoodBye=self.GoodBye;
     managedGreeting.Hello=self.Hello;
     managedGreeting.ThankYou=self.ThankYou;
-    managedGreeting.WelcomeMIMEType=self.WelcomeMIMEType;
+    managedGreeting.GoodByeMIMEType=self.GoodByeMIMEType;
     managedGreeting.HelloMIMEType=self.HelloMIMEType;
     managedGreeting.ThankYouMIMEType=self.ThankYouMIMEType;
     managedGreeting.RecordedOn= self.RecordedOn;

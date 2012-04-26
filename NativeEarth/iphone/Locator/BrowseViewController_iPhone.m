@@ -234,11 +234,10 @@
 	 */
 	for (ShortNation *nation in self.completeList)
 	{
-        NSComparisonResult result = [nation.OfficialName  compare:searchText options:(NSCaseInsensitiveSearch|NSDiacriticInsensitiveSearch) range:NSMakeRange(0, [searchText length])];
-        if (result == NSOrderedSame)
-        {
-            [self.filteredList addObject:nation];
-        }
+        NSRange r = [nation.OfficialName rangeOfString:searchText options:NSCaseInsensitiveSearch];
+        // If there's a match, add the nation to the filtered list
+        if (r.length > 0) [self.filteredList addObject:nation];
+        
 		
 	}
 }
