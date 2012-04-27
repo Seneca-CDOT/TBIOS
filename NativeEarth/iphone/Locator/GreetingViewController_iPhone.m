@@ -91,6 +91,7 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
 {
     UITableViewCell *cell;
     GreetingCell_iPhone * greetingCell;
+   
     if (indexPath.section==sectionLanguage) {
     
     static NSString *CellIdentifier = @"Cell";
@@ -132,6 +133,7 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
         
     }else if(indexPath.section== sectionGreeting){
         cell.userInteractionEnabled=YES;
+        ((GreetingCell_iPhone*) cell).greetingId=self.greeting.GreetingID;
         switch (indexPath.row) {
             case rowHello:
                 NSLog(@"%@",self.greeting.HelloPronunciation);
