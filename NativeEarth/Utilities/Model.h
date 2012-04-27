@@ -77,6 +77,7 @@
 -(Nation *)getNationWithNationNumber:(int)number;
 -(Nation *)getNationLocallyWithNationNumber:(int)number;
 -(void) getShortNationsFromWebService;
+-(NSFetchedResultsController *)getShortNationFetchedResults;
 -(NSDictionary *)getShortNationsDictionary;
 -(void) getNationFromWebServiceWithNationNumber:(NSNumber *)number;
 -(void) checkForNationUpdatesByNationNumber:(NSNumber *)number;
