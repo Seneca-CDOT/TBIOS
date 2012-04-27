@@ -562,6 +562,14 @@ frcGreeting=frcGreeting_;
         return nil;
 }
 
+-(NSFetchedResultsController *)getShortNationFetchedResults{
+    frcShortNations_=nil;
+    NSError* error;
+    if(![[self frcShortNations]performFetch:&error]){
+        //handle error
+    }
+    return  self.frcShortNations;
+}
 
 //gets the array of ShortNationObjects locally
 -(NSArray*)getShortNationArray{
