@@ -17,6 +17,7 @@ NSString * kCellGreeting_ID = @"CellGreeting_ID";
 @synthesize  btnPlay;
 @synthesize greetingType;
 @synthesize cellSoundPlayer;
+@synthesize greetingId;
 
 + (GreetingCell_iPhone*) createNewGretingCellFromNib{
     NSArray* nibContents = [[NSBundle mainBundle] 
@@ -43,6 +44,7 @@ NSString * kCellGreeting_ID = @"CellGreeting_ID";
     [self.lblPronunciation release];
     [self.lblPhrase release];
     [self.data release];
+    [self.greetingId release];
     [self.btnPlay release];
     [self.greetingType release];
     [super dealloc];
@@ -50,7 +52,7 @@ NSString * kCellGreeting_ID = @"CellGreeting_ID";
 
 -(IBAction)playSound:(id)sender{
 
-    NSString * urlString  = [NSString stringWithFormat:@"%@/greeting/%d/%@",kHostName,1,self.greetingType];
+    NSString * urlString  = [NSString stringWithFormat:@"%@/greeting/%d/%@",kHostName, [self.greetingId intValue],self.greetingType];
     
     NSURL * URL = [NSURL URLWithString:urlString];
     NSData * webdata = [NSData dataWithContentsOfURL:URL];

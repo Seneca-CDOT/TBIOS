@@ -14,8 +14,8 @@
 extern NSString * kCellGreeting_ID ;
 
 @interface GreetingCell_iPhone : UITableViewCell {
-    Greeting *greeting;
-    NSString             *locale;
+    NSNumber *greetingId;
+    NSString  *locale;
     UILabel* lblPronunciation;
     UILabel* lblPhrase;
     NSString *greetingType;
@@ -26,6 +26,7 @@ extern NSString * kCellGreeting_ID ;
 @property(nonatomic,retain) IBOutlet UILabel* lblPhrase;
 @property(nonatomic,retain) IBOutlet UILabel* lblPronunciation;
 @property(nonatomic,retain) NSData*  data;
+@property(nonatomic,retain) NSNumber *greetingId;
 @property(nonatomic,retain) NSString * greetingType;
 @property(nonatomic,retain) IBOutlet UIButton* btnPlay;
 @property (nonatomic, retain)      AVAudioPlayer        *cellSoundPlayer;
