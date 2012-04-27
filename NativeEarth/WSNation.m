@@ -65,8 +65,7 @@
 
         if([nationDict valueForKey:@"PostCode"] !=[NSNull null])self.PostCode=[nationDict valueForKey:@"PostCode"];
         if([nationDict valueForKey:@"Phone"] !=[NSNull null]) self.Phone = [nationDict valueForKey:@"Phone"];
-        if([nationDict valueForKey:@"CenterPoint"] !=[NSNull null]) self.CommunitySite = [nationDict valueForKey:@"CenterPoint"];
-       
+              
         id  centerLatitute= [nationDict valueForKey:@"CenterLat"];
         id  centerLongitute= [nationDict valueForKey:@"CenterLong"];
 
