@@ -834,7 +834,9 @@ frcGreeting=frcGreeting_;
     
     //not updating Greeting yet
     if (mNation.greeting  && wsNation.greeting) { // if both had greeting
-        if (mNation.greeting.GreetingID==wsNation.greeting.GreetingID) {//if both greetings are the same one (same id)
+        int localId=[mNation.greeting.GreetingID intValue];
+        int remoteId=[wsNation.greeting.GreetingID intValue];
+        if (localId==remoteId) {//if both greetings are the same one (same id)
             if (![mNation.greeting.RowVersion isEqualToString:wsNation.greeting.RowVersion] ) {
                 mNation.greeting.Hello=wsNation.greeting.Hello;
                 mNation.greeting.HelloMIMEType=wsNation.greeting.HelloMIMEType;
@@ -869,13 +871,23 @@ frcGreeting=frcGreeting_;
         }
         
     }else if(wsNation.greeting){
+        //check if the new greeting exist locally:
+        Greeting * aGreeting = [self getGreetingWithGreetingId:[wsNation.greeting.GreetingID intValue]];
+        if (aGreeting) {//if yes
+            [aGreeting addNationsObject:mNation];//then assign the new Greeting to the nation
+        }else{
         [[wsNation.greeting ToManagedGreeting:self.managedObjectContext] addNationsObject:mNation];
+        }
     }else if(mNation.greeting){
+        Greeting * tempGreeting = mNation.greeting;
         [mNation.greeting removeNationsObject:mNation];
+        if ([tempGreeting.Nations count]==0) {// now check to see if the old greeting is in use anymore
+            [self.managedObjectContext deleteObject:tempGreeting];
+        }
     }
     
   
-    //mNation.greeting= newManagedNation.greeting;
+
     
 
     NSError * error;
