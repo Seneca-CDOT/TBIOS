@@ -9,11 +9,13 @@
 #import "GreetingViewController_iPhone.h"
 #import "GreetingCell_iPhone.h"
 #import "Constants.h"
+#import "Toast+UIView.h"
 
 @implementation GreetingViewController_iPhone
 @synthesize language;
 @synthesize  greeting;
-
+@synthesize soundPlayer;
+typedef enum {helloGreetingType,goodbyeGreetingType,thankyouGreetingType }greetingType;
 typedef enum {sectionLanguage, sectionGreeting, sectionCount}sectionType;
 typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -28,7 +30,7 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
 - (void)dealloc
 {
     
-   
+    [self.soundPlayer release];
     [self.greeting release];
     [self.language release];
     [super dealloc];
@@ -135,13 +137,14 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
         
     }else if(indexPath.section== sectionGreeting){
         cell.userInteractionEnabled=YES;
-        ((GreetingCell_iPhone*) cell).greetingId=self.greeting.GreetingID;
+ [((GreetingCell_iPhone*) cell).btnPlay addTarget:self action:@selector(playSound:) forControlEvents:UIControlEventTouchUpInside];
+        
         switch (indexPath.row) {
             case rowHello:
                ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Hello:",@"Hello:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=self.greeting.HelloPronunciation;
-                ((GreetingCell_iPhone *)cell).data = greeting.Hello;
-                ((GreetingCell_iPhone *)cell).greetingType=@"hello";
+               
+                ((GreetingCell_iPhone*) cell).btnPlay.tag=helloGreetingType;
                 if (self.remoteHostStatus==NotReachable) {
                     cell.userInteractionEnabled=NO; 
                 }
@@ -149,8 +152,8 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
             case rowGoodbye:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Goodbye:",@"Goodbye:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.GoodByePronunciation;
-                ((GreetingCell_iPhone *)cell).data = greeting.GoodBye;
-                ((GreetingCell_iPhone *)cell).greetingType=@"goodbye";
+
+                ((GreetingCell_iPhone*) cell).btnPlay.tag=goodbyeGreetingType;
                 if (self.remoteHostStatus==NotReachable) {
                     cell.userInteractionEnabled=NO;
                 }
@@ -158,8 +161,8 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
             case rowThankYou:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Thank You:",@"Thank You:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.ThankYouPronunciation;
-                ((GreetingCell_iPhone *)cell).data = greeting.ThankYou;
-                ((GreetingCell_iPhone *)cell).greetingType=@"thankyou";
+        
+                ((GreetingCell_iPhone*) cell).btnPlay.tag=thankyouGreetingType;
                 if (self.remoteHostStatus==NotReachable) {
                     cell.userInteractionEnabled=NO;
                 }
@@ -174,6 +177,56 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
     }
 }
 }
+-(void)playSound:(id)sender{
+    
+    if (self.remoteHostStatus!=NotReachable) {
+        
+    
+    UIButton * button = (UIButton *)sender;
+
+    NSString * typeSting =nil;
+    switch((greetingType)button.tag) {
+        case helloGreetingType:
+            typeSting = @"hello";
+            break;
+        case goodbyeGreetingType:
+            typeSting = @"goodbye";
+            break;
+        case thankyouGreetingType:
+            typeSting = @"thankyou";
+            break;
+        default:
+            break;
+    }
+
+    NSString * urlString  = [NSString stringWithFormat:@"%@/greeting/%d/%@",kHostName, [self.greeting.GreetingID intValue],typeSting];
+    
+    NSURL * URL = [NSURL URLWithString:urlString];
+    NSData * webdata = [NSData dataWithContentsOfURL:URL];
+   
+    
+    NSError *error = nil;
+   //stop the soundPlayer if it is already playing
+    [soundPlayer stop];
+     // Instantiates the AVAudioPlayer object, initializing it with the sound
+    soundPlayer= [[AVAudioPlayer alloc] initWithData:webdata error:&error];	
+      if (!error) {
+          // "Preparing to play" attaches to the audio hardware and ensures that playback
+          //		starts quickly when the user taps Play
+          [soundPlayer prepareToPlay];
+          [soundPlayer play];
+
+      }else{
+          NSLog(@"%@",[error description]);
+      }
+    
+    } else{//if host not reachable make a toast
+        [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
+                    position:@"bottom"]; 
+
+    }
+}
+
 
 #pragma mark - Table view delegate
 
@@ -182,21 +235,6 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
     //
 }
 
-//-(void) updateStatusesWithReachability:(Reachability *)curReach{
-  //  make cells disabled if no reachability
-//    
-//    if (self.remoteHostStatus==NotReachable) {
-//            for (UITableViewCell*  cell in  [(UITableView*)self.view visibleCells])
-//                cell.userInteractionEnabled=NO;
-//            
-//    }
-//        else{
-//            for (UITableViewCell*  cell in  [(UITableView*)self.view visibleCells])
-//                cell.userInteractionEnabled=YES;
-//        }
-//    
-    
-//}
 
 
 
