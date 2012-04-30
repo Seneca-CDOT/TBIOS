@@ -53,10 +53,10 @@
    //   DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
    // [dataCreator createDataFromWebServive];
            
-      NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"NativeEarth" ofType:@"sqlite"];
-      if (defaultStorePath) {
-             [fileManager copyItemAtPath:defaultStorePath toPath:storeFileName error:NULL];
-       }
+   //   NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"NativeEarth" ofType:@"sqlite"];
+   //   if (defaultStorePath) {
+     //        [fileManager copyItemAtPath:defaultStorePath toPath:storeFileName error:NULL];
+      // }
 	}
 
 
