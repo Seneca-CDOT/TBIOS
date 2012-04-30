@@ -19,7 +19,7 @@
 }
 
 -(void) createDataFromWebService{
-    NSString * urlString = [NSString stringWithFormat:@"%@%@",kHostName,@"/Nations"];
+    NSString * urlString = [NSString stringWithFormat:@"%@%@",kHostName,@"/nations"];
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc] init];
     dataGetter.delegate = self;
     [dataGetter GetResultsFromUrl:urlString];
