@@ -13,11 +13,8 @@ NSString * kCellGreeting_ID = @"CellGreeting_ID";
 @implementation GreetingCell_iPhone
 @synthesize lblPhrase;
 @synthesize  lblPronunciation;
-@synthesize data;
 @synthesize  btnPlay;
-@synthesize greetingType;
-@synthesize cellSoundPlayer;
-@synthesize greetingId;
+
 
 + (GreetingCell_iPhone*) createNewGretingCellFromNib{
     NSArray* nibContents = [[NSBundle mainBundle] 
@@ -40,41 +37,14 @@ NSString * kCellGreeting_ID = @"CellGreeting_ID";
 
 - (void)dealloc
 {
-    [self.cellSoundPlayer release];
+
     [self.lblPronunciation release];
     [self.lblPhrase release];
-    [self.data release];
-    [self.greetingId release];
     [self.btnPlay release];
-    [self.greetingType release];
     [super dealloc];
 }
 
--(IBAction)playSound:(id)sender{
 
-    NSString * urlString  = [NSString stringWithFormat:@"%@/greeting/%d/%@",kHostName, [self.greetingId intValue],self.greetingType];
-    
-    NSURL * URL = [NSURL URLWithString:urlString];
-    NSData * webdata = [NSData dataWithContentsOfURL:URL];
-   
-    
-    
-    NSError *error = nil;
-  
-    // Instantiates the AVAudioPlayer object, initializing it with the sound
-    cellSoundPlayer= [[AVAudioPlayer alloc] initWithData:webdata error:&error];	
-      if (!error) {
-          // "Preparing to play" attaches to the audio hardware and ensures that playback
-          //		starts quickly when the user taps Play
-          [cellSoundPlayer prepareToPlay];
-          [cellSoundPlayer play];
-
-      }else{
-          NSLog(@"%@",[error description]);
-      }
-    
-
-}
 
 
 
