@@ -28,7 +28,8 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 @implementation Model
 @synthesize frcNation=frcNation_,
 frcNearByNations=frcNearByNations_,
-frcShortNations=frcShortNations_, 
+frcShortNations=frcShortNations_,
+frcSectionedShortNations=frcSectionedShortNations_,
 frcPlannedVisits= frcPlannedVisits_,
 frcGreeting=frcGreeting_;
 
@@ -191,6 +192,81 @@ frcGreeting=frcGreeting_;
 
 
 //fetched result controler for the list of short nation objects (name , number and rowversion only)
+-(NSFetchedResultsController *) frcSectionedShortNations {
+    if(frcSectionedShortNations_ !=nil){
+        return  frcSectionedShortNations_;
+    }
+    
+    NSFetchRequest *fetchedRequest=[[NSFetchRequest alloc] init];
+    NSEntityDescription *entity =[NSEntityDescription entityForName:@"Nation" inManagedObjectContext:self.managedObjectContext];
+    
+    [fetchedRequest setEntity:entity];
+    
+    // set sort key 
+    NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"Province" ascending:YES];
+    NSSortDescriptor *sortDescriptor2 = [[NSSortDescriptor alloc] initWithKey:@"OfficialName" ascending:YES];
+
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor1,sortDescriptor2, nil];
+    
+    [fetchedRequest setSortDescriptors:sortDescriptors];
+    
+    [fetchedRequest setResultType:NSDictionaryResultType];
+    
+    // set expression
+    
+    // Create an expression for the key path.
+    NSExpression *keyPathExpression1 = [NSExpression expressionForKeyPath:@"Number"];
+    NSExpressionDescription *expressionDescription1 = [[NSExpressionDescription alloc] init];
+    [expressionDescription1 setName:@"Number"];
+    [expressionDescription1 setExpression:keyPathExpression1];
+    [expressionDescription1 setExpressionResultType:NSInteger32AttributeType];
+    [keyPathExpression1 release];
+    // Create an expression for the key path.
+    NSExpression *keyPathExpression2 = [NSExpression expressionForKeyPath:@"OfficialName"];
+    NSExpressionDescription *expressionDescription2 = [[NSExpressionDescription alloc] init];
+    [expressionDescription2 setName:@"OfficialName"];
+    [expressionDescription2 setExpression:keyPathExpression2];
+    [expressionDescription2 setExpressionResultType:NSStringAttributeType];
+    [keyPathExpression2 release];
+    // Create an expression for the key path.
+    NSExpression *keyPathExpression3 = [NSExpression expressionForKeyPath:@"rowversion"];
+    NSExpressionDescription *expressionDescription3 = [[NSExpressionDescription alloc] init];
+    [expressionDescription3 setName:@"rowversion"];
+    [expressionDescription3 setExpression:keyPathExpression3];
+    [expressionDescription3 setExpressionResultType:NSStringAttributeType];
+    [keyPathExpression3 release];
+    
+    // Create an expression for the key path.
+    NSExpression *keyPathExpression4 = [NSExpression expressionForKeyPath:@"Province"];
+    NSExpressionDescription *expressionDescription4 = [[NSExpressionDescription alloc] init];
+    [expressionDescription4 setName:@"Province"];
+    [expressionDescription4 setExpression:keyPathExpression4];
+    [expressionDescription4 setExpressionResultType:NSStringAttributeType];
+    [keyPathExpression4 release];
+    
+    // Set the request's properties to fetch just the property represented by the expressions.
+    [fetchedRequest setPropertiesToFetch:[NSArray arrayWithObjects:expressionDescription1,expressionDescription2,expressionDescription3,expressionDescription4, nil]];
+    
+    //create fetchedResultsController
+    [NSFetchedResultsController deleteCacheWithName:@"ShortNationList"];
+    
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"Province" cacheName:@"ShortNationList"];
+    aFetchedResultsController.delegate = self;
+    
+    self.frcSectionedShortNations = aFetchedResultsController;
+    
+    [expressionDescription1 release];
+    [expressionDescription2 release];
+    [expressionDescription3 release];
+    [expressionDescription4 release];
+    
+    
+    [aFetchedResultsController release];
+    [fetchedRequest release];
+    
+    
+    return frcSectionedShortNations_;
+}
 -(NSFetchedResultsController *) frcShortNations {
     if(frcShortNations_ !=nil){
         return  frcShortNations_;
@@ -202,8 +278,10 @@ frcGreeting=frcGreeting_;
     [fetchedRequest setEntity:entity];
     
     // set sort key 
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"OfficialName" ascending:YES];
-    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    // NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"Province" ascending:YES];
+    NSSortDescriptor *sortDescriptor1 = [[NSSortDescriptor alloc] initWithKey:@"OfficialName" ascending:YES];
+    
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor1, nil];
     
     [fetchedRequest setSortDescriptors:sortDescriptors];
     
@@ -264,6 +342,7 @@ frcGreeting=frcGreeting_;
     
     return frcShortNations_;
 }
+
 
 // tends to get matching lands but includes the lands that could circle around the coordinate
 //-(NSFetchedResultsController *) frcLandsForCoordinate{
@@ -563,12 +642,12 @@ frcGreeting=frcGreeting_;
 }
 
 -(NSFetchedResultsController *)getShortNationFetchedResults{
-    frcShortNations_=nil;
+    frcSectionedShortNations_=nil;
     NSError* error;
-    if(![[self frcShortNations]performFetch:&error]){
+    if(![[self frcSectionedShortNations]performFetch:&error]){
         //handle error
     }
-    return  self.frcShortNations;
+    return  self.frcSectionedShortNations;
 }
 
 //gets the array of ShortNationObjects locally
@@ -576,8 +655,8 @@ frcGreeting=frcGreeting_;
     frcShortNations_=nil;
     NSError* error;
     if(![[self frcShortNations]performFetch:&error]){
-        //handle error
-    }
+        NSLog(@"%@",[error userInfo] );
+              }
     NSArray * results=[self.frcShortNations fetchedObjects];
     NSMutableArray * shortNationArray= [[NSMutableArray alloc] initWithCapacity:[results count]];
     for (NSDictionary * nation  in results) {
@@ -688,7 +767,7 @@ frcGreeting=frcGreeting_;
 #pragma mark - NetworkDataGetterDelegate Methods
 //this method is a delegate method which might receive a list dictionary of a single land or a dictionary of land ids as keys and landShort objects as values. main data update operation takes place here.
 -(void)DataUpdate:(id)object{
-    if(!updateCheckFinished){// check for updates
+    if(!updateCheckFinished){// check for updates (here the object is the array of shortNations)
         //first get the local dictionary 
         NSDictionary * localShortNationDict= [self getShortNationsDictionary];
         //get the largest local land id 
@@ -705,6 +784,7 @@ frcGreeting=frcGreeting_;
             [networkDict setObject:sn forKey:[NSString stringWithFormat:@"%d", [sn.Number intValue]] ];
           
         }
+        
         networkIDArray=[NSMutableArray arrayWithArray:[networkIDArray sortedArrayUsingFunction: firstNumSort context:NULL ]];
          //get the largest network land id 
         int netWorkLargestNumber =[[networkIDArray lastObject] intValue];
@@ -716,46 +796,43 @@ frcGreeting=frcGreeting_;
         for (int i=0 ; i<=max; i++) {
             BOOL nationExistLocally = [localKeyArray containsObject: [NSString stringWithFormat:@"%d",i]];
             BOOL nationExistRemothly =[networkIDArray containsObject:[NSNumber numberWithInt:i]];
-            
             if(nationExistLocally && nationExistRemothly){
                 //get local object rowversion
                 ShortNation *lsn = (ShortNation*)[localShortNationDict valueForKey:[NSString stringWithFormat:@"%d",i]];
-             //   NSData  * localVersion=  [NSData dataWithData:lsn.RowVersion ];
-                NSString *localVersion=lsn.RowVersion; //@"1";//change  this to @"1" if you want to see updates anyways
+                NSString *localVersion=lsn.RowVersion; 
                 //get remote onject rowversion
                 NSString * key = [NSString stringWithFormat:@"%d",i];
                 ShortNation * rsn = (ShortNation*)[networkDict objectForKey: key];
-            //    NSData * remotVersion= rsn.RowVersion ;
                 NSString * remoteVersion=rsn.RowVersion;
                 if (![remoteVersion isEqualToString: localVersion ]) {  // data must be the same here but it is not
                     [updateArray addObject:[NSNumber numberWithInt:i]];
                 }
-            }else if(nationExistLocally){ // it should be deleted
+            }
+            else if(nationExistLocally){ // it should be deleted
                 [deleteArray addObject:[NSNumber numberWithInt:i]];
             }else if (nationExistRemothly){
                 [addArray addObject:[NSNumber numberWithInt:i]];
             }
-
         }// end of for
+        
+        
         //apply deletes:
         if ([deleteArray count]>0) {
             for (NSNumber * n in deleteArray) {
                 Nation * nation = [self getNationWithNationNumber:[n intValue]];
                 [self.managedObjectContext deleteObject:nation];
+                [nation release];
             }
             
             NSError * error;
-            
-            if (!(error=[self SaveData])) {
+            if (error=[self SaveData]) {
                 NSLog(@"%@",[error description]);
-            }else{
-                if  ([deleteArray count]>0) {
+            }else{// after delets are saved refresh the shortNationList and post notfication for new list
                     [self.shortNationList removeAllObjects];
                     [self.shortNationList addObjectsFromArray: [self getShortNationArray]];
-                    NSLog(@"%@",[self.shortNationList description]);
                     // Broadcast a notification
                     [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:self.shortNationList]; 
-                }
+              
             }
         } // end of deletion
          
@@ -771,11 +848,17 @@ frcGreeting=frcGreeting_;
         }
           
         updateCheckFinished=YES;
-    }else{// apply the additions and updates
+        [localShortNationDict release];
+        [networkArray release];
+        [networkDict release];
+
+    }
+    else{// here it has already figured out the add and update array values and it is now applying them 
+         //(here the object is a Nation not the array of shortNations)
         //get the object
-        BOOL updating =NO;
-        WSNation * newNation = [[WSNation alloc] initWithDictionary:(NSDictionary*)object];
-        
+        BOOL updating =NO; // to defrentiate between update and add
+        //convert the object to WSNation 
+        WSNation * newNation = [[WSNation alloc] initWithDictionary:(NSDictionary*)object] ;
         //check if the nation is already there and should be deleted first:
         Nation * exsistingNation= [self getNationLocallyWithNationNumber:[newNation.Number intValue]];
         if(exsistingNation!= nil){
@@ -784,7 +867,8 @@ frcGreeting=frcGreeting_;
              updating = YES;
             [self updateManagedNation:exsistingNation WithWNation:newNation];
                 
-        }else{
+        }
+        else{
             NSLog(@"Adding Nation %d",[newNation.Number intValue]);
             Nation * newManagedNation = [newNation ToManagedNation:self.managedObjectContext]; 
         
@@ -792,20 +876,20 @@ frcGreeting=frcGreeting_;
 
             if (!(error=[self SaveData])) {
              NSLog(@"Added Nation %d",[newManagedNation.Number intValue]);
-                if (newManagedNation.greeting!=nil) {
-                    NSLog(@"Greeting ID:%d",[newManagedNation.greeting.GreetingID intValue]);
-                }
             } else{
                 NSLog(@"%@",[error description]);
             }
+        
+            [newManagedNation release];
         }
+        [newNation release];
         if (updating==YES) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedNation" object:exsistingNation]; 
-              NSLog(@"update Nation notification posted");
+            [exsistingNation release];
         }
+        
    
-         NSLog(@"new List notification posted");
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:self.shortNationList]; 
+         [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:self.shortNationList]; 
         
     }
 
@@ -830,17 +914,18 @@ frcGreeting=frcGreeting_;
     mNation.CenterLong =wsNation.CenterLong;
     mNation.Phone = wsNation.Phone;
     mNation.PostCode=wsNation.PostCode; 
+    mNation.Province=wsNation.Province;
     
     //reload all lands
     for (Land* land in [mNation.Lands allObjects]) {
         [self.managedObjectContext deleteObject:land];
     }
     for (WSLand *wsland  in wsNation.Lands) {
-        [mNation addLandsObject:[wsland ToManagedLand:self.managedObjectContext]];
+        [mNation addLandsObject:[[wsland ToManagedLand:self.managedObjectContext]autorelease]];
     }
        
     
-    //not updating Greeting yet
+    // updating Greeting 
     if (mNation.greeting  && wsNation.greeting) { // if both had greeting
         int localId=[mNation.greeting.GreetingID intValue];
         int remoteId=[wsNation.greeting.GreetingID intValue];
@@ -878,29 +963,29 @@ frcGreeting=frcGreeting_;
           
         }
         
-    }else if(wsNation.greeting){
+    }
+    else if(wsNation.greeting){
         //check if the new greeting exist locally:
-        Greeting * aGreeting = [self getGreetingWithGreetingId:[wsNation.greeting.GreetingID intValue]];
+        Greeting * aGreeting = [[self getGreetingWithGreetingId:[wsNation.greeting.GreetingID intValue]] autorelease];
         if (aGreeting) {//if yes
             [aGreeting addNationsObject:mNation];//then assign the new Greeting to the nation
         }else{
-        [[wsNation.greeting ToManagedGreeting:self.managedObjectContext] addNationsObject:mNation];
+        [[[wsNation.greeting ToManagedGreeting:self.managedObjectContext] autorelease] addNationsObject:mNation];
         }
-    }else if(mNation.greeting){
+    }
+    else if(mNation.greeting){
         Greeting * tempGreeting = mNation.greeting;
         [mNation.greeting removeNationsObject:mNation];
         if ([tempGreeting.Nations count]==0) {// now check to see if the old greeting is in use anymore
             [self.managedObjectContext deleteObject:tempGreeting];
         }
+        
     }
     
-  
-
     
-
+//saving the Nation
     NSError * error;
     if (!(error=[self SaveData])) {
-   
          NSLog(@"updated nation %d",[mNation.Number intValue]);
     } else{
        NSLog(@"%@",[error userInfo]);

@@ -41,6 +41,7 @@
     
     NSFetchedResultsController *frcNation_;
     NSFetchedResultsController * frcShortNations_;
+    NSFetchedResultsController * frcSectionedShortNations_;
     NSFetchedResultsController * frcNearByNations_;
     NSFetchedResultsController *frcGreeting_;
    //NSFetchedResultsController * frcLandsForCoordinate_;
@@ -62,6 +63,7 @@
 @property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 @property (nonatomic, retain) NSFetchedResultsController * frcNation;
 @property (nonatomic, retain) NSFetchedResultsController * frcShortNations;
+@property (nonatomic, retain) NSFetchedResultsController * frcSectionedShortNations;
 @property (nonatomic, retain) NSFetchedResultsController * frcNearByNations;
 @property (nonatomic, retain) NSFetchedResultsController *frcGreeting;
 
