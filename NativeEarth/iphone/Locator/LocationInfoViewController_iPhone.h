@@ -18,11 +18,7 @@
     CLLocationCoordinate2D originLocation;
     NSString * originTitle;
      NativeEarthAppDelegate_iPhone *appDelegate;
-  //  int hasAddress;
-  //  int hasLands;
-  //  int hasGreeting;
-   // int hasSavedMap;
-  //  int hasComunitySite;
+
 }
 @property (nonatomic, retain) Nation* selectedNation;
 @property (nonatomic, retain) NSArray * allNations;
