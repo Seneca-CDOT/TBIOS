@@ -15,9 +15,7 @@
     Reachability* hostReach;
     Reachability* internetReach;
     Reachability* wifiReach;
-    NetworkStatus internetConnectionStatus;
-    NetworkStatus wifiConnectionStatus;
-    NetworkStatus remoteHostStatus;
+   
 }
 // coredata 
 @property NetworkStatus internetConnectionStatus;
