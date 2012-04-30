@@ -143,37 +143,24 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
             case rowHello:
                ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Hello:",@"Hello:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=self.greeting.HelloPronunciation;
-               
                 ((GreetingCell_iPhone*) cell).btnPlay.tag=helloGreetingType;
-                if (self.remoteHostStatus==NotReachable) {
-                    cell.userInteractionEnabled=NO; 
-                }
+                
                 break;
             case rowGoodbye:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Goodbye:",@"Goodbye:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.GoodByePronunciation;
-
                 ((GreetingCell_iPhone*) cell).btnPlay.tag=goodbyeGreetingType;
-                if (self.remoteHostStatus==NotReachable) {
-                    cell.userInteractionEnabled=NO;
-                }
+                
                 break;
             case rowThankYou:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Thank You:",@"Thank You:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.ThankYouPronunciation;
-        
                 ((GreetingCell_iPhone*) cell).btnPlay.tag=thankyouGreetingType;
-                if (self.remoteHostStatus==NotReachable) {
-                    cell.userInteractionEnabled=NO;
-                }
+                
                 break;
             default:
                 break;
-//        int index=indexPath.row;
-//        [((GreetingCell_iPhone*)cell) setGreeting:(Greeting*)[self.greeting objectAtIndex:index]];
-//         if (self.remoteHostStatus!=NotReachable) {
-//             cell.userInteractionEnabled=NO;
-//         }
+
     }
 }
 }
