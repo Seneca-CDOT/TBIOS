@@ -73,9 +73,7 @@ typedef enum{
     self.title = self.selectedNation.OfficialName; 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0,4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
     
-   // hasAddress=(self.selectedNation.Address ==nil) ?0:1;
-   // hasComunitySite=(self.selectedNation.CommunitySite==nil)?0:1;
-  //  hasGreeting=(self.selectedNation.greeting==nil)?0:1;
+  
     
     
     
@@ -190,12 +188,12 @@ typedef enum{
             break;
         case rowTitleCommunitySite:
             if (self.selectedNation.CommunitySite!=nil) {
-            cell.textLabel.text=NSLocalizedString(@"Open Community Website in Safary",@"Open Comunity Website in Safary");
+            cell.textLabel.text=NSLocalizedString(@"Open Community Website in Safari",@"Open Comunity Website in Safari");
             cell.userInteractionEnabled = YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha = 1;
             }else{
-                cell.textLabel.text=NSLocalizedString(@"No Community Website is Detected",@"No Comunity Website is Detected");
+                cell.textLabel.text=NSLocalizedString(@"Community Website",@"Comunity Website");
                 cell.userInteractionEnabled=NO;
                 cell.textLabel.alpha = 0.5;
                 cell.accessoryType = UITableViewCellAccessoryNone;
@@ -346,7 +344,7 @@ typedef enum{
     if (buttonIndex==1) 
         [self DialPhone];
    
-    [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitlePhone inSection:0]autorelease] animated:NO];
+   [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitlePhone inSection:0]autorelease] animated:NO];
     
 }
 #pragma mark - navigation methods
@@ -369,7 +367,7 @@ typedef enum{
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-    NSLog(@"R:%d-I:%d-W:%d",self.remoteHostStatus ,self.internetConnectionStatus,self.wifiConnectionStatus);
+   // NSLog(@"R:%d-I:%d-W:%d",self.remoteHostStatus ,self.internetConnectionStatus,self.wifiConnectionStatus);
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }
