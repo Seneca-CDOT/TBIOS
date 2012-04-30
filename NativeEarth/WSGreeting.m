@@ -54,27 +54,25 @@
        
       
         self.GreetingID= [NSNumber numberWithInt:[[greetingDict valueForKey:@"GreetingID"] intValue]];
-        int hLen =0;
-        hLen=sizeof([greetingDict valueForKey:@"Hello" ]) * [[greetingDict valueForKey:@"Hello" ] count]; 
-       self.Hello = [NSData dataWithBytes:[greetingDict valueForKey:@"Hello" ]  length:hLen ];
+      //  int hLen =0;
+      //  hLen=sizeof([greetingDict valueForKey:@"Hello" ]) * [[greetingDict valueForKey:@"Hello" ] count]; 
+      // self.Hello = [NSData dataWithBytes:[greetingDict valueForKey:@"Hello" ]  length:hLen ];
         self.HelloPronunciation = [[greetingDict valueForKey:@"HelloPronunciation"] description];
         self.HelloMIMEType=[[greetingDict valueForKey:@"HelloMIMEType"] description];
 
-        int wLen =0;
-        wLen=sizeof([greetingDict valueForKey:@"GoodBye" ]) * [[greetingDict valueForKey:@"GoodBye" ] count]; 
-        self.GoodBye=[NSData dataWithBytes:[greetingDict valueForKey:@"GoodBye" ]  length: wLen];
+       // int wLen =0;
+      //  wLen=sizeof([greetingDict valueForKey:@"GoodBye" ]) * [[greetingDict valueForKey:@"GoodBye" ] count]; 
+     //   self.GoodBye=[NSData dataWithBytes:[greetingDict valueForKey:@"GoodBye" ]  length: wLen];
         self.GoodByeMIMEType=[[greetingDict valueForKey:@"GoodByeMIMEType"] description];
         self.GoodByePronunciation=[[greetingDict valueForKey:@"GoodByePronunciation"] description];
         
         
-        int tLen =0;
-        tLen=sizeof([greetingDict valueForKey:@"ThankYou" ]) * [[greetingDict valueForKey:@"ThankYou" ] count]; 
-        self.ThankYou=[NSData dataWithBytes:[greetingDict valueForKey:@"ThankYou" ]  length: tLen];
+       // int tLen =0;
+      //  tLen=sizeof([greetingDict valueForKey:@"ThankYou" ]) * [[greetingDict valueForKey:@"ThankYou" ] count]; 
+      //  self.ThankYou=[NSData dataWithBytes:[greetingDict valueForKey:@"ThankYou" ]  length: tLen];
         self.ThankYouMIMEType=[[greetingDict valueForKey:@"ThankYouMIMEType"] description];
         self.ThankYouPronunciation=[[greetingDict valueForKey:@"ThankYouPronunciation"] description];  
         self.ActorName= [[greetingDict valueForKey:@"ActorName"] description];
-
-  
         self.RowVersion=[[greetingDict valueForKey:@"rowversion"]description];
         
         [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
