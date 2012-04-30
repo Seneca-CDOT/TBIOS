@@ -22,9 +22,9 @@
     // Status bar
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleBlackTranslucent];
  
-    self.viewController.internetConnectionStatus = self.internetConnectionStatus;
-    self.viewController.wifiConnectionStatus = self.wifiConnectionStatus;
-    self.viewController.remoteHostStatus = self.wifiConnectionStatus;
+    //self.viewController.internetConnectionStatus = self.internetConnectionStatus;
+   // self.viewController.wifiConnectionStatus = self.wifiConnectionStatus;
+   // self.viewController.remoteHostStatus = self.wifiConnectionStatus;
     self.model = [[Model alloc] init];
 
     [self.window addSubview:self.viewController.view];
