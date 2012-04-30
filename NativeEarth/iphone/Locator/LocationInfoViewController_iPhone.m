@@ -147,7 +147,7 @@ typedef enum{
                 cell.userInteractionEnabled = YES;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             }else{
-                cell.detailTextLabel.text= NSLocalizedString(@"Not Available         ", @"Not Available                      ") ;
+                cell.detailTextLabel.text= NSLocalizedString(@"Not Available                          ", @"Not Available                         ") ;
                  cell.textLabel.alpha = 0.5;
                 cell.userInteractionEnabled = NO;
                 cell.accessoryType = UITableViewCellAccessoryNone;
@@ -217,7 +217,7 @@ typedef enum{
             break;
     }
     }else{
-        cell.textLabel.text=NSLocalizedString(@"View this nation with all the other nations on the map",@"View this nation with all the other nations on the map");
+        cell.textLabel.text=NSLocalizedString(@"View this nation with all other nations on the map",@"View this nation with all other nations on the map");
         cell.userInteractionEnabled = YES;
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         cell.textLabel.alpha = 1;
