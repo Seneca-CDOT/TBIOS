@@ -123,6 +123,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D70007BC154F25CA00934C6F /* NativeEarth 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "NativeEarth 2.xcdatamodel"; sourceTree = "<group>"; };
 		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldCell_iPhone.h; path = iphone/Locator/TextFieldCell_iPhone.h; sourceTree = "<group>"; };
 		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextFieldCell_iPhone.m; path = iphone/Locator/TextFieldCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldCell_iPhone.xib; path = iphone/Locator/TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
@@ -980,6 +981,7 @@
 		D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				D70007BC154F25CA00934C6F /* NativeEarth 2.xcdatamodel */,
 				D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */,
 			);
 			currentVersion = D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */;
