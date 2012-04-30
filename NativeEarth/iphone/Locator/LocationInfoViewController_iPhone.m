@@ -396,7 +396,6 @@ typedef enum{
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-   // nextVC.nations = self.allNations;
     nextVC.referringNation = self.selectedNation;
     nextVC.showOrigin= self.showOrigin;
     nextVC.isBrowsingNation=YES;
