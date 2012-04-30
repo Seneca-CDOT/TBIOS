@@ -20,10 +20,11 @@
 
 typedef enum{
     rowTitleAddess,
-    rowTitleGreetings,
+    rowTitlePhone,
     rowTitleLands,
     rowTitleMap,
     rowTitleCommunitySite,
+    rowTitleGreetings,
     rowTitleScreenshots,
     rowCount
 } rowTitle;
@@ -133,8 +134,28 @@ typedef enum{
 	switch (indexPath.row) {
         case rowTitleAddess:
             cell.textLabel.text= NSLocalizedString(@"Center Address:", @"Center Address:");
+          
             cell.detailTextLabel.text= selectedNation.Address;
+            
             cell.userInteractionEnabled = NO;
+            break;
+      case rowTitlePhone: 
+        
+            cell.textLabel.text= NSLocalizedString(@"Phone: ", @"Phone:");
+             [cell.detailTextLabel setTextColor:[UIColor grayColor]];
+            if (selectedNation.Phone) {
+                //add just enogh space to alighn the phone to left(no more)
+            cell.detailTextLabel.text= [NSString stringWithFormat:@"%@                       ", selectedNation.Phone];
+                cell.userInteractionEnabled = YES;
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }else{
+                cell.detailTextLabel.text= NSLocalizedString(@"Not Available         ", @"Not Available                      ") ;
+                 cell.textLabel.alpha = 0.5;
+                cell.userInteractionEnabled = NO;
+                cell.accessoryType = UITableViewCellAccessoryNone;
+            }
+            
+            
             break;
       case  rowTitleLands:
             
@@ -226,12 +247,21 @@ typedef enum{
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    static NSString *CellIdentifier = @"Cell";
-    
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
-    if (cell == nil) {
-        cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier] autorelease];
+    static NSString *RegularCellIdentifier = @"RCell";
+    static NSString *PhoneCellIdentifier = @"PCell";
+    UITableViewCell *cell=nil;
+    if (indexPath.section==0 && indexPath.row==rowTitlePhone) {
+        cell = [tableView dequeueReusableCellWithIdentifier:PhoneCellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:PhoneCellIdentifier] autorelease];
+        }
+    }else{
+        cell = [tableView dequeueReusableCellWithIdentifier:RegularCellIdentifier];
+        if (cell == nil) {
+            cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:RegularCellIdentifier] autorelease];
+        }
     }
+  
     
     // Configure the cell...
 	[self configureCell:cell atIndexPath:indexPath];
@@ -260,6 +290,12 @@ typedef enum{
     switch (indexPath.row) {
         case rowTitleAddess: 
           break;
+        case rowTitlePhone: {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Do You want to Dial:",@"Do You want to Dial:") message:self.selectedNation.Phone delegate:self cancelButtonTitle:NSLocalizedString(@"Cancel",@"Cancel") otherButtonTitles: NSLocalizedString(@"Dial",@"Dial"),nil];
+            [alert show];
+            [alert release];
+        }
+            break;
         case rowTitleLands:
             [self NavigateToLands];
             break;
@@ -288,23 +324,44 @@ typedef enum{
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section==0 && indexPath.row == rowTitleAddess) {
+        
         NSString *address = @"";
         if (selectedNation.Address != nil) address = selectedNation.Address;  
         CGSize s = [address sizeWithFont:[UIFont systemFontOfSize:15] 
                      constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
                          lineBreakMode:UILineBreakModeWordWrap];
-        return s.height + 16 +16; // Add padding
+        
+        return s.height+ 16 +16; // Add padding
 
-    }else if(indexPath.section==1){
+    }
+    else if(indexPath.section==1){
         return kRegularCellRowHeight +16;
     }
        
     return kRegularCellRowHeight;
 }
 
-
+#pragma mark- Alert View Delegate Method
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex==1) 
+        [self DialPhone];
+   
+    [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitlePhone inSection:0]autorelease] animated:NO];
+    
+}
 #pragma mark - navigation methods
-
+-(void) DialPhone{
+    NSString * telString = [self.selectedNation.Phone stringByReplacingOccurrencesOfString:@"(" withString:@""];
+    telString = [telString stringByReplacingOccurrencesOfString:@") " withString:@"-"];
+    @try {
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString: [NSString stringWithFormat:@"tel://%@",  telString]]];
+    }
+    @catch (NSException *exception) {
+        NSLog(@"%@", [exception description]);
+    }
+   
+      
+}
 -(void) NavigateToGreetings{
     GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]initWithNibName:@"GreetingViewController_iPhone" bundle:nil];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
@@ -382,6 +439,8 @@ typedef enum{
 -(void) OpenCommunitySite{
  
      [[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.selectedNation.CommunitySite]];
+    [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitleCommunitySite inSection:0]autorelease] animated:NO];
+
 }
 
 -(void)NavigateToScreenshotBrowser{

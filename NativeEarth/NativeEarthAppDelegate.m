@@ -12,11 +12,6 @@
 
 
 @synthesize window=_window;
-//@synthesize managedObjectContext=__managedObjectContext;
-//@synthesize managedObjectModel=__managedObjectModel;
-//@synthesize persistentStoreCoordinator=__persistentStoreCoordinator;
-
-
 @synthesize internetConnectionStatus;
 @synthesize wifiConnectionStatus;
 @synthesize remoteHostStatus;
@@ -58,10 +53,10 @@
    //   DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
    // [dataCreator createDataFromWebServive];
            
-    //   NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"NativeEarth" ofType:@"sqlite"];
-    //   if (defaultStorePath) {
-      //       [fileManager copyItemAtPath:defaultStorePath toPath:storeFileName error:NULL];
-      //  }
+      NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"NativeEarth" ofType:@"sqlite"];
+      if (defaultStorePath) {
+             [fileManager copyItemAtPath:defaultStorePath toPath:storeFileName error:NULL];
+       }
 	}
 
 

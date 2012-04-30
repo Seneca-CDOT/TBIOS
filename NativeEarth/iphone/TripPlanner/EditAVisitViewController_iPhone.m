@@ -778,7 +778,6 @@ typedef enum {titleCellTag} textFieldCellTags;
     [self.navigationController dismissModalViewControllerAnimated:YES];
 }
 
-#pragma mark - AlertView delegate method
 
 
 @end

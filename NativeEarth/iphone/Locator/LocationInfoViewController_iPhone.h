@@ -13,7 +13,7 @@
 #import "EditAVisitViewController_iPhone.h"
 
 
-@interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate,EditAVisitViewControllerDelegate_iPhone> {
+@interface LocationInfoViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate,EditAVisitViewControllerDelegate_iPhone,UIAlertViewDelegate> {
     NSString *language;
     CLLocationCoordinate2D originLocation;
     NSString * originTitle;
@@ -36,5 +36,6 @@
 -(void) NavigateToScreenshotBrowser;
 -(void) NavigateToLands;
 -(void) NavigateToAllMaps;
+-(void) DialPhone;
 -(void) OpenCommunitySite;
 @end

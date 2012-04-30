@@ -99,20 +99,16 @@
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.selectionStyle= UITableViewCellSelectionStyleGray;
-    cell.textLabel.font= [UIFont boldSystemFontOfSize:15] ;
-    cell.detailTextLabel.font= [UIFont systemFontOfSize:15] ;
+    cell.textLabel.font= [UIFont systemFontOfSize:15] ;
     cell.textLabel.numberOfLines=0;
         if ([self.landList count]>0) {
             Land  * land = [self.landList objectAtIndex:indexPath.row] ;
-            // NSNumber * distance = [(NSNumber *)[landArray objectAtIndex:indexPath.section] valueForKey:@"Distance"];
-            // cell.textLabel.text =((Land *)[landArray objectAtIndex:indexPath.section]).LandName;
            if ([locale compare:@"fr"]==0) {
                 cell.textLabel.text = land.LandName_FRA;
            }else{
                cell.textLabel.text = land.LandName_ENG;
            }
             
-            //cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %lf Km", [distance doubleValue]];
             cell.userInteractionEnabled= YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha=1.0;
@@ -179,7 +175,7 @@
         
         [self.navigationController pushViewController:nextVC animated:YES];
         [nextVC release];
-    }else{
+    }else{// make a toast if there is no connection
         [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
                     position:@"bottom"]; 
     }
