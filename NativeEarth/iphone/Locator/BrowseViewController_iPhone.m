@@ -115,9 +115,7 @@
     nationIsSelected = NO;
     [self GetShortNationList];
 }
--(void)viewDidDisappear:(BOOL)animated{
-     [self.searchDisplayController setActive:NO];
-}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
