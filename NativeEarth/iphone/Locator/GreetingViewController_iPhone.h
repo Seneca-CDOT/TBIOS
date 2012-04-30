@@ -7,10 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BaseViewController.h"
+#import "BaseTableViewController.h"
 #import "Greeting.h"
 
-@interface GreetingViewController_iPhone : BaseViewController<UITableViewDataSource,UITableViewDelegate> {
+@interface GreetingViewController_iPhone : BaseTableViewController {
 
 }
 

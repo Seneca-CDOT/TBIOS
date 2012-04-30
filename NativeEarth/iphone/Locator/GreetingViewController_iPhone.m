@@ -47,11 +47,13 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-
-    
 }
 
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
+   
+}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -140,18 +142,27 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=self.greeting.HelloPronunciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.Hello;
                 ((GreetingCell_iPhone *)cell).greetingType=@"hello";
+                if (self.remoteHostStatus==NotReachable) {
+                    cell.userInteractionEnabled=NO; 
+                }
                 break;
             case rowGoodbye:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Goodbye:",@"Goodbye:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.GoodByePronunciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.GoodBye;
                 ((GreetingCell_iPhone *)cell).greetingType=@"goodbye";
+                if (self.remoteHostStatus==NotReachable) {
+                    cell.userInteractionEnabled=NO;
+                }
                 break;
             case rowThankYou:
                 ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Thank You:",@"Thank You:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=greeting.ThankYouPronunciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.ThankYou;
                 ((GreetingCell_iPhone *)cell).greetingType=@"thankyou";
+                if (self.remoteHostStatus==NotReachable) {
+                    cell.userInteractionEnabled=NO;
+                }
                 break;
             default:
                 break;
@@ -171,18 +182,21 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
     //
 }
 
--(void) updateStatusesWithReachability:(Reachability *)curReach{
+//-(void) updateStatusesWithReachability:(Reachability *)curReach{
   //  make cells disabled if no reachability
-//    for (UITableViewCell * cell in ) {
-//        
+//    
+//    if (self.remoteHostStatus==NotReachable) {
+//            for (UITableViewCell*  cell in  [(UITableView*)self.view visibleCells])
+//                cell.userInteractionEnabled=NO;
+//            
 //    }
-//         
-//         
-//         if (self.remoteHostStatus!=NotReachable) {
-//        cell.userInteractionEnabled=NO;
-//    }
-
-}
+//        else{
+//            for (UITableViewCell*  cell in  [(UITableView*)self.view visibleCells])
+//                cell.userInteractionEnabled=YES;
+//        }
+//    
+    
+//}
 
 
 

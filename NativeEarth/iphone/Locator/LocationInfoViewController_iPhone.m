@@ -363,13 +363,13 @@ typedef enum{
       
 }
 -(void) NavigateToGreetings{
-    GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]initWithNibName:@"GreetingViewController_iPhone" bundle:nil];
+    GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");
-   ( (GreetingViewController_iPhone*)nextVC).greeting = (Greeting*)[selectedNation valueForKey:@"greeting"];
+    nextVC.greeting=selectedNation.greeting;
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
-      
+    NSLog(@"R:%d-I:%d-W:%d",self.remoteHostStatus ,self.internetConnectionStatus,self.wifiConnectionStatus);
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }
