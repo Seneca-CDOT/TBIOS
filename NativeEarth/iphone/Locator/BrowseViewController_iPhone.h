@@ -20,7 +20,7 @@ typedef enum {
 
 @protocol BrowseViewController_iPhoneDelegate;
 
-@interface BrowseViewController_iPhone : BaseViewController<UISearchDisplayDelegate, UISearchBarDelegate> {
+@interface BrowseViewController_iPhone : BaseViewController<UISearchDisplayDelegate, UISearchBarDelegate > {
     BrowseType browseType;
     NSMutableArray * completeList;
     NSMutableArray * filteredList;
@@ -30,7 +30,8 @@ typedef enum {
     UISearchBar *searchBar;
     UISearchDisplayController *searchDisplayController;
     BOOL nationIsSelected;
-    
+    BOOL isGrouped;
+    NSFetchedResultsController * frcShortNations;
     }
 @property (nonatomic) BrowseType browseType;
 
@@ -41,6 +42,8 @@ typedef enum {
 @property (nonatomic, retain) NSMutableArray * filteredList;
 
 @property (nonatomic, retain) NSMutableData *dataStream;
+
+@property(nonatomic,retain) NSFetchedResultsController * frcShortNations;
 
 @property(nonatomic,retain) IBOutlet UITableView * resultsTableView;
 

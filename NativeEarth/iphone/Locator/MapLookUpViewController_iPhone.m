@@ -119,7 +119,7 @@
 }
 
 -(void)mapViewDidFailLoadingMap:(MKMapView *)mapView withError:(NSError *)error{
-    NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+    NSLog(@"error: %@, %@", error, [error userInfo]);
     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Unable to load the map",@"Unable to load the map") message:NSLocalizedString(@"Check to see if you have internet access",@"Check to see if you have internet access") delegate:self cancelButtonTitle:NSLocalizedString(@"OK",@"OK") otherButtonTitles: nil];
     [alert show];
     [alert release];

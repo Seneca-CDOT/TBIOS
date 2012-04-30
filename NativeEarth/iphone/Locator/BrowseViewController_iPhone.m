@@ -23,16 +23,18 @@
 @synthesize toolbar;
 @synthesize searchBar;
 @synthesize searchDisplayController;
+@synthesize frcShortNations;
 
 - (void)dealloc
 {
-    [searchBar release];
-    [searchDisplayController release];
-    [resultsTableView release];
-    [toolbar release];
-    [dataStream release];
-    [completeList release];
-    
+    [self.searchBar release];
+    [self.searchDisplayController release];
+    [self.resultsTableView release];
+    [self.toolbar release];
+    [self.dataStream release];
+    [self.completeList release];
+    [self.frcShortNations release];
+    [self.filteredList release];
     [super dealloc];
 }
 
@@ -66,7 +68,32 @@
     // Do any additional setup after loading the view from its nib.
     [self GetShortNationList];
     
+    UISegmentedControl * segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Grouped Names",@"All Names",nil]];
+
+   [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+   // segmentedControl.frame = CGRectMake(0, 0, 50, 35);
+    segmentedControl.segmentedControlStyle = UISegmentedControlStyleBar;
+   segmentedControl.momentary = YES;
+    self.navigationItem.titleView=segmentedControl;
+
+   [segmentedControl release];
+} 
+
+-(void)segmentAction:(id) sender{
+       UISegmentedControl* segCtl = sender ;
+    if( [segCtl selectedSegmentIndex] == 0 )
+    {
+        isGrouped=YES;
+        
+    }else{
+        isGrouped=NO;
+    }
+    [resultsTableView reloadData];
+    NSIndexPath *topIndexPath;
+    topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [resultsTableView scrollToRowAtIndexPath:topIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
 }
+
 -(void) awakeFromNib{
     [super awakeFromNib];
     }
@@ -101,13 +128,13 @@
 #pragma mark - local data retrival opertion
 -(void) GetShortNationList{
      NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
+    self.frcShortNations=nil;
+    self.frcShortNations= [appDelegate.model getShortNationFetchedResults];
     if (self.completeList!= nil) {
         [self.completeList removeAllObjects];
     }
     self.completeList = [NSMutableArray arrayWithArray: appDelegate.model.shortNationList];
     [self.completeList retain];
- //   NSLog(@"initial complete list in browser:");
- //   NSLog(@"%@",[self.completeList description]);
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
     [self.resultsTableView reloadData];
 	self.resultsTableView.scrollEnabled = YES;
@@ -125,9 +152,18 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (tableView == self.searchDisplayController.searchResultsTableView){
+        return 1; 
+    }
+    else{
     if([self.completeList count]>0)
-    return 1;
+     if (isGrouped) {
+         return [[self.frcShortNations sections] count];
+      }
+      else 
+          return 1;
     else return 0;
+    }
 }
 // Customize the number of rows in the table view.
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -138,9 +174,28 @@
     }
 	else
 	{
+        if (isGrouped) {
+            id <NSFetchedResultsSectionInfo> sectionInfo = [[self.frcShortNations sections] objectAtIndex:section];
+            return [sectionInfo numberOfObjects];
+        }else
         return [self.completeList count];
     }
 }
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+    if (tableView == self.searchDisplayController.searchResultsTableView){
+        return nil;
+    }else{
+    if (isGrouped) {
+	// Get the section info object; see the fetched results controller for "sectionNameKeyPath"
+	id <NSFetchedResultsSectionInfo> sectionInfo = [[self.frcShortNations sections] objectAtIndex:section];
+	// Make a nice-looking string to group the subjects by semester
+    return [NSString stringWithFormat:@"%@", [sectionInfo name]];
+    }else 
+        return nil;
+    }
+}
+
 // Customize the appearance of table view cells.
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -166,7 +221,11 @@
         nation = (ShortNation*)[self.filteredList objectAtIndex:indexPath.row];
     }
 	else
+        
 	{
+        if(isGrouped){
+            nation=[[ShortNation alloc]initWithDictionary: [self.frcShortNations objectAtIndexPath:indexPath]];
+        }else
         nation = (ShortNation*)[self.completeList objectAtIndex:indexPath.row];
     }
     
@@ -189,6 +248,10 @@
     }
 	else
 	{
+        if (isGrouped) {
+            
+            shortNation =[[ShortNation alloc]initWithDictionary: [self.frcShortNations objectAtIndexPath:indexPath]];
+        }else
         shortNation = [self.completeList objectAtIndex:indexPath.row];
     }
     
@@ -227,6 +290,7 @@
 	 Update the filtered array based on the search text and scope.
 	 */
 	
+    
 	[self.filteredList removeAllObjects]; // First clear the filtered array.
 	
 	/*

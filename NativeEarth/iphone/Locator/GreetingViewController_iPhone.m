@@ -136,7 +136,6 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
         ((GreetingCell_iPhone*) cell).greetingId=self.greeting.GreetingID;
         switch (indexPath.row) {
             case rowHello:
-                NSLog(@"%@",self.greeting.HelloPronunciation);
                ((GreetingCell_iPhone*) cell).lblPhrase.text=NSLocalizedString(@"Hello:",@"Hello:");
                 ((GreetingCell_iPhone*) cell).lblPronunciation.text=self.greeting.HelloPronunciation;
                 ((GreetingCell_iPhone *)cell).data = greeting.Hello;
