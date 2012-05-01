@@ -434,9 +434,14 @@ typedef enum{
 }
 
 -(void) OpenCommunitySite{
- 
+    if (self.remoteHostStatus != NotReachable) {
+
      [[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.selectedNation.CommunitySite]];
     [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitleCommunitySite inSection:0]autorelease] animated:NO];
+    } else{
+        [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
+                    position:@"bottom"];
+    }
 
 }
 
