@@ -68,7 +68,7 @@
     // Do any additional setup after loading the view from its nib.
     [self GetShortNationList];
     
-    UISegmentedControl * segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:@"Grouped Names",@"All Names",nil]];
+    UISegmentedControl * segmentedControl = [[UISegmentedControl alloc] initWithItems:[NSArray arrayWithObjects:NSLocalizedString(@"Group Nations By Province", @"Group Nations By Province") ,nil]];
 
    [segmentedControl addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
    // segmentedControl.frame = CGRectMake(0, 0, 50, 35);
@@ -80,15 +80,15 @@
 } 
 
 -(void)segmentAction:(id) sender{
-       UISegmentedControl* segCtl = sender ;
-    if( [segCtl selectedSegmentIndex] == 0 )
-    {
-        isGrouped=YES;
-        
+      UISegmentedControl* segCtl = sender ;
+    isGrouped=!isGrouped;
+    if (isGrouped) {
+        [ segCtl setTitle:NSLocalizedString(@"Sort All Alphabetically", @"Sort All Alphabetically") forSegmentAtIndex:0];
     }else{
-        isGrouped=NO;
+     [ segCtl setTitle:  NSLocalizedString(@"Group Nations By Province", @"Group Nations By Province")forSegmentAtIndex:0];
     }
     [resultsTableView reloadData];
+    //go to the top of the table
     NSIndexPath *topIndexPath;
     topIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [resultsTableView scrollToRowAtIndexPath:topIndexPath atScrollPosition:UITableViewScrollPositionTop animated:NO];
@@ -115,7 +115,6 @@
     nationIsSelected = NO;
     [self GetShortNationList];
 }
-
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
