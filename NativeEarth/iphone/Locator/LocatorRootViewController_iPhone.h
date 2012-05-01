@@ -17,7 +17,6 @@
 @property (nonatomic,retain)   LocationDetector *locationDetector;
 -(void)GoToCurrentLocation;
 -(void)BrowseByName;
-//-(void)BrowseByGeopoliticalName;
 -(void)BrowseMap;
 
 -(NSArray *)GetWSNationsFromDictArray:(NSArray *) dictArray;
