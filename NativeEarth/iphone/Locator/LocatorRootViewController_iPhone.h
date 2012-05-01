@@ -12,6 +12,7 @@
 #import "WSNation.h"
 @interface LocatorRootViewController_iPhone : BaseTableViewController <UITableViewDataSource, UITableViewDelegate,LocationDetectorDelegate>{
     CLLocationCoordinate2D currentlocation;
+    BOOL isLocationDetected;
 }
 @property (nonatomic,retain)   LocationDetector *locationDetector;
 -(void)GoToCurrentLocation;

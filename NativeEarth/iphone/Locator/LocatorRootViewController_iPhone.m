@@ -66,7 +66,7 @@
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
-    
+    isLocationDetected=NO;
     self.view = self.tableView;
     
 }
@@ -74,6 +74,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
 	[self.tableView reloadData];
+    isLocationDetected = NO;
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
@@ -215,6 +216,9 @@
 
 #pragma  mark - LocationDetectorDelegate
 -(void) NationUpdate:(NSArray *)nations{
+    if (!isLocationDetected) {
+        
+     isLocationDetected=YES;
     
     NationSelectViewController_iPhone *nextVC = [[NationSelectViewController_iPhone alloc]initWithStyle:UITableViewStylePlain];
     
@@ -230,6 +234,7 @@
     nextVC.showOrigin=YES;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
+    }
 
 }
 
