@@ -54,9 +54,31 @@
    //   DataCreator * dataCreator = [[DataCreator alloc] initWithContext:self.managedObjectContext];
    // [dataCreator createDataFromWebServive];
            
-      NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"NativeEarth" ofType:@"sqlite"];
+      NSString *defaultStorePath = [[NSBundle mainBundle] pathForResource:@"NativeEarth.sqlite" ofType:@"zip"];
       if (defaultStorePath) {
-             [fileManager copyItemAtPath:defaultStorePath toPath:storeFileName error:NULL];
+        ///
+          
+          ZipArchive *zipArchive = [[ZipArchive alloc] init];
+          
+          if([zipArchive UnzipOpenFile:defaultStorePath]) {
+              
+              if ([zipArchive UnzipFileTo:[[self applicationDocumentsDirectory]relativePath] overWrite:YES]) {
+                  //unzipped successfully
+                  NSLog(@"Archive unzip Success");
+                 // [self.fileManager removeItemAtPath:filePath error:NULL];
+              } else {
+                  NSLog(@"Failure To Unzip Archive");
+              }
+              
+          } else  {
+              NSLog(@"Failure To Open Archive");
+          }
+          
+          [zipArchive release];
+          
+          ////
+          
+           //  [fileManager copyItemAtPath:defaultStorePath toPath:storeFileName error:NULL];
        }
 	}
 
