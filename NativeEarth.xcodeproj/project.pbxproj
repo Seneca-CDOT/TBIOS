@@ -142,6 +142,7 @@
 		D70007DA15505D1200934C6F /* ZipArchive.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ZipArchive.mm; sourceTree = "<group>"; };
 		D70007E11550AABE00934C6F /* NativeEarth.sqlite.zip */ = {isa = PBXFileReference; lastKnownFileType = archive.zip; path = NativeEarth.sqlite.zip; sourceTree = "<group>"; };
 		D70007E31550ABA900934C6F /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
+		D70007E6155302A400934C6F /* crypt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = crypt.h; sourceTree = "<group>"; };
 		D7003C1413CDEEEF00587CD0 /* TextFieldCell_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextFieldCell_iPhone.h; path = iphone/Locator/TextFieldCell_iPhone.h; sourceTree = "<group>"; };
 		D7003C1513CDEEF000587CD0 /* TextFieldCell_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextFieldCell_iPhone.m; path = iphone/Locator/TextFieldCell_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7003C1813CDEF1800587CD0 /* TextFieldCell_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextFieldCell_iPhone.xib; path = iphone/Locator/TextFieldCell_iPhone.xib; sourceTree = "<group>"; };
@@ -348,6 +349,7 @@
 		D70007CF15505D1200934C6F /* minizip */ = {
 			isa = PBXGroup;
 			children = (
+				D70007E6155302A400934C6F /* crypt.h */,
 				D70007D115505D1200934C6F /* ioapi.c */,
 				D70007D215505D1200934C6F /* ioapi.h */,
 				D70007D315505D1200934C6F /* mztools.c */,
