@@ -113,7 +113,7 @@
     [super viewDidAppear:animated];
    
     nationIsSelected = NO;
-    [self GetShortNationList];
+   
 }
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
