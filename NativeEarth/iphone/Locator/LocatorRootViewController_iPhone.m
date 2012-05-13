@@ -229,7 +229,7 @@
     nextVC.nationDictArray= [NSMutableArray arrayWithArray: nations];
                              
    nextVC.originTitle = NSLocalizedString(@"You are here!", @"You are here!");
-    nextVC.title= NSLocalizedString(@"Select a nation", @"Select a nation");
+    nextVC.title= NSLocalizedString(@"Select a Nation", @"Select a Nation");
     nextVC.originLocation = currentlocation;
     nextVC.showOrigin=YES;
     [self.navigationController pushViewController:nextVC animated:YES];
