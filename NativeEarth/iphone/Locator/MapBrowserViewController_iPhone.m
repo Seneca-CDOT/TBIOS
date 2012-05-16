@@ -216,7 +216,7 @@
          NSData * kmlData = [referringLand.Kml dataUsingEncoding: NSUTF8StringEncoding];
         KMLParser * kml = [KMLParser parseKMLWithData:kmlData];    
         NSArray * overlays = [kml overlays];
-        OverlayGroup * group = [[OverlayGroup alloc]init];
+        OverlayGroup * group = [[[OverlayGroup alloc]init] autorelease];
         group.polygons =[NSMutableArray arrayWithArray:overlays];
         [overlayGroups addObject:group];
         [mapView addOverlays:overlays];
