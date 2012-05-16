@@ -10,7 +10,6 @@
 #import "LocationInfoViewController_iPhone.h"
 #import "JSON.h"
 #import "ShortNation.h"
-#import "Model.h"
 #import "NativeEarthAppDelegate_iPhone.h"
 #import "Toast+UIView.h"
 @implementation BrowseViewController_iPhone

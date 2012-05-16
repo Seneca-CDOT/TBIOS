@@ -91,7 +91,7 @@
       //  [landArray removeAllObjects];      
         pinLatitude = annotation.coordinate.latitude;
         pinLongitude = annotation.coordinate.longitude;
-       pinLocationTitle =NSLocalizedString(@"Your destination!",@"Your destination!");
+       pinLocationTitle =NSLocalizedString(@"Your Destination",@"Your Destination");
     self.nationArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
         
@@ -176,7 +176,6 @@
     pinIsDropped = YES; 
         
     ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
-    //[landArray removeAllObjects];
     self.nationArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
     }else{
