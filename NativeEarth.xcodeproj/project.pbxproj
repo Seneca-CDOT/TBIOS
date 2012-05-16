@@ -34,7 +34,6 @@
 		D77E0E3413BCD38600A738D8 /* MapBrowserViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77E0E3213BCD38600A738D8 /* MapBrowserViewController_iPhone.xib */; };
 		D77FB60C13BBA8170088DA60 /* LauncherViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77FB60A13BBA8170088DA60 /* LauncherViewController_iPhone.m */; };
 		D77FB61013BBA8660088DA60 /* LauncherViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FB60E13BBA8660088DA60 /* LauncherViewController_iPhone.xib */; };
-		D7827763147AD51B00BD749F /* Utility+CLLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7827762147AD51900BD749F /* Utility+CLLocation.m */; };
 		D783B42613BCBD4300A5C05F /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D783B42513BCBD4200A5C05F /* BaseTableViewController.m */; };
 		D784AB7715213654002FC873 /* LandsViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D784AB7615213653002FC873 /* LandsViewController_iPhone.m */; };
 		D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D786015C13C65D93007EA5B0 /* Spotlight.png */; };
@@ -168,8 +167,6 @@
 		D77E0E3213BCD38600A738D8 /* MapBrowserViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapBrowserViewController_iPhone.xib; sourceTree = "<group>"; };
 		D77FB60913BBA8170088DA60 /* LauncherViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LauncherViewController_iPhone.h; sourceTree = "<group>"; };
 		D77FB60A13BBA8170088DA60 /* LauncherViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LauncherViewController_iPhone.m; sourceTree = "<group>"; };
-		D7827761147AD51800BD749F /* Utility+CLLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Utility+CLLocation.h"; sourceTree = "<group>"; };
-		D7827762147AD51900BD749F /* Utility+CLLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Utility+CLLocation.m"; sourceTree = "<group>"; };
 		D783B42413BCBD4200A5C05F /* BaseTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseTableViewController.h; sourceTree = "<group>"; };
 		D783B42513BCBD4200A5C05F /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		D784AB7515213651002FC873 /* LandsViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandsViewController_iPhone.h; sourceTree = "<group>"; };
@@ -584,8 +581,6 @@
 				D7922F01146B0426000D7344 /* ImageToDataTransformer.m */,
 				D7BB0DB613BB9CC30062C2A9 /* ReverseGeocoder.h */,
 				D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */,
-				D7827761147AD51800BD749F /* Utility+CLLocation.h */,
-				D7827762147AD51900BD749F /* Utility+CLLocation.m */,
 				D7973299153339E7006834D8 /* MKMapView+ZoomLevel.h */,
 				D797329A153339E7006834D8 /* MKMapView+ZoomLevel.m */,
 			);
@@ -843,7 +838,6 @@
 				D7C4B53E145F02280082F0FF /* ViewAVisitViewController_iPhone.m in Sources */,
 				D7922F02146B0429000D7344 /* ImageToDataTransformer.m in Sources */,
 				D78E16DA1472CC9D00ED49E4 /* GreetingViewController_iPhone.m in Sources */,
-				D7827763147AD51B00BD749F /* Utility+CLLocation.m in Sources */,
 				D7A621EB1485760D006E7BC3 /* ThumbImageView.m in Sources */,
 				D7A621EE14857850006E7BC3 /* ScreenshotBrowser.m in Sources */,
 				D7A621F414857BC7006E7BC3 /* UIImage+Resizing.m in Sources */,
