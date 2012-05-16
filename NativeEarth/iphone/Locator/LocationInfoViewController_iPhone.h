@@ -26,6 +26,7 @@
 @property (nonatomic, retain) NSString * originTitle;
 @property (nonatomic)         BOOL showOrigin;
 @property (nonatomic) BOOL shouldLetAddToVisit;
+@property (nonatomic,retain) NSString * deviceType;
 //NavigationMethods
 -(void) NavigateToGreetings;
 -(void) NavigateToMap;
