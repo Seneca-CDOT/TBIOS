@@ -48,7 +48,6 @@
 
 	NSDictionary *jsonDictionary = [dataString JSONValue];
 	NSArray* results = [jsonDictionary objectForKey:@"results"];
-  //  NSLog(@"%@",results);
 
     [delegate locationFound:results];
 }
