@@ -9,7 +9,6 @@
 #import "LocationDetector.h"
 #import "JSON.h"
 #import <MapKit/MapKit.h>
-#import "Utility.h"
 #import "ReverseGeocoder.h"
 #import "Constants.h"
 
