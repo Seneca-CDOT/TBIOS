@@ -16,7 +16,7 @@
 #import "PlannedVisit.h"
 #import "EditAVisitViewController_iPhone.h"
 #import "LandsViewController_iPhone.h"
-
+#import <UIKit/UIKit.h>
 
 typedef enum{
     rowTitleAddess,
@@ -36,6 +36,7 @@ typedef enum{
 @synthesize originTitle;
 @synthesize showOrigin;
 @synthesize shouldLetAddToVisit;
+@synthesize deviceType;
 
 - (id)initWithStyle:(UITableViewStyle)style
 {
@@ -51,6 +52,7 @@ typedef enum{
     [self.selectedNation release];
     [self.allNations release];
     [self.originTitle release];
+    [self.deviceType release];
     [super dealloc];
 }
 
@@ -70,11 +72,9 @@ typedef enum{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedNation" object:nil];
     appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
+    self.deviceType=[UIDevice currentDevice].model;
     self.title = self.selectedNation.OfficialName; 
     self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0.0, 0.0, 320.0,4*kTableViewSectionHeaderHeight) style:UITableViewStyleGrouped];
-    
-  
-    
     
     
     self.tableView.separatorStyle= UITableViewCellSeparatorStyleSingleLine;
@@ -138,14 +138,20 @@ typedef enum{
             cell.userInteractionEnabled = NO;
             break;
       case rowTitlePhone: 
-        
+          
             cell.textLabel.text= NSLocalizedString(@"Phone: ", @"Phone:");
              [cell.detailTextLabel setTextColor:[UIColor grayColor]];
             if (selectedNation.Phone) {
                 //add just enogh space to alighn the phone to left(no more)
             cell.detailTextLabel.text= [NSString stringWithFormat:@"%@                       ", selectedNation.Phone];
+                if([self.deviceType isEqualToString:@"iPhone"])
+                {
                 cell.userInteractionEnabled = YES;
                 cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+                }else{
+                    cell.userInteractionEnabled = NO;
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
             }else{
                 cell.detailTextLabel.text= NSLocalizedString(@"Not Available                          ", @"Not Available                         ") ;
                  cell.textLabel.alpha = 0.5;
@@ -437,7 +443,7 @@ typedef enum{
     if (self.remoteHostStatus != NotReachable) {
 
      [[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.selectedNation.CommunitySite]];
-    [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitleCommunitySite inSection:0]autorelease] animated:NO];
+   // [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitleCommunitySite inSection:0]autorelease] animated:NO];
     } else{
         [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
                     position:@"bottom"];
