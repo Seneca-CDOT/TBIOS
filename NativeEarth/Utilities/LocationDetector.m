@@ -11,6 +11,7 @@
 #import <MapKit/MapKit.h>
 #import "Utility.h"
 #import "ReverseGeocoder.h"
+#import "Constants.h"
 
 @implementation LocationDetector
 @synthesize locationManager;
@@ -52,7 +53,7 @@
         [self.locationManager stopUpdatingLocation];
     [[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:NO];
         if (retriveFlag == Network) {
-            [self getNationsFromWebServiceForLocation:newLocation];
+           //in this app desicion is to get nations locally co no method is provided for network
         }else 
             [self getNationsLocallyForLocation:newLocation];
 
@@ -80,39 +81,8 @@
 
 }
 
-#pragma mark - Network Operations
--(void) getNationsFromWebServiceForLocation:(CLLocation *)location{
-	//Here: we have to pass the location to the webservice:
-    
-    NSString *url = @"http://localhost/~ladan/AlgonquinOverLap";
-    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
-    dataGetter.delegate = self;
-    
-    // Reference the app's network activity indicator in the status bar
-	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [dataGetter GetResultsFromUrl:url];
-    
-}
 
 
-//not used
-//-(BOOL) GetFileWithID:(NSString*)fileID AndFormat:(NSString *)format FromData:(NSData*) data
-//{
-//   
-//    // save file in documents directory
-//    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-//    NSString *documentsDirectory = [paths objectAtIndex:0];   
-//
-//    NSString *newFilePath = [documentsDirectory stringByAppendingFormat:@"%@.%@",fileID,format];
-//
-//   // NSFileManager *fileManager=[NSFileManager defaultManager];
-//    NSError *error=[[[NSError alloc]init] autorelease];
-//
-//    BOOL response = [data writeToFile:newFilePath options:NSDataWritingFileProtectionNone error:&error];
-//
-//    return response;
-//
-//    }
 
 #pragma mark - NetworkDataGetterDelegate
 -(void)DataUpdate:(id) object{

@@ -40,7 +40,7 @@ typedef enum {
 @property (nonatomic, retain) CLLocationManager *locationManager;
 @property (nonatomic, assign) id delegate;
 
--(void)getNationsFromWebServiceForLocation:(CLLocation *)location;
+
 -(void)getNationsLocallyForLocation:(CLLocation *)location;
 -(id) initWithRetrieveOption:(RetrieveOption) option;
 
