@@ -1,4 +1,4 @@
-//
+ //
 //  NativeEarthAppDelegate.m
 //  NativeEarth
 //
@@ -7,7 +7,6 @@
 //
 
 #import "NativeEarthAppDelegate.h"
-#import "DataCreator.h"
 #import "ZipArchive.h"
 @implementation NativeEarthAppDelegate
 

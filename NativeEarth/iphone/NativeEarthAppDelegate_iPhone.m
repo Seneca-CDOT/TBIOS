@@ -8,9 +8,6 @@
 
 #import "NativeEarthAppDelegate_iPhone.h"
 
-#import "Model.h"
-
-
 
 @implementation NativeEarthAppDelegate_iPhone
 
