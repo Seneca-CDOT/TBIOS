@@ -44,8 +44,6 @@
     NSFetchedResultsController * frcSectionedShortNations_;
     NSFetchedResultsController * frcNearByNations_;
     NSFetchedResultsController *frcGreeting_;
-   //NSFetchedResultsController * frcLandsForCoordinate_;
-   //NSFetchedResultsController * frcNearByLands_;
     NSFetchedResultsController * frcPlannedVisits_;
     NSManagedObjectContext * __managedObjectContext;
  
