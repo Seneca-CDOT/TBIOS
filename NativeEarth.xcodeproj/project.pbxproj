@@ -72,7 +72,6 @@
 		D7BB0D8F13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */; };
 		D7BB0D9213BB9A0C0062C2A9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */; };
 		D7BB0D9513BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */; };
-		D7BB0DBA13BB9CC30062C2A9 /* DataCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DAF13BB9CC30062C2A9 /* DataCreator.m */; };
 		D7BB0DBB13BB9CC30062C2A9 /* KMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB113BB9CC30062C2A9 /* KMLParser.m */; };
 		D7BB0DBC13BB9CC30062C2A9 /* LocationDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB313BB9CC30062C2A9 /* LocationDetector.m */; };
 		D7BB0DBD13BB9CC30062C2A9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB513BB9CC30062C2A9 /* Reachability.m */; };
@@ -232,8 +231,6 @@
 		D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeEarthAppDelegate.m; sourceTree = "<group>"; };
 		D7BB0D9113BB9A0C0062C2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NativeEarth.xcdatamodel; sourceTree = "<group>"; };
-		D7BB0DAE13BB9CC30062C2A9 /* DataCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataCreator.h; sourceTree = "<group>"; };
-		D7BB0DAF13BB9CC30062C2A9 /* DataCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DataCreator.m; sourceTree = "<group>"; };
 		D7BB0DB013BB9CC30062C2A9 /* KMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMLParser.h; sourceTree = "<group>"; };
 		D7BB0DB113BB9CC30062C2A9 /* KMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KMLParser.m; sourceTree = "<group>"; };
 		D7BB0DB213BB9CC30062C2A9 /* LocationDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = LocationDetector.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -573,8 +570,6 @@
 				D7972E28140C000700454BE3 /* NSString+URLEncoding.h */,
 				D7972E23140BFFF400454BE3 /* Geocoder.h */,
 				D7972E25140BFFFC00454BE3 /* Geocoder.m */,
-				D7BB0DAE13BB9CC30062C2A9 /* DataCreator.h */,
-				D7BB0DAF13BB9CC30062C2A9 /* DataCreator.m */,
 				D7BB0DB013BB9CC30062C2A9 /* KMLParser.h */,
 				D7BB0DB113BB9CC30062C2A9 /* KMLParser.m */,
 				D7BB0DB213BB9CC30062C2A9 /* LocationDetector.h */,
@@ -809,7 +804,6 @@
 				D7BB0D8C13BB9A0C0062C2A9 /* main.m in Sources */,
 				D7BB0D8F13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m in Sources */,
 				D7BB0D9513BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld in Sources */,
-				D7BB0DBA13BB9CC30062C2A9 /* DataCreator.m in Sources */,
 				D7BB0DBB13BB9CC30062C2A9 /* KMLParser.m in Sources */,
 				D7BB0DBC13BB9CC30062C2A9 /* LocationDetector.m in Sources */,
 				D7BB0DBD13BB9CC30062C2A9 /* Reachability.m in Sources */,
@@ -958,7 +952,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -972,7 +966,7 @@
 				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 			};
