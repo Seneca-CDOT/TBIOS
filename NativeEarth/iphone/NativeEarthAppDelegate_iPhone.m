@@ -36,29 +36,8 @@
     
 	[super dealloc];
 }
-- (void)reachabilityChanged:(NSNotification *)note {
-    Reachability* curReach = [note object];
-	NSParameterAssert([curReach isKindOfClass: [Reachability class]]);
-	[self updateStatusesWithReachability: curReach];
-}
-- (void) updateStatusesWithReachability: (Reachability*) curReach{
-    if(curReach == hostReach)
-	{
-        self.remoteHostStatus = [curReach currentReachabilityStatus];
-    }
-    
-	if(curReach == internetReach)
-	{	
-		
-        self.internetConnectionStatus= [curReach currentReachabilityStatus];
-	}
-	if(curReach == wifiReach)
-	{
-        self.wifiConnectionStatus =[curReach currentReachabilityStatus];
-	}
-	
-        
-}
+
+
 - (void)applicationWillTerminate:(UIApplication *)application
 {
     // Saves changes in the application's managed object context before the application terminates.

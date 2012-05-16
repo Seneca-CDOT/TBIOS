@@ -19,7 +19,6 @@
 @property (nonatomic, retain) NSMutableArray *  updateArray ;
 @property (nonatomic, retain) IBOutlet LauncherViewController_iPhone * viewController;
 
-- (void) updateStatusesWithReachability: (Reachability*) curReach;
 
 
 @end
