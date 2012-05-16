@@ -11,15 +11,15 @@
 
 #define kStdButtonWidth		60.0
 #define kStdButtonHeight	20.0
-#define kUITextViewCellRowHeight 140.0//110.0
+#define kUITextViewCellRowHeight 140.0
 #define kRegularCellRowHeight  34.0
 #define kGreetingCellRowHeight  84.0
 #define kTextFieldCellRowHeight  34.0
 #define kButtonTag			1		// for tagging our embedded controls for removal at cell recycle time
 //for model
-#define kSearchDistance 5 //km
-#define kSearchExpantionParameter 5 //km
+#define kSearchDistance 10 //km
+#define kSearchExpantionParameter 10//km
 #define kSearchDistanceLimit 100//km
-#define kSearchCountLimit 10
+#define kSearchCountLimit 5
 
 // to set the host name see reachability.h
