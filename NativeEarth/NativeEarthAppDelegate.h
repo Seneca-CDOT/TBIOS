@@ -29,5 +29,5 @@
 @property NetworkStatus remoteHostStatus;
 
 - (NSURL *)applicationDocumentsDirectory;
-
+- (void) updateStatusesWithReachability: (Reachability*) curReach;
 @end
