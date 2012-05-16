@@ -16,6 +16,9 @@
     Reachability* hostReach;
     Reachability* internetReach;
     Reachability* wifiReach;
+    NetworkStatus internetConnectionStatus;
+   NetworkStatus wifiConnectionStatus;
+    NetworkStatus remoteHostStatus;
 }
 
 //Network
