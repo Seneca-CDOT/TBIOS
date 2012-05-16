@@ -510,7 +510,6 @@
 			isa = PBXGroup;
 			children = (
 				D72157F513C264AE00AF9AD0 /* QuartzCore.framework */,
-				D7BB0DD613BB9DEA0062C2A9 /* json-framework */,
 				D7BB0DD413BB9D990062C2A9 /* SystemConfiguration.framework */,
 				D7BB0DD213BB9D910062C2A9 /* AVFoundation.framework */,
 				D7BB0DD013BB9D830062C2A9 /* CoreLocation.framework */,
@@ -557,6 +556,7 @@
 		D7BB0DAD13BB9CC30062C2A9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
+				D7BB0DD613BB9DEA0062C2A9 /* json-framework */,
 				D70007CE15505D1200934C6F /* ZipArchive */,
 				D78D04B713E1F78400C04A5E /* Constants.h */,
 				D7A621F214857BC5006E7BC3 /* UIImage+Resizing.h */,
@@ -637,7 +637,7 @@
 				D7BB0DE113BB9DEA0062C2A9 /* SBJsonWriter.m */,
 			);
 			name = "json-framework";
-			path = "NativeEarth/json-framework";
+			path = "../json-framework";
 			sourceTree = "<group>";
 		};
 		D7BB0DE713BB9F530062C2A9 /* iPhone */ = {
