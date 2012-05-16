@@ -112,9 +112,7 @@
     NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     
     if (self.greeting) {
-        int i=0;
-        i=[self.greeting.GreetingID intValue];
-    
+          
         Greeting * existingGreeting=  [appDelegate.model getGreetingWithGreetingId:[self.greeting.GreetingID intValue]];
     
         if (existingGreeting) {
