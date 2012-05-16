@@ -8,7 +8,6 @@
 //
 
 #import "Model.h"
-#import "Utility+CLLocation.h"
 #import "Constants.h"
 
 
@@ -132,14 +131,6 @@ frcGreeting=frcGreeting_;
     NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
      [fetchedRequest setSortDescriptors:sortDescriptors];
     
-//    
-//    NSPredicate * predicate =[NSPredicate predicateWithBlock:^BOOL(id evaluatedObject, NSDictionary *bindings) {
-//        
-//        return ([self DistanceToNation:(Nation*)evaluatedObject] > kSearchDistance);
-//    }];
-//  
-//    
-//    [fetchedRequest setPredicate:predicate];
     
     //create fetchedResultsController
     [NSFetchedResultsController deleteCacheWithName:@"NearByNations"];
@@ -456,42 +447,6 @@ frcGreeting=frcGreeting_;
     nationNumberUpdateFlag=NO;
 }
 
-//-(NSArray*)getEstimatedMatchingLandsForLatitude:(double)lat andLongitude:(double)lng{
-//    latitude=lat;
-//    longitude=lng;
-//    fetchedResultsControllerLandsForCoordinate_=nil;
-//    NSError *error;
-//        if(![[self fetchedResultsControllerLandsForCoordinate]performFetch:&error]){
-//       //handle Error
-//        }
-//        
-//       NSArray * fetchedEstimatedMatchingLands = [self.fetchedResultsControllerLandsForCoordinate fetchedObjects];
-//    latitude=0.0;
-//    longitude=0.0;
-//    return fetchedEstimatedMatchingLands;
-//}
-
-//-(NSArray*)getNearbyLandsForLatitude:(double)lat andLongitude:(double)lng{
-//    latitude=lat;
-//    longitude=lng;
-//    fetchedResultsControllerNearByLands_=nil;
-//    NSError * error;
-//    if(![[self fetchedResultsControllerNearByLands]performFetch:&error]){
-//        //handle Error
-//    }
-//    NSMutableArray * fetchedNearByLands = [NSMutableArray arrayWithArray:[self.fetchedResultsControllerNearByLands fetchedObjects]];
-//    
-//    
-//    if ([fetchedNearByLands count]>=kSearchCountLimit || searchDistanceKM>kSearchDistanceLimit) {
-//        latitude=0.0;
-//        longitude=0.0;
-//
-//    }else {
-//        searchDistanceKM += kSearchExpantionParameter;
-//       fetchedNearByLands= [NSMutableArray arrayWithArray:[self getNearbyLandsForLatitude:latitude andLongitude:longitude]];
-//    }
-//    return fetchedNearByLands; 
-//}
 
 - (NSArray*)getNearbyNationsForLatitude:(double)lat andLongitude:(double)lng{
     latitude=lat;
