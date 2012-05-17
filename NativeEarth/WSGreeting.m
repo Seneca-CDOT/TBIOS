@@ -76,7 +76,7 @@
         self.RowVersion=[[greetingDict valueForKey:@"rowversion"]description];
         
         [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
-        NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+        NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
         //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
         [dateFormatter setDateFormat:@"yyy-MM-dd HH:mm:ss ZZZ"];
         
@@ -94,7 +94,7 @@
 //converts this object to a managed object.
 -(Greeting*) ToManagedGreeting:(NSManagedObjectContext*) context{
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"Greeting" inManagedObjectContext:context];
-    Greeting * managedGreeting = [[Greeting alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+    Greeting * managedGreeting = [[[Greeting alloc] initWithEntity:entity insertIntoManagedObjectContext:context] autorelease];
 
     managedGreeting.GoodByePronunciation=self.GoodByePronunciation;
     managedGreeting.HelloPronunciation=self.HelloPronunciation;

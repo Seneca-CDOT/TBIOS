@@ -116,8 +116,8 @@ frcGreeting=frcGreeting_;
     
     [aFetchedResultsController release];
     [fetchedRequest release];
-    
-    
+    [sortDescriptor release];
+    [sortDescriptors release];
     return frcNation_;
 }
 -(NSFetchedResultsController *) frcNearByNations{
@@ -141,7 +141,8 @@ frcGreeting=frcGreeting_;
     
     [aFetchedResultsController release];
     [fetchedRequest release];
-    
+    [sortDescriptor release];
+    [sortDescriptors release];
     
     return frcNearByNations_;
 
@@ -175,7 +176,8 @@ frcGreeting=frcGreeting_;
     
     [aFetchedResultsController release];
     [fetchedRequest release];
-    
+    [sortDescriptor release];
+    [sortDescriptors release];
     
     return frcGreeting_;
 }
@@ -252,10 +254,13 @@ frcGreeting=frcGreeting_;
     [expressionDescription4 release];
     
     
+    [sortDescriptor1 release];
+    [sortDescriptor2 release];
+    [sortDescriptors release];
+    
     [aFetchedResultsController release];
     [fetchedRequest release];
-    
-    
+   
     return frcSectionedShortNations_;
 }
 -(NSFetchedResultsController *) frcShortNations {
@@ -326,6 +331,9 @@ frcGreeting=frcGreeting_;
     [expressionDescription3 release];
     [expressionDescription4 release];
     
+    [sortDescriptor1 release];
+
+    [sortDescriptors release];
     
     [aFetchedResultsController release];
     [fetchedRequest release];
@@ -481,9 +489,9 @@ frcGreeting=frcGreeting_;
         CLLocation * currentLoc = [[CLLocation alloc] initWithLatitude:latitude longitude:longitude];
         CLLocation * centerLoc = [[CLLocation alloc]initWithLatitude:[nation.CenterLat doubleValue] longitude:[nation.CenterLong doubleValue]] ;
     CLLocationDistance dist= [currentLoc distanceFromLocation:centerLoc]/1000;  
-        return dist;
     [currentLoc release];
-    [centerLoc release];
+    [centerLoc release];    
+    return dist;
 }
 //gets the managed Nation locally and sets it to be updated
 -(Nation *)getNationWithNationNumber:(int)number{
@@ -534,7 +542,7 @@ frcGreeting=frcGreeting_;
     for (NSDictionary * nation  in results) {
         ShortNation * shortNation = [[[ShortNation alloc] initWithDictionary:nation] autorelease];        
         [shortNationArray addObject:shortNation];
-       // [shortNation release];
+        [shortNation release];
     }
     return shortNationArray;
 }
@@ -543,12 +551,12 @@ frcGreeting=frcGreeting_;
 -(NSDictionary *)getShortNationsDictionary{
     NSArray * shortNationArray =[self getShortNationArray];
     int count = [shortNationArray count];
-    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:count];
+    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:count] ;
     if (self) {
         
-        for (ShortNation * shortNation  in shortNationArray) 
+        for (ShortNation * shortNation  in shortNationArray) {
             [dict setObject:shortNation forKey:[NSString stringWithFormat:@"%d",[ shortNation.Number intValue]]];
-        
+        }
     }
     return  dict;
 }
@@ -586,7 +594,7 @@ frcGreeting=frcGreeting_;
 -(PlannedVisit *)getNewPlannedVisit{
     
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"PlannedVisit" inManagedObjectContext:self.managedObjectContext];
-    PlannedVisit * aVisit = [[PlannedVisit alloc] initWithEntity:entity insertIntoManagedObjectContext: self.managedObjectContext];
+    PlannedVisit * aVisit = [[[PlannedVisit alloc] initWithEntity:entity insertIntoManagedObjectContext: self.managedObjectContext] autorelease];
     return  aVisit;
     
 }

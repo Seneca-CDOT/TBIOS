@@ -73,15 +73,15 @@
         if(centerLongitute!=[NSNull null]) self.CenterLong=[NSNumber numberWithDouble:[[nationDict valueForKey:@"CenterLong"]doubleValue]];
         if([nationDict valueForKey:@"tbLands"] !=[NSNull null]){
           NSArray* lands = [nationDict valueForKey:@"tbLands"];
-          self.Lands =[[NSMutableArray alloc] initWithCapacity:[lands count]];
+          self.Lands =[[[NSMutableArray alloc] initWithCapacity:[lands count]] autorelease];
           for (NSDictionary * dict in lands) {
-            [self.Lands addObject:[[WSLand alloc] initWithDictionary:dict]];
+            [self.Lands addObject:[[[WSLand alloc] initWithDictionary:dict]autorelease]];
           }
         }
        
         NSDictionary * greetingDict =[nationDict valueForKey:@"tbGreeting"] ;
         if (greetingDict != [NSNull null]) {
-            self.greeting =[[WSGreeting alloc] initWithDictionary:greetingDict];
+            self.greeting =[[[WSGreeting alloc] initWithDictionary:greetingDict] autorelease];
             
         }
        
@@ -91,7 +91,7 @@
 }
 -(Nation*)ToManagedNation:(NSManagedObjectContext *)context{
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"Nation" inManagedObjectContext:context];
-    Nation * managedNation = [[Nation alloc] initWithEntity:entity insertIntoManagedObjectContext:context];
+    Nation * managedNation = [[[Nation alloc] initWithEntity:entity insertIntoManagedObjectContext:context] autorelease];
     
 
     managedNation.Number= self.Number;
