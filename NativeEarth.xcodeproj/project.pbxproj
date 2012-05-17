@@ -75,7 +75,6 @@
 		D7BB0DBC13BB9CC30062C2A9 /* LocationDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB313BB9CC30062C2A9 /* LocationDetector.m */; };
 		D7BB0DBD13BB9CC30062C2A9 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB513BB9CC30062C2A9 /* Reachability.m */; };
 		D7BB0DBE13BB9CC30062C2A9 /* ReverseGeocoder.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */; };
-		D7BB0DBF13BB9CC30062C2A9 /* Utility.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB913BB9CC30062C2A9 /* Utility.m */; };
 		D7BB0DCB13BB9CF40062C2A9 /* CalloutMapAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DC613BB9CF40062C2A9 /* CalloutMapAnnotationView.m */; };
 		D7BB0DCC13BB9CF40062C2A9 /* DistrictCenterAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DC813BB9CF40062C2A9 /* DistrictCenterAnnotation.m */; };
 		D7BB0DCD13BB9CF40062C2A9 /* DistrictCenterAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DCA13BB9CF40062C2A9 /* DistrictCenterAnnotationView.m */; };
@@ -236,8 +235,6 @@
 		D7BB0DB513BB9CC30062C2A9 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		D7BB0DB613BB9CC30062C2A9 /* ReverseGeocoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReverseGeocoder.h; sourceTree = "<group>"; };
 		D7BB0DB713BB9CC30062C2A9 /* ReverseGeocoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReverseGeocoder.m; sourceTree = "<group>"; };
-		D7BB0DB813BB9CC30062C2A9 /* Utility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Utility.h; sourceTree = "<group>"; };
-		D7BB0DB913BB9CC30062C2A9 /* Utility.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = Utility.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7BB0DC513BB9CF40062C2A9 /* CalloutMapAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalloutMapAnnotationView.h; sourceTree = "<group>"; };
 		D7BB0DC613BB9CF40062C2A9 /* CalloutMapAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalloutMapAnnotationView.m; sourceTree = "<group>"; };
 		D7BB0DC713BB9CF40062C2A9 /* DistrictCenterAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistrictCenterAnnotation.h; sourceTree = "<group>"; };
@@ -573,8 +570,6 @@
 				D7BB0DB313BB9CC30062C2A9 /* LocationDetector.m */,
 				D7BB0DB413BB9CC30062C2A9 /* Reachability.h */,
 				D7BB0DB513BB9CC30062C2A9 /* Reachability.m */,
-				D7BB0DB813BB9CC30062C2A9 /* Utility.h */,
-				D7BB0DB913BB9CC30062C2A9 /* Utility.m */,
 				D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */,
 				D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */,
 				D7922F00146B0424000D7344 /* ImageToDataTransformer.h */,
@@ -803,7 +798,6 @@
 				D7BB0DBC13BB9CC30062C2A9 /* LocationDetector.m in Sources */,
 				D7BB0DBD13BB9CC30062C2A9 /* Reachability.m in Sources */,
 				D7BB0DBE13BB9CC30062C2A9 /* ReverseGeocoder.m in Sources */,
-				D7BB0DBF13BB9CC30062C2A9 /* Utility.m in Sources */,
 				D7BB0DCB13BB9CF40062C2A9 /* CalloutMapAnnotationView.m in Sources */,
 				D7BB0DCC13BB9CF40062C2A9 /* DistrictCenterAnnotation.m in Sources */,
 				D7BB0DCD13BB9CF40062C2A9 /* DistrictCenterAnnotationView.m in Sources */,
