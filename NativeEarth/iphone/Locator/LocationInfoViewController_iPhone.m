@@ -486,9 +486,8 @@ typedef enum{
     nextVC.isNew=YES;
     PlannedVisit * visit = [appDelegate.model getNewPlannedVisit];
     [visit addNationsObject:self.selectedNation];
-    nextVC.visit = visit;
-    [visit release];
-    
+    nextVC.visit = visit;//never release visit 
+  
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     
     nextVC.presentationType = presentationTypeModal;
