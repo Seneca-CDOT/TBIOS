@@ -482,6 +482,8 @@ frcGreeting=frcGreeting_;
         CLLocation * centerLoc = [[CLLocation alloc]initWithLatitude:[nation.CenterLat doubleValue] longitude:[nation.CenterLong doubleValue]] ;
     CLLocationDistance dist= [currentLoc distanceFromLocation:centerLoc]/1000;  
         return dist;
+    [currentLoc release];
+    [centerLoc release];
 }
 //gets the managed Nation locally and sets it to be updated
 -(Nation *)getNationWithNationNumber:(int)number{
@@ -530,9 +532,9 @@ frcGreeting=frcGreeting_;
     NSArray * results=[self.frcShortNations fetchedObjects];
     NSMutableArray * shortNationArray= [[NSMutableArray alloc] initWithCapacity:[results count]];
     for (NSDictionary * nation  in results) {
-        ShortNation * shortNation = [[ShortNation alloc] initWithDictionary:nation];        
+        ShortNation * shortNation = [[[ShortNation alloc] initWithDictionary:nation] autorelease];        
         [shortNationArray addObject:shortNation];
-        [shortNation release];
+       // [shortNation release];
     }
     return shortNationArray;
 }
@@ -652,7 +654,7 @@ frcGreeting=frcGreeting_;
             ShortNation *sn =[[ShortNation alloc] initWithDictionary:dict];
             [networkIDArray addObject:sn.Number];
             [networkDict setObject:sn forKey:[NSString stringWithFormat:@"%d", [sn.Number intValue]] ];
-          
+            [sn release]; 
         }
         
         networkIDArray=[NSMutableArray arrayWithArray:[networkIDArray sortedArrayUsingFunction: firstNumSort context:NULL ]];

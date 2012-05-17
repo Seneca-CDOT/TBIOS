@@ -36,6 +36,7 @@
 		D77FB61013BBA8660088DA60 /* LauncherViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D77FB60E13BBA8660088DA60 /* LauncherViewController_iPhone.xib */; };
 		D783B42613BCBD4300A5C05F /* BaseTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D783B42513BCBD4200A5C05F /* BaseTableViewController.m */; };
 		D784AB7715213654002FC873 /* LandsViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D784AB7615213653002FC873 /* LandsViewController_iPhone.m */; };
+		D785FE63156473EF00E25560 /* EditAVisitViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D785FE62156473EF00E25560 /* EditAVisitViewController_iPhone.xib */; };
 		D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D786015C13C65D93007EA5B0 /* Spotlight.png */; };
 		D789BF7513D0B58600C1C9E8 /* NetworkDataGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */; };
 		D78D045B13E046FB00C04A5E /* NationSelectViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D045A13E046FB00C04A5E /* NationSelectViewController_iPhone.m */; };
@@ -61,7 +62,6 @@
 		D7A621F714858FC9006E7BC3 /* TapDetectingImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A621F614858FC8006E7BC3 /* TapDetectingImageView.m */; };
 		D7A84F4B13C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */; };
 		D7A84F7213C4F04B0085E8C3 /* EditAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */; };
-		D7A84F7313C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */; };
 		D7BB0D7D13BB9A0C0062C2A9 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */; };
 		D7BB0D7F13BB9A0C0062C2A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */; };
 		D7BB0D8113BB9A0C0062C2A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D8013BB9A0C0062C2A9 /* CoreGraphics.framework */; };
@@ -171,6 +171,7 @@
 		D783B42513BCBD4200A5C05F /* BaseTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseTableViewController.m; sourceTree = "<group>"; };
 		D784AB7515213651002FC873 /* LandsViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LandsViewController_iPhone.h; sourceTree = "<group>"; };
 		D784AB7615213653002FC873 /* LandsViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandsViewController_iPhone.m; sourceTree = "<group>"; };
+		D785FE62156473EF00E25560 /* EditAVisitViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAVisitViewController_iPhone.xib; sourceTree = "<group>"; };
 		D786015C13C65D93007EA5B0 /* Spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spotlight.png; sourceTree = "<group>"; };
 		D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDataGetter.h; sourceTree = "<group>"; };
 		D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkDataGetter.m; sourceTree = "<group>"; };
@@ -214,7 +215,6 @@
 		D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VisitPlannerRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = EditAVisitViewController_iPhone.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = EditAVisitViewController_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAVisitViewController_iphone.xib; sourceTree = "<group>"; };
 		D7BB0D7813BB9A0B0062C2A9 /* NativeEarth.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = NativeEarth.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7BB0D7C13BB9A0C0062C2A9 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -662,7 +662,7 @@
 				D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */,
 				D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */,
 				D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */,
-				D7A84F7113C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib */,
+				D785FE62156473EF00E25560 /* EditAVisitViewController_iPhone.xib */,
 				D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */,
 				D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */,
 			);
@@ -753,7 +753,6 @@
 				D723153013C223E600DF3DF8 /* BrowseViewController_iPhone.xib in Resources */,
 				D723153D13C2379D00DF3DF8 /* BrowseViewController_iPhone.xib in Resources */,
 				D72157CA13C2497A00AF9AD0 /* AboutViewController_iPhone.xib in Resources */,
-				D7A84F7313C4F04B0085E8C3 /* EditAVisitViewController_iphone.xib in Resources */,
 				D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */,
 				D7BC54D213C7A7E000542880 /* TextViewCell.xib in Resources */,
 				D7003C1913CDEF1800587CD0 /* TextFieldCell_iPhone.xib in Resources */,
@@ -786,6 +785,7 @@
 				D760FC1514914B9600D7A281 /* icon_case.png in Resources */,
 				D760FC1714914BC100D7A281 /* icon_forum.png in Resources */,
 				D70007E21550AABE00934C6F /* NativeEarth.sqlite.zip in Resources */,
+				D785FE63156473EF00E25560 /* EditAVisitViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
