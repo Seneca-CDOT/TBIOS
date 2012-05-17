@@ -94,7 +94,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     }else{
         self.visitToDate=[self.dateFormatter stringFromDate:visit.ToDate];
     }
-    self.saveBtn= [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", @"Save") style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)];
+    self.saveBtn= [[[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Save", @"Save") style:UIBarButtonItemStylePlain target:self action:@selector(saveAction:)] autorelease];
     if (self.presentationType==presentationTypeModal) {
         [self.navigationItem setRightBarButtonItem:self.saveBtn animated:YES];
         [self.navigationItem setLeftBarButtonItem:self.cancelButton animated:YES];
@@ -129,7 +129,7 @@ typedef enum {titleCellTag} textFieldCellTags;
             [self.visit addNations:[NSSet setWithArray:self.visitFistNations]];
    
             NSError *error;
-            if (error=[appDelegate.model SaveData])
+            if ((error=[appDelegate.model SaveData]))
             {
                 NSLog(@"%@",[error description]);
             }
@@ -184,7 +184,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     static NSString *FirstNationCellIdentifier=@"FirstNationCell";
     
     
-    UITableViewCell *cell ;
+    UITableViewCell *cell=nil ;
     TextViewCell *noteCell;
     TextFieldCell_iPhone *titleCell;
     BOOL cellIsNoteCell = NO;
@@ -204,7 +204,7 @@ typedef enum {titleCellTag} textFieldCellTags;
         
     }
 
-    if ((cellIsNoteCell && noteCell == nil) || (!cellIsNoteCell && cell == nil)) {
+    if ((cellIsNoteCell && noteCell == nil) || (!cellIsNoteCell && (cell == nil))) {
         if (indexPath.row == HeaderRow ){           
                  cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:HeaderCellIdentifier] autorelease];
               [self configureCell:cell atIndexPath:indexPath];
@@ -233,7 +233,7 @@ typedef enum {titleCellTag} textFieldCellTags;
         
     }else
     {   
-        if(indexPath.section == SectionNotes && indexPath.row != HeaderRow){
+        if((indexPath.section == SectionNotes )&& (indexPath.row != HeaderRow)){
                 [self configureCell:noteCell atIndexPath:indexPath];
                 cell = noteCell;
             cell.tag=noteCellTag;
@@ -303,7 +303,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tv editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCellEditingStyle editingStyle;
+    UITableViewCellEditingStyle editingStyle=UITableViewCellEditingStyleNone;
     if( indexPath.section==SectionFirstNationName){
         if (indexPath.row ==HeaderRow){
             editingStyle = UITableViewCellEditingStyleInsert;
@@ -461,7 +461,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     [self.visit removeNations:tempSet];
     [self.visit addNations:[NSSet setWithArray:self.visitFistNations]];
     NSError *error;
-    if (error=[appDelegate.model SaveData])
+    if ((error=[appDelegate.model SaveData]))
     {
         NSLog(@"%@",[error description]);
     }

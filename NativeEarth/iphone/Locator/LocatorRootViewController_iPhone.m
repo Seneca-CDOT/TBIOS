@@ -250,7 +250,7 @@
 #pragma  mark - converter
 -(NSArray *)GetWSNationsFromDictArray:(NSArray *) dictArray{
   
-    NSMutableArray * wSNations = [[NSMutableArray alloc]init];
+    NSMutableArray * wSNations = [[[NSMutableArray alloc]init] autorelease];
     for (NSDictionary* dict in dictArray) {
         [wSNations addObject:[self GetWSNationForDict:dict]];
     }
@@ -258,7 +258,7 @@
 }
 
 -(WSNation *)GetWSNationForDict:(NSDictionary *)dict{
-    return  [[WSNation alloc] initWithDictionary:dict];
+    return  [[[WSNation alloc] initWithDictionary:dict] autorelease];
 }
 
 #pragma mark - notification observer methods

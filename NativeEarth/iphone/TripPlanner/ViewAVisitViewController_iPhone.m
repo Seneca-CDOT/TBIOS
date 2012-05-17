@@ -62,7 +62,7 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
     self.tableView.delegate = self;
     
     self.view = self.tableView;
-    self.dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
+    self.dateFormatter = [[NSDateFormatter alloc] init];
 	[self.dateFormatter setDateStyle:NSDateFormatterFullStyle];
 	[self.dateFormatter setTimeStyle:NSDateFormatterNoStyle];
     
@@ -228,10 +228,12 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     int rv = kRegularCellRowHeight;
     if (indexPath.section==SectionNotes && indexPath.row == DetailRow1) {
-        NSMutableString *text = [[NSMutableString alloc] init];
+        NSMutableString *text ;      
+        if(visit.Notes!=nil)
+            text=[NSMutableString stringWithString: visit.Notes];
+        else 
+            text =[NSMutableString stringWithString:@""];
         
-        if(visit.Notes!=nil)text=[NSMutableString stringWithString: visit.Notes];
-        else text =[NSMutableString stringWithString:@""];
         if (text.length !=0) {
 		CGSize s = [text sizeWithFont:[UIFont systemFontOfSize:15] 
 					   constrainedToSize:CGSizeMake(self.view.bounds.size.width - 40, MAXFLOAT)  // - 40 For cell padding
@@ -239,7 +241,8 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 		rv=  s.height + 16; // Add padding
         }
     }else if(indexPath.section==SectionTitle && indexPath.row == DetailRow1)
-    { NSString *text =visit.Title;
+    { 
+        NSString *text =visit.Title;
         if (text.length!=0) {
        
 		CGSize s = [text sizeWithFont:[UIFont systemFontOfSize:15] 
