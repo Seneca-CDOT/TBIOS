@@ -106,34 +106,34 @@ typedef enum {titleCellTag} textFieldCellTags;
 -(void)viewWillDisappear:(BOOL)animated{
     if (!isSelectingNations) {
         
-    [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES]; 
-    [self.navigationItem setHidesBackButton:NO animated:YES];
+        [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES]; 
+        [self.navigationItem setHidesBackButton:NO animated:YES];
 
-    if(self.presentationType==presentationTypeNavigate){
-    self.visit.Title = self.visitTitle;
+        if(self.presentationType==presentationTypeNavigate){//because there is no save button then
+            self.visit.Title = self.visitTitle;
    
-    if (self.visitFromDate != NSLocalizedString(@"no date selected yet",@"no date selected yet")) {
-            self.visit.FromDate = [self.dateFormatter dateFromString: visitFromDate];
-    }else{
-            self.visit.FromDate = nil;
-        }
+            if (self.visitFromDate != NSLocalizedString(@"no date selected yet",@"no date selected yet")) {
+                self.visit.FromDate = [self.dateFormatter dateFromString: visitFromDate];
+            }else{
+                self.visit.FromDate = nil;
+            }
 
-    if (self.visitToDate != NSLocalizedString(@"no date selected yet",@"no date selected yet")) {
-            self.visit.ToDate = [self.dateFormatter dateFromString: visitToDate];
-     }else{
-         self.visit.ToDate =nil;
-     }
+            if (self.visitToDate != NSLocalizedString(@"no date selected yet",@"no date selected yet")) {
+                self.visit.ToDate = [self.dateFormatter dateFromString: visitToDate];
+            }else{
+                self.visit.ToDate =nil;
+            }
  
-    self.visit.Notes = visitNotes;
+            self.visit.Notes = visitNotes;
     
-    [self.visit addNations:[NSSet setWithArray:self.visitFistNations]];
+            [self.visit addNations:[NSSet setWithArray:self.visitFistNations]];
    
-        NSError *error;
-        if (error=[appDelegate.model SaveData])
-        {
-            NSLog(@"%@",[error description]);
+            NSError *error;
+            if (error=[appDelegate.model SaveData])
+            {
+                NSLog(@"%@",[error description]);
+            }
         }
-    }
     
     }
     [super viewWillDisappear:animated];
@@ -465,17 +465,19 @@ typedef enum {titleCellTag} textFieldCellTags;
     {
         NSLog(@"%@",[error description]);
     }
-    [((ViewAVisitViewController_iPhone *)self.delegate).tableView reloadData];
+    if ([(NSObject *)(self.delegate)  isKindOfClass:[ViewAVisitViewController_iPhone class]]) {
+     [((ViewAVisitViewController_iPhone *)self.delegate).tableView reloadData];
+    }
     [self.delegate EditAVisitViewControllerDidSave:self];
 }
 -(IBAction)Cancel:(id)sender {
     if (isNew) {
        [appDelegate.model removeCanceledVisit:self.visit];
     }
-    if (self.presentationType==presentationTypeModal) {
+  
 
     [self.delegate EditAVisitViewControllerDidSave:self];
-    }
+    
 }
 
 #pragma mark - Controls manipulation
@@ -767,6 +769,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 
 #pragma  mark - BrowseViewController_iPhoneDelegate methods
 -(void) BrowseViewControllerDidSelectNation:(ShortNation *)nation{
+  
     Nation * newNation = [appDelegate.model getNationWithNationNumber:[nation.Number intValue]];
     [self.navigationItem setLeftBarButtonItem:self.navigationItem.backBarButtonItem animated:YES];
     [self.navigationItem setHidesBackButton:NO animated:YES];
@@ -779,6 +782,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     [self.infoTableView reloadData];
     }
     [self.navigationController dismissModalViewControllerAnimated:YES];
+      isSelectingNations=NO;
 }
 
 
