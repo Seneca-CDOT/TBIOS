@@ -49,8 +49,6 @@ frcGreeting=frcGreeting_;
     // method "reachabilityChanged" will be called. 
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
     self.shortNationList = [[NSMutableArray arrayWithArray:[self getShortNationArray] ] retain];
- //   NSLog(@"initial nation list:\n");
- //   NSLog(@"%@",[self.shortNationList description]);
     
     hostReach = [[Reachability reachabilityWithHostName: kHostName] retain];
     [hostReach startNotifier];
@@ -538,9 +536,9 @@ frcGreeting=frcGreeting_;
         NSLog(@"%@",[error userInfo] );
               }
     NSArray * results=[self.frcShortNations fetchedObjects];
-    NSMutableArray * shortNationArray= [[NSMutableArray alloc] initWithCapacity:[results count]];
+    NSMutableArray * shortNationArray= [[[NSMutableArray alloc] initWithCapacity:[results count]] autorelease];
     for (NSDictionary * nation  in results) {
-        ShortNation * shortNation = [[[ShortNation alloc] initWithDictionary:nation] autorelease];        
+        ShortNation * shortNation = [[ShortNation alloc] initWithDictionary:nation] ;        
         [shortNationArray addObject:shortNation];
         [shortNation release];
     }
@@ -582,6 +580,7 @@ frcGreeting=frcGreeting_;
 #pragma mark - Planned Visits
 -(NSArray *)getAllPlannedVisits{
     frcPlannedVisits_=nil;
+    
     NSError* error;
     if(![[self frcPlannedVisits]performFetch:&error]){
         //handle error
@@ -605,7 +604,7 @@ frcGreeting=frcGreeting_;
 //creates a new managed Map object in the context
 -(Map *)getNewMap{
     NSEntityDescription *entity= [NSEntityDescription entityForName:@"Map" inManagedObjectContext:self.managedObjectContext];
-    Map * aMap = [[Map alloc] initWithEntity:entity insertIntoManagedObjectContext: self.managedObjectContext];
+    Map * aMap = [[[Map alloc] initWithEntity:entity insertIntoManagedObjectContext: self.managedObjectContext] autorelease ];
     return  aMap;
 
 }
@@ -846,11 +845,11 @@ frcGreeting=frcGreeting_;
     }
     else if(wsNation.greeting){
         //check if the new greeting exist locally:
-        Greeting * aGreeting = [[self getGreetingWithGreetingId:[wsNation.greeting.GreetingID intValue]] autorelease];
+        Greeting * aGreeting = [self getGreetingWithGreetingId:[wsNation.greeting.GreetingID intValue]] ;
         if (aGreeting) {//if yes
             [aGreeting addNationsObject:mNation];//then assign the new Greeting to the nation
         }else{
-        [[[wsNation.greeting ToManagedGreeting:self.managedObjectContext] autorelease] addNationsObject:mNation];
+        [[wsNation.greeting ToManagedGreeting:self.managedObjectContext]  addNationsObject:mNation];
         }
     }
     else if(mNation.greeting){
