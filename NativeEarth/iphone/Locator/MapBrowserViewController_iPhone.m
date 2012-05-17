@@ -237,7 +237,8 @@
     }
     
     ///
-    for (id <MKAnnotation> annotation in mapView.annotations) {
+    for (id<MKAnnotation>  annotation in mapView.annotations) {
+       
         MKMapPoint annotationPoint = MKMapPointForCoordinate(annotation.coordinate);
         MKMapRect pointRect = MKMapRectMake(annotationPoint.x, annotationPoint.y, 0, 0);
         if (MKMapRectIsNull(flyTo)) {
@@ -247,6 +248,8 @@
         }
     }
 
+
+    
     ///
     if ([mapView.overlays count]==0 && [mapView.annotations count]==1) {
         DistrictCenterAnnotation* annot = [mapView.annotations objectAtIndex:0];
@@ -294,8 +297,8 @@
 {
     // if it's the user location, just return nil.
     if ([annotation isKindOfClass:[MKUserLocation class]]){
-        //[annotation setTitle:@"You are here!"];
-      return nil;
+        [annotation setTitle:@"You are here!"];
+        return nil;
     }
       
 		MKPinAnnotationView *annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation 	reuseIdentifier:@"Annotation"] autorelease];
