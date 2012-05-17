@@ -220,7 +220,7 @@
         
 	{
         if(isGrouped){
-            nation=[[ShortNation alloc]initWithDictionary: [self.frcShortNations objectAtIndexPath:indexPath]];
+            nation=[[[ShortNation alloc]initWithDictionary: [self.frcShortNations objectAtIndexPath:indexPath]] autorelease];
         }else
         nation = (ShortNation*)[self.completeList objectAtIndex:indexPath.row];
     }
@@ -228,6 +228,7 @@
     
     cell.textLabel.text = nation.OfficialName;
 	cell.selectionStyle=UITableViewCellSelectionStyleGray;
+    
     return cell;
 }
 
@@ -246,7 +247,7 @@
 	{
         if (isGrouped) {
             
-            shortNation =[[ShortNation alloc]initWithDictionary: [self.frcShortNations objectAtIndexPath:indexPath]];
+            shortNation =[[[ShortNation alloc]initWithDictionary: [self.frcShortNations objectAtIndexPath:indexPath]] autorelease];
         }else
         shortNation = [self.completeList objectAtIndex:indexPath.row];
     }
