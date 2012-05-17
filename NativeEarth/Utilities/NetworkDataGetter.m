@@ -61,7 +61,7 @@
 - (void) connectionDidFinishLoading:(NSURLConnection *)connection {
 	
 	// Convert the data stream object to a string
-	NSString *response = [[NSString alloc] initWithData:dataStream encoding:NSUTF8StringEncoding];
+	NSString *response = [[[NSString alloc] initWithData:dataStream encoding:NSUTF8StringEncoding] autorelease];
 	
 	
 	// Reference the app's network activity indicator in the status bar

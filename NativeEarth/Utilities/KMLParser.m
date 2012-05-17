@@ -334,7 +334,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 - (id)init
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         _styles = [[NSMutableDictionary alloc] init];
         _placemarks = [[NSMutableArray alloc] init];
     }
@@ -601,7 +601,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 - (id)initWithIdentifier:(NSString *)ident
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         identifier = [ident retain];
     }
     return self;
@@ -928,7 +928,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 }
 
 -(id)initWithIdentifier:(NSString *)ident{
-    if(self=[super initWithIdentifier:ident]){
+    if((self=[super initWithIdentifier:ident])){
         geometryArray =[[NSMutableArray alloc] init];
         return self;
     }
@@ -960,6 +960,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 - (void)endGeometry
 {
     [geometryArray addObject:geometry];
+    [geometry release];
     flags.inGeometry = NO;
 }
 -(void)beginCoordinates{
@@ -996,7 +997,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 }
 - (NSMutableArray *)polygons
 {
-    NSMutableArray * polygonArray=[[NSMutableArray alloc] initWithCapacity:[geometryArray count]];
+    NSMutableArray * polygonArray=[[[NSMutableArray alloc] initWithCapacity:[geometryArray count]] autorelease];
     for (KMLGeometry * g in geometryArray) {
         if ([g isKindOfClass:[KMLPolygon class]]) {
             [polygonArray addObject:g];
@@ -1005,25 +1006,10 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     return ([polygonArray count] >0 )? polygonArray : nil;
 }
 
-//- (void)_createShape
-//{
-//    if (!mkShapes) {
-//        for (KMLGeometry* g in geometryArray) {
-//        MKShape* mkShape = [[geometry mapkitShape] retain];
-//        mkShape.title = name;
-//            [mkShapes addObject:mkShape];
-//        }
-//       
-//        // Skip setting the subtitle for now because they're frequently
-//        // too verbose for viewing on in a callout in most kml files.
-//        //        mkShape.subtitle = placemarkDescription;
-//    }
-//}
-//
 
 - (NSMutableArray *)overlays
 {
-    NSMutableArray * overlayArray = [[NSMutableArray alloc] initWithCapacity:[mkShapes count]];
+    NSMutableArray * overlayArray = [[[NSMutableArray alloc] initWithCapacity:[mkShapes count]] autorelease];
     for (KMLGeometry  * geo  in geometryArray) {
         MKShape * mkShape = [geo mapkitShape];
         mkShape.title = name;
@@ -1032,7 +1018,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
         }
         
     }
-    return ([overlayArray count] >0 )? overlayArray : nil;
+    return ([overlayArray count] >0 )? overlayArray  : nil;
 }
 
 - (NSMutableArray *)points
@@ -1040,7 +1026,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     // Make sure to check if this is an MKPointAnnotation.  MKOverlays also
     // conform to MKAnnotation, so it isn't sufficient to just check to
     // conformance to MKAnnotation.
-    NSMutableArray * pointArray = [[NSMutableArray alloc] initWithCapacity:[mkShapes count]];
+    NSMutableArray * pointArray = [[[NSMutableArray alloc] initWithCapacity:[mkShapes count]] autorelease];
     for (KMLGeometry  * geo  in geometryArray) {
         MKShape * mkShape = [geometry mapkitShape];
         mkShape.title = name;
@@ -1053,7 +1039,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 - (NSMutableArray *)overlayViews
 {
     if (!overlayViews) {
-        NSMutableArray * overlayViewArray = [[NSMutableArray alloc]init];
+        NSMutableArray * overlayViewArray = [[[NSMutableArray alloc]init] autorelease];
         
         for (KMLGeometry * geo  in geometryArray) {
             MKShape * mkShape = [geo mapkitShape];
@@ -1072,7 +1058,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 - (NSMutableArray *)annotationViews {
     if (!annotationViews) {
         NSMutableArray *  annotations = self.points;  
-        NSMutableArray * annotationViewArray = [[NSMutableArray alloc]initWithCapacity:[annotations count]];
+        NSMutableArray * annotationViewArray = [[[NSMutableArray alloc]initWithCapacity:[annotations count]] autorelease];
         
         for (id <MKAnnotation> annotation in annotations) {
             MKPinAnnotationView *pin =
@@ -1080,6 +1066,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
             pin.canShowCallout = YES;
             pin.animatesDrop = YES;
             [annotationViewArray addObject:pin];
+            [pin release];
         }
         return ([annotationViewArray count] >0 )? annotationViewArray : nil;
     }

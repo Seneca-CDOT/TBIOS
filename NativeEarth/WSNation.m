@@ -80,7 +80,7 @@
         }
        
         NSDictionary * greetingDict =[nationDict valueForKey:@"tbGreeting"] ;
-        if (greetingDict != [NSNull null]) {
+        if ((NSNull *)greetingDict != [NSNull null]) {
             self.greeting =[[[WSGreeting alloc] initWithDictionary:greetingDict] autorelease];
             
         }

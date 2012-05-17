@@ -612,12 +612,13 @@ frcGreeting=frcGreeting_;
 #pragma mark - Network data reterival
 -(void) getShortNationsFromWebService{
     NSString *url = [NSString stringWithFormat:@"%@/nations/names",kHostName];//@"http://localhost/~ladan/FirstNationList";
-    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
+    NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init] ;
     dataGetter.delegate = self;
     
     // Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [dataGetter GetResultsFromUrl:url];
+    [dataGetter autorelease];
 }
 
 -(void) getNationFromWebServiceWithNationNumber:(NSNumber *)number{
@@ -630,7 +631,7 @@ frcGreeting=frcGreeting_;
     // Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
     [dataGetter GetResultsFromUrl:url];
-    
+    [dataGetter autorelease];
 }
 
 -(void)checkForNationUpdatesByNationNumber:(NSNumber *)number{
@@ -656,14 +657,14 @@ frcGreeting=frcGreeting_;
         //second get the network array:
         NSArray * networkArray = (NSArray* )object;
         NSMutableDictionary * networkDict=[[NSMutableDictionary alloc] initWithCapacity:[networkArray count]];
-        NSMutableArray *networkIDArray=[[NSMutableArray alloc]init];
+        NSMutableArray *networkIDArray=[[[NSMutableArray alloc]init] autorelease] ;
         for (NSDictionary *  dict in networkArray) {
             ShortNation *sn =[[ShortNation alloc] initWithDictionary:dict];
             [networkIDArray addObject:sn.Number];
             [networkDict setObject:sn forKey:[NSString stringWithFormat:@"%d", [sn.Number intValue]] ];
             [sn release]; 
         }
-        
+        //sort it
         networkIDArray=[NSMutableArray arrayWithArray:[networkIDArray sortedArrayUsingFunction: firstNumSort context:NULL ]];
          //get the largest network land id 
         int netWorkLargestNumber =[[networkIDArray lastObject] intValue];
@@ -704,7 +705,7 @@ frcGreeting=frcGreeting_;
             }
             
             NSError * error;
-            if (error=[self SaveData]) {
+            if ((error=[self SaveData])) {
                 NSLog(@"%@",[error description]);
             }else{// after delets are saved refresh the shortNationList and post notfication for new list
                     [self.shortNationList removeAllObjects];
@@ -728,7 +729,7 @@ frcGreeting=frcGreeting_;
           
         updateCheckFinished=YES;
         
-        [networkArray release];
+       
         [networkDict release];
 
     }
@@ -800,7 +801,7 @@ frcGreeting=frcGreeting_;
         [self.managedObjectContext deleteObject:land];
     }
     for (WSLand *wsland  in wsNation.Lands) {
-        [mNation addLandsObject:[[wsland ToManagedLand:self.managedObjectContext]autorelease]];
+        [mNation addLandsObject:[wsland ToManagedLand:self.managedObjectContext]];
     }
        
     
