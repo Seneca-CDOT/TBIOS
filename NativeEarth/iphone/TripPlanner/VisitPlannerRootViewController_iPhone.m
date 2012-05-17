@@ -177,8 +177,8 @@
     EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     nextVC.visit = [appDelegate.model getNewPlannedVisit];
-     nextVC.isNew=YES;
-    nextVC.presentationType = presentationTypeNavigate;
+    nextVC.isNew=YES;
+    nextVC.presentationType = presentationTypeModal;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }

@@ -30,7 +30,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 @synthesize cancelButton;
 @synthesize changeButton;
 @synthesize shiftForKeyboard;
-@synthesize trashButton;
+
 @synthesize visit;
 @synthesize visitFromDate,visitNotes,visitTitle,visitToDate;
 @synthesize visitFistNations;
@@ -39,7 +39,7 @@ typedef enum {titleCellTag} textFieldCellTags;
 {
     [self.saveBtn release];
     [self.visit release];
-    [self.trashButton release];
+    
     [self.changeButton release];
     [self.doneButton release];
     [self.cancelButton release];
@@ -150,7 +150,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     self.pickerView = nil;
     self.doneButton = nil;
     self.cancelButton =nil;
-    self.trashButton = nil;
+    
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
@@ -472,7 +472,10 @@ typedef enum {titleCellTag} textFieldCellTags;
     if (isNew) {
        [appDelegate.model removeCanceledVisit:self.visit];
     }
-[self.delegate EditAVisitViewControllerDidSave:self];
+    if (self.presentationType==presentationTypeModal) {
+
+    [self.delegate EditAVisitViewControllerDidSave:self];
+    }
 }
 
 #pragma mark - Controls manipulation

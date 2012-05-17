@@ -24,7 +24,7 @@ typedef enum {presentationTypeModal,presentationTypeNavigate}PresentationType;
     UIBarButtonItem *doneButton;
     UIBarButtonItem *cancelButton;
     UIButton *changeButton;
-    UIBarButtonItem *trashButton;
+    
     
     PlannedVisit * visit;
     NSMutableString * visitTitle;
@@ -51,7 +51,7 @@ typedef enum {presentationTypeModal,presentationTypeNavigate}PresentationType;
 @property (nonatomic, retain) IBOutlet UIDatePicker *pickerView; 
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, retain) IBOutlet UIBarButtonItem *cancelButton;
-@property (nonatomic, retain) IBOutlet UIBarButtonItem *trashButton;
+
 @property (nonatomic, retain) UIButton *changeButton;
 @property(nonatomic,retain) id<EditAVisitViewControllerDelegate_iPhone> delegate;
 @property(nonatomic,retain) UIBarButtonItem*  saveBtn;
