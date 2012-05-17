@@ -178,7 +178,7 @@
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     nextVC.visit = [appDelegate.model getNewPlannedVisit];
     nextVC.isNew=YES;
-    nextVC.presentationType = presentationTypeModal;
+    nextVC.presentationType = presentationTypeNavigate;
     [self.navigationController pushViewController:nextVC animated:YES];
     [nextVC release];
 }
