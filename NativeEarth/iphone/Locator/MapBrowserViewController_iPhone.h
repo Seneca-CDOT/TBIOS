@@ -36,19 +36,19 @@
 }
 
 
-//@property (nonatomic,retain)            LocationDetector          *locationDetector;
 @property (nonatomic,retain)            IBOutlet   MKMapView      *mapView;
 @property (nonatomic, retain)           NSArray                   *nations;
 @property (nonatomic, retain)           MKAnnotationView          *selectedAnnotationView;
 @property (nonatomic, retain)           DistrictCenterAnnotation  *calloutAnnotation;
-@property (nonatomic)                    CLLocationCoordinate2D     originLocation;
 @property (nonatomic,retain)             NSString                   *originAnnotationTitle;
 @property (nonatomic,retain)             NSString                   *selectedNationName;
-@property (nonatomic)                    BOOL                        showOrigin;
 @property (nonatomic, retain )          Land                        * referringLand;
 @property (nonatomic, retain )          Nation                      * referringNation;
+@property (nonatomic)                    BOOL                        showOrigin;
+@property (nonatomic)                    CLLocationCoordinate2D     originLocation;
 @property (nonatomic)                   BOOL                        isBrowsingNation;
-@property (nonatomic, retain)           UIColor                     * overlayFillColor;
+
+
 -(IBAction)flyToPin:(id) sender;
 
 -(void)  drawOverlaysOfArray: (NSArray*)nationsArray;

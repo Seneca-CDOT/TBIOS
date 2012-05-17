@@ -275,8 +275,8 @@ typedef enum{
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
 	if (section==0) {
-    NSString * title = [[NSString alloc]init];
-	title = selectedNation.OfficialName;
+    NSString * title =selectedNation.OfficialName; 
+	
 	return title;
     }
     else return @"";
@@ -350,7 +350,7 @@ typedef enum{
     if (buttonIndex==1) 
         [self DialPhone];
    
-   [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitlePhone inSection:0]autorelease] animated:NO];
+   [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:rowTitlePhone inSection:0] animated:NO];
     
 }
 #pragma mark - navigation methods
@@ -362,10 +362,10 @@ typedef enum{
     }
     @catch (NSException *exception) {
         NSLog(@"%@", [exception description]);
-    }
-   
+    }   
       
 }
+
 -(void) NavigateToGreetings{
     GreetingViewController_iPhone * nextVC = [[GreetingViewController_iPhone alloc]initWithStyle:UITableViewStyleGrouped];
     nextVC.title=NSLocalizedString(@"Greetings", @"Greetings");

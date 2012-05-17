@@ -43,6 +43,8 @@ NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
 
 - (void)dealloc
 {
+    
+    [self.selectedNationDict release];
     [self.nationDictArray release];
     [self.originTitle release];
     [super dealloc];

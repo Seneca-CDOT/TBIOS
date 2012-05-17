@@ -19,10 +19,11 @@
     
 }
 @property (nonatomic)    BOOL showOrigin;
+@property (nonatomic)    CLLocationCoordinate2D  originLocation;
+
 @property (nonatomic, retain) NSMutableArray* nationDictArray;
 @property (nonatomic, retain) NSMutableDictionary *selectedNationDict;
-
-@property (nonatomic) CLLocationCoordinate2D  originLocation;
 @property (nonatomic,retain) NSString * originTitle;
+
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath ;
 @end

@@ -43,16 +43,17 @@
 @end
 @implementation MapBrowserViewController_iPhone
 
+
 @synthesize     mapView;
 @synthesize     nations;
 @synthesize     originLocation;
 @synthesize     selectedAnnotationView = _selectedAnnotationView;
 @synthesize     calloutAnnotation = _calloutAnnotation;
 @synthesize originAnnotationTitle, selectedNationName,showOrigin;
-@synthesize referringLand;
 @synthesize isBrowsingNation;
-@synthesize  overlayFillColor;
+
 @synthesize referringNation;
+@synthesize referringLand;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -120,14 +121,14 @@
     //clear the map first
     [mapView removeOverlays:mapView.overlays];
     [mapView removeAnnotations:mapView.annotations];
-   overlayGroups =[[NSMutableArray alloc]initWithCapacity:[nationsArray count]]; 
+   overlayGroups =[[[NSMutableArray alloc]initWithCapacity:[nationsArray count]] autorelease]; 
  if (self.isBrowsingNation) {
     if(nationsArray !=nil ){
-        NSMutableArray *annotations =[[NSMutableArray alloc]init];
+        NSMutableArray *annotations =[[[NSMutableArray alloc]init] autorelease];
         for (Nation * nation in nationsArray) {
             //start the group
             OverlayGroup* group = [[OverlayGroup alloc] init];
-             group.polygons =[[NSMutableArray alloc]init];
+             group.polygons =[[[NSMutableArray alloc]init] autorelease];
             NSArray * lands = [nation.Lands allObjects];
             for (Land * land in lands) {
                 
@@ -167,11 +168,11 @@
         }
     [self flyToPin:nil];
     }else{
-        NSMutableArray *annotations =[[NSMutableArray alloc]init];
+        NSMutableArray *annotations =[[[NSMutableArray alloc]init] autorelease];
         
             //start the group
             OverlayGroup* group = [[OverlayGroup alloc] init];
-            group.polygons =[[NSMutableArray alloc]init];
+            group.polygons =[[[NSMutableArray alloc]init] autorelease];
             NSArray * lands = [self.referringNation.Lands allObjects];
             for (Land * land in lands) {
                 
@@ -401,6 +402,7 @@
     
     return image;
 }
+
 //this one is currently used
 -(UIImage *)GetMapviewImage{
     UIGraphicsBeginImageContext(self.mapView.bounds.size);
