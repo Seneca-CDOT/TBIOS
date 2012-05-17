@@ -9,8 +9,9 @@
 #import "WSLand.h"
 
 #import "WSGreeting.h"
-#import "Utility.h"
+
 @implementation WSLand
+
 @synthesize  BoundaryNorth;
 @synthesize BoundaryEast;
 @synthesize BoundarySouth;
