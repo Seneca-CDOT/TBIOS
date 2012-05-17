@@ -167,7 +167,7 @@
     CLLocationCoordinate2D theCoordinate =self.mapView.centerCoordinate;
         pinLatitude = theCoordinate.latitude;
         pinLongitude= theCoordinate.longitude;
-        pinLocationTitle =NSLocalizedString(@"Your destination!",@"Your destination!");
+        pinLocationTitle =NSLocalizedString(@"Your Destination",@"Your Destination");
 	DDAnnotation *annotation = [[[DDAnnotation alloc] initWithCoordinate:theCoordinate addressDictionary:nil] autorelease];
         
 	
