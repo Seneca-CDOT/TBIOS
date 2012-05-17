@@ -549,7 +549,7 @@ frcGreeting=frcGreeting_;
 -(NSDictionary *)getShortNationsDictionary{
     NSArray * shortNationArray =[self getShortNationArray];
     int count = [shortNationArray count];
-    NSMutableDictionary * dict = [[NSMutableDictionary alloc] initWithCapacity:count] ;
+    NSMutableDictionary * dict = [[[NSMutableDictionary alloc] initWithCapacity:count]autorelease ];
     if (self) {
         
         for (ShortNation * shortNation  in shortNationArray) {
@@ -727,7 +727,7 @@ frcGreeting=frcGreeting_;
         }
           
         updateCheckFinished=YES;
-        [localShortNationDict release];
+        
         [networkArray release];
         [networkDict release];
 
