@@ -76,7 +76,7 @@
   if([self.delegate conformsToProtocol:@protocol(LocationDetectorDelegate)]) {  // Check if the class assigning 
     [self.delegate NationUpdate:self.nations];
   }
-
+    [rgc release];
 
 }
 
