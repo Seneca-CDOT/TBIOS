@@ -87,7 +87,7 @@
     if (oldState == MKAnnotationViewDragStateDragging) {
         
         DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
-     ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
+     ReverseGeocoder *rgeocoder = [[[ReverseGeocoder alloc] init] autorelease];
       //  [landArray removeAllObjects];      
         pinLatitude = annotation.coordinate.latitude;
         pinLongitude = annotation.coordinate.longitude;
@@ -142,7 +142,7 @@
 	MKAnnotationView *draggablePinView = [self.mapView dequeueReusableAnnotationViewWithIdentifier:kPinAnnotationIdentifier];
 		
     if(!draggablePinView){
-        draggablePinView = [[MKPinAnnotationView alloc]initWithAnnotation: annotation reuseIdentifier:kPinAnnotationIdentifier];
+        draggablePinView = [[[MKPinAnnotationView alloc]initWithAnnotation: annotation reuseIdentifier:kPinAnnotationIdentifier] autorelease];
         draggablePinView.rightCalloutAccessoryView= nil;
     }
     draggablePinView.annotation = annotation;
@@ -175,7 +175,7 @@
         
     pinIsDropped = YES; 
         
-    ReverseGeocoder *rgeocoder = [[ReverseGeocoder alloc] init];
+    ReverseGeocoder *rgeocoder = [[[ReverseGeocoder alloc] init] autorelease];
     self.nationArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
     }else{
