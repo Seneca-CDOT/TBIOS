@@ -194,9 +194,9 @@
     // Did the user request to delete the row?
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         // Delete the managed object for the given index path
-				
+		PlannedVisit * visitTobeDeleted	=[plannedVisits objectAtIndex:indexPath.row];
 		// Save the context.
-		NSError *error= [appDelegate.model DeleteVisit:[plannedVisits objectAtIndex:indexPath.row]];
+		NSError *error= [appDelegate.model DeleteVisit:visitTobeDeleted];
 		if (error!=nil) {
 			// Handle the error... (and do it better in a production app)
 			NSLog(@"%@", [error description]);
