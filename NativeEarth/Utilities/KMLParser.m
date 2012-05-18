@@ -190,6 +190,7 @@
 @property (nonatomic, readonly) NSUInteger length;
 @end
 
+//Added By Ladan to Give support to MultiGeometry tag
 @interface KMLMultiGeometry : KMLElement {
     NSString *name;
     NSMutableArray * geometryArray;
@@ -327,7 +328,6 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 + (UIColor *)colorWithKMLString:(NSString *)kmlColorString;
 
 @end
-
 
 
 @implementation KMLParser
@@ -916,12 +916,13 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 @end
 
+//Added By Ladan to Give support to MultiGeometry tag
 @implementation KMLMultiGeometry
 @synthesize geometryArray,name;
 
 - (void)dealloc
 {
-    [overlayViews release];
+    [geometryArray release];
     [annotationViews release];
     [name release];
     [super dealloc];
