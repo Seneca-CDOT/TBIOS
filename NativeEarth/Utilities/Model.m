@@ -70,7 +70,6 @@ frcGreeting=frcGreeting_;
 
 -(void) dealloc{
     [self.frcNation release];
-    //[self.frcLandsForCoordinate release];
     [self.frcShortNations release];
     [self.frcPlannedVisits release];
     [self.frcNearByNations release];
@@ -477,7 +476,8 @@ frcGreeting=frcGreeting_;
     
         }else {
             searchDistanceKM += kSearchExpantionParameter;
-            [nearByNations release];
+          //[nearByNations release];
+           nearByNations=nil;
           nearByNations= [NSMutableArray arrayWithArray:[self getNearbyNationsForLatitude:latitude andLongitude:longitude]];
         }
         return nearByNations; 
@@ -491,6 +491,7 @@ frcGreeting=frcGreeting_;
     [centerLoc release];    
     return dist;
 }
+
 //gets the managed Nation locally and sets it to be updated
 -(Nation *)getNationWithNationNumber:(int)number{
 
@@ -544,8 +545,8 @@ frcGreeting=frcGreeting_;
     }
     return shortNationArray;
 }
-//returns a dictionary with keys as nation numbers and values as ShortNation objects
 
+//returns a dictionary with keys as nation numbers and values as ShortNation objects
 -(NSDictionary *)getShortNationsDictionary{
     NSArray * shortNationArray =[self getShortNationArray];
     int count = [shortNationArray count];
@@ -597,8 +598,6 @@ frcGreeting=frcGreeting_;
     return  aVisit;
     
 }
-#pragma mark -Land
-
 
 #pragma mark - Map
 //creates a new managed Map object in the context
@@ -611,7 +610,7 @@ frcGreeting=frcGreeting_;
 
 #pragma mark - Network data reterival
 -(void) getShortNationsFromWebService{
-    NSString *url = [NSString stringWithFormat:@"%@/nations/names",kHostName];//@"http://localhost/~ladan/FirstNationList";
+    NSString *url = [NSString stringWithFormat:@"%@/nations/names",kHostName];
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init] ;
     dataGetter.delegate = self;
     
@@ -656,7 +655,7 @@ frcGreeting=frcGreeting_;
         
         //second get the network array:
         NSArray * networkArray = (NSArray* )object;
-        NSMutableDictionary * networkDict=[[NSMutableDictionary alloc] initWithCapacity:[networkArray count]];
+        NSMutableDictionary * networkDict=[[[NSMutableDictionary alloc] initWithCapacity:[networkArray count]] autorelease];
         NSMutableArray *networkIDArray=[[[NSMutableArray alloc]init] autorelease] ;
         for (NSDictionary *  dict in networkArray) {
             ShortNation *sn =[[ShortNation alloc] initWithDictionary:dict];
@@ -701,7 +700,6 @@ frcGreeting=frcGreeting_;
             for (NSNumber * n in deleteArray) {
                 Nation * nation = [self getNationWithNationNumber:[n intValue]];
                 [self.managedObjectContext deleteObject:nation];
-                [nation release];
             }
             
             NSError * error;
@@ -730,7 +728,7 @@ frcGreeting=frcGreeting_;
         updateCheckFinished=YES;
         
        
-        [networkDict release];
+     
 
     }
     else{// here it has already figured out the add and update array values and it is now applying them 
@@ -738,7 +736,7 @@ frcGreeting=frcGreeting_;
         //get the object
         BOOL updating =NO; // to defrentiate between update and add
         //convert the object to WSNation 
-        WSNation * newNation = [[WSNation alloc] initWithDictionary:(NSDictionary*)object] ;
+        WSNation * newNation = [[[WSNation alloc] initWithDictionary:(NSDictionary*)object] autorelease] ;
         //check if the nation is already there and should be deleted first:
         Nation * exsistingNation= [self getNationLocallyWithNationNumber:[newNation.Number intValue]];
         if(exsistingNation!= nil){
@@ -751,22 +749,17 @@ frcGreeting=frcGreeting_;
         else{
             NSLog(@"Adding Nation %d",[newNation.Number intValue]);
             Nation * newManagedNation = [newNation ToManagedNation:self.managedObjectContext]; 
-        
             NSError * error;
-
             if (!(error=[self SaveData])) {
              NSLog(@"Added Nation %d",[newManagedNation.Number intValue]);
             } else{
                 NSLog(@"%@",[error description]);
             }
-        
-            [newManagedNation release];
         }
-        [newNation release];
+        
         if (updating==YES) {
             [[NSNotificationCenter defaultCenter] postNotificationName:@"UpdatedNation" object:exsistingNation]; 
-            [exsistingNation release];
-        }
+            }
         
    
          [[NSNotificationCenter defaultCenter] postNotificationName:@"NewList" object:self.shortNationList]; 
