@@ -368,7 +368,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 + (KMLParser *)parseKMLAtURL:(NSURL *)url
 {
-    NSXMLParser *xml = [[NSXMLParser alloc] initWithContentsOfURL:url];
+    NSXMLParser *xml = [[[NSXMLParser alloc] initWithContentsOfURL:url] autorelease];
     KMLParser *parser = [[KMLParser alloc] init];
     [xml setDelegate:parser];
     [xml parse];
@@ -383,8 +383,8 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 }
 
 +(KMLParser *)parseKMLWithData:(NSData*)data{
-    NSXMLParser *xml = [[NSXMLParser alloc] initWithData:data];
-    KMLParser *parser = [[KMLParser alloc] init];
+    NSXMLParser *xml = [[[NSXMLParser alloc] initWithData:data] autorelease];
+    KMLParser *parser = [[KMLParser alloc] init] ;
     [xml setDelegate:parser];
     [xml parse];
     [parser _assignStyles];
@@ -960,7 +960,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 - (void)endGeometry
 {
     [geometryArray addObject:geometry];
-    [geometry release];
+   // [geometry release];
     flags.inGeometry = NO;
 }
 -(void)beginCoordinates{
@@ -1185,7 +1185,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 - (void)beginMultiGeometryWithIdentifier:(NSString *)ident{
     flags.inMultyGeometry = YES;
-    multiGeometry =[[KMLMultiGeometry alloc] initWithIdentifier:ident];
+    multiGeometry =[[[KMLMultiGeometry alloc] initWithIdentifier:ident] autorelease];
 }
 - (void)endMultiGeometry{
     flags.inMultyGeometry = NO;
