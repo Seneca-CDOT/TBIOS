@@ -19,6 +19,7 @@
 #import "Toast+UIView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "KMLParser.h"
+
 @interface OverlayGroup : NSObject {
     UIColor* color;
     NSMutableArray* polygons;
@@ -39,6 +40,11 @@
 -(UIColor *)getRandomColor{
     float r = rand() % 360; 
     return [UIColor colorWithHue:(r)/360 saturation:0.5f brightness:0.8f alpha:0.5f];
+}
+-(void)dealloc{
+  [polygons release];
+  [color release];
+  [super dealloc];
 }
 @end
 @implementation MapBrowserViewController_iPhone
@@ -127,24 +133,21 @@
         NSMutableArray *annotations =[[[NSMutableArray alloc]init] autorelease];
         for (Nation * nation in nationsArray) {
             //start the group
-            OverlayGroup* group = [[OverlayGroup alloc] init];
+            OverlayGroup* group = [[[OverlayGroup alloc] init] autorelease];
              group.polygons =[[[NSMutableArray alloc]init] autorelease];
             NSArray * lands = [nation.Lands allObjects];
             for (Land * land in lands) {
-                
                 NSData * kmlData = [land.Kml dataUsingEncoding: NSUTF8StringEncoding];
                 KMLParser * kml = [KMLParser parseKMLWithData:kmlData];    
                 NSArray * overlays = [kml overlays];
                 //put the overlays of a nation in one group
                 [group.polygons addObjectsFromArray:overlays];
-                
-               //[mapView addOverlays:overlays]; 
-            }//end on inner for loop
+             }//end on inner for loop
             //add group to groups
             if ([group.polygons count]>0) {
                 [overlayGroups addObject:group]; 
             }
-            [group release];
+            //[group release];
             //annotation:
             DistrictCenterAnnotation * annotation = [[[DistrictCenterAnnotation alloc]initWithLatitude:[nation.CenterLat doubleValue] andLongitude:[nation.CenterLong doubleValue]]autorelease];
             annotation.title = nation.OfficialName;
@@ -167,7 +170,8 @@
             }
         }
     [self flyToPin:nil];
-    }else{
+    }
+    else{//nationsArray ==nil
         NSMutableArray *annotations =[[[NSMutableArray alloc]init] autorelease];
         
             //start the group
@@ -213,7 +217,8 @@
         [self flyToPin:nil];
  
     }
- }else{
+ }
+ else{//browsing lands
          NSData * kmlData = [referringLand.Kml dataUsingEncoding: NSUTF8StringEncoding];
         KMLParser * kml = [KMLParser parseKMLWithData:kmlData];    
         NSArray * overlays = [kml overlays];
@@ -221,7 +226,7 @@
         group.polygons =[NSMutableArray arrayWithArray:overlays];
         [overlayGroups addObject:group];
         [mapView addOverlays:overlays];
-         [self flyToPin:nil];
+        [self flyToPin:nil];
  }
     
 }
@@ -248,9 +253,6 @@
             flyTo = MKMapRectUnion(flyTo, pointRect);
         }
     }
-
-
-    
     ///
     if ([mapView.overlays count]==0 && [mapView.annotations count]==1) {
         DistrictCenterAnnotation* annot = [mapView.annotations objectAtIndex:0];
