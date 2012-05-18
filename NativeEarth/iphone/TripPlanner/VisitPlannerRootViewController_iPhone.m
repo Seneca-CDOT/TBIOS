@@ -27,6 +27,7 @@
 
 - (void)dealloc
 {
+    [dateFormatter release];
     [plannedVisits release];
     [super dealloc];
 }
