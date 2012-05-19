@@ -480,7 +480,8 @@ typedef enum{
 
 -(void)AddVisit{
 
-    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] init];
+   // EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] init];
+    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iphone" bundle:nil];
     nextVC.isNew=YES;
     PlannedVisit * visit = [appDelegate.model getNewPlannedVisit];
     [visit addNationsObject:self.selectedNation];
