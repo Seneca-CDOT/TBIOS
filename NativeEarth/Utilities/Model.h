@@ -53,7 +53,7 @@
     int toBeUpdatedNationNumber;
     BOOL nationNumberUpdateFlag;
     double searchDistanceKM;
-   
+    NSMutableArray* shortNationList;
 }
 
 @property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
@@ -67,7 +67,7 @@
 
 
 @property (nonatomic, retain) NSFetchedResultsController * frcPlannedVisits;
-@property (nonatomic, retain) NSMutableArray* shortNationList;
+@property (nonatomic, retain, readonly) NSMutableArray* shortNationList;
 //Network Conectivity
 @property NetworkStatus internetConnectionStatus;
 @property NetworkStatus wifiConnectionStatus;

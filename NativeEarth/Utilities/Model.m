@@ -25,6 +25,7 @@ NSInteger firstNumSort(id str1, id str2, void *context) {
 }
 
 @implementation Model
+
 @synthesize frcNation=frcNation_,
 frcNearByNations=frcNearByNations_,
 frcShortNations=frcShortNations_,
@@ -39,7 +40,7 @@ frcGreeting=frcGreeting_;
 @synthesize internetConnectionStatus;
 @synthesize wifiConnectionStatus;
 @synthesize remoteHostStatus;
-@synthesize shortNationList;
+//@synthesize shortNationList;
 
 -(id) init{
     [super init];
@@ -48,7 +49,7 @@ frcGreeting=frcGreeting_;
     // Observe the kNetworkReachabilityChangedNotification. When that notification is posted, the
     // method "reachabilityChanged" will be called. 
     [[NSNotificationCenter defaultCenter] addObserver: self selector: @selector(reachabilityChanged:) name: kReachabilityChangedNotification object: nil];
-    self.shortNationList = [[NSMutableArray arrayWithArray:[self getShortNationArray] ] retain];
+    shortNationList = [[NSMutableArray arrayWithArray:[self getShortNationArray] ] retain];
     
     hostReach = [[Reachability reachabilityWithHostName: kHostName] retain];
     [hostReach startNotifier];
