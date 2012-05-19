@@ -77,7 +77,6 @@
         
         [NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
         NSDateFormatter *dateFormatter = [[[NSDateFormatter alloc] init] autorelease];
-        //[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehaviorDefault];
         [dateFormatter setDateFormat:@"yyy-MM-dd HH:mm:ss ZZZ"];
         
         self.RecordedOn= [dateFormatter dateFromString:[greetingDict valueForKey:@"RecordedOn"]];
