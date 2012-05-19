@@ -653,11 +653,11 @@
 		D7BB0DEC13BBA0290062C2A9 /* VisitPlanner */ = {
 			isa = PBXGroup;
 			children = (
-				D785409A15676560002304DF /* EditAVisitViewController_iphone.xib */,
 				D7A84F4813C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.h */,
 				D7A84F4913C4E7D00085E8C3 /* VisitPlannerRootViewController_iPhone.m */,
 				D7A84F6F13C4F04A0085E8C3 /* EditAVisitViewController_iPhone.h */,
 				D7A84F7013C4F04A0085E8C3 /* EditAVisitViewController_iPhone.m */,
+				D785409A15676560002304DF /* EditAVisitViewController_iphone.xib */,
 				D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */,
 				D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */,
 			);
