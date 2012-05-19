@@ -175,7 +175,7 @@
 }
 
 -(void)AddNewVisit{
-    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iPhone" bundle:nil];
+    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iphone" bundle:nil];
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     nextVC.visit = [appDelegate.model getNewPlannedVisit];
     nextVC.isNew=YES;
