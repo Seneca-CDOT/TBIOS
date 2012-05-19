@@ -476,8 +476,8 @@ frcGreeting=frcGreeting_;
     
         }else {
             searchDistanceKM += kSearchExpantionParameter;
-          //[nearByNations release];
-           nearByNations=nil;
+         
+          nearByNations=nil;
           nearByNations= [NSMutableArray arrayWithArray:[self getNearbyNationsForLatitude:latitude andLongitude:longitude]];
         }
         return nearByNations; 
