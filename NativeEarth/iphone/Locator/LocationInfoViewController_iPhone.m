@@ -84,7 +84,6 @@ typedef enum{
     if (shouldLetAddToVisit) {    
     UIBarButtonItem * btnTrip =[[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"icon_case.png"] style:UIBarButtonItemStyleBordered target:self action:@selector(AddVisit)];
     self.navigationItem.rightBarButtonItem = btnTrip;
-    
     [btnTrip release];
     }
   
@@ -383,7 +382,6 @@ typedef enum{
     LandsViewController_iPhone * nextVC =[[LandsViewController_iPhone alloc] initWithStyle:UITableViewStylePlain];
    NSArray * lands = [self.selectedNation.Lands allObjects];
     nextVC.landList = [NSMutableArray arrayWithArray:lands];
-   // [lands release];
     nextVC.remoteHostStatus = self.remoteHostStatus;
     nextVC.internetConnectionStatus = self.internetConnectionStatus;
     nextVC.wifiConnectionStatus= self.wifiConnectionStatus;
@@ -408,7 +406,7 @@ typedef enum{
     nextVC.originAnnotationTitle= self.originTitle;
     nextVC.title=NSLocalizedString(@"Map",@"Map");
     [self.navigationController pushViewController:nextVC animated:YES];
-      [nextVC release];
+    [nextVC release];
     }else{
         [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
                     position:@"bottom"]; 
@@ -443,7 +441,7 @@ typedef enum{
     if (self.remoteHostStatus != NotReachable) {
 
      [[UIApplication sharedApplication] openURL:[NSURL URLWithString: self.selectedNation.CommunitySite]];
-   // [self.tableView deselectRowAtIndexPath:[[NSIndexPath indexPathForRow:rowTitleCommunitySite inSection:0]autorelease] animated:NO];
+    [self.tableView deselectRowAtIndexPath:[NSIndexPath indexPathForRow:rowTitleCommunitySite inSection:0] animated:NO];
     } else{
         [self.view makeToast:NSLocalizedString(@"      No Network Connection       ", @"      No Network Connection       ")                 duration:2.0
                     position:@"bottom"];
@@ -486,7 +484,7 @@ typedef enum{
     nextVC.isNew=YES;
     PlannedVisit * visit = [appDelegate.model getNewPlannedVisit];
     [visit addNationsObject:self.selectedNation];
-    nextVC.visit = visit;//never release visit 
+    nextVC.visit = visit;//never release visit , it is autorelease
   
     nextVC.title = NSLocalizedString(@"New Visit",@"New Visit");
     
@@ -494,11 +492,11 @@ typedef enum{
     nextVC.hidesBottomBarWhenPushed=NO;
     
     nextVC.delegate=self;
-    UINavigationController *cntrol = [[UINavigationController alloc] initWithRootViewController:nextVC];
-    cntrol.navigationBar.barStyle=UIBarStyleBlack;
-    [self.navigationController presentModalViewController:cntrol animated:YES];
+    UINavigationController *control = [[UINavigationController alloc] initWithRootViewController:nextVC];
+    control.navigationBar.barStyle=UIBarStyleBlack;
+    [self.navigationController presentModalViewController:control animated:YES];
     [nextVC release];
-    [cntrol release];
+    [control release];
 
 }
 -(void) EditAVisitViewControllerDidSave:(EditAVisitViewController_iPhone*) controller{

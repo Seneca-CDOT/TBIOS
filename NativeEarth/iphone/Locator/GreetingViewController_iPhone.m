@@ -93,7 +93,7 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell;
+    UITableViewCell *cell=nil;
     GreetingCell_iPhone * greetingCell;
    
     if (indexPath.section==sectionLanguage) {

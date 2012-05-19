@@ -65,7 +65,7 @@ NSInteger nationDictSort(id nationDict1, id nationDict2, void *context) {
     [super viewDidLoad];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUI:) name:@"UpdatedNation" object:nil];
 language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
- self.nationDictArray =[NSMutableArray arrayWithArray:[self.nationDictArray sortedArrayUsingFunction:nationDictSort context:nil]];
+ self.nationDictArray =[[NSMutableArray arrayWithArray:[self.nationDictArray sortedArrayUsingFunction:nationDictSort context:nil]] retain];
 }
 
 
