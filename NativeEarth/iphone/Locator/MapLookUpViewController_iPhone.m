@@ -46,7 +46,7 @@
     [self.toolbar release];
     [self.redoButton release];
     [self.mapTypeControl release];
-    [self.nationArray release];
+   // [self.nationArray release];
     [super dealloc];
 }
 
@@ -92,6 +92,7 @@
         pinLatitude = annotation.coordinate.latitude;
         pinLongitude = annotation.coordinate.longitude;
        pinLocationTitle =NSLocalizedString(@"Your Destination",@"Your Destination");
+        self.nationArray=nil;
     self.nationArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
         
