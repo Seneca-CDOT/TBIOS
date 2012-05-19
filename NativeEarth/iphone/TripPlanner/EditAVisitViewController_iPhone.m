@@ -185,7 +185,7 @@ typedef enum {titleCellTag} textFieldCellTags;
     
     
     UITableViewCell *cell=nil ;
-    TextViewCell *noteCell;
+    TextViewCell *noteCell=nil;
     TextFieldCell_iPhone *titleCell;
     BOOL cellIsNoteCell = NO;
     if (indexPath.row == HeaderRow) {
@@ -295,7 +295,7 @@ typedef enum {titleCellTag} textFieldCellTags;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             ((TextViewCell*)cell).textView.delegate =(TextViewCell*)cell;                    
             ((TextViewCell*)cell).delegate = self;
-            ((TextViewCell *)cell).textView.text =self.visitNotes;//visit.Notes;
+            ((TextViewCell *)cell).textView.text =self.visitNotes;
         }
     }
     
