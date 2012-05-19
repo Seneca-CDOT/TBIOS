@@ -127,7 +127,7 @@
     //clear the map first
     [mapView removeOverlays:mapView.overlays];
     [mapView removeAnnotations:mapView.annotations];
-   overlayGroups =[[[NSMutableArray alloc]initWithCapacity:[nationsArray count]] autorelease]; 
+   overlayGroups =[[NSMutableArray alloc]initWithCapacity:[nationsArray count]] ; 
  if (self.isBrowsingNation) {
     if(nationsArray !=nil ){
         NSMutableArray *annotations =[[[NSMutableArray alloc]init] autorelease];
@@ -326,7 +326,7 @@
     [referringNation addMapsObject:map];
    // [appDelegate.model SaveData];
     NSError *error;
-    if (error=[appDelegate.model SaveData])
+    if ((error=[appDelegate.model SaveData]))
     {
         NSLog(@"%@",[error description]);
     }
