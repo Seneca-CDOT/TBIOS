@@ -398,7 +398,7 @@ frcGreeting=frcGreeting_;
 - (void) updateStatusesWithReachability: (Reachability*) curReach {
     if(curReach == hostReach)
 	{
-        self.remoteHostStatus = [curReach currentReachabilityStatus];
+        self.remoteHostStatus = [curReach currentReachabilityStatus] ;
     }
     
 	if(curReach == internetReach)
