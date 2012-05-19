@@ -192,16 +192,20 @@
 
 //Added By Ladan to Give support to MultiGeometry tag
 @interface KMLMultiGeometry : KMLElement {
-    NSString *name;
+    NSString       * name;
+    NSMutableArray * polygons;
     NSMutableArray * geometryArray;
-    KMLGeometry *geometry;
+    NSMutableArray * overlays;
+    KMLGeometry    * geometry;
     NSMutableArray * mkShapes;
+    NSMutableArray * overlayViews;
+    NSMutableArray * annotationViews;
+    
     struct {
         int inGeometry:1;
     } flags;
-    NSMutableArray * overlayViews;
-    NSMutableArray * annotationViews;
 }
+@property (nonatomic,readonly) NSMutableArray* polygons;
 @property (nonatomic,readonly) NSMutableArray* geometryArray;
 @property (nonatomic,readonly) NSMutableArray * overlays;
 @property (nonatomic,readonly) NSMutableArray * points;
@@ -213,7 +217,6 @@
 -(void)beginCoordinates;
 -(void)endCoordinates;
 @end
-
 
 @interface KMLPlacemark : KMLElement {
     KMLStyle *style;
@@ -328,7 +331,6 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 + (UIColor *)colorWithKMLString:(NSString *)kmlColorString;
 
 @end
-
 
 @implementation KMLParser
 
@@ -916,12 +918,14 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 @end
 
+
 //Added By Ladan to Give support to MultiGeometry tag
 @implementation KMLMultiGeometry
 @synthesize geometryArray,name;
 
 - (void)dealloc
 {
+    
     [geometryArray release];
     [annotationViews release];
     [name release];
