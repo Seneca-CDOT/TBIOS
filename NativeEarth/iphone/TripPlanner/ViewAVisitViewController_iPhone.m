@@ -283,7 +283,8 @@ typedef enum {HeaderRow, DetailRow1, DetailRow2} RowType ;
 }
 
 -(void)EditButtonAction:(id) sender{
-    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] init];
+   // EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] init];
+    EditAVisitViewController_iPhone * nextVC = [[EditAVisitViewController_iPhone alloc] initWithNibName:@"EditAVisitViewController_iphone" bundle:nil];
     nextVC.visit = self.visit;
     nextVC.isNew=NO;
     nextVC.title=NSLocalizedString(@"Edit Visit",@"Edit Visit");
