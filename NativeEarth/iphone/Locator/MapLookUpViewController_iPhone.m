@@ -89,10 +89,10 @@
         DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
      ReverseGeocoder *rgeocoder = [[[ReverseGeocoder alloc] init] autorelease];
       //  [landArray removeAllObjects];      
-        pinLatitude = annotation.coordinate.latitude;
-        pinLongitude = annotation.coordinate.longitude;
+       pinLatitude = annotation.coordinate.latitude;
+       pinLongitude = annotation.coordinate.longitude;
        pinLocationTitle =NSLocalizedString(@"Your Destination",@"Your Destination");
-        self.nationArray=nil;
+       self.nationArray=nil;
     self.nationArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
 
         
@@ -227,7 +227,7 @@
         nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
         nextVC.internetConnectionStatus = self.internetConnectionStatus;
     
-        nextVC.nationDictArray=[NSMutableArray arrayWithArray: nationArray];//lands;
+        nextVC.nationArray=[NSMutableArray arrayWithArray: nationArray];
         
         nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
         CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);
