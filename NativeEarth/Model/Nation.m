@@ -2,7 +2,7 @@
 //  Nation.m
 //  NativeEarth
 //
-//  Created by Ladan Zahir on 12-04-19.
+//  Created by Ladan Zahir on 12-05-19.
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
@@ -14,16 +14,17 @@
 
 
 @implementation Nation
+@dynamic Province;
 @dynamic CenterLat;
 @dynamic Phone;
 @dynamic Number;
+@dynamic CommunitySite;
 @dynamic Address;
 @dynamic CenterLong;
-@dynamic CommunitySite;
 @dynamic rowversion;
 @dynamic OfficialName;
 @dynamic PostCode;
-@dynamic Province;
+@dynamic Distance;
 @dynamic Maps;
 @dynamic Lands;
 @dynamic greeting;
