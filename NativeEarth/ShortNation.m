@@ -17,7 +17,8 @@
     self.Number = [NSNumber numberWithInt:[[dict valueForKey:@"Number"]intValue] ];
     self.OfficialName = [[dict valueForKey:@"OfficialName"] description];
     self.RowVersion =[[dict valueForKey:@"rowversion"] description];
-    if([dict valueForKey:@"Province"] !=nil)   self.Province =[[dict valueForKey:@"Province"] description];
+    if([dict valueForKey:@"Province"] !=nil)   
+        self.Province =[[dict valueForKey:@"Province"] description];
     
     return self;
     }
