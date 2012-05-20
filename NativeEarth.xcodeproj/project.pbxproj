@@ -27,7 +27,6 @@
 		D7592EAF13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */; };
 		D760FC1514914B9600D7A281 /* icon_case.png in Resources */ = {isa = PBXBuildFile; fileRef = D760FC1414914B9300D7A281 /* icon_case.png */; };
 		D760FC1714914BC100D7A281 /* icon_forum.png in Resources */ = {isa = PBXBuildFile; fileRef = D760FC1614914BC000D7A281 /* icon_forum.png */; };
-		D762915E1540A45D00AB2612 /* Nation.m in Sources */ = {isa = PBXBuildFile; fileRef = D762915D1540A45D00AB2612 /* Nation.m */; };
 		D76291751549E86700AB2612 /* Greeting.m in Sources */ = {isa = PBXBuildFile; fileRef = D76291741549E86600AB2612 /* Greeting.m */; };
 		D77E0E1013BCC34300A738D8 /* LocationInfoViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E0F13BCC34300A738D8 /* LocationInfoViewController_iPhone.m */; };
 		D77E0E3313BCD38600A738D8 /* MapBrowserViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D77E0E3113BCD38600A738D8 /* MapBrowserViewController_iPhone.m */; };
@@ -95,6 +94,7 @@
 		D7BB0DFD13BBA3E40062C2A9 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DFC13BBA3E40062C2A9 /* BaseViewController.m */; };
 		D7BC54D013C7A21500542880 /* TextViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BC54CF13C7A21500542880 /* TextViewCell.m */; };
 		D7BC54D213C7A7E000542880 /* TextViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BC54D113C7A7E000542880 /* TextViewCell.xib */; };
+		D7BF7F50156867F6007B6D30 /* Nation.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BF7F4F156867F5007B6D30 /* Nation.m */; };
 		D7C4B53E145F02280082F0FF /* ViewAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */; };
 		D7D7AB9E1506B19800BD3EBD /* Map.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7AB9D1506B19800BD3EBD /* Map.m */; };
 		D7D7ABA71506B19900BD3EBD /* Land.m in Sources */ = {isa = PBXBuildFile; fileRef = D7D7ABA61506B19900BD3EBD /* Land.m */; };
@@ -155,8 +155,6 @@
 		D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocatorRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D760FC1414914B9300D7A281 /* icon_case.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_case.png; sourceTree = "<group>"; };
 		D760FC1614914BC000D7A281 /* icon_forum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_forum.png; sourceTree = "<group>"; };
-		D762915C1540A45D00AB2612 /* Nation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nation.h; sourceTree = "<group>"; };
-		D762915D1540A45D00AB2612 /* Nation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nation.m; sourceTree = "<group>"; };
 		D76291731549E86600AB2612 /* Greeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Greeting.h; sourceTree = "<group>"; };
 		D76291741549E86600AB2612 /* Greeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Greeting.m; sourceTree = "<group>"; };
 		D77E0E0E13BCC34300A738D8 /* LocationInfoViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationInfoViewController_iPhone.h; sourceTree = "<group>"; };
@@ -267,6 +265,8 @@
 		D7BC54CE13C7A21500542880 /* TextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextViewCell.h; path = iphone/TripPlanner/TextViewCell.h; sourceTree = "<group>"; };
 		D7BC54CF13C7A21500542880 /* TextViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = TextViewCell.m; path = iphone/TripPlanner/TextViewCell.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7BC54D113C7A7E000542880 /* TextViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TextViewCell.xib; path = iphone/TripPlanner/TextViewCell.xib; sourceTree = "<group>"; };
+		D7BF7F4E156867F5007B6D30 /* Nation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Nation.h; sourceTree = "<group>"; };
+		D7BF7F4F156867F5007B6D30 /* Nation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Nation.m; sourceTree = "<group>"; };
 		D7C4B53C145F02250082F0FF /* ViewAVisitViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewAVisitViewController_iPhone.h; sourceTree = "<group>"; };
 		D7C4B53D145F02260082F0FF /* ViewAVisitViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = ViewAVisitViewController_iPhone.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7D7AB9C1506B19800BD3EBD /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = "<group>"; };
@@ -585,10 +585,10 @@
 		D7BB0DC013BB9CEA0062C2A9 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D7BF7F4E156867F5007B6D30 /* Nation.h */,
+				D7BF7F4F156867F5007B6D30 /* Nation.m */,
 				D76291731549E86600AB2612 /* Greeting.h */,
 				D76291741549E86600AB2612 /* Greeting.m */,
-				D762915C1540A45D00AB2612 /* Nation.h */,
-				D762915D1540A45D00AB2612 /* Nation.m */,
 				D7D7ABA81506B19900BD3EBD /* PlannedVisit.h */,
 				D7D7ABA91506B19900BD3EBD /* PlannedVisit.m */,
 				D7D7ABA51506B19900BD3EBD /* Land.h */,
@@ -844,13 +844,13 @@
 				D7D7ABB91506C51800BD3EBD /* WSNation.m in Sources */,
 				D784AB7715213654002FC873 /* LandsViewController_iPhone.m in Sources */,
 				D797329B153339E7006834D8 /* MKMapView+ZoomLevel.m in Sources */,
-				D762915E1540A45D00AB2612 /* Nation.m in Sources */,
 				D76291751549E86700AB2612 /* Greeting.m in Sources */,
 				D70007DB15505D1200934C6F /* ioapi.c in Sources */,
 				D70007DC15505D1200934C6F /* mztools.c in Sources */,
 				D70007DD15505D1200934C6F /* unzip.c in Sources */,
 				D70007DE15505D1200934C6F /* zip.c in Sources */,
 				D70007DF15505D1200934C6F /* ZipArchive.mm in Sources */,
+				D7BF7F50156867F6007B6D30 /* Nation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
