@@ -19,16 +19,14 @@
     curLongitude =lng;
        NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
     NSArray * fetchedNearbyNations = [appDelegate.model getNearbyNationsForLatitude:curLatitude andLongitude:curLongitude];
-       NSMutableArray * dictArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyNations count]];
+       NSMutableArray * nationArray=[NSMutableArray arrayWithCapacity:[fetchedNearbyNations count]];
         for (Nation * n in  fetchedNearbyNations) {
-            NSMutableDictionary * dict =[[NSMutableDictionary alloc]init];
             CLLocationDistance distance =[appDelegate.model DistanceToNation:n];
-            [dict setValue:n forKey:@"Nation"];
-            [dict setValue:[NSDecimalNumber numberWithDouble:distance ] forKey:@"Distance"];
-            [dictArray addObject:dict];
-            [dict release];
+            n.Distance = [NSNumber numberWithDouble: distance];//setting the transient property 
+            [nationArray addObject:n];
+
        }
-        return dictArray;
+        return nationArray;
 }
 
 @end
