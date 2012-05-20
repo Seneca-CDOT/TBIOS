@@ -540,9 +540,9 @@ frcGreeting=frcGreeting_;
     NSArray * results=[self.frcShortNations fetchedObjects];
     NSMutableArray * shortNationArray= [[[NSMutableArray alloc] initWithCapacity:[results count]] autorelease];
     for (NSDictionary * nation  in results) {
-        ShortNation * shortNation = [[ShortNation alloc] initWithDictionary:nation] ;        
+        ShortNation * shortNation = [[[ShortNation alloc] initWithDictionary:nation] autorelease] ;        
         [shortNationArray addObject:shortNation];
-        [shortNation release];
+        
     }
     return shortNationArray;
 }
