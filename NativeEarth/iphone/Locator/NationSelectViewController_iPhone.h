@@ -12,8 +12,8 @@
 
 @interface NationSelectViewController_iPhone : BaseTableViewController<UITableViewDataSource,UITableViewDelegate> {
     NSString * language; 
-    NSMutableArray* nationDictArray;
-    NSMutableDictionary * selectedNationDict;
+    NSMutableArray* nationArray;
+    Nation * selectedNation;
     CLLocationCoordinate2D originLocation;
     NSString * originTitle;
     
@@ -21,8 +21,8 @@
 @property (nonatomic)    BOOL showOrigin;
 @property (nonatomic)    CLLocationCoordinate2D  originLocation;
 
-@property (nonatomic, retain) NSMutableArray* nationDictArray;
-@property (nonatomic, retain) NSMutableDictionary *selectedNationDict;
+@property (nonatomic, retain) NSMutableArray* nationArray;
+@property (nonatomic, retain) Nation *selectedNation;
 @property (nonatomic,retain) NSString * originTitle;
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath ;
