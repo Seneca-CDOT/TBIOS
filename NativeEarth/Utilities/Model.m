@@ -611,26 +611,31 @@ frcGreeting=frcGreeting_;
 
 #pragma mark - Network data reterival
 -(void) getShortNationsFromWebService{
-    NSString *url = [NSString stringWithFormat:@"%@/nations/names",kHostName];
+    NSString *wsUrl = [NSString stringWithFormat:@"http://%@:81/dps907_113a05/ws", kHostName];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/nations/names",wsUrl];
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init] ;
     dataGetter.delegate = self;
     
     // Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [dataGetter GetResultsFromUrl:url];
+    [dataGetter GetResultsFromUrl:urlString];
     [dataGetter autorelease];
 }
 
 -(void) getNationFromWebServiceWithNationNumber:(NSNumber *)number{
     //pass landID and language here:
     NSLog(@"getting Nation %d from web service\n", [number intValue]);
-    NSString *url = [NSString stringWithFormat:@"%@/nation/%d/alldata",kHostName,[number intValue]];
+    
+    NSString *wsUrl = [NSString stringWithFormat:@"http://%@:81/dps907_113a05/ws", kHostName];
+    
+    NSString *urlString = [NSString stringWithFormat:@"%@/nation/%d/alldata",wsUrl,[number intValue]];
     NetworkDataGetter * dataGetter = [[NetworkDataGetter alloc]init];
     dataGetter.delegate = self;
     
     // Reference the app's network activity indicator in the status bar
 	[[UIApplication sharedApplication] setNetworkActivityIndicatorVisible:YES];
-    [dataGetter GetResultsFromUrl:url];
+    [dataGetter GetResultsFromUrl:urlString];
     [dataGetter autorelease];
 }
 
