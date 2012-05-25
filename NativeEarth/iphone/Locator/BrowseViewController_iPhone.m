@@ -124,13 +124,16 @@
 #pragma mark - local data retrival opertion
 -(void) GetShortNationList{
      NativeEarthAppDelegate_iPhone *appDelegate = (NativeEarthAppDelegate_iPhone *)[[UIApplication sharedApplication] delegate];
-    self.frcShortNations=nil;
+    
+  //  self.frcShortNations=nil;
+    [self.frcShortNations release];
     self.frcShortNations= [appDelegate.model getShortNationFetchedResults];
     if (self.completeList!= nil) {
         [self.completeList removeAllObjects];
+        self.completeList =nil;
     }
     self.completeList = [NSMutableArray arrayWithArray: appDelegate.model.shortNationList];
-    [self.completeList retain];
+  //  [self.completeList retain];
     self.filteredList = [NSMutableArray arrayWithCapacity:[self.completeList count]];
     [self.resultsTableView reloadData];
 	self.resultsTableView.scrollEnabled = YES;
@@ -315,14 +318,6 @@
     return YES;
 }
 
-//- (BOOL)searchDisplayController:(UISearchDisplayController *)controller shouldReloadTableForSearchScope:(NSInteger)searchOption
-//{
-//    [self filterContentForSearchText:[self.searchDisplayController.searchBar text] scope:
-//     [[self.searchDisplayController.searchBar scopeButtonTitles] objectAtIndex:searchOption]];
-//    
-//    // Return YES to cause the search result table view to be reloaded.
-//    return YES;
-//}
 
 #pragma mark - 
 -(IBAction) CancelButtonAction:(id) sender{

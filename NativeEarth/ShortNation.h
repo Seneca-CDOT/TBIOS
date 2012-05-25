@@ -9,16 +9,17 @@
 #import <Foundation/Foundation.h>
 #import <CoreLocation/CoreLocation.h>
 
-@interface ShortNation : NSObject {
-    NSString *OfficialName;
-    NSNumber  * Number;
-    NSString *RowVersion;
-    NSString *Province;
-}
+@interface ShortNation : NSObject 
 
-@property (nonatomic, retain) NSString *OfficialName;
-@property (nonatomic,retain) NSNumber * Number;
-@property (nonatomic,retain) NSString * RowVersion;
-@property (nonatomic,retain) NSString * Province;
+@property (nonatomic, copy) NSString *OfficialName;
+@property (nonatomic, copy) NSNumber *Number;
+@property (nonatomic, copy) NSString *RowVersion;
+@property (nonatomic, copy) NSString *Province;
+
 -(id) initWithDictionary:(NSDictionary *) dict;
+
 @end
+
+
+
+

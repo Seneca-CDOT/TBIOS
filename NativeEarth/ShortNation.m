@@ -12,21 +12,25 @@
 @implementation ShortNation
 
 @synthesize OfficialName, Number, RowVersion,Province;
+
 -(id) initWithDictionary:(NSDictionary *) dict{
     [super init];
-    self.Number = [NSNumber numberWithInt:[[dict valueForKey:@"Number"]intValue] ];
+    self.Number = [NSNumber numberWithInt:[[dict valueForKey:@"Number"]intValue]];
     self.OfficialName = [[dict valueForKey:@"OfficialName"] description];
     self.RowVersion =[[dict valueForKey:@"rowversion"] description];
     if([dict valueForKey:@"Province"] !=nil)   
         self.Province =[[dict valueForKey:@"Province"] description];
     
     return self;
-    }
+}
+
 -(void)dealloc {
-    [self.OfficialName release];
-    [self.Number release];
-    [self.RowVersion release];
-    [self.Province release];
+    [OfficialName release];
+    [Number release];
+    [RowVersion release];
+    [Province release];
     [super dealloc];
 }
+
 @end
+

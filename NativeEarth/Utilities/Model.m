@@ -239,9 +239,9 @@ frcGreeting=frcGreeting_;
     [fetchedRequest setPropertiesToFetch:[NSArray arrayWithObjects:expressionDescription1,expressionDescription2,expressionDescription3,expressionDescription4, nil]];
     
     //create fetchedResultsController
-    [NSFetchedResultsController deleteCacheWithName:@"ShortNationList"];
+    [NSFetchedResultsController deleteCacheWithName:@"SectionedShortNationList"];
     
-    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"Province" cacheName:@"ShortNationList"];
+    NSFetchedResultsController *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchedRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:@"Province" cacheName:@"SectionedShortNationList"];
     aFetchedResultsController.delegate = self;
     
     self.frcSectionedShortNations = aFetchedResultsController;
@@ -261,6 +261,8 @@ frcGreeting=frcGreeting_;
    
     return frcSectionedShortNations_;
 }
+
+
 -(NSFetchedResultsController *) frcShortNations {
     if(frcShortNations_ !=nil){
         return  frcShortNations_;
@@ -457,6 +459,7 @@ frcGreeting=frcGreeting_;
 - (NSArray*)getNearbyNationsForLatitude:(double)lat andLongitude:(double)lng{
     latitude=lat;
     longitude=lng;
+    [NSFetchedResultsController deleteCacheWithName:@"NearByNations"];
     frcNearByNations_=nil;
     NSError * error;
     if(![[self frcNearByNations]performFetch:&error]){
@@ -477,7 +480,7 @@ frcGreeting=frcGreeting_;
     
         }else {
             searchDistanceKM += kSearchExpantionParameter;
-         
+        
           nearByNations=nil;
           nearByNations= [NSMutableArray arrayWithArray:[self getNearbyNationsForLatitude:latitude andLongitude:longitude]];
         }
@@ -507,6 +510,7 @@ frcGreeting=frcGreeting_;
 
 //gets the managed nation locally
 -(Nation *)getNationLocallyWithNationNumber:(int)number{
+    [NSFetchedResultsController deleteCacheWithName:@"Nation"];
     frcNation_=nil;
     nationNumber = number;
     NSError *error;
@@ -522,6 +526,7 @@ frcGreeting=frcGreeting_;
 }
 
 -(NSFetchedResultsController *)getShortNationFetchedResults{
+    [NSFetchedResultsController deleteCacheWithName:@"SectionedShortNationList"];
     frcSectionedShortNations_=nil;
     NSError* error;
     if(![[self frcSectionedShortNations]performFetch:&error]){
@@ -532,6 +537,8 @@ frcGreeting=frcGreeting_;
 
 //gets the array of ShortNationObjects locally
 -(NSArray*)getShortNationArray{
+   
+    [NSFetchedResultsController deleteCacheWithName:@"ShortNationList"];
     frcShortNations_=nil;
     NSError* error;
     if(![[self frcShortNations]performFetch:&error]){
@@ -581,6 +588,7 @@ frcGreeting=frcGreeting_;
 
 #pragma mark - Planned Visits
 -(NSArray *)getAllPlannedVisits{
+    [NSFetchedResultsController deleteCacheWithName:@"PlannedVisit"];
     frcPlannedVisits_=nil;
     
     NSError* error;
@@ -726,7 +734,10 @@ frcGreeting=frcGreeting_;
             for (NSNumber * n in addArray){ 
                [self getNationFromWebServiceWithNationNumber:n];
             }
-            frcShortNations_ =nil;
+            [NSFetchedResultsController deleteCacheWithName:@"ShortNationList"];
+            [NSFetchedResultsController deleteCacheWithName:@"Nation"];
+            [NSFetchedResultsController deleteCacheWithName:@"Greeting"];
+          frcShortNations_ =nil;
             frcNation_ =nil;
             frcGreeting_=nil;
         }
