@@ -46,7 +46,7 @@
     [self.toolbar release];
     [self.redoButton release];
     [self.mapTypeControl release];
-   // [self.nationArray release];
+   [self.nationArray release];
     [super dealloc];
 }
 
@@ -86,9 +86,9 @@
     
     if (oldState == MKAnnotationViewDragStateDragging) {
         
-        DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
-     ReverseGeocoder *rgeocoder = [[[ReverseGeocoder alloc] init] autorelease];
-      //  [landArray removeAllObjects];      
+       DDAnnotation *annotation = (DDAnnotation *)annotationView.annotation;
+       ReverseGeocoder *rgeocoder = [[[ReverseGeocoder alloc] init] autorelease];
+        
        pinLatitude = annotation.coordinate.latitude;
        pinLongitude = annotation.coordinate.longitude;
        pinLocationTitle =NSLocalizedString(@"Your Destination",@"Your Destination");
@@ -178,6 +178,10 @@
         
     ReverseGeocoder *rgeocoder = [[[ReverseGeocoder alloc] init] autorelease];
     self.nationArray= [NSMutableArray arrayWithArray:[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude]];
+        
+     //   NSArray * nearByArray =[rgeocoder FindNearbyNationsForCoordinateWithLat:pinLatitude andLng:pinLongitude];
+      //  self.nationArray= [NSMutableArray arrayWithArray:nearByArray];
+
 
     }else{
         CLLocationCoordinate2D theCoordinate = [(DDAnnotation*)[self.mapView.annotations objectAtIndex:0] coordinate];
@@ -220,14 +224,14 @@
 
 -(void)showDetails: (id) sender{
     
-    if ([nationArray count]>=1) {
+    if ([self.nationArray count]>=1) {
         NationSelectViewController_iPhone *nextVC = [[NationSelectViewController_iPhone alloc]initWithStyle:UITableViewStylePlain];
     
         nextVC.remoteHostStatus = self.remoteHostStatus;
         nextVC.wifiConnectionStatus = self.wifiConnectionStatus;
         nextVC.internetConnectionStatus = self.internetConnectionStatus;
     
-        nextVC.nationArray=[NSMutableArray arrayWithArray: nationArray];
+        nextVC.nationArray=[NSMutableArray arrayWithArray: self.nationArray];
         
         nextVC.title= NSLocalizedString(@"Select a Land", @"Select a Land");
         CLLocationCoordinate2D origin =CLLocationCoordinate2DMake(pinLatitude, pinLongitude);

@@ -27,7 +27,7 @@ typedef enum {
     CLLocationDegrees pinLatitude;
     CLLocationDegrees pinLongitude;
     NSString * pinLocationTitle;
-    NSMutableArray * nationArray;
+   // NSMutableArray * nationArray;
     GeopoliticalSearchViewController_iPhone *SearchVC;
     
 }
