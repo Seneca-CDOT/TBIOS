@@ -185,8 +185,10 @@ typedef enum {rowHello,rowGoodbye,rowThankYou,rowCount}rowType;
         default:
             break;
     }
+    NSString *wsUrl = [NSString stringWithFormat:@"http://%@:81/dps907_113a05/ws", kHostName];
 
-    NSString * urlString  = [NSString stringWithFormat:@"%@/greeting/%d/%@",kHostName, [self.greeting.GreetingID intValue],typeSting];
+    NSString * urlString  = [NSString stringWithFormat:@"%@/greeting/%d/%@",wsUrl, [self.greeting.GreetingID intValue],typeSting];
+  
     
     NSURL * URL = [NSURL URLWithString:urlString];
     NSData * webdata = [NSData dataWithContentsOfURL:URL];
