@@ -535,7 +535,6 @@
 				D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */,
 				D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */,
 				D7BB0D8513BB9A0C0062C2A9 /* Supporting Files */,
-				D78646761570871A00802690 /* Localizable.strings */,
 			);
 			path = NativeEarth;
 			sourceTree = "<group>";
@@ -543,6 +542,7 @@
 		D7BB0D8513BB9A0C0062C2A9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D78646761570871A00802690 /* Localizable.strings */,
 				D70007E11550AABE00934C6F /* NativeEarth.sqlite.zip */,
 				D786015313C656FB007EA5B0 /* icons */,
 				D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */,
