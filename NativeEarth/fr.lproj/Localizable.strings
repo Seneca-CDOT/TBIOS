@@ -1,7 +1,194 @@
-/* 
-  Localizable.strings
-  NativeEarth
+/*         Date Updated.          */
+"        Date Updated.         " = "        FDate Updated.         ";
 
-  Created by Ladan Zahir on 12-05-25.
-  Copyright 2012 __MyCompanyName__. All rights reserved.
-*/
+/*         Map image is saved.          */
+"        Map image is saved.         " = "        FMap image is saved.         ";
+
+/*       No Network Connection        */
+"      No Network Connection       " = "      FNo Network Connection       ";
+
+/* Actor Name */
+"Actor Name" = "FActor Name";
+
+/* Address */
+"Address" = "FAddress";
+
+/* All Detected Nations */
+"All Detected Nations" = "FAll Detected Nations";
+
+/* Browse By First Nation Name */
+"Browse By First Nation Name" = "FBrowse By First Nation Name";
+
+/* Browse By Map */
+"Browse By Map" = "FBrowse By Map";
+
+/* Cancel */
+"Cancel" = "FCancel";
+
+/* Center Address: */
+"Center Address:" = "FCenter Address:";
+
+/* Check to see if you have internet access */
+"Check to see if you have internet access" = "FCheck to see if you have internet access";
+
+/* Comunity Website */
+"Community Website" = "FCommunity Website";
+
+/* Current Location */
+"Current Location" = "FCurrent Location";
+
+/* Dates cannot be set to past, and From cannot be after to. */
+"Dates cannot be set to past, and From cannot be after to." = "FDates cannot be set to past, and From cannot be after to.";
+
+/* Dates: */
+"Dates:" = "FDates:";
+
+/* Delete */
+"Delete" = "FDelete";
+
+/* Dial */
+"Dial" = "FDial";
+
+/* Do you want to delete the map? */
+"Do you want to delete the map?" = "FDo you want to delete the map?";
+
+/* Do You want to Dial: */
+"Do You want to Dial:" = "FDo You want to Dial:";
+
+/* Drag to Move Pin */
+"Drag to Move Pin" = "FDrag to Move Pin";
+
+/* Edit Visit */
+"Edit Visit" = "FEdit Visit";
+
+/* Enter a title for your visit */
+"Enter a title for your visit" = "FEnter a title for your visit";
+
+/* First Nations: */
+"First Nations:" = "FFirst Nations:";
+
+/* From
+ From: */
+"From:" = "FFrom:";
+
+/* Goodbye: */
+"Goodbye:" = "FGoodbye:";
+
+/* Greetings */
+"Greetings" = "FGreetings";
+
+/* Group Nations By Province */
+"Group Nations By Province" = "FGroup Nations By Province";
+
+/* Hello: */
+"Hello:" = "FHello:";
+
+/* Invalid Date Selection */
+"Invalid Date Selection" = "FInvalid Date Selection";
+
+/* Lands */
+"Lands" = "FLands";
+
+/* Locator */
+"Locator" = "FLocator";
+
+/* Map */
+"Map" = "FMap";
+
+/* Map Screenshots */
+"Map Screenshots" = "FMap Screenshots";
+
+/* Names */
+"Names" = "FNames";
+
+/* Nearby Nations: */
+"Nearby Nations:" = "FNearby Nations:";
+
+/* New Visit */
+"New Visit" = "FNew Visit";
+
+/* No */
+"No" = "FNo";
+
+/* no date selected yet */
+"no date selected yet" = "Fno date selected yet";
+
+/* No First Nation Found */
+"No First Nation Found" = "FNo First Nation Found";
+
+/* No first nation is detected in your location. */
+"No first nation is detected nearby your location." = "FNo first nation is detected nearby your location.";
+
+/* No land is listed for this nation */
+"No land is listed for this nation" = "FNo land is listed for this nation";
+
+/* Not Available                          */
+"Not Available                          " = "FNot Available                          ";
+
+/* Notes: */
+"Notes:" = "FNotes:";
+
+/* OK */
+"OK" = "FOK";
+
+/* Open Comunity Website in Safari */
+"Open Community Website in Safari" = "FOpen Community Website in Safari";
+
+/* Phone: */
+"Phone: " = "FPhone: ";
+
+/* Save */
+"Save" = "FSave";
+
+/* Saved Maps */
+"Saved Maps" = "FSaved Maps";
+
+/* Saved Visits */
+"Saved Visits" = "FSaved Visits";
+
+/* Select */
+"Select" = "FSelect";
+
+/* Select a Land */
+"Select a Land" = "FSelect a Land";
+
+/* Select a method of browsing: */
+"Select a method of browsing:" = "FSelect a method of browsing:";
+
+/* Select a Nation */
+"Select a Nation" = "FSelect a Nation";
+
+/* Sort All Alphabetically */
+"Sort All Alphabetically" = "FSort All Alphabetically";
+
+/* Tap on screen to bring up the browser. */
+"Tap on screen to bring up the browser." = "FTap on screen to bring up the browser.";
+
+/* Thank You: */
+"Thank You:" = "FThank You:";
+
+/* The First Nation */
+"The First Nation" = "FThe First Nation";
+
+/* Title: */
+"Title:" = "FTitle:";
+
+/* To
+ To: */
+"To:" = "FTo:";
+
+/* Unable to load the map */
+"Unable to load the map" = "FUnable to load the map";
+
+/* View this nation with all other nations on the map */
+"View this nation with all other nations on the map" = "FView this nation with all other nations on the map";
+
+/* Yes */
+"Yes" = "FYes";
+
+/* You are here! */
+"You are here!" = "FYou are here!";
+
+/* Your Destination */
+"Your Destination" = "FYour Destination";
+
