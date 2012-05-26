@@ -37,6 +37,8 @@
 		D784AB7715213654002FC873 /* LandsViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D784AB7615213653002FC873 /* LandsViewController_iPhone.m */; };
 		D785409B15676560002304DF /* EditAVisitViewController_iphone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D785409A15676560002304DF /* EditAVisitViewController_iphone.xib */; };
 		D786015D13C65D93007EA5B0 /* Spotlight.png in Resources */ = {isa = PBXBuildFile; fileRef = D786015C13C65D93007EA5B0 /* Spotlight.png */; };
+		D786467C15708DFF00802690 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D786467E15708DFF00802690 /* Localizable.strings */; };
+		D786468515708F4900802690 /* NativeEarthAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D786468415708F4900802690 /* NativeEarthAppDelegate.m */; };
 		D789BF7513D0B58600C1C9E8 /* NetworkDataGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */; };
 		D78D045B13E046FB00C04A5E /* NationSelectViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D045A13E046FB00C04A5E /* NationSelectViewController_iPhone.m */; };
 		D78D04B013E1D72200C04A5E /* WSLand.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04AF13E1D72200C04A5E /* WSLand.m */; };
@@ -67,7 +69,6 @@
 		D7BB0D8313BB9A0C0062C2A9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D8213BB9A0C0062C2A9 /* CoreData.framework */; };
 		D7BB0D8913BB9A0C0062C2A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */; };
 		D7BB0D8C13BB9A0C0062C2A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D8B13BB9A0C0062C2A9 /* main.m */; };
-		D7BB0D8F13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */; };
 		D7BB0D9213BB9A0C0062C2A9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */; };
 		D7BB0D9513BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */; };
 		D7BB0DBB13BB9CC30062C2A9 /* KMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DB113BB9CC30062C2A9 /* KMLParser.m */; };
@@ -170,6 +171,9 @@
 		D784AB7615213653002FC873 /* LandsViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LandsViewController_iPhone.m; sourceTree = "<group>"; };
 		D785409A15676560002304DF /* EditAVisitViewController_iphone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditAVisitViewController_iphone.xib; sourceTree = "<group>"; };
 		D786015C13C65D93007EA5B0 /* Spotlight.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spotlight.png; sourceTree = "<group>"; };
+		D786467D15708DFF00802690 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D786468215708E2600802690 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D786468415708F4900802690 /* NativeEarthAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeEarthAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDataGetter.h; sourceTree = "<group>"; };
 		D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkDataGetter.m; sourceTree = "<group>"; };
 		D78D045913E046FA00C04A5E /* NationSelectViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NationSelectViewController_iPhone.h; sourceTree = "<group>"; };
@@ -222,7 +226,6 @@
 		D7BB0D8A13BB9A0C0062C2A9 /* NativeEarth-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NativeEarth-Prefix.pch"; sourceTree = "<group>"; };
 		D7BB0D8B13BB9A0C0062C2A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D7BB0D8D13BB9A0C0062C2A9 /* NativeEarthAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeEarthAppDelegate.h; sourceTree = "<group>"; };
-		D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NativeEarthAppDelegate.m; sourceTree = "<group>"; };
 		D7BB0D9113BB9A0C0062C2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		D7BB0D9413BB9A0C0062C2A9 /* NativeEarth.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = NativeEarth.xcdatamodel; sourceTree = "<group>"; };
 		D7BB0DB013BB9CC30062C2A9 /* KMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KMLParser.h; sourceTree = "<group>"; };
@@ -529,7 +532,7 @@
 				D786011E13C617CA007EA5B0 /* BaseViewControllers */,
 				D7BB0DE713BB9F530062C2A9 /* iPhone */,
 				D7BB0D8D13BB9A0C0062C2A9 /* NativeEarthAppDelegate.h */,
-				D7BB0D8E13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m */,
+				D786468415708F4900802690 /* NativeEarthAppDelegate.m */,
 				D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */,
 				D7BB0D8513BB9A0C0062C2A9 /* Supporting Files */,
 			);
@@ -539,6 +542,7 @@
 		D7BB0D8513BB9A0C0062C2A9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				D786467E15708DFF00802690 /* Localizable.strings */,
 				D70007E11550AABE00934C6F /* NativeEarth.sqlite.zip */,
 				D786015313C656FB007EA5B0 /* icons */,
 				D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */,
@@ -781,6 +785,7 @@
 				D760FC1714914BC100D7A281 /* icon_forum.png in Resources */,
 				D70007E21550AABE00934C6F /* NativeEarth.sqlite.zip in Resources */,
 				D785409B15676560002304DF /* EditAVisitViewController_iphone.xib in Resources */,
+				D786467C15708DFF00802690 /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -792,7 +797,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D7BB0D8C13BB9A0C0062C2A9 /* main.m in Sources */,
-				D7BB0D8F13BB9A0C0062C2A9 /* NativeEarthAppDelegate.m in Sources */,
 				D7BB0D9513BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld in Sources */,
 				D7BB0DBB13BB9CC30062C2A9 /* KMLParser.m in Sources */,
 				D7BB0DBC13BB9CC30062C2A9 /* LocationDetector.m in Sources */,
@@ -851,6 +855,7 @@
 				D70007DE15505D1200934C6F /* zip.c in Sources */,
 				D70007DF15505D1200934C6F /* ZipArchive.mm in Sources */,
 				D7BF7F50156867F6007B6D30 /* Nation.m in Sources */,
+				D786468515708F4900802690 /* NativeEarthAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -897,6 +902,15 @@
 			name = LauncherViewController_iPhone.xib;
 			path = /Users/ladan/Desktop/NativeEarth/NativeEarth/iphone/Launcher;
 			sourceTree = "<absolute>";
+		};
+		D786467E15708DFF00802690 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D786467D15708DFF00802690 /* en */,
+				D786468215708E2600802690 /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
 		};
 		D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
