@@ -67,7 +67,6 @@
 		D7BB0D7F13BB9A0C0062C2A9 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D7E13BB9A0C0062C2A9 /* Foundation.framework */; };
 		D7BB0D8113BB9A0C0062C2A9 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D8013BB9A0C0062C2A9 /* CoreGraphics.framework */; };
 		D7BB0D8313BB9A0C0062C2A9 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7BB0D8213BB9A0C0062C2A9 /* CoreData.framework */; };
-		D7BB0D8913BB9A0C0062C2A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */; };
 		D7BB0D8C13BB9A0C0062C2A9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D8B13BB9A0C0062C2A9 /* main.m */; };
 		D7BB0D9213BB9A0C0062C2A9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */; };
 		D7BB0D9513BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */; };
@@ -87,7 +86,6 @@
 		D7BB0DE413BB9DEA0062C2A9 /* SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DDD13BB9DEA0062C2A9 /* SBJsonBase.m */; };
 		D7BB0DE513BB9DEA0062C2A9 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DDF13BB9DEA0062C2A9 /* SBJsonParser.m */; };
 		D7BB0DE613BB9DEA0062C2A9 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DE113BB9DEA0062C2A9 /* SBJsonWriter.m */; };
-		D7BB0DE913BB9F940062C2A9 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */; };
 		D7BB0DEB13BB9FA30062C2A9 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */; };
 		D7BB0DF513BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D7BB0DF313BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m */; };
 		D7BB0DF813BBA22A0062C2A9 /* MainWindow_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7BB0DF613BBA22A0062C2A9 /* MainWindow_iPhone.xib */; };
@@ -739,9 +737,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D7BB0D8913BB9A0C0062C2A9 /* InfoPlist.strings in Resources */,
 				D7BB0D9213BB9A0C0062C2A9 /* MainWindow.xib in Resources */,
-				D7BB0DE913BB9F940062C2A9 /* InfoPlist.strings in Resources */,
 				D7BB0DEB13BB9FA30062C2A9 /* MainWindow.xib in Resources */,
 				D7BB0DF813BBA22A0062C2A9 /* MainWindow_iPhone.xib in Resources */,
 				D7BB0DFA13BBA23E0062C2A9 /* MainWindow_iPhone.xib in Resources */,
