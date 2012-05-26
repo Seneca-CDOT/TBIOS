@@ -149,7 +149,6 @@
 		D723152A13C221C500DF3DF8 /* BrowseViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseViewController_iPhone.m; sourceTree = "<group>"; };
 		D723153C13C2379D00DF3DF8 /* BrowseViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowseViewController_iPhone.xib; sourceTree = "<group>"; };
 		D7592E8613BBB2F700F1D28C /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/LauncherViewController_iPhone.xib; sourceTree = "<group>"; };
-		D7592E8813BBB31000F1D28C /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LauncherViewController_iPhone.xib; sourceTree = "<group>"; };
 		D7592EAD13BBC06A00F1D28C /* LocatorRootViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocatorRootViewController_iPhone.h; sourceTree = "<group>"; };
 		D7592EAE13BBC06A00F1D28C /* LocatorRootViewController_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocatorRootViewController_iPhone.m; sourceTree = "<group>"; };
 		D760FC1414914B9300D7A281 /* icon_case.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon_case.png; sourceTree = "<group>"; };
@@ -172,6 +171,7 @@
 		D786467D15708DFF00802690 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D786468215708E2600802690 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D786468415708F4900802690 /* NativeEarthAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeEarthAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		D78646861570946400802690 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LauncherViewController_iPhone.xib; sourceTree = "<group>"; };
 		D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDataGetter.h; sourceTree = "<group>"; };
 		D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkDataGetter.m; sourceTree = "<group>"; };
 		D78D045913E046FA00C04A5E /* NationSelectViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NationSelectViewController_iPhone.h; sourceTree = "<group>"; };
@@ -886,7 +886,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D7592E8613BBB2F700F1D28C /* en */,
-				D7592E8813BBB31000F1D28C /* fr */,
+				D78646861570946400802690 /* fr */,
 			);
 			name = LauncherViewController_iPhone.xib;
 			sourceTree = "<group>";
