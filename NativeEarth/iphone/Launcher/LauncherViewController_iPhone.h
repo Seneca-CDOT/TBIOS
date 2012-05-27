@@ -13,7 +13,7 @@
     
     UIButton  *  FirstNationLocatorBtn;
     UIButton  *  PlanAVisitBtn;
-    UIButton  *  SettingsBtn;
+   
     UIButton  *  infoBtn;
     UIButton  *  okButton;
     
@@ -26,7 +26,7 @@
 
 @property (nonatomic,retain)    IBOutlet UIButton    *  FirstNationLocatorBtn;
 @property (nonatomic,retain)    IBOutlet UIButton    *  PlanAVisitBtn;
-@property (nonatomic,retain)    IBOutlet UIButton    *  SettingsBtn;
+
 @property (nonatomic,retain)    IBOutlet UIButton    *  infoBtn;
 @property (nonatomic,retain)    IBOutlet UIButton    *  okBtn;
 
