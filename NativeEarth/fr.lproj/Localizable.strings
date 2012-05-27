@@ -49,6 +49,9 @@
 /* Dial */
 "Dial" = "FDial";
 
+/* Distance */
+"Distance" = "FDistance";
+
 /* Do you want to delete the map? */
 "Do you want to delete the map?" = "FDo you want to delete the map?";
 
