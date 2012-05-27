@@ -956,16 +956,15 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 {
     flags.inGeometry = YES;
     if (ELTYPE(Point))
-        geometry = [[[KMLPoint alloc] initWithIdentifier:ident] retain];
+        geometry = [[KMLPoint alloc] initWithIdentifier:ident];// retain];
     else if (ELTYPE(Polygon))
-        geometry = [[[KMLPolygon alloc] initWithIdentifier:ident] retain];
+        geometry = [[KMLPolygon alloc] initWithIdentifier:ident] ;//retain];
     else if (ELTYPE(LineString))
-        geometry = [[[KMLLineString alloc] initWithIdentifier:ident] retain];
+        geometry = [[KMLLineString alloc] initWithIdentifier:ident];// retain];
 }
 - (void)endGeometry
 {
     [geometryArray addObject:geometry];
-   // [geometry release];
     flags.inGeometry = NO;
 }
 -(void)beginCoordinates{
