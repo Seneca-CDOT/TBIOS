@@ -145,7 +145,7 @@ language = [[NSLocale currentLocale] objectForKey: NSLocaleLanguageCode];
             Nation * nation = (Nation *)[self.nationArray objectAtIndex:indexPath.row];         NSNumber * distance =nation.Distance;
             
             cell.textLabel.text = nation.OfficialName;
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"Distance: %.2f Km", [distance doubleValue]];
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@: %.2f Km", NSLocalizedString(@"Distance",@"Distance" ),[distance doubleValue]];
             cell.userInteractionEnabled= YES;
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             cell.textLabel.alpha=1.0;
