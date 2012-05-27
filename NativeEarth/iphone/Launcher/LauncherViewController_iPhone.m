@@ -13,7 +13,6 @@
 
 @synthesize  FirstNationLocatorBtn;
 @synthesize  PlanAVisitBtn;
-@synthesize  SettingsBtn;
 @synthesize  infoBtn;
 @synthesize  okBtn;
 @synthesize  launcherView;
@@ -39,7 +38,7 @@
     [self.okBtn release];
     [self.FirstNationLocatorBtn release];
     [self.PlanAVisitBtn release];
-    [self.SettingsBtn release];
+    
     [self.infoBtn release];
     [super dealloc];
 }
@@ -77,7 +76,7 @@
     // e.g. self.myOutlet = nil;
     self.FirstNationLocatorBtn =nil;
     self.PlanAVisitBtn =nil;
-    self.SettingsBtn= nil;
+   
     self.infoBtn= nil;
     self.okBtn = nil;
     self.launcherView=nil;
