@@ -42,6 +42,7 @@
 		D786469D157278FD00802690 /* BrowseViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D786469E157278FD00802690 /* BrowseViewController_iPhone.xib */; };
 		D786469F1572790E00802690 /* MapLookUpViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78646A01572790E00802690 /* MapLookUpViewController_iPhone.m */; };
 		D78646A11572794800802690 /* EditAVisitViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78646A21572794800802690 /* EditAVisitViewController_iPhone.m */; };
+		D78646A4157279F900802690 /* MapLookUpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D78646A3157279F900802690 /* MapLookUpViewController_iPhone.xib */; };
 		D789BF7513D0B58600C1C9E8 /* NetworkDataGetter.m in Sources */ = {isa = PBXBuildFile; fileRef = D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */; };
 		D78D045B13E046FB00C04A5E /* NationSelectViewController_iPhone.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D045A13E046FB00C04A5E /* NationSelectViewController_iPhone.m */; };
 		D78D04B013E1D72200C04A5E /* WSLand.m in Sources */ = {isa = PBXBuildFile; fileRef = D78D04AF13E1D72200C04A5E /* WSLand.m */; };
@@ -108,7 +109,6 @@
 		D7DA7B1113D72442009EEC0A /* PinDown3.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0B13D72442009EEC0A /* PinDown3.png */; };
 		D7DA7B1213D72442009EEC0A /* PinFloating.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0C13D72442009EEC0A /* PinFloating.png */; };
 		D7DA7B1313D72442009EEC0A /* PinShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B0D13D72442009EEC0A /* PinShadow.png */; };
-		D7DA7B3013D72ED1009EEC0A /* MapLookUpViewController_iPhone.xib in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B2E13D72ECD009EEC0A /* MapLookUpViewController_iPhone.xib */; };
 		D7DA7B4213D76070009EEC0A /* 72-pin.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4113D76070009EEC0A /* 72-pin.png */; };
 		D7DA7B4413D760DF009EEC0A /* 01-refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4313D760DF009EEC0A /* 01-refresh.png */; };
 		D7DA7B4613D763B1009EEC0A /* 193-location-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4513D763B1009EEC0A /* 193-location-arrow.png */; };
@@ -177,6 +177,7 @@
 		D786469E157278FD00802690 /* BrowseViewController_iPhone.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BrowseViewController_iPhone.xib; sourceTree = "<group>"; };
 		D78646A01572790E00802690 /* MapLookUpViewController_iPhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MapLookUpViewController_iPhone.m; sourceTree = "<group>"; };
 		D78646A21572794800802690 /* EditAVisitViewController_iPhone.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EditAVisitViewController_iPhone.m; sourceTree = "<group>"; };
+		D78646A3157279F900802690 /* MapLookUpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapLookUpViewController_iPhone.xib; sourceTree = "<group>"; };
 		D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDataGetter.h; sourceTree = "<group>"; };
 		D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkDataGetter.m; sourceTree = "<group>"; };
 		D78D045913E046FA00C04A5E /* NationSelectViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NationSelectViewController_iPhone.h; sourceTree = "<group>"; };
@@ -291,7 +292,6 @@
 		D7DA7B0C13D72442009EEC0A /* PinFloating.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinFloating.png; sourceTree = "<group>"; };
 		D7DA7B0D13D72442009EEC0A /* PinShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = PinShadow.png; sourceTree = "<group>"; };
 		D7DA7B2C13D72EC7009EEC0A /* MapLookUpViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = MapLookUpViewController_iPhone.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		D7DA7B2E13D72ECD009EEC0A /* MapLookUpViewController_iPhone.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MapLookUpViewController_iPhone.xib; sourceTree = "<group>"; };
 		D7DA7B4113D76070009EEC0A /* 72-pin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "72-pin.png"; sourceTree = "<group>"; };
 		D7DA7B4313D760DF009EEC0A /* 01-refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01-refresh.png"; sourceTree = "<group>"; };
 		D7DA7B4513D763B1009EEC0A /* 193-location-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow.png"; sourceTree = "<group>"; };
@@ -370,12 +370,12 @@
 		D77E0E2213BCCB2A00A738D8 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
+				D78646A3157279F900802690 /* MapLookUpViewController_iPhone.xib */,
 				D723152913C221C500DF3DF8 /* BrowseViewController_iPhone.h */,
 				D723152A13C221C500DF3DF8 /* BrowseViewController_iPhone.m */,
 				D786469E157278FD00802690 /* BrowseViewController_iPhone.xib */,
 				D7DA7B2C13D72EC7009EEC0A /* MapLookUpViewController_iPhone.h */,
 				D78646A01572790E00802690 /* MapLookUpViewController_iPhone.m */,
-				D7DA7B2E13D72ECD009EEC0A /* MapLookUpViewController_iPhone.xib */,
 				D7972E4A140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.h */,
 				D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */,
 				D78646921572781800802690 /* GeopoliticalSearchViewController_iPhone.xib */,
@@ -766,7 +766,6 @@
 				D7DA7B1113D72442009EEC0A /* PinDown3.png in Resources */,
 				D7DA7B1213D72442009EEC0A /* PinFloating.png in Resources */,
 				D7DA7B1313D72442009EEC0A /* PinShadow.png in Resources */,
-				D7DA7B3013D72ED1009EEC0A /* MapLookUpViewController_iPhone.xib in Resources */,
 				D7DA7B4213D76070009EEC0A /* 72-pin.png in Resources */,
 				D7DA7B4413D760DF009EEC0A /* 01-refresh.png in Resources */,
 				D7DA7B4613D763B1009EEC0A /* 193-location-arrow.png in Resources */,
@@ -783,6 +782,7 @@
 				D70007E21550AABE00934C6F /* NativeEarth.sqlite.zip in Resources */,
 				D785409B15676560002304DF /* EditAVisitViewController_iphone.xib in Resources */,
 				D786467C15708DFF00802690 /* Localizable.strings in Resources */,
+				D78646A4157279F900802690 /* MapLookUpViewController_iPhone.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
