@@ -370,12 +370,12 @@
 		D77E0E2213BCCB2A00A738D8 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
-				D78646A3157279F900802690 /* MapLookUpViewController_iPhone.xib */,
 				D723152913C221C500DF3DF8 /* BrowseViewController_iPhone.h */,
 				D723152A13C221C500DF3DF8 /* BrowseViewController_iPhone.m */,
 				D786469E157278FD00802690 /* BrowseViewController_iPhone.xib */,
 				D7DA7B2C13D72EC7009EEC0A /* MapLookUpViewController_iPhone.h */,
 				D78646A01572790E00802690 /* MapLookUpViewController_iPhone.m */,
+				D78646A3157279F900802690 /* MapLookUpViewController_iPhone.xib */,
 				D7972E4A140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.h */,
 				D7972E4B140C15AF00454BE3 /* GeopoliticalSearchViewController_iPhone.m */,
 				D78646921572781800802690 /* GeopoliticalSearchViewController_iPhone.xib */,
