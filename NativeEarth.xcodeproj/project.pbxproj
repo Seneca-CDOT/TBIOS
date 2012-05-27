@@ -172,6 +172,7 @@
 		D786468215708E2600802690 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		D786468415708F4900802690 /* NativeEarthAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NativeEarthAppDelegate.m; sourceTree = SOURCE_ROOT; };
 		D78646861570946400802690 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/LauncherViewController_iPhone.xib; sourceTree = "<group>"; };
+		D786468F157273CC00802690 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
 		D789BF7313D0B58600C1C9E8 /* NetworkDataGetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDataGetter.h; sourceTree = "<group>"; };
 		D789BF7413D0B58600C1C9E8 /* NetworkDataGetter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkDataGetter.m; sourceTree = "<group>"; };
 		D78D045913E046FA00C04A5E /* NationSelectViewController_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NationSelectViewController_iPhone.h; sourceTree = "<group>"; };
@@ -260,7 +261,6 @@
 		D7BB0DF313BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NativeEarthAppDelegate_iPhone.m; path = iphone/NativeEarthAppDelegate_iPhone.m; sourceTree = "<group>"; };
 		D7BB0DF413BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeEarthAppDelegate_iPhone.h; path = iphone/NativeEarthAppDelegate_iPhone.h; sourceTree = "<group>"; };
 		D7BB0DF713BBA22A0062C2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = iphone/en.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
-		D7BB0DF913BBA23E0062C2A9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = iphone/fr.lproj/MainWindow_iPhone.xib; sourceTree = "<group>"; };
 		D7BB0DFB13BBA3DC0062C2A9 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		D7BB0DFC13BBA3E40062C2A9 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		D7BC54CE13C7A21500542880 /* TextViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TextViewCell.h; path = iphone/TripPlanner/TextViewCell.h; sourceTree = "<group>"; };
@@ -930,7 +930,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D7BB0DF713BBA22A0062C2A9 /* en */,
-				D7BB0DF913BBA23E0062C2A9 /* fr */,
+				D786468F157273CC00802690 /* fr */,
 			);
 			name = MainWindow_iPhone.xib;
 			sourceTree = "<group>";
