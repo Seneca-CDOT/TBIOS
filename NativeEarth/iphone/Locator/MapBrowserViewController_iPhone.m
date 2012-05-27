@@ -127,7 +127,7 @@
     //clear the map first
     [mapView removeOverlays:mapView.overlays];
     [mapView removeAnnotations:mapView.annotations];
-   overlayGroups =[[NSMutableArray alloc]initWithCapacity:[nationsArray count]] ; 
+   overlayGroups =[[[NSMutableArray alloc]initWithCapacity:[nationsArray count]] autorelease] ; 
  if (self.isBrowsingNation) {
     if(nationsArray !=nil ){
         NSMutableArray *annotations =[[[NSMutableArray alloc]init] autorelease];
