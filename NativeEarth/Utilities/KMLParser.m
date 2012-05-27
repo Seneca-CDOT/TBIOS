@@ -323,7 +323,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     
     *coordsOut = coords;
     *coordsLenOut = read;
-}
+ }
 
 @interface UIColor (KMLExtras)
 
@@ -925,10 +925,13 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 - (void)dealloc
 {
-    
+    [polygons release];
+    [overlays release];
+    [overlayViews release];
+    //[geometry release];
     [geometryArray release];
     [annotationViews release];
-    [name release];
+    [self.name release];
     [super dealloc];
 }
 
@@ -965,6 +968,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 - (void)endGeometry
 {
     [geometryArray addObject:geometry];
+    [geometry release];
     flags.inGeometry = NO;
 }
 -(void)beginCoordinates{
@@ -997,7 +1001,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 - (NSMutableArray *)geometryArray
 {
-    return geometryArray;
+    return [geometryArray autorelease];
 }
 - (NSMutableArray *)polygons
 {
@@ -1094,6 +1098,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     [mkShape release];
     [overlayView release];
     [annotationView release];
+    [multiGeometry release];
     [super dealloc];
 }
 
@@ -1107,7 +1112,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
     if (flags.inStyle)
         [style addString:str];
     else if (flags.inGeometry)
-        if (flags.inMultyGeometry) {
+            if (flags.inMultyGeometry) {
             [multiGeometry addString:str];
         }else
             [geometry addString:str];
@@ -1189,7 +1194,7 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 
 - (void)beginMultiGeometryWithIdentifier:(NSString *)ident{
     flags.inMultyGeometry = YES;
-    multiGeometry =[[[KMLMultiGeometry alloc] initWithIdentifier:ident] autorelease];
+    multiGeometry =[[KMLMultiGeometry alloc] initWithIdentifier:ident]; //autorelease];
 }
 - (void)endMultiGeometry{
     flags.inMultyGeometry = NO;
