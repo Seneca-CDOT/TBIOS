@@ -49,6 +49,9 @@
 /* Dial */
 "Dial" = "Dial";
 
+/* Distance */
+"Distance" = "Distance";
+
 /* Do you want to delete the map? */
 "Do you want to delete the map?" = "Do you want to delete the map?";
 
