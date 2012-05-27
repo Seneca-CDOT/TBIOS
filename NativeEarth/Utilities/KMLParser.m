@@ -959,11 +959,11 @@ static void strToCoords(NSString *str, CLLocationCoordinate2D **coordsOut, NSUIn
 {
     flags.inGeometry = YES;
     if (ELTYPE(Point))
-        geometry = [[KMLPoint alloc] initWithIdentifier:ident];// retain];
+        geometry = [[KMLPoint alloc] initWithIdentifier:ident];
     else if (ELTYPE(Polygon))
-        geometry = [[KMLPolygon alloc] initWithIdentifier:ident] ;//retain];
+        geometry = [[KMLPolygon alloc] initWithIdentifier:ident] ;
     else if (ELTYPE(LineString))
-        geometry = [[KMLLineString alloc] initWithIdentifier:ident];// retain];
+        geometry = [[KMLLineString alloc] initWithIdentifier:ident];
 }
 - (void)endGeometry
 {
