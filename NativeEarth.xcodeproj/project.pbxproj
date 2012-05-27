@@ -113,6 +113,7 @@
 		D7DA7B4413D760DF009EEC0A /* 01-refresh.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4313D760DF009EEC0A /* 01-refresh.png */; };
 		D7DA7B4613D763B1009EEC0A /* 193-location-arrow.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4513D763B1009EEC0A /* 193-location-arrow.png */; };
 		D7DA7B4813D763F0009EEC0A /* 02-redo.png in Resources */ = {isa = PBXBuildFile; fileRef = D7DA7B4713D763F0009EEC0A /* 02-redo.png */; };
+		D7DDB0E81572E22D00CFC411 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7DDB0E61572DFFC00CFC411 /* InfoPlist.strings */; };
 		D7DFB85D142A6E7600258875 /* Toast+UIView.m in Sources */ = {isa = PBXBuildFile; fileRef = D7DFB85C142A6E7600258875 /* Toast+UIView.m */; };
 		D7E85FB513D4968900437CD7 /* 06-magnify.png in Resources */ = {isa = PBXBuildFile; fileRef = D7E85FAD13D4968800437CD7 /* 06-magnify.png */; };
 		D7E85FB613D4968900437CD7 /* icon_list.png in Resources */ = {isa = PBXBuildFile; fileRef = D7E85FAE13D4968800437CD7 /* icon_list.png */; };
@@ -294,7 +295,8 @@
 		D7DA7B4313D760DF009EEC0A /* 01-refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01-refresh.png"; sourceTree = "<group>"; };
 		D7DA7B4513D763B1009EEC0A /* 193-location-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow.png"; sourceTree = "<group>"; };
 		D7DA7B4713D763F0009EEC0A /* 02-redo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "02-redo.png"; sourceTree = "<group>"; };
-		D7DDB0E41572DFD700CFC411 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
+		D7DDB0E51572DFFC00CFC411 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		D7DDB0E71572E02500CFC411 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D7DFB85A142A6E6F00258875 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		D7DFB85C142A6E7600258875 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		D7E85FAD13D4968800437CD7 /* 06-magnify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "06-magnify.png"; path = "icons/06-magnify.png"; sourceTree = "<group>"; };
@@ -544,7 +546,7 @@
 				D786015313C656FB007EA5B0 /* icons */,
 				D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */,
 				D7BB0D8613BB9A0C0062C2A9 /* NativeEarth-Info.plist */,
-				D7DDB0E41572DFD700CFC411 /* InfoPlist.strings */,
+				D7DDB0E61572DFFC00CFC411 /* InfoPlist.strings */,
 				D786467E15708DFF00802690 /* Localizable.strings */,
 				D7BB0D8A13BB9A0C0062C2A9 /* NativeEarth-Prefix.pch */,
 				D7BB0D8B13BB9A0C0062C2A9 /* main.m */,
@@ -782,6 +784,7 @@
 				D785409B15676560002304DF /* EditAVisitViewController_iphone.xib in Resources */,
 				D786467C15708DFF00802690 /* Localizable.strings in Resources */,
 				D78646A4157279F900802690 /* MapLookUpViewController_iPhone.xib in Resources */,
+				D7DDB0E81572E22D00CFC411 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -933,6 +936,15 @@
 				D786468F157273CC00802690 /* fr */,
 			);
 			name = MainWindow_iPhone.xib;
+			sourceTree = "<group>";
+		};
+		D7DDB0E61572DFFC00CFC411 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D7DDB0E51572DFFC00CFC411 /* en */,
+				D7DDB0E71572E02500CFC411 /* fr */,
+			);
+			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
