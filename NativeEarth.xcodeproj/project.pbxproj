@@ -224,7 +224,6 @@
 		D7BB0D8013BB9A0C0062C2A9 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		D7BB0D8213BB9A0C0062C2A9 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		D7BB0D8613BB9A0C0062C2A9 /* NativeEarth-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "NativeEarth-Info.plist"; sourceTree = "<group>"; };
-		D7BB0D8813BB9A0C0062C2A9 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D7BB0D8A13BB9A0C0062C2A9 /* NativeEarth-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NativeEarth-Prefix.pch"; sourceTree = "<group>"; };
 		D7BB0D8B13BB9A0C0062C2A9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D7BB0D8D13BB9A0C0062C2A9 /* NativeEarthAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NativeEarthAppDelegate.h; sourceTree = "<group>"; };
@@ -259,7 +258,6 @@
 		D7BB0DDF13BB9DEA0062C2A9 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = SBJsonParser.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		D7BB0DE013BB9DEA0062C2A9 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		D7BB0DE113BB9DEA0062C2A9 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		D7BB0DE813BB9F940062C2A9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D7BB0DEA13BB9FA30062C2A9 /* fr */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = fr; path = fr.lproj/MainWindow.xib; sourceTree = "<group>"; };
 		D7BB0DF313BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NativeEarthAppDelegate_iPhone.m; path = iphone/NativeEarthAppDelegate_iPhone.m; sourceTree = "<group>"; };
 		D7BB0DF413BBA1120062C2A9 /* NativeEarthAppDelegate_iPhone.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NativeEarthAppDelegate_iPhone.h; path = iphone/NativeEarthAppDelegate_iPhone.h; sourceTree = "<group>"; };
@@ -296,6 +294,7 @@
 		D7DA7B4313D760DF009EEC0A /* 01-refresh.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "01-refresh.png"; sourceTree = "<group>"; };
 		D7DA7B4513D763B1009EEC0A /* 193-location-arrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "193-location-arrow.png"; sourceTree = "<group>"; };
 		D7DA7B4713D763F0009EEC0A /* 02-redo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "02-redo.png"; sourceTree = "<group>"; };
+		D7DDB0E41572DFD700CFC411 /* InfoPlist.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = InfoPlist.strings; sourceTree = "<group>"; };
 		D7DFB85A142A6E6F00258875 /* Toast+UIView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Toast+UIView.h"; sourceTree = "<group>"; };
 		D7DFB85C142A6E7600258875 /* Toast+UIView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Toast+UIView.m"; sourceTree = "<group>"; };
 		D7E85FAD13D4968800437CD7 /* 06-magnify.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "06-magnify.png"; path = "icons/06-magnify.png"; sourceTree = "<group>"; };
@@ -541,12 +540,12 @@
 		D7BB0D8513BB9A0C0062C2A9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D786467E15708DFF00802690 /* Localizable.strings */,
 				D70007E11550AABE00934C6F /* NativeEarth.sqlite.zip */,
 				D786015313C656FB007EA5B0 /* icons */,
 				D7BB0D9313BB9A0C0062C2A9 /* NativeEarth.xcdatamodeld */,
 				D7BB0D8613BB9A0C0062C2A9 /* NativeEarth-Info.plist */,
-				D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */,
+				D7DDB0E41572DFD700CFC411 /* InfoPlist.strings */,
+				D786467E15708DFF00802690 /* Localizable.strings */,
 				D7BB0D8A13BB9A0C0062C2A9 /* NativeEarth-Prefix.pch */,
 				D7BB0D8B13BB9A0C0062C2A9 /* main.m */,
 			);
@@ -916,15 +915,6 @@
 				D786469C1572788E00802690 /* fr */,
 			);
 			name = GeopoliticalSearchViewController_iPhone.xib;
-			sourceTree = "<group>";
-		};
-		D7BB0D8713BB9A0C0062C2A9 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				D7BB0D8813BB9A0C0062C2A9 /* en */,
-				D7BB0DE813BB9F940062C2A9 /* fr */,
-			);
-			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
 		D7BB0D9013BB9A0C0062C2A9 /* MainWindow.xib */ = {
